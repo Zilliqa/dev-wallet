@@ -1,0 +1,84 @@
+@value colors: "./assets/colors/colors.css";
+@value --white, --gray100, --gray300, --gray500, --gray700, --green500, --green700, --red500, --red700 yellow500, --black from colors;
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-weight: 400;
+  font-display: block;
+  src: local('Noto Sans Regular'), local('NotoSans-Regular'), url("./assets/fonts/NotoSans-Regular.ttf") format("truetype");
+}
+
+body {
+  margin: 0;
+  background-color: --gray100;
+  padding: 0;
+  font-family:
+    "Noto Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
+    "Oxygen",
+    "Ubuntu",
+    "Cantarell",
+    "Fira Sans",
+    "Droid Sans",
+    "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.bg-dark {
+  background-color: --black !important;
+}
+
+.valid-feedback,
+.text-success {
+  color: --green700 !important;
+}
+
+.form-control.is-valid {
+  border-color: --green700;
+  background-image: none;
+  padding-right: 0;
+}
+
+.invalid-feedback,
+.text-danger {
+  color: --red500 !important;
+}
+
+.form-control.is-invalid {
+  border-color: --red500;
+  background-image: none;
+  padding-right: 0;
+}
+
+input.form-control-file {
+  display: none;
+}
+
+input.form-control {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #d9dcea;
+  padding: 0;
+  transition: border-width 0.1s linear, border-color 0.3s linear;
+  position: relative;
+  outline: 0;
+  background-color: transparent;
+}
+
+input[type=text]:focus,
+input[type=password]:focus {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0) !important;
+  border: none;
+  border-bottom: 1px solid --black;
+}
+
+input[type=text]::placeholder,
+input[type=password]::placeholder {
+  color: --gray300;
+}
