@@ -4,5 +4,11 @@ exports[`Spinner tests basic tests matches the snapshot 1`] = `
 <div
   className="spinner"
   data-test-id="spinner"
+  style={
+    Object {
+      "height": 50,
+      "width": 50,
+    }
+  }
 />
 `;

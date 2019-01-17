@@ -1,5 +1,5 @@
 @value colors: "./assets/colors/colors.css";
-@value --white, --gray100, --gray300, --gray500, --gray700, --green500, --green700, --red500, --red700 yellow500, --black from colors;
+@value --white, --gray100, --gray300, --gray500, --gray700, --blue500, --blue700, --green500, --green700, --red500, --red700 yellow500, --black from colors;
 
 @font-face {
   font-family: 'Noto Sans';
@@ -34,6 +34,10 @@ body {
   background-color: --black !important;
 }
 
+.text-primary {
+  color: --blue500 !important;
+}
+
 .valid-feedback,
 .text-success {
   color: --green700 !important;
@@ -48,6 +52,19 @@ body {
 .invalid-feedback,
 .text-danger {
   color: --red500 !important;
+}
+
+.form-container a.nav-link {
+  background-color: --gray100;
+  border-bottom: 1px solid --gray300;
+  border-radius: 0;
+  font-weight: bold;
+}
+
+.form-container li.nav-item {
+  width: 50%;
+  text-align: center;
+  color: --gray500;
 }
 
 .form-control.is-invalid {
@@ -72,13 +89,110 @@ input.form-control {
 }
 
 input[type=text]:focus,
-input[type=password]:focus {
+input[type=password]:focus,
+input[type=number]:focus {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0) !important;
   border: none;
   border-bottom: 1px solid --black;
 }
 
 input[type=text]::placeholder,
-input[type=password]::placeholder {
+input[type=password]::placeholder,
+input[type=number]::placeholder {
   color: --gray300;
+}
+
+.nucleus-header-container {
+  position: relative;
+}
+
+.nucleus-header::before {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+  left: 0;
+  top: 0;
+  content: "";
+}
+
+.nucleus-header {
+  background-image: url(./assets/images/nucleus-bg.jpg);
+  background-size: cover;
+  background-position: top center;
+}
+
+.nucleus-header-title {
+  position: relative;
+  padding: 7rem 0;
+  color: --white;
+  margin: 0;
+  font-size: 50px;
+  -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1.5s; /* Firefox < 16 */
+  animation: fadein 1.5s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.rc-steps-small .rc-steps-item-title {
+  color: --gray500;
+}
+
+.rc-steps-item-wait .rc-steps-item-icon {
+  border-color: --gray500;
+}
+
+.rc-steps-item-wait .rc-steps-item-icon > .rc-steps-icon {
+  color: --gray500;
+}
+
+.rc-steps-item-process .rc-steps-item-icon {
+  font-weight: bold;
+  background-color: --blue500;
+  border-color: --blue500;
+}
+
+.rc-steps-item-finish .rc-steps-item-icon {
+  border-color: --blue500;
+  font-weight: bold;
+}
+
+.rc-steps-item-process .rc-steps-item-title::after {
+  background-color: --gray500;
+}
+
+.rc-steps-item-finish .rc-steps-item-title::after {
+  background-color: --blue500;
 }

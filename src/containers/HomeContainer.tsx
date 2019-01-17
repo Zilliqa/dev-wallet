@@ -6,8 +6,11 @@ class Home extends React.Component {
     return (
       <div>
         <Layout>
-          <h3 className="py-2">Home</h3>
-          <hr />
+          <div className="nucleus-header-container text-center">
+            <div className="nucleus-header">
+              <h1 className="nucleus-header-title">Nucleus Wallet</h1>
+            </div>
+          </div>
         </Layout>
       </div>
     );

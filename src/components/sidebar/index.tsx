@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import * as H from 'history';
 import { paths } from '../../routes';
 import './style.css';
-import { FaHome } from 'react-icons/fa';
+import { FaHome, FaRegPlusSquare } from 'react-icons/fa';
 import { IoMdSend } from 'react-icons/io';
 
 interface IProps {
@@ -27,7 +27,10 @@ class Sidebar extends React.Component<IProps, {}> {
         <div className="sidebar-wrapper">
           <ul className="sidebar-nav">
             <NavItem>{renderLink(paths.home, 'Home', <FaHome />)}</NavItem>
-            <NavItem>{renderLink(paths.signIn, 'Send Zil', <IoMdSend />)}</NavItem>
+            <NavItem>
+              {renderLink(paths.generate, 'Create New Wallet', <FaRegPlusSquare />)}
+            </NavItem>
+            <NavItem>{renderLink(paths.access, 'Send Zil', <IoMdSend />)}</NavItem>
           </ul>
         </div>
       </div>
