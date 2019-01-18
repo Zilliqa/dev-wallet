@@ -196,3 +196,8 @@ input[type=number]::placeholder {
 .rc-steps-item-finish .rc-steps-item-title::after {
   background-color: --blue500;
 }
+
+div.recaptcha {
+  margin: 0 auto;
+  width: 304px;
+}

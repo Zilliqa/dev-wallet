@@ -1,7 +1,6 @@
 import React from 'react';
-import { Card, Label, Input, FormGroup, Form, Row, Col } from 'reactstrap';
+import { Card, Label, Input, FormGroup, Form, Row, Col, FormFeedback } from 'reactstrap';
 import { PASSPHRASE_REGEX } from '../../regex';
-import FormFeedback from 'reactstrap/lib/FormFeedback';
 import Button from '../button';
 import Steps, { Step } from 'rc-steps';
 

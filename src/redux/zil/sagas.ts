@@ -33,3 +33,23 @@ export function* accessWalletSaga(action) {
 export function* watchAccessWalletSaga() {
   yield takeLatest(consts.ACCESS_WALLET, accessWalletSaga);
 }
+
+export function* runFaucet(action) {
+  // debounce by 500ms
+  yield delay(500);
+  try {
+    const { payload } = action;
+    const { address, token } = payload;
+    yield delay(300);
+    console.log(address, token);
+    yield put({
+      type: consts.RUN_FAUCET_SUCCEEDED
+    });
+  } catch (error) {
+    console.log(error);
+    yield put({ type: consts.RUN_FAUCET_FAILED });
+  }
+}
+export function* watchRunFaucetSaga() {
+  yield takeLatest(consts.RUN_FAUCET, runFaucet);
+}

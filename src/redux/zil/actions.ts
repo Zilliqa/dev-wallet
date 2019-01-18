@@ -11,3 +11,12 @@ export const CLEAR = 'CLEAR';
 export const clear = () => ({
   type: CLEAR
 });
+
+export const RUN_FAUCET = 'RUN_FAUCET';
+export const RUN_FAUCET_SUCCEEDED = 'RUN_FAUCET_SUCCEEDED';
+export const RUN_FAUCET_FAILED = 'RUN_FAUCET_FAILED';
+
+export const runFaucet = (address, token) => ({
+  type: RUN_FAUCET,
+  payload: { address, token }
+});

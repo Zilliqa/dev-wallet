@@ -4107,6 +4107,11 @@ clone-response@1.0.2:
   dependencies:
     mimic-response "^1.0.0"
 
+clone@^1.0.2:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
+  integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -4158,7 +4163,7 @@ collection-visit@^1.0.0:
     map-visit "^1.0.0"
     object-visit "^1.0.0"
 
-color-convert@^1.9.0, color-convert@^1.9.1:
+color-convert@^1.3.0, color-convert@^1.9.0, color-convert@^1.9.1:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
   integrity sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==
@@ -4175,6 +4180,13 @@ color-name@^1.0.0:
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
+color-string@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/color-string/-/color-string-0.3.0.tgz#27d46fb67025c5c2fa25993bfbf579e47841b991"
+  integrity sha1-J9RvtnAlxcL6JZk7+/V55HhBuZE=
+  dependencies:
+    color-name "^1.0.0"
+
 color-string@^1.5.2:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/color-string/-/color-string-1.5.3.tgz#c9bbc5f01b58b5492f3d6857459cb6590ce204cc"
@@ -4182,6 +4194,15 @@ color-string@^1.5.2:
   dependencies:
     color-name "^1.0.0"
     simple-swizzle "^0.2.2"
+
+color@^0.11.0:
+  version "0.11.4"
+  resolved "https://registry.yarnpkg.com/color/-/color-0.11.4.tgz#6d7b5c74fb65e841cd48792ad1ed5e07b904d764"
+  integrity sha1-bXtcdPtl6EHNSHkq0e1eB7kE12Q=
+  dependencies:
+    clone "^1.0.2"
+    color-convert "^1.3.0"
+    color-string "^0.3.0"
 
 color@^3.0.0:
   version "3.1.0"
@@ -6781,7 +6802,7 @@ hoist-non-react-statics@^2.5.0:
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
   integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
 
-hoist-non-react-statics@^3.2.1:
+hoist-non-react-statics@^3.0.1, hoist-non-react-statics@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.2.1.tgz#c09c0555c84b38a7ede6912b61efddafd6e75e1e"
   integrity sha512-TFsu3TV3YLY+zFTZDrN8L2DTFanObwmBLpWvJs1qfUuEQ5bTAdFcwfx2T/bsCXfM9QHSLvjfP+nihEl0yvozxw==
@@ -8872,6 +8893,11 @@ merge@^1.2.0:
   resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.1.tgz#38bebf80c3220a8a487b6fcfb3941bb11720c145"
   integrity sha512-VjFo4P5Whtj4vsLzsYBu5ayHhoHJ0UqNm7ibvShmbmoz7tGi0vXaoJbGdB+GmDMLUdg8DpQXEIeVDAe8MaABvQ==
 
+mersenne-twister@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/mersenne-twister/-/mersenne-twister-1.1.0.tgz#f916618ee43d7179efcf641bec4531eb9670978a"
+  integrity sha1-+RZhjuQ9cXnvz2Qb7EUx65Zwl4o=
+
 methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
@@ -10921,7 +10947,7 @@ prompts@^0.1.9:
     kleur "^2.0.1"
     sisteransi "^0.1.1"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   integrity sha512-3pboPvLiWD7dkI3qf3KbUe6hKFKa52w+AE0VCqECtf+QHAKgOL37tTaNCnuX1nAAQ4ZhyP+kYVKf8rLmJ/feDQ==
@@ -11213,6 +11239,14 @@ react-app-polyfill@^0.2.0:
     raf "3.4.0"
     whatwg-fetch "3.0.0"
 
+react-async-script@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-async-script/-/react-async-script-1.0.0.tgz#3578153247bc3f9654a5878c4142539ffbf65c2d"
+  integrity sha512-KNbqPgaOrb7sxEr3qLuyxswJfveCGSGsxj/jYbUT0esTD2p5u5kmnt6huOOEcL5UwU4Zmbw561gUC45xPjB+MA==
+  dependencies:
+    hoist-non-react-statics "^3.0.1"
+    prop-types "^15.5.0"
+
 react-dev-utils@^6.1.0:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-6.1.1.tgz#a07e3e8923c4609d9f27e5af5207e3ca20724895"
@@ -11324,6 +11358,14 @@ react-fuzzy@^0.5.2:
     fuse.js "^3.0.1"
     prop-types "^15.5.9"
 
+react-google-recaptcha@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-google-recaptcha/-/react-google-recaptcha-1.0.5.tgz#fc5a1c5c9fd678ccea11c9a47b22f38a8b9d3c88"
+  integrity sha512-IUIIQVUIKgsG7Ok1AiqBdJZVpFRpIWOM3H/36fAJHMd52l+X0pn4sTxvm2YJEN01QXWR1jg79+93J8mQef7hfw==
+  dependencies:
+    prop-types "^15.5.0"
+    react-async-script "^1.0.0"
+
 react-icons@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-3.2.2.tgz#7b1dc795004a119a35175e62ecef91e5c9c90962"
@@ -11342,6 +11384,15 @@ react-is@^16.3.2, react-is@^16.5.2, react-is@^16.6.1, react-is@^16.6.3, react-is
   version "16.7.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.7.0.tgz#c1bd21c64f1f1364c6f70695ec02d69392f41bfa"
   integrity sha512-Z0VRQdF4NPDoI0tsXVMLkJLiwEBa+RP66g0xDHxgxysxSoCUccSten4RTF/UFvZF1dZvZ9Zu1sx+MDXwcOR34g==
+
+react-jazzicon@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/react-jazzicon/-/react-jazzicon-0.1.3.tgz#637c731033c3d7be5cff8b24d42225fa32adcbcc"
+  integrity sha512-9iJPMoPlNYg/GbAnHwdco1SUF4dM1HyOOJ9ouI27TKXXmRUeDq/ZaS4RFlHnOtcA6Yw/Uz1rUOu1bowThTCRCg==
+  dependencies:
+    color "^0.11.0"
+    mersenne-twister "^1.1.0"
+    prop-types "^15.5.10"
 
 react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.4:
   version "3.0.4"

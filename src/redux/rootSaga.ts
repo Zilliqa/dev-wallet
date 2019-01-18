@@ -5,7 +5,8 @@ import * as zilSagas from './zil/sagas';
 function* rootSaga() {
   yield all([
     /* ZIL */
-    zilSagas.watchAccessWalletSaga()
+    zilSagas.watchAccessWalletSaga(),
+    zilSagas.watchRunFaucetSaga()
   ]);
 }
 

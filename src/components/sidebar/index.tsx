@@ -30,7 +30,7 @@ class Sidebar extends React.Component<IProps, {}> {
             <NavItem>
               {renderLink(paths.generate, 'Create New Wallet', <FaRegPlusSquare />)}
             </NavItem>
-            <NavItem>{renderLink(paths.access, 'Send Zil', <IoMdSend />)}</NavItem>
+            <NavItem>{renderLink(paths.faucet, 'ZIL Faucet', <IoMdSend />)}</NavItem>
           </ul>
         </div>
       </div>
