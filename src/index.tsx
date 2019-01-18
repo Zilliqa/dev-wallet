@@ -9,6 +9,7 @@ import './index.css';
 import { RouterNode } from './routes';
 import * as serviceWorker from './serviceWorker';
 import { store } from './redux/store';
+import './firebase';
 
 ReactDOM.render(
   <Provider store={store}>
