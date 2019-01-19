@@ -1,34 +1,13 @@
 const getHost = (host: string) => {
   switch (host) {
+    case 'ncls-wllt.firebaseapp.com':
+      return 'https://us-central1-ncls-wllt.cloudfunctions.net';
     default:
-      return 'https://api.abc.com/v0';
+      return 'http://localhost:5000/ncls-wllt/us-central1';
   }
 };
 
-const HOST = getHost(window.location.hostname);
-
-export const handleFetch = async ({ fetch, method, url, accessToken, data }) => {
-  const headers = {
-    'Content-Type': 'application/json'
-  };
-  const result = await fetch({
-    method,
-    url,
-    headers: handleHeaders(headers, accessToken),
-    data: JSON.stringify(data)
-  });
-  return result.data;
-};
-
-const handleHeaders = (headers, accessToken?: string) => {
-  if (accessToken !== undefined) {
-    return {
-      ...headers,
-      'X-Access-Token': accessToken
-    };
-  }
-  return headers;
-};
+export const HOST = getHost(window.location.hostname);
 
 export const getErrorStatus = (error): number => {
   const { request } = error;

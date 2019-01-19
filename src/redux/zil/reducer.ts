@@ -1,8 +1,8 @@
 import { Zilliqa } from '@zilliqa-js/zilliqa';
 import * as consts from './actions';
-import { requestStatus, ZIL_API, NETWORK } from '../../constants';
+import { requestStatus, NODE_URL, NETWORK } from '../../constants';
 
-const initialState: any = { zilliqa: new Zilliqa(ZIL_API), network: NETWORK };
+const initialState: any = { zilliqa: new Zilliqa(NODE_URL), network: NETWORK };
 
 export default function zil(state = initialState, action) {
   switch (action.type) {

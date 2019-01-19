@@ -1,8 +1,10 @@
 import { select, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { getAddressFromPrivateKey, getPubKeyFromPrivateKey } from '@zilliqa-js/crypto';
+import axios from 'axios';
 
 import * as consts from './actions';
+import { HOST } from '../../api';
 
 const getZilliqa = (state) => state.zil.zilliqa;
 
@@ -40,11 +42,21 @@ export function* runFaucet(action) {
   try {
     const { payload } = action;
     const { address, token } = payload;
-    yield delay(300);
-    console.log(address, token);
-    yield put({
-      type: consts.RUN_FAUCET_SUCCEEDED
+
+    const url = `${HOST}/faucet/run`;
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+    const data = JSON.stringify({ address, token });
+
+    yield axios({
+      method: 'post',
+      url,
+      headers,
+      data
     });
+
+    yield put({ type: consts.RUN_FAUCET_SUCCEEDED });
   } catch (error) {
     console.log(error);
     yield put({ type: consts.RUN_FAUCET_FAILED });

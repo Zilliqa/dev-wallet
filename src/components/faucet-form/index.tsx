@@ -15,21 +15,27 @@ interface IProps {
   faucetStatus?: string;
   publicKey: string;
   address: string;
+  network: string;
   zilliqa: any;
 }
 
 interface IState {
   isRunningFaucet: boolean;
   isUpdatingBalance: boolean;
+  isFaucetComplete: boolean;
+  isFaucetIncomplete: boolean;
   balance: number;
 }
 
+const initialState = {
+  isRunningFaucet: false,
+  isUpdatingBalance: false,
+  isFaucetComplete: false,
+  isFaucetIncomplete: false,
+  balance: 0
+};
 class FaucetForm extends React.Component<IProps, IState> {
-  public readonly state: IState = {
-    isRunningFaucet: false,
-    isUpdatingBalance: false,
-    balance: 0
-  };
+  public readonly state: IState = initialState;
   public componentDidMount() {
     this.getBalance();
   }
@@ -45,14 +51,22 @@ class FaucetForm extends React.Component<IProps, IState> {
       nextProps.faucetStatus === requestStatus.SUCCEED &&
       this.props.faucetStatus === requestStatus.PENDING;
 
-    if (isAccessFailed || isAccessSucceeded) {
-      this.setState({ isRunningFaucet: false });
+    if (isAccessFailed) {
+      this.setState({ isRunningFaucet: false, isFaucetIncomplete: true, isFaucetComplete: false });
+    } else if (isAccessSucceeded) {
+      this.setState({ isRunningFaucet: false, isFaucetComplete: true, isFaucetIncomplete: false });
     }
   }
 
   public render() {
-    const { address, faucetStatus } = this.props;
-    const { isUpdatingBalance, balance, isRunningFaucet } = this.state;
+    const { address, network } = this.props;
+    const {
+      isUpdatingBalance,
+      balance,
+      isRunningFaucet,
+      isFaucetComplete,
+      isFaucetIncomplete
+    } = this.state;
 
     return (
       <div>
@@ -94,14 +108,20 @@ class FaucetForm extends React.Component<IProps, IState> {
                     <b>{'ZIL Faucet'}</b>
                   </h2>
                   <p className="text-secondary">
-                    {'This Zil Faucet runs on Test Network.'}
+                    {`This Zil faucet is running on The ${network} Network.`}
+
                     <br />
                     {'Please run the Faucet to receive a small amount of Zil for testing.'}
                   </p>
                   <div className="py-4">
-                    {isRunningFaucet || faucetStatus === requestStatus.SUCCEED ? (
+                    {isRunningFaucet || isFaucetComplete ? (
                       <div>
                         <SpinnerWithCheckMark loading={isRunningFaucet} />
+                        {isFaucetComplete ? (
+                          <p className="pt-4 text-success">
+                            <b>{'Succeeded to run faucet.'}</b>
+                          </p>
+                        ) : null}
                       </div>
                     ) : (
                       <div className="recaptcha">
@@ -110,6 +130,13 @@ class FaucetForm extends React.Component<IProps, IState> {
                           onChange={this.handleCaptcha}
                           badge="inline"
                         />
+                        {isFaucetIncomplete ? (
+                          <p className="pt-4">
+                            <small className="text-danger">
+                              {'Failed to run faucet. Please try again later.'}
+                            </small>
+                          </p>
+                        ) : null}
                       </div>
                     )}
                   </div>
@@ -147,6 +174,7 @@ class FaucetForm extends React.Component<IProps, IState> {
 
 const mapStateToProps = (state) => ({
   faucetStatus: state.zil.faucetStatus,
+  network: state.zil.network,
   address: state.zil.address,
   publicKey: state.zil.publicKey,
   zilliqa: state.zil.zilliqa

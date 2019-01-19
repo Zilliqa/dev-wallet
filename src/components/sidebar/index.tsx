@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 import * as H from 'history';
 import { paths } from '../../routes';
 import './style.css';
-import { FaHome, FaRegPlusSquare } from 'react-icons/fa';
-import { IoMdSend } from 'react-icons/io';
+import { FaHome, FaRegPlusSquare, FaTint } from 'react-icons/fa';
 
 interface IProps {
   history: H.History;
@@ -30,7 +29,7 @@ class Sidebar extends React.Component<IProps, {}> {
             <NavItem>
               {renderLink(paths.generate, 'Create New Wallet', <FaRegPlusSquare />)}
             </NavItem>
-            <NavItem>{renderLink(paths.faucet, 'ZIL Faucet', <IoMdSend />)}</NavItem>
+            <NavItem>{renderLink(paths.faucet, 'ZIL Faucet', <FaTint />)}</NavItem>
           </ul>
         </div>
       </div>
