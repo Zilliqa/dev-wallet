@@ -54,7 +54,10 @@ class FaucetForm extends React.Component<IProps, IState> {
     if (isAccessFailed) {
       this.setState({ isRunningFaucet: false, isFaucetIncomplete: true, isFaucetComplete: false });
     } else if (isAccessSucceeded) {
-      this.setState({ isRunningFaucet: false, isFaucetComplete: true, isFaucetIncomplete: false });
+      this.setState(
+        { isRunningFaucet: false, isFaucetComplete: true, isFaucetIncomplete: false },
+        this.getBalance
+      );
     }
   }
 
