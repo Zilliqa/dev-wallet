@@ -125,10 +125,18 @@ input[type=number]::placeholder {
 
 .nucleus-header-title {
   position: relative;
-  padding: 7rem 0;
+  padding: 8rem;
   color: --white;
   margin: 0;
   font-size: 50px;
+  -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1.5s; /* Firefox < 16 */
+  animation: fadein 1.5s;
+}
+
+.nucleus-description {
+  padding-top: 3rem;
+  text-align: center;
   -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 1.5s; /* Firefox < 16 */
   animation: fadein 1.5s;

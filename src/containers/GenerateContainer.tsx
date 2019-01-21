@@ -13,7 +13,9 @@ class CreateContainer extends React.Component<IProps, {}> {
     return (
       <div>
         <Layout>
-          <GenerateForm />
+          <div style={{ padding: 25 }}>
+            <GenerateForm />
+          </div>
         </Layout>
       </div>
     );

@@ -18,7 +18,9 @@ class FaucetContainer extends React.Component<IProps, {}> {
     const isAuth = authStatus === requestStatus.SUCCEED;
     return (
       <div>
-        <Layout>{isAuth ? <FaucetForm /> : <AccessForm />}</Layout>
+        <Layout>
+          <div style={{ padding: 25 }}>{isAuth ? <FaucetForm /> : <AccessForm />}</div>
+        </Layout>
       </div>
     );
   }
