@@ -1,14 +1,15 @@
 import React from 'react';
-import { Card, Label, Input, FormGroup, Form, Row, Col, FormFeedback } from 'reactstrap';
+import { Card, Row, Col } from 'reactstrap';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
+import { BN, Long, bytes, units } from '@zilliqa-js/util';
 import Button from '../button';
-import Spinner from '../spinner';
 import * as zilActions from '../../redux/zil/actions';
 import { connect } from 'react-redux';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { CAPTCHA_SITE_KEY, requestStatus } from '../../constants';
 import { MdRefresh } from 'react-icons/md';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
+
 interface IProps {
   runFaucet: (address: string, token: string) => void;
   clear: () => void;
@@ -24,7 +25,7 @@ interface IState {
   isUpdatingBalance: boolean;
   isFaucetComplete: boolean;
   isFaucetIncomplete: boolean;
-  balance: number;
+  balance: string;
 }
 
 const initialState = {
@@ -32,7 +33,7 @@ const initialState = {
   isUpdatingBalance: false,
   isFaucetComplete: false,
   isFaucetIncomplete: false,
-  balance: 0
+  balance: 'unknown'
 };
 class FaucetForm extends React.Component<IProps, IState> {
   public readonly state: IState = initialState;
@@ -168,8 +169,10 @@ class FaucetForm extends React.Component<IProps, IState> {
       this.setState({ isUpdatingBalance: false });
     } else {
       if (response.result) {
-        const { balance } = response.result;
-        this.setState({ balance, isUpdatingBalance: false });
+        const balanceInQa = response.result.balance;
+        const balanceInZil = units.fromQa(new BN(balanceInQa), units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
+
+        this.setState({ balance: balanceInZil, isUpdatingBalance: false });
       }
     }
   };
