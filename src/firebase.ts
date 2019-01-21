@@ -5,12 +5,12 @@ import firebase from 'firebase/app';
   https://stackoverflow.com/questions/37482366/is-it-safe-to-expose-firebase-apikey-to-the-public
 */
 const config = {
-  apiKey: 'AIzaSyCg7U0eB4MydAA-XCu8LiPLVYGzLy1LQLw',
-  authDomain: 'ncls-wllt.firebaseapp.com',
-  databaseURL: 'https://ncls-wllt.firebaseio.com',
-  projectId: 'ncls-wllt',
-  storageBucket: 'ncls-wllt.appspot.com',
-  messagingSenderId: '177691826547'
+  apiKey: 'AIzaSyBTe5IC3O5U5Z93gyKk4Gd7MVOdrfdU1Ao',
+  authDomain: 'nucleus-wallet.firebaseapp.com',
+  databaseURL: 'https://nucleus-wallet.firebaseio.com',
+  projectId: 'nucleus-wallet',
+  storageBucket: 'nucleus-wallet.appspot.com',
+  messagingSenderId: '290607547429'
 };
 
 firebase.initializeApp(config);

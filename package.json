@@ -81,7 +81,7 @@
     "@types/react-test-renderer": "^16.0.3",
     "@types/reactstrap": "^6.4.2",
     "@types/storybook__react": "^4.0.0",
-    "@zilliqa-js/zilliqa": "^0.3.2",
+    "@zilliqa-js/zilliqa": "^0.4.2",
     "axios": "^0.18.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",

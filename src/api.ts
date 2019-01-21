@@ -1,9 +1,9 @@
 const getHost = (host: string) => {
   switch (host) {
-    case 'ncls-wllt.firebaseapp.com':
-      return 'https://us-central1-ncls-wllt.cloudfunctions.net';
+    case 'nucleus-wallet.firebaseapp.com':
+      return 'https://us-central1-nucleus-wallet.cloudfunctions.net';
     default:
-      return 'http://localhost:5000/ncls-wllt/us-central1';
+      return 'http://localhost:5000/nucleus-wallet/us-central1';
   }
 };
 
