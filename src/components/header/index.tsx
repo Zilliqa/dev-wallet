@@ -17,7 +17,7 @@ class Header extends React.Component<IProps, {}> {
       <div>
         <Navbar fixed={'top'} dark={true} expand="md" color="faded">
           <NavbarBrand href="/">{'Nucleus Wallet'}</NavbarBrand>
-          <div className="network">{this.props.network} Network</div>
+          <div className="network">{this.props.network} network</div>
         </Navbar>
       </div>
     );
