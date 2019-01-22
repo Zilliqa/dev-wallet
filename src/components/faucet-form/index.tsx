@@ -112,12 +112,19 @@ class FaucetForm extends React.Component<IProps, IState> {
                     {`This Zil faucet is running on The ${network} Network.`}
 
                     <br />
-                    {'Please run the Faucet to receive a small amount of Zil for testing.'}
+                    {'Please run the faucet to receive a small amount of Zil for testing.'}
                   </p>
                   <div className="py-4">
                     {isRunningFaucet || isFaucetComplete ? (
                       <div>
                         <SpinnerWithCheckMark loading={isRunningFaucet} />
+                        <div className="text-center py-4">
+                          <p className="text-secondary text-fade-in">
+                            {'Running Faucet'}
+                            <br />
+                            <small>{'Please kindly wait. It might take a while.'}</small>
+                          </p>
+                        </div>
                         {isFaucetComplete ? (
                           <p className="pt-4 text-success">
                             <b>{'Succeeded to run faucet.'}</b>
