@@ -9,22 +9,25 @@ export default function zil(state = initialState, action) {
     case consts.ACCESS_WALLET:
       return {
         ...state,
-        publicKey: undefined,
         address: undefined,
+        publicKey: undefined,
+        privateKey: undefined,
         authStatus: requestStatus.PENDING
       };
     case consts.ACCESS_WALLET_SUCCEEDED:
       return {
         ...state,
-        publicKey: action.payload.publicKey,
         address: action.payload.address,
+        publicKey: action.payload.publicKey,
+        privateKey: action.payload.privateKey,
         authStatus: requestStatus.SUCCEED
       };
     case consts.ACCESS_WALLET_FAILED:
       return {
         ...state,
-        publicKey: undefined,
         address: undefined,
+        publicKey: undefined,
+        privateKey: undefined,
         authStatus: requestStatus.FAILED
       };
     case consts.RUN_FAUCET:
@@ -42,13 +45,26 @@ export default function zil(state = initialState, action) {
         ...state,
         faucetStatus: requestStatus.FAILED
       };
-    case consts.CLEAR:
+    case consts.SEND_TX:
       return {
-        zilliqa: new Zilliqa('https://api.zilliqa.com'),
-        publicKey: undefined,
-        address: undefined,
-        authStatus: undefined
+        ...state,
+        sendTxStatus: requestStatus.PENDING,
+        txInfo: undefined
       };
+    case consts.SEND_TX_SUCCEEDED:
+      return {
+        ...state,
+        sendTxStatus: requestStatus.SUCCEED,
+        txInfo: action.payload.txInfo
+      };
+    case consts.SEND_TX_FAILED:
+      return {
+        ...state,
+        sendTxStatus: requestStatus.FAILED,
+        txInfo: undefined
+      };
+    case consts.CLEAR:
+      return initialState;
     default:
       return state;
   }

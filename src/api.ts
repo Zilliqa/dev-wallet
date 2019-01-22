@@ -1,9 +1,9 @@
 const getHost = (host: string) => {
   switch (host) {
-    case 'nucleus-wallet.firebaseapp.com':
-      return 'https://us-central1-nucleus-wallet.cloudfunctions.net';
+    // case 'nucleus-wallet.firebaseapp.com':
+    //   return 'https://us-central1-nucleus-wallet.cloudfunctions.net';
     default:
-      return 'http://localhost:5000/nucleus-wallet/us-central1';
+      return 'https://us-central1-nucleus-wallet.cloudfunctions.net';
   }
 };
 

@@ -6,6 +6,7 @@ function* rootSaga() {
   yield all([
     /* ZIL */
     zilSagas.watchAccessWalletSaga(),
+    zilSagas.watchSendTxSaga(),
     zilSagas.watchRunFaucetSaga()
   ]);
 }

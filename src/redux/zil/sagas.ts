@@ -1,12 +1,17 @@
 import { select, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { getAddressFromPrivateKey, getPubKeyFromPrivateKey } from '@zilliqa-js/crypto';
+import { Long, bytes, units } from '@zilliqa-js/util';
+
 import axios from 'axios';
 
 import * as consts from './actions';
 import { HOST } from '../../api';
+import { CHAIN_ID, MSG_VERSION } from '../../constants';
 
-const getZilliqa = (state) => state.zil.zilliqa;
+const VERSION = bytes.pack(CHAIN_ID, MSG_VERSION);
+
+const getZilState = (state) => state.zil;
 
 export function* accessWalletSaga(action) {
   // debounce by 500ms
@@ -17,14 +22,15 @@ export function* accessWalletSaga(action) {
     const address = getAddressFromPrivateKey(privateKey);
     const publicKey = getPubKeyFromPrivateKey(privateKey);
 
-    const zilliqa = yield select(getZilliqa);
+    const { zilliqa } = yield select(getZilState);
     zilliqa.wallet.addByPrivateKey(privateKey);
 
     yield put({
       type: consts.ACCESS_WALLET_SUCCEEDED,
       payload: {
         address,
-        publicKey
+        publicKey,
+        privateKey
       }
     });
   } catch (error) {
@@ -34,6 +40,41 @@ export function* accessWalletSaga(action) {
 }
 export function* watchAccessWalletSaga() {
   yield takeLatest(consts.ACCESS_WALLET, accessWalletSaga);
+}
+
+export function* sendTxSaga(action) {
+  // debounce by 500ms
+  yield delay(500);
+  try {
+    const { payload } = action;
+    const { toAddress, amount, gasLimit, gasPrice } = payload;
+
+    const zilState = yield select(getZilState);
+    const { zilliqa } = zilState;
+
+    // Create a transaction
+    const tx = zilliqa.transactions.new({
+      version: VERSION,
+      toAddr: toAddress,
+      amount: units.toQa(amount, units.Units.Zil),
+      gasPrice: units.toQa(gasPrice, units.Units.Zil),
+      gasLimit: Long.fromNumber(parseInt(gasLimit, 10))
+    });
+
+    // Send a transaction to the network
+    const txInfo = yield zilliqa.blockchain.createTransaction(tx);
+
+    yield put({
+      type: consts.SEND_TX_SUCCEEDED,
+      payload: { txInfo }
+    });
+  } catch (error) {
+    console.log(error);
+    yield put({ type: consts.SEND_TX_FAILED });
+  }
+}
+export function* watchSendTxSaga() {
+  yield takeLatest(consts.SEND_TX, sendTxSaga);
 }
 
 export function* runFaucet(action) {

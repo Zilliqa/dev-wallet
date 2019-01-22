@@ -270,12 +270,12 @@ class AccessForm extends React.Component<IProps, IState> {
                         />
                       }
                       {decryptStatus === requestStatus.FAILED ? (
-                        <p className="text-danger py-3">
+                        <p className="text-danger text-fade-in py-3">
                           <small>{messageForDecryptFailure}</small>
                         </p>
                       ) : null}
                       {authStatus === requestStatus.FAILED ? (
-                        <p className="text-danger py-3">
+                        <p className="text-danger text-fade-in py-3">
                           <small>{messageForaccessWalletFailure}</small>
                         </p>
                       ) : null}

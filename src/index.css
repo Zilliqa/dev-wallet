@@ -73,6 +73,10 @@ body {
   padding-right: 0;
 }
 
+.form-check-label {
+  margin-bottom: 0.5rem;
+}
+
 input.form-control-file {
   display: none;
 }
@@ -80,12 +84,20 @@ input.form-control-file {
 input.form-control {
   border: 0;
   border-radius: 0;
-  border-bottom: 1px solid #d9dcea;
+  border-bottom: 1px solid --gray300;
   padding: 0;
   transition: border-width 0.1s linear, border-color 0.3s linear;
   position: relative;
   outline: 0;
   background-color: transparent;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: transparent;
+  color: --gray700;
+  border-bottom: 1px solid --green300;
+  cursor: not-allowed;
 }
 
 input[type=text]:focus,
@@ -140,6 +152,12 @@ input[type=number]::placeholder {
   -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 1.5s; /* Firefox < 16 */
   animation: fadein 1.5s;
+}
+
+.text-fade-in {
+  -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1s; /* Firefox < 16 */
+  animation: fadein 1s;
 }
 
 @keyframes fadein {
@@ -208,4 +226,8 @@ input[type=number]::placeholder {
 div.recaptcha {
   margin: 0 auto;
   width: 304px;
+}
+
+.modal-container {
+  min-width: 600px;
 }

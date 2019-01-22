@@ -33,15 +33,12 @@ const initialState = {
   isUpdatingBalance: false,
   isFaucetComplete: false,
   isFaucetIncomplete: false,
-  balance: 'unknown'
+  balance: '0'
 };
 class FaucetForm extends React.Component<IProps, IState> {
   public readonly state: IState = initialState;
   public componentDidMount() {
     this.getBalance();
-  }
-  public componentWillUnmount() {
-    this.props.clear();
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -80,7 +77,7 @@ class FaucetForm extends React.Component<IProps, IState> {
           </h5>
           <div className="d-flex">
             <div className="py-2">
-              <Jazzicon diameter={100} seed={jsNumberForAddress(address)} />
+              {address ? <Jazzicon diameter={100} seed={jsNumberForAddress(address)} /> : null}
             </div>
             <div className="px-4 text-left text-secondary">
               <small>
@@ -98,15 +95,15 @@ class FaucetForm extends React.Component<IProps, IState> {
                     className="mb-1 py-0 px-1"
                   />
                 </b>
-                <p>{`${balance} Zil`}</p>
+                <p>{isUpdatingBalance ? 'loading...' : `${balance} ZIL`}</p>
               </small>
             </div>
           </div>
         </div>
-        <Row className="pt-3">
+        <Row className="pt-4">
           <Col xs={12} sm={12} md={10} lg={9} className="mr-auto">
             <Card>
-              <div className="py-4">
+              <div className="py-5">
                 <div className="px-4 text-center">
                   <h2 className="pb-2">
                     <b>{'ZIL Faucet'}</b>
@@ -136,7 +133,7 @@ class FaucetForm extends React.Component<IProps, IState> {
                         />
                         {isFaucetIncomplete ? (
                           <p className="pt-4">
-                            <small className="text-danger">
+                            <small className="text-danger text-fade-in">
                               {'Failed to run faucet. Please try again later.'}
                             </small>
                           </p>

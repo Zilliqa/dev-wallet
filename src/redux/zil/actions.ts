@@ -20,3 +20,12 @@ export const runFaucet = (address, token) => ({
   type: RUN_FAUCET,
   payload: { address, token }
 });
+
+export const SEND_TX = 'SEND_TX';
+export const SEND_TX_SUCCEEDED = 'SEND_TX_SUCCEEDED';
+export const SEND_TX_FAILED = 'SEND_TX_FAILED';
+
+export const sendTx = (toAddress, amount, gasLimit, gasPrice) => ({
+  type: SEND_TX,
+  payload: { toAddress, amount, gasLimit, gasPrice }
+});
