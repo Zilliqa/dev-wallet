@@ -58,26 +58,29 @@ export function* sendTxSaga(action) {
     const nonceData = nonceResponse.result.nonce || { nonce: 1 };
     const nonce: number = nonceData.nonce + 1;
 
+    const toAddr = toAddress.toLowerCase();
+
     const wallet = zilliqa.wallet;
     wallet.addByPrivateKey(privateKey);
 
-    const tx = yield wallet.sign(
-      new Transaction(
-        {
-          version: VERSION,
-          toAddr: toAddress,
-          amount: units.toQa(amount, units.Units.Zil),
-          gasPrice: units.toQa(gasPrice, units.Units.Zil),
-          gasLimit: Long.fromNumber(parseInt(gasLimit, 10)),
-          pubKey: publicKey,
-          nonce
-        },
-        provider
-      )
+    const tx = new Transaction(
+      {
+        version: VERSION,
+        toAddr,
+        amount: units.toQa(amount, units.Units.Zil),
+        gasPrice: units.toQa(gasPrice, units.Units.Zil),
+        gasLimit: Long.fromNumber(parseInt(gasLimit, 10)),
+        pubKey: publicKey,
+        nonce
+      },
+      provider
     );
 
+    const signedTx = yield wallet.sign(tx);
+    const { txParams } = signedTx;
+
     // Send a transaction to the network
-    const { result } = yield provider.send(RPCMethod.CreateTransaction, tx.txParams);
+    const { result } = yield provider.send(RPCMethod.CreateTransaction, txParams);
     const id = result.TranID;
 
     yield put({

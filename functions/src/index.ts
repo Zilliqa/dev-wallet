@@ -10,7 +10,11 @@ app.use(bodyParser.json());
 
 const { Zilliqa } = require('@zilliqa-js/zilliqa');
 const { Long, bytes, units } = require('@zilliqa-js/util');
-const { getAddressFromPrivateKey, getPubKeyFromPrivateKey } = require('@zilliqa-js/crypto');
+const {
+  getAddressFromPrivateKey,
+  getPubKeyFromPrivateKey,
+  toChecksumAddress
+} = require('@zilliqa-js/crypto');
 const { Transaction } = require('@zilliqa-js/account');
 const { HTTPProvider, RPCMethod } = require('@zilliqa-js/core');
 
@@ -78,36 +82,36 @@ async function getNonce(network, address) {
 //   });
 // }
 
-async function runFaucet(toAddr) {
+async function runFaucet(address) {
   try {
     const gasLimit = Long.fromNumber(1);
     const amount = units.toQa(TRANSFER_AMOUNT, units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
     const gasPrice = units.toQa(await getGasPrice(), units.Units.Li); // Minimum gasPrice measured in Li, converting to Qa.
     const pubKey = PUBLIC_KEY;
-
+    const toAddr = address.toLowerCase();
     const nonce: number = await getNonce(NETWORK, ADDRESS);
     // await updateNonce(NETWORK, ADDRESS, nonce + 1);
 
     const wallet = zilliqa.wallet;
     wallet.addByPrivateKey(PRIVATE_KEY);
 
-    const tx = await wallet.sign(
-      new Transaction(
-        {
-          version: VERSION,
-          toAddr,
-          amount,
-          gasPrice,
-          gasLimit,
-          pubKey,
-          nonce
-        },
-        provider
-      )
+    const tx = new Transaction(
+      {
+        version: VERSION,
+        toAddr,
+        amount,
+        gasPrice,
+        gasLimit,
+        pubKey,
+        nonce
+      },
+      provider
     );
+    const signedTx = await wallet.sign(tx);
+    const { txParams } = signedTx;
 
     // Send a transaction to the network
-    const { result } = await provider.send(RPCMethod.CreateTransaction, tx.txParams);
+    const { result } = await provider.send(RPCMethod.CreateTransaction, txParams);
     const txId = result.TranID;
     return txId;
   } catch (error) {
