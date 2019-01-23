@@ -2,22 +2,11 @@ import * as functions from 'firebase-functions';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
-import * as request from 'request';
+import axios from 'axios';
 import * as admin from 'firebase-admin';
 
-const whitelist = ['https://nucleus-wallet.firebaseapp.com', 'http://localhost:3000'];
-const corsOptions = {
-  origin: function(origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
-};
-
 const app = express();
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 
 const { Zilliqa } = require('@zilliqa-js/zilliqa');
@@ -48,27 +37,6 @@ function validateAddress(address) {
   }
 }
 
-async function validateToken(secret, token, remoteIp) {
-  const verificationUrl =
-    'https://www.google.com/recaptcha/api/siteverify?secret=' +
-    secret +
-    '&response=' +
-    token +
-    '&remoteip=' +
-    remoteIp;
-
-  try {
-    await request(verificationUrl, function(error, response, data) {
-      const body = JSON.parse(data);
-      if (!body.success) {
-        throw Error('Invalid captcha token.');
-      }
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 async function getGasPrice(): Promise<string> {
   try {
     const response = await zilliqa.blockchain.getMinimumGasPrice();
@@ -84,28 +52,28 @@ async function getNonce(network, address) {
   try {
     const response = await zilliqa.blockchain.getBalance(address);
     const result = response.result || { nonce: 1 };
-    const nonce: number = result.nonce + 1;
+    const nextNonce: number = result.nonce + 1;
+    console.log('next nonce:', nextNonce);
+    return nextNonce;
 
-    const node = (await db.ref(`nodes/${network}`).once('value')).val();
-
-    const nonces = [nonce];
-
-    if (node !== null && address === node.address) {
-      nonces.push(parseInt(node.nonce, 10));
-    }
-    return Math.max(...nonces);
+    // const nonces = [nonce];
+    // const node = (await db.ref(`nodes/${network}`).once('value')).val();
+    // if (node !== null && address === node.address) {
+    //   nonces.push(parseInt(node.nonce, 10));
+    // }
+    // return Math.max(...nonces);
   } catch (error) {
     console.log(error);
-    throw new Error('Failed to get nonce from db.');
+    throw new Error('Failed to get nonce.');
   }
 }
 
-async function updateNonce(network, address, nonce) {
-  await db.ref().update({
-    [`nodes/${network}/address`]: address,
-    [`nodes/${network}/nonce`]: nonce
-  });
-}
+// async function updateNonce(network, address, nonce) {
+//   await db.ref().update({
+//     [`nodes/${network}/address`]: address,
+//     [`nodes/${network}/nonce`]: nonce
+//   });
+// }
 
 async function runFaucet(toAddr) {
   try {
@@ -114,42 +82,76 @@ async function runFaucet(toAddr) {
     const gasPrice = units.toQa(await getGasPrice(), units.Units.Li); // Minimum gasPrice measured in Li, converting to Qa.
     const pubKey = PUBLIC_KEY;
 
-    const nonce: number = await getNonce(NETWORK, ADDRESS);
-    await updateNonce(NETWORK, ADDRESS, nonce + 1);
+    // const nonce: number = await getNonce(NETWORK, ADDRESS);
+    // await updateNonce(NETWORK, ADDRESS, nonce + 1);
 
     // Create a transaction
+
     const tx = zilliqa.transactions.new({
       version: VERSION,
       toAddr,
       amount,
-      gasPrice: units.toQa(gasPrice, units.Units.Li),
-      gasLimit,
-      nonce,
-      pubKey
+      gasPrice,
+      gasLimit
+      // nonce,
+      // pubKey
     });
-
+    console.log('tx Params: ', tx.txParams);
     // Send a transaction to the network
-    const response = await zilliqa.blockchain.createTransaction(tx);
-
-    return { responseCode: 0, ...response };
+    return await zilliqa.blockchain.createTransaction(tx);
   } catch (error) {
     console.log(error);
-    throw new Error('Failed to send a transaction.');
   }
 }
 
 app.post('/run', async (req, res) => {
+  const { token, address } = req.body;
+
   try {
-    const { token, address } = req.body;
-    const remoteAddress = req.connection.remoteAddress;
-    validateAddress(address);
-    await validateToken(RECAPTCHA_SECRET, token, remoteAddress);
-    const result = await runFaucet(address);
-    res.json({ ...result });
+    const verificationUrl =
+      'https://www.google.com/recaptcha/api/siteverify?secret=' +
+      RECAPTCHA_SECRET +
+      '&response=' +
+      token +
+      '&remoteip=' +
+      req.connection.remoteAddress;
+
+    const result: any = await axios.post(
+      verificationUrl,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+        }
+      }
+    );
+
+    const responseData = result.data;
+    if (responseData && !responseData.success) {
+      console.log('Invaild recaptcha token');
+      const errorMessage = responseData['error-codes'].join(', ');
+      res.status(400).json({ errorCode: 400, errorMessage: errorMessage });
+    } else {
+      console.log('Vaild recaptcha token');
+    }
   } catch (error) {
+    res.status(400).json({ errorCode: 400, errorMessage: error.message });
     console.log(error);
-    res.status(500);
-    res.json({ error });
+  }
+
+  try {
+    validateAddress(address);
+    console.log('Vaild address');
+  } catch (error) {
+    console.log('Error validating address', error);
+    res.status(400).json({ errorCode: 400, errorMessage: error.message });
+  }
+
+  try {
+    const result = await runFaucet(address);
+    res.status(200).json({ ...result });
+  } catch (error) {
+    res.status(500).json({ errorCode: 500, errorMessage: error.message });
   }
 });
 
