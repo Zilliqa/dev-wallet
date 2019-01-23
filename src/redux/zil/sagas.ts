@@ -2,12 +2,15 @@ import { select, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { getAddressFromPrivateKey, getPubKeyFromPrivateKey } from '@zilliqa-js/crypto';
 import { Long, bytes, units } from '@zilliqa-js/util';
+import { RPCMethod } from '@zilliqa-js/core';
+import { Transaction } from '@zilliqa-js/account';
 
 import axios from 'axios';
 
 import * as consts from './actions';
 import { HOST } from '../../api';
 import { CHAIN_ID, MSG_VERSION } from '../../constants';
+import { encodeTransactionProto } from '@zilliqa-js/account/dist/util';
 
 const VERSION = bytes.pack(CHAIN_ID, MSG_VERSION);
 
@@ -50,23 +53,37 @@ export function* sendTxSaga(action) {
     const { toAddress, amount, gasLimit, gasPrice } = payload;
 
     const zilState = yield select(getZilState);
-    const { zilliqa } = zilState;
+    const { zilliqa, provider, privateKey, address, publicKey } = zilState;
 
-    // Create a transaction
-    const tx = zilliqa.transactions.new({
-      version: VERSION,
-      toAddr: toAddress,
-      amount: units.toQa(amount, units.Units.Zil),
-      gasPrice: units.toQa(gasPrice, units.Units.Zil),
-      gasLimit: Long.fromNumber(parseInt(gasLimit, 10))
-    });
+    const nonceResponse = yield zilliqa.blockchain.getBalance(address);
+    const nonceData = nonceResponse.result.nonce || { nonce: 1 };
+    const nonce: number = nonceData.nonce + 1;
+
+    const wallet = zilliqa.wallet;
+    wallet.addByPrivateKey(privateKey);
+
+    const tx = yield wallet.sign(
+      new Transaction(
+        {
+          version: VERSION,
+          toAddr: toAddress,
+          amount: units.toQa(amount, units.Units.Zil),
+          gasPrice: units.toQa(gasPrice, units.Units.Zil),
+          gasLimit: Long.fromNumber(parseInt(gasLimit, 10)),
+          pubKey: publicKey,
+          nonce
+        },
+        provider
+      )
+    );
 
     // Send a transaction to the network
-    const txInfo = yield zilliqa.blockchain.createTransaction(tx);
+    const { result } = yield provider.send(RPCMethod.CreateTransaction, tx.txParams);
+    const id = result.TranID;
 
     yield put({
       type: consts.SEND_TX_SUCCEEDED,
-      payload: { txInfo }
+      payload: { txInfo: { id } }
     });
   } catch (error) {
     console.log(error);

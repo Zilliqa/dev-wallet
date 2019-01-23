@@ -1,9 +1,9 @@
 @value colors: "../../assets/colors/colors.css";
-@value --green700 from colors;
+@value --blue500 from colors;
 
 .circle-loader {
   border: 2px solid rgba(0, 0, 0, 0.1);
-  border-left-color: --green700;
+  border-left-color: --blue500;
   animation: loader-spin 1.2s infinite linear;
   position: relative;
   display: inline-block;
@@ -16,7 +16,7 @@
 .load-complete {
   -webkit-animation: none;
   animation: none;
-  border-color: --green700;
+  border-color: --blue500;
   transition: border 500ms ease-out;
 }
 
@@ -40,8 +40,8 @@
   height: 3.5em;
   width: 1.75em;
   transform-origin: left top;
-  border-right: 3px solid --green700;
-  border-top: 3px solid --green700;
+  border-right: 3px solid --blue500;
+  border-top: 3px solid --blue500;
   content: '';
   left: 1.75em;
   top: 3.5em;

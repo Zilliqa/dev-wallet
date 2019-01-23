@@ -126,8 +126,13 @@ class FaucetForm extends React.Component<IProps, IState> {
                           </p>
                         </div>
                         {isFaucetComplete ? (
-                          <p className="pt-4 text-success">
-                            <b>{'Succeeded to run faucet.'}</b>
+                          <p className="pt-4 text-secondary">
+                            <span className="text-primary">{'Transaction In Process'}</span>
+                            <br />
+                            <br />
+                            <small>{'Your transaction is pending blockchain confirmation.'}</small>
+                            <br />
+                            <small>{'Please check after a few minutes.'}</small>
                           </p>
                         ) : null}
                       </div>

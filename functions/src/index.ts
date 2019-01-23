@@ -4,7 +4,6 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import axios from 'axios';
 import * as admin from 'firebase-admin';
-
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -12,6 +11,8 @@ app.use(bodyParser.json());
 const { Zilliqa } = require('@zilliqa-js/zilliqa');
 const { Long, bytes, units } = require('@zilliqa-js/util');
 const { getAddressFromPrivateKey, getPubKeyFromPrivateKey } = require('@zilliqa-js/crypto');
+const { Transaction } = require('@zilliqa-js/account');
+const { HTTPProvider, RPCMethod } = require('@zilliqa-js/core');
 
 const PRIVATE_KEY = functions.config().faucet.private_key;
 const PUBLIC_KEY = getPubKeyFromPrivateKey(PRIVATE_KEY);
@@ -24,7 +25,9 @@ const MSG_VERSION = parseInt(functions.config().faucet.msg_version, 10);
 const VERSION = bytes.pack(CHAIN_ID, MSG_VERSION);
 const ADDRESS = getAddressFromPrivateKey(PRIVATE_KEY);
 
-const zilliqa = new Zilliqa(TESTNET_URL);
+const provider = new HTTPProvider(TESTNET_URL);
+const zilliqa = new Zilliqa(TESTNET_URL, provider);
+
 zilliqa.wallet.addByPrivateKey(PRIVATE_KEY);
 
 admin.initializeApp(functions.config().firebase);
@@ -82,23 +85,31 @@ async function runFaucet(toAddr) {
     const gasPrice = units.toQa(await getGasPrice(), units.Units.Li); // Minimum gasPrice measured in Li, converting to Qa.
     const pubKey = PUBLIC_KEY;
 
-    // const nonce: number = await getNonce(NETWORK, ADDRESS);
+    const nonce: number = await getNonce(NETWORK, ADDRESS);
     // await updateNonce(NETWORK, ADDRESS, nonce + 1);
 
-    // Create a transaction
+    const wallet = zilliqa.wallet;
+    wallet.addByPrivateKey(PRIVATE_KEY);
 
-    const tx = zilliqa.transactions.new({
-      version: VERSION,
-      toAddr,
-      amount,
-      gasPrice,
-      gasLimit
-      // nonce,
-      // pubKey
-    });
-    console.log('tx Params: ', tx.txParams);
+    const tx = await wallet.sign(
+      new Transaction(
+        {
+          version: VERSION,
+          toAddr,
+          amount,
+          gasPrice,
+          gasLimit,
+          pubKey,
+          nonce
+        },
+        provider
+      )
+    );
+
     // Send a transaction to the network
-    return await zilliqa.blockchain.createTransaction(tx);
+    const { result } = await provider.send(RPCMethod.CreateTransaction, tx.txParams);
+    const txId = result.TranID;
+    return txId;
   } catch (error) {
     console.log(error);
   }
@@ -148,8 +159,8 @@ app.post('/run', async (req, res) => {
   }
 
   try {
-    const result = await runFaucet(address);
-    res.status(200).json({ ...result });
+    const txId = await runFaucet(address);
+    res.status(200).json({ txId });
   } catch (error) {
     res.status(500).json({ errorCode: 500, errorMessage: error.message });
   }

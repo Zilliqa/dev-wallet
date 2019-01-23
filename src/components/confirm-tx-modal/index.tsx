@@ -81,35 +81,42 @@ class SendTxModal extends React.Component<IProps, IState> {
     if (txInfo) {
       txId = txInfo.id;
     }
-    const guideMessage = 'Generated transaction successfully';
+
     return (
       <div className="text-center pt-5">
         <SpinnerWithCheckMark loading={!isComplete} />
         {isSubmitting ? (
           <div className="text-center py-4">
             <p className="text-secondary text-fade-in">
-              {'Sending Transaction'}
+              <b>{'Sending Transaction'}</b>
               <br />
-              <small>{'Please kindly wait. It might take a while.'}</small>
+              <small>{'Please kindly wait.'}</small>
             </p>
           </div>
         ) : null}
         {isComplete ? (
           <div>
-            <p className="pt-4 text-success">{guideMessage}</p>
+            <p className="pt-4 text-secondary">
+              <span className="text-primary">{'Faucet In Process'}</span>
+              <br />
+              <br />
+              <small>{'the transaction is pending blockchain confirmation.'}</small>
+              <br />
+              <small>{'Please check after a few minutes.'}</small>
+            </p>
             {txId ? (
-              <a
-                target="_blank"
-                href={`https://explorer.zilliqa.com/transactions/${txId}`}
-                rel="noreferrer"
-              >
-                {'View Transaction'}
-              </a>
+              <u>
+                <a
+                  target="_blank"
+                  href={`https://explorer.zilliqa.com/transactions/${txId}`}
+                  rel="noreferrer"
+                >
+                  {'View Your Transaction'}
+                </a>
+              </u>
             ) : null}
-
             <br />
-            <br />
-            <div className="py-3">
+            <div className="py-5">
               <Button
                 text={'Confirm'}
                 type="primary"
