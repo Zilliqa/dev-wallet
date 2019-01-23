@@ -38,17 +38,20 @@ export default function zil(state = initialState, action) {
     case consts.RUN_FAUCET:
       return {
         ...state,
-        faucetStatus: requestStatus.PENDING
+        faucetStatus: requestStatus.PENDING,
+        faucetTxId: undefined
       };
     case consts.RUN_FAUCET_SUCCEEDED:
       return {
         ...state,
-        faucetStatus: requestStatus.SUCCEED
+        faucetStatus: requestStatus.SUCCEED,
+        faucetTxId: action.payload.faucetTxId
       };
     case consts.RUN_FAUCET_FAILED:
       return {
         ...state,
-        faucetStatus: requestStatus.FAILED
+        faucetStatus: requestStatus.FAILED,
+        faucetTxId: undefined
       };
     case consts.SEND_TX:
       return {

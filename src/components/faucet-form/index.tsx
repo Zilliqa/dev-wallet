@@ -14,6 +14,7 @@ interface IProps {
   runFaucet: (address: string, token: string) => void;
   clear: () => void;
   faucetStatus?: string;
+  faucetTxId?: string;
   publicKey: string;
   address: string;
   network: string;
@@ -60,7 +61,7 @@ class FaucetForm extends React.Component<IProps, IState> {
   }
 
   public render() {
-    const { address, network } = this.props;
+    const { address, network, faucetTxId } = this.props;
     const {
       isUpdatingBalance,
       balance,
@@ -118,22 +119,39 @@ class FaucetForm extends React.Component<IProps, IState> {
                     {isRunningFaucet || isFaucetComplete ? (
                       <div>
                         <SpinnerWithCheckMark loading={isRunningFaucet} />
-                        <div className="text-center py-4">
-                          <p className="text-secondary text-fade-in">
-                            {'Running Faucet'}
-                            <br />
-                            <small>{'Please kindly wait. It might take a while.'}</small>
-                          </p>
-                        </div>
+                        {isRunningFaucet ? (
+                          <div className="text-center py-4">
+                            <p className="text-secondary text-fade-in">
+                              {'Running Faucet'}
+                              <br />
+                              <small>{'Please kindly wait. It might take a while.'}</small>
+                            </p>
+                          </div>
+                        ) : null}
                         {isFaucetComplete ? (
-                          <p className="pt-4 text-secondary">
-                            <span className="text-primary">{'Transaction In Process'}</span>
-                            <br />
-                            <br />
-                            <small>{'Your transaction is pending blockchain confirmation.'}</small>
-                            <br />
-                            <small>{'Please check after a few minutes.'}</small>
-                          </p>
+                          <div>
+                            <p className="pt-4 text-secondary">
+                              <span className="text-primary">{'Transaction In Process'}</span>
+                              <br />
+                              <br />
+                              <small>
+                                {'Your transaction is pending blockchain confirmation.'}
+                              </small>
+                              <br />
+                              <small>{'Please check after a few minutes.'}</small>
+                            </p>
+                            {faucetTxId ? (
+                              <u>
+                                <a
+                                  target="_blank"
+                                  href={`https://explorer.zilliqa.com/transactions/${faucetTxId}`}
+                                  rel="noreferrer"
+                                >
+                                  {'View Your Transaction'}
+                                </a>
+                              </u>
+                            ) : null}
+                          </div>
                         ) : null}
                       </div>
                     ) : (
@@ -188,6 +206,7 @@ class FaucetForm extends React.Component<IProps, IState> {
 }
 
 const mapStateToProps = (state) => ({
+  faucetTxId: state.zil.faucetTxId,
   faucetStatus: state.zil.faucetStatus,
   network: state.zil.network,
   address: state.zil.address,

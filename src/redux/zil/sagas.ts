@@ -10,7 +10,6 @@ import axios from 'axios';
 import * as consts from './actions';
 import { HOST } from '../../api';
 import { CHAIN_ID, MSG_VERSION } from '../../constants';
-import { encodeTransactionProto } from '@zilliqa-js/account/dist/util';
 
 const VERSION = bytes.pack(CHAIN_ID, MSG_VERSION);
 
@@ -107,14 +106,18 @@ export function* runFaucet(action) {
     };
     const data = JSON.stringify({ address, token });
 
-    yield axios({
+    const res = yield axios({
       method: 'post',
       url,
       headers,
       data
     });
 
-    yield put({ type: consts.RUN_FAUCET_SUCCEEDED });
+    const faucetTxId = res.data.txId;
+    yield put({
+      type: consts.RUN_FAUCET_SUCCEEDED,
+      payload: { faucetTxId }
+    });
   } catch (error) {
     console.log(error);
     yield put({ type: consts.RUN_FAUCET_FAILED });
