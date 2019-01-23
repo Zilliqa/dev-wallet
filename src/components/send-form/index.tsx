@@ -252,7 +252,7 @@ class SendForm extends React.Component<IProps, IState> {
   }
 
   private closeModal = () => {
-    this.setState(initialState);
+    this.setState({ ...initialState, balance: this.state.balance, gasPrice: this.state.gasPrice });
   };
 
   private changeToAddress = (e: React.ChangeEvent<HTMLInputElement>): void => {
