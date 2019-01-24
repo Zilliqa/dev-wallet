@@ -10,11 +10,7 @@ app.use(bodyParser.json());
 
 const { Zilliqa } = require('@zilliqa-js/zilliqa');
 const { Long, bytes, units } = require('@zilliqa-js/util');
-const {
-  getAddressFromPrivateKey,
-  getPubKeyFromPrivateKey,
-  toChecksumAddress
-} = require('@zilliqa-js/crypto');
+const { getAddressFromPrivateKey, getPubKeyFromPrivateKey } = require('@zilliqa-js/crypto');
 const { Transaction } = require('@zilliqa-js/account');
 const { HTTPProvider, RPCMethod } = require('@zilliqa-js/core');
 

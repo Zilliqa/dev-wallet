@@ -154,6 +154,13 @@ input[type=number]::placeholder {
   animation: fadein 1.5s;
 }
 
+.blockchain-detail {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  color: --gray500;
+}
+
 .text-fade-in {
   -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 1s; /* Firefox < 16 */
