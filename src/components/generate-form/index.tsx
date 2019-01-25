@@ -99,7 +99,7 @@ class GenerateForm extends React.Component<{}, IState> {
         <div>
           <Form className="mt-4">
             <FormGroup>
-              <Label for="Passphrase">
+              <Label for="passphrase">
                 <small>
                   <b>{'Passphrase'}</b>
                 </small>
