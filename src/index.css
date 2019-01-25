@@ -161,6 +161,12 @@ input[type=number]::placeholder {
   position: relative;
 }
 
+.release-text {
+  color: --gray300;
+  padding-left: 5px;
+  font-size: 10px;
+}
+
 .blockchain-detail {
   position: absolute;
   bottom: 5px;

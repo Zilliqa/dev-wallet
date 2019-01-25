@@ -22,7 +22,10 @@ class Header extends React.Component<IProps, {}> {
     return (
       <div>
         <Navbar fixed={'top'} dark={true} expand="md" color="faded">
-          <NavbarBrand href="/">{'Nucleus Wallet'}</NavbarBrand>
+          <NavbarBrand href="/">
+            {'Nucleus Wallet'}
+            <small className="release-text">{'alpha'}</small>
+          </NavbarBrand>
           <div className="network">{this.props.network} network</div>
           {authStatus === requestStatus.SUCCEED ? (
             <Nav className="ml-auto" navbar={true} style={{ marginRight: 150 }}>
