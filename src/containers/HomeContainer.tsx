@@ -20,9 +20,7 @@ class Home extends React.Component {
               </div>
             </div>
           </div>
-
           <br />
-
           <div className="blockchain-detail">
             <small>Chain ID: {CHAIN_ID}</small>
             {' | '}

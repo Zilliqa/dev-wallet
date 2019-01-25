@@ -147,18 +147,21 @@ input[type=number]::placeholder {
   padding: 9rem;
   color: --white;
   margin: 0;
-  -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 1.5s; /* Firefox < 16 */
-  animation: fadein 1.5s;
 }
 
 .nucleus-header > h1 {
   position: relative;
   font-size: 60px;
+  -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1.5s; /* Firefox < 16 */
+  animation: fadein 1.5s;
 }
 
 .nucleus-header > p {
   position: relative;
+  -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1.5s; /* Firefox < 16 */
+  animation: fadein 1.5s;
 }
 
 .release-text {
