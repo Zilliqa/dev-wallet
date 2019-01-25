@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 import * as H from 'history';
 import { paths } from '../../routes';
 import './style.css';
-import { FaHome, FaTint, FaPaperPlane } from 'react-icons/fa';
-import { MdAddBox } from 'react-icons/md';
+import { FaHome, FaPlusSquare, FaTint, FaPaperPlane } from 'react-icons/fa';
 
 interface IProps {
   history: H.History;
@@ -27,7 +26,7 @@ class Sidebar extends React.Component<IProps, {}> {
         <div className="sidebar-wrapper">
           <ul className="sidebar-nav">
             <NavItem>{renderLink(paths.home, 'Home', <FaHome />)}</NavItem>
-            <NavItem>{renderLink(paths.generate, 'Create New Wallet', <MdAddBox />)}</NavItem>
+            <NavItem>{renderLink(paths.generate, 'Create New Wallet', <FaPlusSquare />)}</NavItem>
             <NavItem>{renderLink(paths.send, 'Send ZIL', <FaPaperPlane />)}</NavItem>
             <NavItem>{renderLink(paths.faucet, 'ZIL Faucet', <FaTint />)}</NavItem>
           </ul>

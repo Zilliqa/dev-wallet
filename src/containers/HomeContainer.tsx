@@ -8,26 +8,27 @@ class Home extends React.Component {
       <div>
         <Layout>
           <div className="nucleus-header-container text-center">
-            <div className="nucleus-header">
-              <h1 className="nucleus-header-title">Nucleus Wallet</h1>
+            <div className="nucleus-header-bg">
+              <div className="nucleus-header">
+                <h1>Nucleus Wallet</h1>
+                <p className="pt-2">
+                  Nucleus Wallet is <b>testnet-based</b> wallet.
+                  <br />
+                  Kindly use this wallet for <b>testing purpose only</b>.
+                  <br />
+                </p>
+              </div>
             </div>
           </div>
-          <div className="nucleus-description">
-            <p>
-              Nucleus Wallet is <b>testnet-based</b> wallet.
-              <br />
-              Kindly use this wallet for <b>testing purpose only</b>.
-              <br />
-            </p>
-            <br />
-            <br />
-            <div className="blockchain-detail">
-              <small>Chain ID: {CHAIN_ID}</small>
-              {' | '}
-              <small>Msg Ver: {MSG_VERSION}</small>
-              {' | '}
-              <small>Node URL: {NODE_URL}</small>
-            </div>
+
+          <br />
+
+          <div className="blockchain-detail">
+            <small>Chain ID: {CHAIN_ID}</small>
+            {' | '}
+            <small>Msg Ver: {MSG_VERSION}</small>
+            {' | '}
+            <small>Node URL: {NODE_URL}</small>
           </div>
         </Layout>
       </div>

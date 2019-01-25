@@ -30,6 +30,14 @@ body {
   overflow-x: hidden;
 }
 
+a {
+  color: --blue500;
+}
+
+a:hover {
+  color: --blue700;
+}
+
 .bg-dark {
   background-color: --black !important;
 }
@@ -129,29 +137,28 @@ input[type=number]::placeholder {
   content: "";
 }
 
-.nucleus-header {
+.nucleus-header-bg {
   background-image: url(./assets/images/nucleus-bg.jpg);
   background-size: cover;
   background-position: top center;
 }
 
-.nucleus-header-title {
-  position: relative;
-  padding: 8rem;
+.nucleus-header {
+  padding: 9rem;
   color: --white;
   margin: 0;
-  font-size: 50px;
   -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 1.5s; /* Firefox < 16 */
   animation: fadein 1.5s;
 }
 
-.nucleus-description {
-  padding-top: 3rem;
-  text-align: center;
-  -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 1.5s; /* Firefox < 16 */
-  animation: fadein 1.5s;
+.nucleus-header > h1 {
+  position: relative;
+  font-size: 60px;
+}
+
+.nucleus-header > p {
+  position: relative;
 }
 
 .blockchain-detail {
