@@ -27,7 +27,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: scroll;
 }
 
 a {
@@ -144,14 +144,14 @@ input[type=number]::placeholder {
 }
 
 .nucleus-header {
-  padding: 9rem;
+  padding: 4rem;
   color: --white;
   margin: 0;
 }
 
 .nucleus-header > h1 {
   position: relative;
-  font-size: 60px;
+  font-size: 50px;
   -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 1.5s; /* Firefox < 16 */
   animation: fadein 1.5s;
@@ -159,6 +159,7 @@ input[type=number]::placeholder {
 
 .nucleus-header > p {
   position: relative;
+  font-size: 15px;
   -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 1.5s; /* Firefox < 16 */
   animation: fadein 1.5s;
@@ -170,10 +171,8 @@ input[type=number]::placeholder {
   font-size: 10px;
 }
 
-.blockchain-detail {
-  position: absolute;
-  bottom: 5px;
-  right: 10px;
+.node-info {
+  font-size: 12px;
   color: --gray500;
 }
 
