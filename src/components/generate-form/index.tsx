@@ -10,12 +10,14 @@ import Worker from '../../encrypt.worker';
 import Spinner from '../spinner';
 import { getInputValidationState, downloadObjectAsJson } from '../../utils';
 import { requestStatus } from '../../constants';
+import { Disclaimer } from '../disclaimer';
 
 const FIRST_STEP = 0;
 const SECOND_STEP = 1;
 const FINAL_STEP = 2;
 
 interface IState {
+  isDisclaimerChecked: boolean;
   passphrase: string;
   passphraseValid: boolean;
   passphraseInvalid: boolean;
@@ -28,6 +30,7 @@ interface IState {
 class GenerateForm extends React.Component<{}, IState> {
   public worker;
   public readonly state: IState = {
+    isDisclaimerChecked: false,
     passphrase: '',
     passphraseValid: false,
     passphraseInvalid: false,
@@ -83,7 +86,9 @@ class GenerateForm extends React.Component<{}, IState> {
   }
 
   private renderPassphraseStep = () => {
-    const { passphraseValid } = this.state;
+    const { passphraseValid, isDisclaimerChecked } = this.state;
+    const isDisabled = !passphraseValid || !isDisclaimerChecked;
+
     return (
       <div>
         <div className="text-center">
@@ -120,14 +125,23 @@ class GenerateForm extends React.Component<{}, IState> {
               <FormFeedback>{'invalid passphrase'}</FormFeedback>
               <FormFeedback valid={true}>{'valid passphrase'}</FormFeedback>
             </FormGroup>
-            <div className="py-4 text-center">
-              <Button
-                text={'Confirm'}
-                type="primary"
-                ariaLabel={'Confirm'}
-                onClick={() => this.setState({ currentStep: SECOND_STEP })}
-                disabled={!passphraseValid}
-              />
+            <br />
+
+            <div className="px-3">
+              <FormGroup inline={true}>
+                <Label check={isDisclaimerChecked} onChange={this.handleCheck}>
+                  <Input type="checkbox" /> <Disclaimer />
+                </Label>
+              </FormGroup>
+              <div className="text-center">
+                <Button
+                  text={'Confirm'}
+                  type="primary"
+                  ariaLabel={'Confirm'}
+                  onClick={() => this.setState({ currentStep: SECOND_STEP })}
+                  disabled={isDisabled}
+                />
+              </div>
             </div>
           </Form>
         </div>
@@ -194,6 +208,9 @@ class GenerateForm extends React.Component<{}, IState> {
     );
   };
 
+  private handleCheck = () => {
+    this.setState({ isDisclaimerChecked: !this.state.isDisclaimerChecked });
+  };
   private generateKeystore = () => {
     const { passphrase } = this.state;
     this.setState({ encryptStatus: requestStatus.PENDING }, () =>

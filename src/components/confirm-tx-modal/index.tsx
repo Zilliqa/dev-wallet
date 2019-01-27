@@ -4,6 +4,7 @@ import { Modal, ModalHeader, Row, Col } from 'reactstrap';
 import { requestStatus } from '../../constants';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { Disclaimer } from '../disclaimer';
 
 interface IProps {
   sendTx: (toAddress, amount, gasLimit, gasPrice) => void;
@@ -22,14 +23,14 @@ interface IState {
   isSubmitting: boolean;
   isComplete: boolean;
   isFailed: boolean;
-  isChecked: boolean;
+  isDisclaimerChecked: boolean;
 }
 
 const initialState = {
   isSubmitting: false,
   isComplete: false,
   isFailed: false,
-  isChecked: false
+  isDisclaimerChecked: false
 };
 
 class SendTxModal extends React.Component<IProps, IState> {
@@ -40,7 +41,12 @@ class SendTxModal extends React.Component<IProps, IState> {
       this.props.sendTxStatus === requestStatus.PENDING &&
       nextProps.sendTxStatus === requestStatus.FAILED
     ) {
-      this.setState({ isSubmitting: false, isFailed: true, isComplete: false, isChecked: false });
+      this.setState({
+        isSubmitting: false,
+        isFailed: true,
+        isComplete: false,
+        isDisclaimerChecked: false
+      });
     }
     if (
       this.props.sendTxStatus === requestStatus.PENDING &&
@@ -132,8 +138,8 @@ class SendTxModal extends React.Component<IProps, IState> {
 
   private renderCreateForm = () => {
     const { toAddress, amount, gasLimit, gasPrice } = this.props;
-    const { isSubmitting, isFailed, isChecked } = this.state;
-    const isSubmitButtonDisabled = isSubmitting || !isChecked;
+    const { isSubmitting, isFailed, isDisclaimerChecked } = this.state;
+    const isSubmitButtonDisabled = isSubmitting || !isDisclaimerChecked;
     const submitButtonText = 'Confirm';
     const messageForTxFailure = 'Failed to send transaction. Please try again later.';
     return (
@@ -189,13 +195,8 @@ class SendTxModal extends React.Component<IProps, IState> {
         <br />
         <Form>
           <FormGroup inline={true} className="px-5 text-center">
-            <Label check={this.state.isChecked} onChange={this.handleCheck}>
-              <Input type="checkbox" />{' '}
-              <small className="text-danger">
-                <b>
-                  <u>This wallet is testnet-based. Use this for testing purpose only</u>
-                </b>
-              </small>
+            <Label check={this.state.isDisclaimerChecked} onChange={this.handleCheck}>
+              <Input type="checkbox" /> <Disclaimer />
             </Label>
           </FormGroup>
           <div className="text-center pt-2 pb-4">
@@ -219,7 +220,7 @@ class SendTxModal extends React.Component<IProps, IState> {
   };
 
   private handleCheck = () => {
-    this.setState({ isChecked: !this.state.isChecked });
+    this.setState({ isDisclaimerChecked: !this.state.isDisclaimerChecked });
   };
 
   private handleToggle = () => {

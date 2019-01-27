@@ -1,5 +1,5 @@
 @value colors: "./assets/colors/colors.css";
-@value --white, --gray100, --gray300, --gray500, --gray700, --blue500, --blue700, --green500, --green700, --red500, --red700 yellow500, --black from colors;
+@value --white, --gray100, --gray300, --gray500, --gray700, --blue500, --blue700, --blue800, --green500, --green700, --red500, --red700 yellow500, --black from colors;
 
 @font-face {
   font-family: 'Noto Sans';
@@ -44,6 +44,10 @@ a:hover {
 
 .text-primary {
   color: --blue500 !important;
+}
+
+.text-nucleus {
+  color: --blue800 !important;
 }
 
 .valid-feedback,
