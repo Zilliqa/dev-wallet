@@ -20,8 +20,14 @@ class SendContainer extends React.Component<IProps, {}> {
       <div>
         <Layout>
           <div className="px-5 pt-4">
-            <span className="pl-1 text-secondary">Send ZIL</span>
-            {isAuth ? <SendForm /> : <AccessForm />}
+            {isAuth ? (
+              <SendForm />
+            ) : (
+              <div>
+                <span className="pl-1 text-secondary">Send ZIL</span>
+                <AccessForm />
+              </div>
+            )}
           </div>
         </Layout>
       </div>
