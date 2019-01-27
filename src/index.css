@@ -138,7 +138,7 @@ input[type=number]::placeholder {
 }
 
 .nucleus-header-bg {
-  background-image: url(./assets/images/nucleus-bg.jpg);
+  background-image: url(./assets/images/nucleus-bg.webp);
   background-size: cover;
   background-position: top center;
 }
