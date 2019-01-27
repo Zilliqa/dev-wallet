@@ -15,11 +15,10 @@ class Home extends React.Component {
               <div className="nucleus-header">
                 <h1>Nucleus Wallet</h1>
                 <p className="pt-2">
-                  Nucleus Wallet is <b>testnet-based</b> wallet.
+                  This is Zilliqa <b>Test Net</b> wallet.
                   <br />
                   <small>
-                    WARNING: This is a Zilliqa testnet. Please do not send any interim ERC-20 ZIL
-                    tokens to this wallet.
+                    WARNNING: Please do not send any interim ERC-20 ZIL tokens to this wallet.
                   </small>
                   <br />
                 </p>

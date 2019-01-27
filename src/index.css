@@ -144,7 +144,7 @@ input[type=number]::placeholder {
 }
 
 .nucleus-header {
-  padding: 4rem;
+  padding: 5rem;
   color: --white;
   margin: 0;
 }
