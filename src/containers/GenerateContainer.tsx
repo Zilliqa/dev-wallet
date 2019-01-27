@@ -13,7 +13,7 @@ class CreateContainer extends React.Component<IProps, {}> {
     return (
       <div>
         <Layout>
-          <div style={{ padding: 25 }}>
+          <div className="p-5">
             <GenerateForm />
           </div>
         </Layout>

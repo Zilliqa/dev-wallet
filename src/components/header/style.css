@@ -8,13 +8,7 @@ nav.navbar {
 .network {
   font-size: 13px;
   font-weight: 500;
-  position: absolute;
-  padding: 1rem 0;
-  right: 0;
-  top: 0;
   min-width: 148px;
-  display: inline-block;
-  width: 8%;
   color: --green500;
   text-align: center;
   line-height: 24px;
@@ -29,4 +23,10 @@ nav.navbar {
   background-color: --green500;
   border-radius: 50%;
   margin-right: 6px;
+}
+
+@media only screen and (min-width: 575px) {
+  .sidebar-link {
+    display: none;
+  }
 }

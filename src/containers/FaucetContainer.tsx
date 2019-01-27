@@ -19,7 +19,7 @@ class FaucetContainer extends React.Component<IProps, {}> {
     return (
       <div>
         <Layout>
-          <div style={{ padding: 25 }}>{isAuth ? <FaucetForm /> : <AccessForm />}</div>
+          <div className="p-5">{isAuth ? <FaucetForm /> : <AccessForm />}</div>
         </Layout>
       </div>
     );

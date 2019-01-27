@@ -1,12 +1,13 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { Navbar, NavItem, NavLink, NavbarBrand } from 'reactstrap';
+import { Navbar, Nav, NavItem, NavLink, NavbarBrand, Collapse, NavbarToggler } from 'reactstrap';
 import * as H from 'history';
 import './style.css';
-import Nav from 'reactstrap/lib/Nav';
 import * as zilActions from '../../redux/zil/actions';
 import { requestStatus } from '../../constants';
+import { Link } from 'react-router-dom';
+import { paths } from '../../routes';
 
 interface IProps {
   history: H.History;
@@ -17,25 +18,54 @@ interface IProps {
 }
 
 class Header extends React.Component<IProps, {}> {
+  public readonly state = {
+    isOpen: false
+  };
   public render() {
     const { authStatus } = this.props;
+    const isAuth = authStatus === requestStatus.SUCCEED;
+
+    const renderNetwork = () => <span className="network">{this.props.network} network</span>;
     return (
       <div>
-        <Navbar fixed={'top'} dark={true} expand="md" color="faded">
+        <Navbar fixed={'top'} dark={true} color="faded" expand="sm">
           <NavbarBrand href="/">
             {'Nucleus Wallet'}
             <small className="release-text">{'alpha'}</small>
           </NavbarBrand>
-          <div className="network">{this.props.network} network</div>
-          {authStatus === requestStatus.SUCCEED ? (
-            <Nav className="ml-auto" navbar={true} style={{ marginRight: 150 }}>
-              <NavItem>
+
+          <NavbarToggler onClick={() => this.setState({ isOpen: !this.state.isOpen })} />
+
+          <Collapse isOpen={this.state.isOpen} navbar={true}>
+            <Nav className="ml-auto" navbar={true}>
+              <NavItem className="sidebar-link">
+                <Link to={paths.home} className={`nav-link`}>
+                  {'Home'}
+                </Link>
+              </NavItem>
+              <NavItem className="sidebar-link">
+                <Link to={paths.generate} className={`nav-link`}>
+                  {'Create New Wallet'}
+                </Link>
+              </NavItem>
+              <NavItem className="sidebar-link">
+                <Link to={paths.send} className={`nav-link`}>
+                  {'Send ZIL'}
+                </Link>
+              </NavItem>
+              <NavItem className="sidebar-link">
+                <Link to={paths.faucet} className={`nav-link`}>
+                  {'ZIL Faucet'}
+                </Link>
+              </NavItem>
+              {isAuth ? (
                 <NavLink style={{ cursor: 'pointer' }} onClick={this.signOut}>
                   {'Sign Out'}
                 </NavLink>
-              </NavItem>
+              ) : null}
+              <span className="nav-link">{renderNetwork()}</span>
             </Nav>
-          ) : null}
+          </Collapse>
         </Navbar>
       </div>
     );

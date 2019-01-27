@@ -22,14 +22,16 @@ class Sidebar extends React.Component<IProps, {}> {
       </Link>
     );
     return (
-      <div className="sidebar-background">
-        <div className="sidebar-wrapper">
-          <ul className="sidebar-nav">
-            <NavItem>{renderLink(paths.home, 'Home', <FaHome />)}</NavItem>
-            <NavItem>{renderLink(paths.generate, 'Create New Wallet', <FaPlusSquare />)}</NavItem>
-            <NavItem>{renderLink(paths.send, 'Send ZIL', <FaPaperPlane />)}</NavItem>
-            <NavItem>{renderLink(paths.faucet, 'ZIL Faucet', <FaTint />)}</NavItem>
-          </ul>
+      <div className="sidebar">
+        <div className="sidebar-background">
+          <div className="sidebar-wrapper">
+            <ul className="sidebar-nav">
+              <NavItem>{renderLink(paths.home, 'Home', <FaHome />)}</NavItem>
+              <NavItem>{renderLink(paths.generate, 'Create New Wallet', <FaPlusSquare />)}</NavItem>
+              <NavItem>{renderLink(paths.send, 'Send ZIL', <FaPaperPlane />)}</NavItem>
+              <NavItem>{renderLink(paths.faucet, 'ZIL Faucet', <FaTint />)}</NavItem>
+            </ul>
+          </div>
         </div>
       </div>
     );
