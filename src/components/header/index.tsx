@@ -34,7 +34,10 @@ class Header extends React.Component<IProps, {}> {
             <small className="release-text">{'alpha'}</small>
           </NavbarBrand>
 
-          <NavbarToggler onClick={() => this.setState({ isOpen: !this.state.isOpen })} />
+          <NavbarToggler
+            onClick={() => this.setState({ isOpen: !this.state.isOpen })}
+            aria-label="toggler"
+          />
 
           <Collapse isOpen={this.state.isOpen} navbar={true}>
             <Nav className="ml-auto" navbar={true}>
