@@ -13,7 +13,8 @@ class CreateContainer extends React.Component<IProps, {}> {
     return (
       <div>
         <Layout>
-          <div className="p-5">
+          <div className="px-5 pt-4">
+            <span className="pl-1 text-secondary">Create New Wallet</span>
             <GenerateForm />
           </div>
         </Layout>
