@@ -1,3 +1,6 @@
+.layout {
+  padding-top: 3.5rem;
+}
 
 @media only screen and (max-width: 575px) {
   .content-section {

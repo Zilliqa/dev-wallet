@@ -11,7 +11,7 @@ const Layout: React.SFC<IProps> = (props) => {
   return (
     <div>
       <Header />
-      <div className="pt-5">
+      <div className="layout">
         <Sidebar />
         <div className="content-section">{props.children}</div>
       </div>

@@ -31,13 +31,10 @@ class Home extends React.Component {
           <div className="container">
             <Row className="pt-4">
               <Col xs={6} sm={6} md={6} lg={6} className="ml-auto mr-auto text-center">
-                <div className="text-center">
-                  <Disclaimer />
-                </div>
+                <Disclaimer />
               </Col>
             </Row>
-            <br />
-            <Row className="pt-3">
+            <Row className="pt-5">
               <Col xs={6} sm={6} md={6} lg={4} className="text-center ml-auto">
                 <MdSecurity size={50} className="text-nucleus" />
                 <div className="text-secondary text-center pt-3">
