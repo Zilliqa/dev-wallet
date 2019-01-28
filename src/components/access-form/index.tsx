@@ -26,6 +26,7 @@ import { requestStatus } from '../../constants';
 // @ts-ignore
 import Worker from '../../decrypt.worker';
 import { getInputValidationState } from '../../utils';
+import { Disclaimer } from '../disclaimer';
 
 const formatFilename = (str: string) => {
   if (str.length > 35) {
@@ -51,6 +52,7 @@ interface IState {
   privateKey: string;
   privateKeyValid: boolean;
   privateKeyInvalid: boolean;
+  isDisclaimerChecked: boolean;
   activeTab: string;
 }
 
@@ -59,6 +61,7 @@ const PRIVATE_KEY_TAB = '1';
 class AccessForm extends React.Component<IProps, IState> {
   public worker;
   public readonly state: IState = {
+    isDisclaimerChecked: false,
     decryptStatus: undefined,
     passphrase: '',
     passphraseValid: false,
@@ -113,6 +116,7 @@ class AccessForm extends React.Component<IProps, IState> {
       privateKeyValid,
       isAccessing,
       decryptStatus,
+      isDisclaimerChecked,
       activeTab
     } = this.state;
 
@@ -124,11 +128,17 @@ class AccessForm extends React.Component<IProps, IState> {
     let isSubmitButtonDisabled = false;
 
     if (activeTab === KEYSTORE_TAB) {
-      if (!passphraseValid || keystoreV3 === undefined || isDecrypting || isAccessing) {
+      if (
+        !passphraseValid ||
+        keystoreV3 === undefined ||
+        isDecrypting ||
+        isAccessing ||
+        !isDisclaimerChecked
+      ) {
         isSubmitButtonDisabled = true;
       }
     } else {
-      if (!privateKeyValid || isAccessing) {
+      if (!privateKeyValid || isAccessing || !isDisclaimerChecked) {
         isSubmitButtonDisabled = true;
       }
     }
@@ -251,6 +261,11 @@ class AccessForm extends React.Component<IProps, IState> {
                       </TabPane>
                     </TabContent>
                     <br />
+                    <FormGroup className="mx-4 px-5" inline={true}>
+                      <Label check={isDisclaimerChecked} onChange={this.handleCheck}>
+                        <Input type="checkbox" /> <Disclaimer />
+                      </Label>
+                    </FormGroup>
                     <div className="text-center">
                       {
                         <Button
@@ -289,6 +304,10 @@ class AccessForm extends React.Component<IProps, IState> {
       </div>
     );
   }
+
+  private handleCheck = () => {
+    this.setState({ isDisclaimerChecked: !this.state.isDisclaimerChecked });
+  };
 
   private toggle = (tab) => {
     if (this.state.activeTab !== tab) {

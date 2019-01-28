@@ -211,6 +211,7 @@ class GenerateForm extends React.Component<{}, IState> {
   private handleCheck = () => {
     this.setState({ isDisclaimerChecked: !this.state.isDisclaimerChecked });
   };
+
   private generateKeystore = () => {
     const { passphrase } = this.state;
     this.setState({ encryptStatus: requestStatus.PENDING }, () =>
