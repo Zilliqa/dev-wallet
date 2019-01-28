@@ -142,9 +142,16 @@ input[type=number]::placeholder {
 }
 
 .nucleus-header-bg {
-  background-image: url(./assets/images/nucleus-bg.webp);
   background-size: cover;
   background-position: top center;
+}
+
+.webp .nucleus-header-bg {
+  background-image: url(./assets/images/nucleus-bg.webp);
+}
+
+.no-webp .nucleus-header-bg {
+  background-image: url(./assets/images/nucleus-bg.jpg);
 }
 
 .nucleus-header {
