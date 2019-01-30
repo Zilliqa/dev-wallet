@@ -25,7 +25,6 @@ class Header extends React.Component<IProps, {}> {
     const { authStatus } = this.props;
     const isAuth = authStatus === requestStatus.SUCCEED;
 
-    const renderNetwork = () => <span className="network">{this.props.network} network</span>;
     return (
       <div>
         <Navbar fixed={'top'} dark={true} color="faded" expand="sm">
@@ -66,7 +65,9 @@ class Header extends React.Component<IProps, {}> {
                   {'Sign Out'}
                 </NavLink>
               ) : null}
-              <span className="nav-link">{renderNetwork()}</span>
+              <span className="nav-link">
+                <span className="network">{this.props.network}</span>
+              </span>
             </Nav>
           </Collapse>
         </Navbar>
