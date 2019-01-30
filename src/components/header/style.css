@@ -1,5 +1,5 @@
 @value colors: "../../assets/colors/colors.css";
-@value --green500, --blue800 from colors;
+@value --green400, --blue800 from colors;
 
 nav.navbar {
   background-color: --blue800;
@@ -9,7 +9,7 @@ nav.navbar {
   font-size: 13px;
   font-weight: 500;
   min-width: 148px;
-  color: --green500;
+  color: --green400;
   text-align: center;
   line-height: 24px;
 }
@@ -20,7 +20,7 @@ nav.navbar {
   height: 8px;
   display: inline-block;
   vertical-align: middle;
-  background-color: --green500;
+  background-color: --green400;
   border-radius: 50%;
   margin-right: 6px;
 }

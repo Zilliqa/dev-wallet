@@ -1,5 +1,5 @@
 @value colors: "./assets/colors/colors.css";
-@value --white, --gray100, --gray300, --gray500, --gray700, --blue500, --blue700, --blue800, --green500, --green700, --red500, --red700 yellow500, --black from colors;
+@value --white, --gray100, --gray300, --gray500, --gray700, --blue500, --blue700, --blue800, --green500, --red500, --red700 yellow500, --black from colors;
 
 @font-face {
   font-family: 'Noto Sans';
@@ -52,11 +52,11 @@ a:hover {
 
 .valid-feedback,
 .text-success {
-  color: --green700 !important;
+  color: --green500 !important;
 }
 
 .form-control.is-valid {
-  border-color: --green700;
+  border-color: --green500;
   background-image: none;
   padding-right: 0;
 }
