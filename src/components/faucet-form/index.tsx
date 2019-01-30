@@ -6,7 +6,7 @@ import Button from '../button';
 import * as zilActions from '../../redux/zil/actions';
 import { connect } from 'react-redux';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { CAPTCHA_SITE_KEY, requestStatus } from '../../constants';
+import { CAPTCHA_SITE_KEY, requestStatus, EXPLORER_URL } from '../../constants';
 import { MdRefresh } from 'react-icons/md';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
 
@@ -144,7 +144,7 @@ class FaucetForm extends React.Component<IProps, IState> {
                               <u>
                                 <a
                                   target="_blank"
-                                  href={`https://explorer.zilliqa.com/transactions/${faucetTxId}`}
+                                  href={`${EXPLORER_URL}/transactions/${faucetTxId}`}
                                   rel="noreferrer"
                                 >
                                   {'View Your Transaction'}

@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../button';
 import { Modal, ModalHeader, Row, Col } from 'reactstrap';
-import { requestStatus } from '../../constants';
+import { requestStatus, EXPLORER_URL } from '../../constants';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { Disclaimer } from '../disclaimer';
@@ -112,11 +112,7 @@ class SendTxModal extends React.Component<IProps, IState> {
             </p>
             {txId ? (
               <u>
-                <a
-                  target="_blank"
-                  href={`https://explorer.zilliqa.com/transactions/${txId}`}
-                  rel="noreferrer"
-                >
+                <a target="_blank" href={`${EXPLORER_URL}/transactions/${txId}`} rel="noreferrer">
                   {'View Your Transaction'}
                 </a>
               </u>
