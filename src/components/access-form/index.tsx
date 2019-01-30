@@ -227,6 +227,8 @@ class AccessForm extends React.Component<IProps, IState> {
                             valid={this.state.passphraseValid}
                             invalid={this.state.passphraseInvalid}
                             placeholder="Enter the passphrase"
+                            // autoComplete="new-password"
+                            autoComplete="off"
                             maxLength={32}
                             minLength={8}
                           />
