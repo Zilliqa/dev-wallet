@@ -3,7 +3,8 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import axios from 'axios';
-import * as admin from 'firebase-admin';
+// import * as admin from 'firebase-admin';
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -30,15 +31,46 @@ const zilliqa = new Zilliqa(TESTNET_URL, provider);
 
 zilliqa.wallet.addByPrivateKey(PRIVATE_KEY);
 
-admin.initializeApp(functions.config().firebase);
-const db = admin.database();
+// admin.initializeApp(functions.config().firebase);
+// const db = admin.database();
 
-function validateAddress(address) {
-  const formattedAddress = (address || '').toUpperCase();
-  if (!/^[a-zA-Z0-9]{40}$/.test(formattedAddress)) {
-    throw new Error('Invalid Address.');
+const validateRecaptchaToken = async (req, res, next) => {
+  console.log('Check if request has the valid Recaptcha token');
+  const { token } = req.body;
+  try {
+    const verificationUrl =
+      'https://www.google.com/recaptcha/api/siteverify?secret=' +
+      RECAPTCHA_SECRET +
+      '&response=' +
+      token +
+      '&remoteip=' +
+      req.connection.remoteAddress;
+
+    const result: any = await axios.post(
+      verificationUrl,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+        }
+      }
+    );
+
+    const responseData = result.data;
+    if (responseData && !responseData.success) {
+      console.log('Invaild recaptcha token');
+      const errorMessage = responseData['error-codes'].join(', ');
+      res.status(400).json({ errorCode: 400, errorMessage: errorMessage });
+    } else {
+      console.log('Vaild recaptcha token');
+    }
+  } catch (error) {
+    res.status(400).json({ errorCode: 400, errorMessage: error.message });
+    console.log(error);
   }
-}
+};
+
+app.use(validateRecaptchaToken);
 
 async function getGasPrice(): Promise<string> {
   try {
@@ -115,41 +147,15 @@ async function runFaucet(address) {
   }
 }
 
-app.post('/run', async (req, res) => {
-  const { token, address } = req.body;
-
-  try {
-    const verificationUrl =
-      'https://www.google.com/recaptcha/api/siteverify?secret=' +
-      RECAPTCHA_SECRET +
-      '&response=' +
-      token +
-      '&remoteip=' +
-      req.connection.remoteAddress;
-
-    const result: any = await axios.post(
-      verificationUrl,
-      {},
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-        }
-      }
-    );
-
-    const responseData = result.data;
-    if (responseData && !responseData.success) {
-      console.log('Invaild recaptcha token');
-      const errorMessage = responseData['error-codes'].join(', ');
-      res.status(400).json({ errorCode: 400, errorMessage: errorMessage });
-    } else {
-      console.log('Vaild recaptcha token');
-    }
-  } catch (error) {
-    res.status(400).json({ errorCode: 400, errorMessage: error.message });
-    console.log(error);
+function validateAddress(address) {
+  const formattedAddress = (address || '').toUpperCase();
+  if (!/^[a-zA-Z0-9]{40}$/.test(formattedAddress)) {
+    throw new Error('Invalid Address.');
   }
+}
 
+app.post('/run', async (req, res) => {
+  const { address } = req.body;
   try {
     validateAddress(address);
     console.log('Vaild address');
