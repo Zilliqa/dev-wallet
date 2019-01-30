@@ -3,7 +3,6 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import axios from 'axios';
-// import * as admin from 'firebase-admin';
 
 const app = express();
 app.use(cors());
@@ -30,9 +29,6 @@ const provider = new HTTPProvider(TESTNET_URL);
 const zilliqa = new Zilliqa(TESTNET_URL, provider);
 
 zilliqa.wallet.addByPrivateKey(PRIVATE_KEY);
-
-// admin.initializeApp(functions.config().firebase);
-// const db = admin.database();
 
 const validateRecaptchaToken = async (req, res, next) => {
   console.log('Check if request has the valid Recaptcha token');
@@ -90,25 +86,11 @@ async function getNonce(network, address) {
     const nextNonce: number = result.nonce + 1;
     console.log('next nonce:', nextNonce);
     return nextNonce;
-
-    // const nonces = [nonce];
-    // const node = (await db.ref(`nodes/${network}`).once('value')).val();
-    // if (node !== null && address === node.address) {
-    //   nonces.push(parseInt(node.nonce, 10));
-    // }
-    // return Math.max(...nonces);
   } catch (error) {
     console.log(error);
     throw new Error('Failed to get nonce.');
   }
 }
-
-// async function updateNonce(network, address, nonce) {
-//   await db.ref().update({
-//     [`nodes/${network}/address`]: address,
-//     [`nodes/${network}/nonce`]: nonce
-//   });
-// }
 
 async function runFaucet(address) {
   try {
@@ -118,7 +100,6 @@ async function runFaucet(address) {
     const pubKey = PUBLIC_KEY;
     const toAddr = address.toLowerCase();
     const nonce: number = await getNonce(NETWORK, ADDRESS);
-    // await updateNonce(NETWORK, ADDRESS, nonce + 1);
 
     const wallet = zilliqa.wallet;
     wallet.addByPrivateKey(PRIVATE_KEY);
