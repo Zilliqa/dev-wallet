@@ -3,4 +3,42 @@ import { storiesOf } from '@storybook/react';
 
 import Spinner from '.';
 
-storiesOf('component.Spinner', module).add('Spinner', () => <Spinner />);
+const options = {
+  showSource: false,
+  showPropTables: false,
+  allowPropTablesToggling: false
+};
+storiesOf('component.Spinner', module)
+  // @ts-ignore
+  .addWithChapters('Spinner', {
+    chapters: [
+      {
+        title: 'Sizes of Spinner',
+        info: '3 Sizes: small, medium, and large.',
+        sections: [
+          {
+            options,
+            sectionFn: () => (
+              <div className="d-flex text-center">
+                <div className="m-4 px-4">
+                  <div>small</div>
+                  <br />
+                  <Spinner size="small" />
+                </div>
+                <div className="m-4 px-4">
+                  <div>medium</div>
+                  <br />
+                  <Spinner size="medium" />
+                </div>
+                <div className="m-4 px-4">
+                  <div>large</div>
+                  <br />
+                  <Spinner size="large" />
+                </div>
+              </div>
+            )
+          }
+        ]
+      }
+    ]
+  });

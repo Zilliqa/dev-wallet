@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './style.module.css';
+import './style.css';
 
 interface IProps {
   size?: 'small' | 'medium' | 'large';
@@ -16,7 +16,7 @@ const Spinner: React.SFC<IProps> = ({ size }) => {
   } else if (size === 'large') {
     style = { width: LARGE, height: LARGE };
   }
-  return <div data-test-id="spinner" className={styles.spinner} style={style} />;
+  return <div data-test-id="spinner" className="spinner" style={style} />;
 };
 
 export default Spinner;
