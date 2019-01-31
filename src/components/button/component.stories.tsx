@@ -4,6 +4,7 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import chaptersAddon from 'react-storybook-addon-chapters';
 
 import Button from '.';
+import Spinner from '../spinner';
 
 const options = {
   showSource: false,
@@ -111,6 +112,17 @@ storiesOf('component.Button', module)
             options,
             sectionFn: () => (
               <div>
+                <Button
+                  before={
+                    <span className="pr-1">
+                      <Spinner size="small" />
+                    </span>
+                  }
+                  type="primary"
+                  text={'loading...'}
+                  onClick={() => console.log('click')}
+                  ariaLabel={'icon before Button'}
+                />{' '}
                 <Button
                   before={<FaArrowLeft />}
                   type="secondary"
