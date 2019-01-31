@@ -34,17 +34,5 @@ describe('Button tests', () => {
       ReactDOM.render(baseComponent({ type: 'secondary' }), div);
       ReactDOM.unmountComponentAtNode(div);
     });
-
-    it('renders warning button crashing', () => {
-      const div = document.createElement('div');
-      ReactDOM.render(baseComponent({ type: 'warning' }), div);
-      ReactDOM.unmountComponentAtNode(div);
-    });
-
-    it('renders danger button without crashing', () => {
-      const div = document.createElement('div');
-      ReactDOM.render(baseComponent({ type: 'danger' }), div);
-      ReactDOM.unmountComponentAtNode(div);
-    });
   });
 });

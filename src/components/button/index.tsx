@@ -16,7 +16,7 @@ interface IProps {
 }
 
 type Size = 'lg' | 'md' | 'sm';
-export type ButtonType = 'primary' | 'secondary' | 'tertiary' | 'warning' | 'danger';
+export type ButtonType = 'primary' | 'secondary' | 'tertiary';
 
 export default class Button extends React.PureComponent<IProps, {}> {
   public static displayName = 'Button';
