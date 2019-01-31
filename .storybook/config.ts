@@ -14,12 +14,12 @@ addDecorator(
      * name to display in the top left corner
      * @type {String}
      */
-    name: 'PROTON-DASHBOARD',
+    name: 'NUCLEUS-WALLET',
     /**
      * URL for name in top left corner to link to
      * @type {String}
      */
-    url: 'https://github.com/zilliqa/proton-dashboard'
+    url: 'https://github.com/zilliqa/nucleus-wallet'
   })
 );
 

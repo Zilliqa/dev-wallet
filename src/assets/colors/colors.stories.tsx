@@ -53,7 +53,7 @@ const getStyle = (key) => ({
   width: 60,
   height: 60,
   borderRadius: 50,
-  margin: 10
+  margin: 5
 });
 
 const sectionOptionsNoProps = {
@@ -72,15 +72,14 @@ storiesOf('Colors', module)
         sections: [
           {
             sectionFn: () => (
-              <div className="d-flex flex-wrap text-center">
+              <div className="d-flex flex-wrap text-center text-secondary" style={{ width: 950 }}>
                 {keyList.map((key) => {
                   return (
-                    <div key={key} className="mx-4">
+                    <div key={key} className="mx-4 my-2">
                       <div style={getStyle(key)} />
-                      <b>{key}</b>
-                      <br />
                       <small>
-                        <b>{colors[key]}</b>
+                        <b>{key}</b>
+                        <div>{colors[key]}</div>
                       </small>
                     </div>
                   );
