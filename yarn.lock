@@ -1886,13 +1886,6 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react-sidebar@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@types/react-sidebar/-/react-sidebar-3.0.0.tgz#1a4c581b3c826ddf5c730a3d302efeeae7490c2a"
-  integrity sha512-9FsJAAzl26nG0L5Yo446e5/5idJxVWktgrp6CiBfizJoTDYr0BkTpZFx3+ucDoy++OYDheWhCIwRtPFEHZOiKQ==
-  dependencies:
-    "@types/react" "*"
-
 "@types/react-test-renderer@^16.0.3":
   version "16.0.3"
   resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-16.0.3.tgz#cce5c983d66cc5c3582e7c2f44b274ab635a8acc"
