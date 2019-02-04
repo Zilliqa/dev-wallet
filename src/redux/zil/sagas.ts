@@ -57,7 +57,6 @@ export function* sendTxSaga(action) {
     const nonceResponse = yield zilliqa.blockchain.getBalance(address);
     const nonceData = nonceResponse.result.nonce || { nonce: 1 };
     const nonce: number = nonceData.nonce + 1;
-
     const toAddr = toAddress.toLowerCase();
 
     const wallet = zilliqa.wallet;
@@ -80,8 +79,13 @@ export function* sendTxSaga(action) {
     const { txParams } = signedTx;
 
     // Send a transaction to the network
-    const { result } = yield provider.send(RPCMethod.CreateTransaction, txParams);
-    const id = result.TranID;
+    const data = yield provider.send(RPCMethod.CreateTransaction, txParams);
+
+    if (data.error !== undefined) {
+      throw Error(data.error.message);
+    }
+
+    const id = data.result.TranID;
 
     yield put({
       type: consts.SEND_TX_SUCCEEDED,
