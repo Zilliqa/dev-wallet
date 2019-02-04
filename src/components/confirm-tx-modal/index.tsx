@@ -103,7 +103,7 @@ class SendTxModal extends React.Component<IProps, IState> {
         {isComplete ? (
           <div>
             <p className="pt-4 text-secondary">
-              <span className="text-primary">{'Faucet In Process'}</span>
+              <span className="text-primary">{'Transaction In Process'}</span>
               <br />
               <br />
               <small>{'the transaction is pending blockchain confirmation.'}</small>
