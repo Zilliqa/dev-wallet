@@ -49,16 +49,16 @@ export function* sendTxSaga(action) {
   yield delay(500);
   try {
     const { payload } = action;
-    const { toAddress, amount, gasLimit, gasPrice } = payload;
+    const { toAddress, amount, gasPrice } = payload;
 
     const zilState = yield select(getZilState);
     const { zilliqa, provider, privateKey, address, publicKey } = zilState;
 
     const nonceResponse = yield zilliqa.blockchain.getBalance(address);
-    const nonceData = nonceResponse.result.nonce || { nonce: 1 };
+    const nonceData = nonceResponse.result.nonce || { nonce: 0 };
     const nonce: number = nonceData.nonce + 1;
-    const toAddr = toAddress.toLowerCase();
 
+    const toAddr = toAddress.toLowerCase();
     const wallet = zilliqa.wallet;
     wallet.addByPrivateKey(privateKey);
 
@@ -66,9 +66,9 @@ export function* sendTxSaga(action) {
       {
         version: VERSION,
         toAddr,
-        amount: units.toQa(amount, units.Units.Zil),
-        gasPrice: units.toQa(gasPrice, units.Units.Zil),
-        gasLimit: Long.fromNumber(parseInt(gasLimit, 10)),
+        amount: units.toQa(amount, units.Units.Zil), // Sending an amount measured in Zil, converting to Qa.
+        gasPrice: units.toQa(gasPrice, units.Units.Li), // Minimum gasPrice measured in Li, converting to Qa.
+        gasLimit: Long.fromNumber(1),
         pubKey: publicKey,
         nonce
       },
