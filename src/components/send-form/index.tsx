@@ -288,17 +288,21 @@ class SendForm extends React.Component<IProps, IState> {
   private getBalance = async () => {
     const { zilliqa, address } = this.props;
     this.setState({ isUpdatingBalance: true });
-    const response = await zilliqa.blockchain.getBalance(address);
+    try {
+      const response = await zilliqa.blockchain.getBalance(address);
+      if (response.error) {
+        this.setState({ isUpdatingBalance: false });
+      } else {
+        if (response.result) {
+          const balanceInQa = response.result.balance;
+          const balanceInZil = units.fromQa(new BN(balanceInQa), units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
 
-    if (response.error) {
-      this.setState({ isUpdatingBalance: false });
-    } else {
-      if (response.result) {
-        const balanceInQa = response.result.balance;
-        const balanceInZil = units.fromQa(new BN(balanceInQa), units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
-
-        this.setState({ balance: balanceInZil, isUpdatingBalance: false });
+          this.setState({ balance: balanceInZil, isUpdatingBalance: false });
+        }
       }
+    } catch (error) {
+      console.log(error);
+      this.setState({ isUpdatingBalance: false });
     }
   };
 }
