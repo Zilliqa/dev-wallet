@@ -189,7 +189,7 @@ class SendTxModal extends React.Component<IProps, IState> {
           </Row>
         </div>
         <br />
-        <Form>
+        <Form onSubmit={(e) => e.preventDefault()}>
           <FormGroup inline={true} className="px-5 text-center">
             <Label check={this.state.isDisclaimerChecked} onChange={this.handleCheck}>
               <Input type="checkbox" /> <Disclaimer />

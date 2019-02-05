@@ -133,7 +133,7 @@ class SendForm extends React.Component<IProps, IState> {
                     <b>{'Send ZIL'}</b>
                   </h2>
                   <Col xs={12} sm={12} md={10} lg={8} className="mr-auto ml-auto">
-                    <Form className="mt-4 text-left">
+                    <Form className="mt-4 text-left" onSubmit={(e) => e.preventDefault()}>
                       <FormGroup>
                         <Label for="Address">
                           <small>

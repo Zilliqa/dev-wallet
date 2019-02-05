@@ -102,7 +102,7 @@ class GenerateForm extends React.Component<{}, IState> {
           </p>
         </div>
         <div>
-          <Form className="mt-4">
+          <Form className="mt-4" onSubmit={(e) => e.preventDefault()}>
             <FormGroup>
               <Label for="passphrase">
                 <small>

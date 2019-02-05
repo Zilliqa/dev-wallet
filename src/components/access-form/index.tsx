@@ -163,7 +163,7 @@ class AccessForm extends React.Component<IProps, IState> {
                   </p>
                 </div>
                 <div>
-                  <Form className="mt-4">
+                  <Form className="mt-4" onSubmit={(e) => e.preventDefault()}>
                     <Nav tabs={true}>
                       <NavItem>
                         <NavLink
