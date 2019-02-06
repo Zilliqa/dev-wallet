@@ -1,6 +1,6 @@
 [![Build Status][travis-svg]][travis-url] [![License][license-svg]][license-url]
 
-# [nucleus-wallet](https://ncls-wllt.firebaseapp.com)
+# [nucleus-wallet](https://dev-wallet.zilliqa.com)
 [![Storybook][storybook-svg]][storybook-url]
 
 ## Installation and Usage
