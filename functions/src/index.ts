@@ -34,7 +34,7 @@ async function getGasPrice(): Promise<string> {
   try {
     const response = await zilliqa.blockchain.getMinimumGasPrice();
     const minGasPrice: string = response.result;
-    return `${minGasPrice}00`;
+    return `${minGasPrice}`;
   } catch (error) {
     console.log(error);
     throw Error('Failed to get minimum gas price.');
