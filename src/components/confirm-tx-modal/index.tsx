@@ -7,11 +7,10 @@ import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { Disclaimer } from '../disclaimer';
 
 interface IProps {
-  sendTx: (toAddress, amount, gasLimit, gasPrice) => void;
+  sendTx: (toAddress, amount, gasPrice) => void;
   isModalOpen: boolean;
   toAddress: string;
   amount: string;
-  gasLimit: string;
   gasPrice: string;
   sendTxStatus?: string;
   closeModal: () => void;
@@ -133,7 +132,7 @@ class SendTxModal extends React.Component<IProps, IState> {
   };
 
   private renderCreateForm = () => {
-    const { toAddress, amount, gasLimit, gasPrice } = this.props;
+    const { toAddress, amount, gasPrice } = this.props;
     const { isSubmitting, isFailed, isDisclaimerChecked } = this.state;
     const isSubmitButtonDisabled = isSubmitting || !isDisclaimerChecked;
     const submitButtonText = 'Confirm';
@@ -155,14 +154,9 @@ class SendTxModal extends React.Component<IProps, IState> {
           {amount} ZIL
           <hr className="my-2" />
           <small className="my-1 text-secondary">
-            <b>{'Gas Limit'}</b>
-          </small>
-          {gasLimit}
-          <hr className="my-2" />
-          <small className="my-1 text-secondary">
             <b>{'Gas Price'}</b>
           </small>
-          {gasPrice}
+          {gasPrice} LI
         </div>
         <br />
         <Form onSubmit={(e) => e.preventDefault()}>
@@ -205,10 +199,8 @@ class SendTxModal extends React.Component<IProps, IState> {
 
   private onSubmit = (e) => {
     e.preventDefault();
-    const { toAddress, amount, gasLimit, gasPrice } = this.props;
-    this.setState({ isSubmitting: true }, () =>
-      this.props.sendTx(toAddress, amount, gasLimit, gasPrice)
-    );
+    const { toAddress, amount, gasPrice } = this.props;
+    this.setState({ isSubmitting: true }, () => this.props.sendTx(toAddress, amount, gasPrice));
   };
 }
 

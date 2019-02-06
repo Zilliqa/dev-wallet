@@ -11,7 +11,7 @@ import ConfirmTxModal from '../confirm-tx-modal';
 import { AccountInfo } from '../account-info';
 
 interface IProps {
-  sendTx: (toAddress, amount, gasLimit, gasPrice) => void;
+  sendTx: (toAddress, amount, gasPrice) => void;
   clear: () => void;
   sendTxStatus?: string;
   publicKey: string;
@@ -32,7 +32,6 @@ interface IState {
   balance: string;
   isUpdatingBalance: boolean;
   gasPrice: string;
-  gasLimit: string;
   isUpdatingGasPrice: boolean;
   isModalOpen: boolean;
 }
@@ -49,7 +48,6 @@ const initialState = {
   balance: '0',
   isUpdatingBalance: false,
   gasPrice: '',
-  gasLimit: '1',
   isUpdatingGasPrice: false
 };
 class SendForm extends React.Component<IProps, IState> {
@@ -85,13 +83,12 @@ class SendForm extends React.Component<IProps, IState> {
       toAddress,
       toAddressInvalid,
       amount,
-      gasPrice,
-      gasLimit
+      gasPrice
     } = this.state;
 
     const isBalanceInsufficient = balance === '0';
     const isSendButtonDisabled = toAddressInvalid || !amount || isBalanceInsufficient;
-    const sendButtonText = 'Send Transaction';
+    const sendButtonText = 'Send';
     return (
       <div>
         <AccountInfo
@@ -106,7 +103,7 @@ class SendForm extends React.Component<IProps, IState> {
               <div className="py-5">
                 <div className="px-4 text-center">
                   <h2 className="pb-2">
-                    <b>{'Send ZIL'}</b>
+                    <b>{'Send'}</b>
                   </h2>
                   <Col xs={12} sm={12} md={10} lg={8} className="mr-auto ml-auto">
                     <Form className="mt-4 text-left" onSubmit={(e) => e.preventDefault()}>
@@ -135,7 +132,7 @@ class SendForm extends React.Component<IProps, IState> {
                       <FormGroup>
                         <Label for="amount">
                           <small>
-                            <b>{'Amount to Send'}</b>
+                            <b>{'Amount to Send (ZILs)'}</b>
                           </small>
                         </Label>
                         <Input
@@ -149,45 +146,22 @@ class SendForm extends React.Component<IProps, IState> {
                         />
                       </FormGroup>
                       <br />
-                      <Row>
-                        <Col lg={6} md={6}>
-                          <FormGroup>
-                            <Label for="gasLimit">
-                              <small>
-                                <b>{'Gas Limit'}</b>
-                              </small>
-                            </Label>
-                            <Input
-                              id="gasLimit"
-                              type="number"
-                              name="gasLimit"
-                              data-test-id="gasLimit"
-                              value={this.state.gasLimit}
-                              disabled={true}
-                              placeholder="Enter the Gas Limit"
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col lg={6} md={6}>
-                          <FormGroup>
-                            <Label for="gasPrice">
-                              <small>
-                                <b>{'Gas Price'}</b>
-                              </small>
-                            </Label>
-                            <Input
-                              id="gasPrice"
-                              type="number"
-                              name="gasPrice"
-                              data-test-id="gasPrice"
-                              value={gasPrice}
-                              disabled={true}
-                              placeholder="Enter the Gas Price"
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <br />
+                      <FormGroup>
+                        <Label for="gasPrice">
+                          <small>
+                            <b>{'Gas Price (LIs)'}</b>
+                          </small>
+                        </Label>
+                        <Input
+                          id="gasPrice"
+                          type="number"
+                          name="gasPrice"
+                          data-test-id="gasPrice"
+                          value={gasPrice}
+                          disabled={true}
+                          placeholder="Enter the Gas Price"
+                        />
+                      </FormGroup>
                       <div className="py-4 text-center">
                         <Button
                           text={sendButtonText}
@@ -215,7 +189,6 @@ class SendForm extends React.Component<IProps, IState> {
             sendTxStatus={sendTxStatus}
             toAddress={toAddress}
             amount={amount}
-            gasLimit={gasLimit}
             gasPrice={gasPrice}
             isModalOpen={isModalOpen}
             sendTx={this.props.sendTx}
@@ -252,10 +225,7 @@ class SendForm extends React.Component<IProps, IState> {
     try {
       const response = await zilliqa.blockchain.getMinimumGasPrice();
       const minGasPriceInLi: string = response.result;
-      const minGasPriceInQa = units.toQa(new BN(minGasPriceInLi), units.Units.Li); // Minimum gasPrice measured in Li, converting to Qa.
-      const minGasPriceInZil = units.fromQa(new BN(minGasPriceInQa), units.Units.Zil); // Minimum gasPrice measured in Qa, converting to Zil.
-
-      this.setState({ gasPrice: `${minGasPriceInZil}`, isUpdatingGasPrice: false });
+      this.setState({ gasPrice: `${minGasPriceInLi}`, isUpdatingGasPrice: false });
     } catch (error) {
       console.log(error);
     }
@@ -293,8 +263,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sendTx: (toAddress, amount, gasLimit, gasPrice) =>
-    dispatch(zilActions.sendTx(toAddress, amount, gasLimit, gasPrice)),
+  sendTx: (toAddress, amount, gasPrice) => dispatch(zilActions.sendTx(toAddress, amount, gasPrice)),
   clear: () => dispatch(zilActions.clear())
 });
 
