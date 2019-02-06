@@ -30,7 +30,7 @@ class Header extends React.Component<IProps, {}> {
         <Navbar fixed={'top'} dark={true} color="faded" expand="sm">
           <NavbarBrand href="/">
             {'Nucleus Wallet'}
-            <small className="release-text">{'alpha'}</small>
+            <small className="release-text">{'beta'}</small>
           </NavbarBrand>
 
           <NavbarToggler
