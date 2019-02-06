@@ -8,6 +8,17 @@
   src: local('Noto Sans Regular'), local('NotoSans-Regular'), url("./assets/fonts/NotoSans-Regular.ttf") format("truetype");
 }
 
+.font-monospace {
+  font-family:
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    "Liberation Mono",
+    "Courier New",
+    monospace;
+}
+
 body {
   margin: 0;
   background-color: --gray100;
@@ -259,8 +270,4 @@ input[type=number]::placeholder {
 div.recaptcha {
   margin: 0 auto;
   width: 304px;
-}
-
-.modal-container {
-  min-width: 600px;
 }

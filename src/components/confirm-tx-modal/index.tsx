@@ -143,50 +143,26 @@ class SendTxModal extends React.Component<IProps, IState> {
         <small className="text-secondary">
           <b>Transaction Info:</b>
         </small>
-        <div className="card p-2 mt-3">
-          <Row>
-            <Col xs={3} sm={3} md={3} lg={3}>
-              <small>
-                <b className="text-secondary">{'To Address'}</b>
-              </small>
-            </Col>
-            <Col xs={9} sm={9} md={9} lg={9} className="text-right">
-              <small>{toAddress}</small>
-            </Col>
-          </Row>
-          <hr />
-          <Row>
-            <Col xs={6} sm={6} md={6} lg={6}>
-              <small>
-                <b className="text-secondary">{'Amount to Send'}</b>
-              </small>
-            </Col>
-            <Col xs={6} sm={6} md={6} lg={6} className="text-right">
-              <small>{amount} ZIL</small>
-            </Col>
-          </Row>
-          <hr />
-          <Row>
-            <Col xs={6} sm={6} md={6} lg={6}>
-              <small>
-                <b className="text-secondary ">{'Gas Limit'}</b>
-              </small>
-            </Col>
-            <Col xs={6} sm={6} md={6} lg={6} className="text-right">
-              <small>{gasLimit}</small>
-            </Col>
-          </Row>
-          <hr />
-          <Row>
-            <Col xs={6} sm={6} md={6} lg={6}>
-              <small>
-                <b className="text-secondary ">{'Gas Price'}</b>
-              </small>
-            </Col>
-            <Col xs={6} sm={6} md={6} lg={6} className="text-right">
-              <small>{gasPrice}</small>
-            </Col>
-          </Row>
+        <div className="card p-3 mt-3">
+          <small className="my-1 text-secondary">
+            <b>{'To Address'}</b>
+          </small>
+          <span className="font-monospace">{toAddress}</span>
+          <hr className="my-2" />
+          <small className="my-1 text-secondary">
+            <b>{'Amount to Send'}</b>
+          </small>
+          {amount} ZIL
+          <hr className="my-2" />
+          <small className="my-1 text-secondary">
+            <b>{'Gas Limit'}</b>
+          </small>
+          {gasLimit}
+          <hr className="my-2" />
+          <small className="my-1 text-secondary">
+            <b>{'Gas Price'}</b>
+          </small>
+          {gasPrice}
         </div>
         <br />
         <Form onSubmit={(e) => e.preventDefault()}>

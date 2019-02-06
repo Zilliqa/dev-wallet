@@ -25,7 +25,7 @@ export const AccountInfo: React.SFC<IProps> = (props) => {
           <div className="px-4 text-left text-secondary">
             <small>
               <b>{'Address'}</b>
-              <p className="pt-1">{address}</p>
+              <p className="pt-1 font-monospace">{address}</p>
               <b>
                 {'Balance'}
                 <Button
