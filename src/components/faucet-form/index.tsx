@@ -1,14 +1,12 @@
 import React from 'react';
 import { Card, Row, Col } from 'reactstrap';
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { BN, Long, bytes, units } from '@zilliqa-js/util';
-import Button from '../button';
+import { BN, units } from '@zilliqa-js/util';
 import * as zilActions from '../../redux/zil/actions';
 import { connect } from 'react-redux';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { CAPTCHA_SITE_KEY, requestStatus, EXPLORER_URL } from '../../constants';
-import { MdRefresh } from 'react-icons/md';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
+import { AccountInfo } from '../account-info';
 
 interface IProps {
   runFaucet: (address: string, token: string) => void;
@@ -72,35 +70,12 @@ class FaucetForm extends React.Component<IProps, IState> {
 
     return (
       <div>
-        <div className="px-4">
-          <h5>
-            <b>{'Account Info'}</b>
-          </h5>
-          <div className="d-flex">
-            <div className="py-2">
-              {address ? <Jazzicon diameter={100} seed={jsNumberForAddress(address)} /> : null}
-            </div>
-            <div className="px-4 text-left text-secondary">
-              <small>
-                <b>Address </b>
-                <p className="pt-1">{address}</p>
-                <b>
-                  Balance
-                  <Button
-                    type="tertiary"
-                    text={''}
-                    before={<MdRefresh />}
-                    onClick={this.getBalance}
-                    disabled={isUpdatingBalance}
-                    ariaLabel={'Update Balance'}
-                    className="mb-1 py-0 px-1"
-                  />
-                </b>
-                <p>{isUpdatingBalance ? 'loading...' : `${balance} ZIL`}</p>
-              </small>
-            </div>
-          </div>
-        </div>
+        <AccountInfo
+          address={address}
+          balance={balance}
+          getBalance={this.getBalance}
+          isUpdatingBalance={isUpdatingBalance}
+        />
         <Row className="pt-4">
           <Col xs={12} sm={12} md={10} lg={9} className="mr-auto">
             <Card>

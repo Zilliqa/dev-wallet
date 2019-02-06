@@ -1,15 +1,14 @@
 import React from 'react';
 import { Card, Label, Input, FormGroup, Form, Row, Col, FormFeedback } from 'reactstrap';
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { BN, Long, bytes, units } from '@zilliqa-js/util';
+import { BN, units } from '@zilliqa-js/util';
 import Button from '../button';
 import * as zilActions from '../../redux/zil/actions';
 import { connect } from 'react-redux';
 import { requestStatus } from '../../constants';
-import { MdRefresh } from 'react-icons/md';
 import { ADDRESS_REGEX } from '../../regex';
 import { getInputValidationState } from '../../utils';
 import ConfirmTxModal from '../confirm-tx-modal';
+import { AccountInfo } from '../account-info';
 
 interface IProps {
   sendTx: (toAddress, amount, gasLimit, gasPrice) => void;
@@ -95,35 +94,12 @@ class SendForm extends React.Component<IProps, IState> {
     const sendButtonText = 'Send Transaction';
     return (
       <div>
-        <div className="px-4">
-          <h5>
-            <b>{'Account Info'}</b>
-          </h5>
-          <div className="d-flex">
-            <div className="py-2">
-              {address ? <Jazzicon diameter={100} seed={jsNumberForAddress(address)} /> : null}
-            </div>
-            <div className="px-4 text-left text-secondary">
-              <small>
-                <b>Address </b>
-                <p className="pt-1">{address}</p>
-                <b>
-                  Balance
-                  <Button
-                    type="tertiary"
-                    text={''}
-                    before={<MdRefresh />}
-                    onClick={this.getBalance}
-                    disabled={isUpdatingBalance}
-                    ariaLabel={'Update Balance'}
-                    className="mb-1 py-0 px-1"
-                  />
-                </b>
-                <p>{isUpdatingBalance ? 'loading...' : `${balance} ZIL`}</p>
-              </small>
-            </div>
-          </div>
-        </div>
+        <AccountInfo
+          address={address}
+          balance={balance}
+          getBalance={this.getBalance}
+          isUpdatingBalance={isUpdatingBalance}
+        />
         <Row className="pt-4">
           <Col xs={12} sm={12} md={10} lg={9} className="mr-auto">
             <Card>
