@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Label, Input, FormGroup, Form, Row, Col, FormFeedback } from 'reactstrap';
 import { PASSPHRASE_REGEX } from '../../regex';
 import Button from '../button';
@@ -17,6 +17,7 @@ const SECOND_STEP = 1;
 const FINAL_STEP = 2;
 
 interface IState {
+  worker: any;
   isDisclaimerChecked: boolean;
   passphrase: string;
   passphraseValid: boolean;
@@ -27,66 +28,85 @@ interface IState {
   privateKey?: string;
 }
 
-class GenerateForm extends React.Component<{}, IState> {
-  public worker;
-  public readonly state: IState = {
-    isDisclaimerChecked: false,
-    passphrase: '',
-    passphraseValid: false,
-    passphraseInvalid: false,
-    encryptStatus: undefined,
-    keystoreJSON: undefined,
-    privateKey: undefined,
-    currentStep: FIRST_STEP
+const initialState: IState = {
+  worker: undefined,
+  isDisclaimerChecked: false,
+  passphrase: '',
+  passphraseValid: false,
+  passphraseInvalid: false,
+  encryptStatus: undefined,
+  keystoreJSON: undefined,
+  privateKey: undefined,
+  currentStep: FIRST_STEP
+};
+
+const GenerateForm: React.FunctionComponent = (props) => {
+  const [worker, setWorker] = useState(initialState.worker);
+  const [encryptStatus, setEncryptStatus] = useState(initialState.encryptStatus);
+  const [keystoreJSON, setKeystoreJSON] = useState(initialState.keystoreJSON);
+  const [privateKey, setPrivateKey] = useState(initialState.privateKey);
+  useEffect(() => {
+    if (worker === undefined) {
+      const myWorker = new Worker();
+
+      myWorker.onmessage = (event) => {
+        const { data } = event;
+        if (data.keystoreJSON === undefined || data.privateKey === undefined) {
+          return setEncryptStatus(requestStatus.FAILED);
+        }
+        setKeystoreJSON(data.keystoreJSON);
+        setPrivateKey(data.privateKey);
+      };
+      setWorker(myWorker);
+    }
+  });
+
+  useEffect(() => {
+    if (privateKey && keystoreJSON) {
+      downloadKeystore();
+    }
+  }, [privateKey, keystoreJSON]);
+
+  const [passphrase, setPassphrase] = useState(initialState.passphrase);
+  const [passphraseValid, setPassphraseValid] = useState(initialState.passphraseValid);
+  const [passphraseInvalid, setPassphraseInvalid] = useState(initialState.passphraseInvalid);
+  const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(initialState.isDisclaimerChecked);
+
+  const [currentStep, setCurrentStep] = useState(initialState.currentStep);
+
+  const handleCheck = () => {
+    setIsDisclaimerChecked(!isDisclaimerChecked);
   };
 
-  public componentDidMount() {
-    this.worker = new Worker();
+  const generateKeystore = () => {
+    setEncryptStatus(requestStatus.PENDING);
+    worker.postMessage({ passphrase });
+  };
 
-    this.worker.onmessage = (event) => {
-      const { keystoreJSON, privateKey } = event.data;
-      if (keystoreJSON === undefined || privateKey === undefined) {
-        return this.setState({
-          encryptStatus: requestStatus.FAILED
-        });
-      }
-      this.setState(
-        {
-          keystoreJSON,
-          privateKey
-        },
-        this.downloadKeystore
-      );
-    };
-  }
-  public render() {
-    const { currentStep } = this.state;
-    return (
-      <div>
-        <Card>
-          <div className="py-5">
-            <Row>
-              <Col xs={11} sm={11} md={10} lg={8} className="mr-auto ml-auto">
-                <Steps size="small" current={currentStep}>
-                  <Step title="Passphrase" />
-                  <Step title="Keystore" />
-                  <Step title="Complete" />
-                </Steps>
-              </Col>
-              <Col xs={10} sm={10} md={8} lg={7} className="mr-auto ml-auto">
-                {currentStep === FIRST_STEP ? this.renderPassphraseStep() : null}
-                {currentStep === SECOND_STEP ? this.renderKeystoreStep() : null}
-                {currentStep === FINAL_STEP ? this.renderFinalStep() : null}
-              </Col>
-            </Row>
-          </div>
-        </Card>
-      </div>
-    );
-  }
+  const downloadKeystore = () => {
+    if (typeof keystoreJSON !== 'string') {
+      return;
+    }
+    const keystoreObject = JSON.parse(keystoreJSON);
+    const filename = `zilliqa_keystore_${new Date().toISOString()}`;
 
-  private renderPassphraseStep = () => {
-    const { passphraseValid, isDisclaimerChecked } = this.state;
+    setCurrentStep(FINAL_STEP);
+    setEncryptStatus(requestStatus.SUCCEED);
+    downloadObjectAsJson(keystoreObject, filename);
+  };
+
+  const changePassphrase = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault();
+    const value = e.target.value;
+    const key = 'passphrase';
+    const regex = PASSPHRASE_REGEX;
+    const validationResult: any = getInputValidationState(key, value, regex);
+    setPassphrase(value);
+    setPassphraseValid(validationResult.passphraseValid);
+    setPassphraseInvalid(validationResult.passphraseInvalid);
+  };
+
+  const renderPassphraseStep = () => {
     const isDisabled = !passphraseValid || !isDisclaimerChecked;
 
     return (
@@ -114,10 +134,10 @@ class GenerateForm extends React.Component<{}, IState> {
                 type="password"
                 name="passphrase"
                 data-test-id="passphrase"
-                value={this.state.passphrase}
-                onChange={this.changePassphrase}
-                valid={this.state.passphraseValid}
-                invalid={this.state.passphraseInvalid}
+                value={passphrase}
+                onChange={changePassphrase}
+                valid={passphraseValid}
+                invalid={passphraseInvalid}
                 placeholder="Enter the passphrase"
                 // autoComplete="new-password"
                 autoComplete="off"
@@ -131,7 +151,7 @@ class GenerateForm extends React.Component<{}, IState> {
 
             <div className="px-3">
               <FormGroup inline={true}>
-                <Label check={isDisclaimerChecked} onChange={this.handleCheck}>
+                <Label check={isDisclaimerChecked} onChange={handleCheck}>
                   <Input type="checkbox" /> <Disclaimer />
                 </Label>
               </FormGroup>
@@ -140,7 +160,7 @@ class GenerateForm extends React.Component<{}, IState> {
                   text={'Confirm'}
                   type="primary"
                   ariaLabel={'Confirm'}
-                  onClick={() => this.setState({ currentStep: SECOND_STEP })}
+                  onClick={() => setCurrentStep(SECOND_STEP)}
                   disabled={isDisabled}
                 />
               </div>
@@ -151,7 +171,7 @@ class GenerateForm extends React.Component<{}, IState> {
     );
   };
 
-  private renderFinalStep = () => {
+  const renderFinalStep = () => {
     return (
       <div>
         <div className="text-center">
@@ -170,14 +190,13 @@ class GenerateForm extends React.Component<{}, IState> {
           <b>Private Key</b>
         </small>
         <p className="text-primary py-3">
-          <code className="text-primary">{this.state.privateKey}</code>
+          <code className="text-primary">{privateKey}</code>
         </p>
       </div>
     );
   };
 
-  private renderKeystoreStep = () => {
-    const { encryptStatus } = this.state;
+  const renderKeystoreStep = () => {
     const isPending = encryptStatus === requestStatus.PENDING;
     const buttonText = isPending ? 'Generating Keystore File' : 'Generate Keystore File';
     return (
@@ -195,7 +214,7 @@ class GenerateForm extends React.Component<{}, IState> {
             text={buttonText}
             type="primary"
             ariaLabel={buttonText}
-            onClick={this.generateKeystore}
+            onClick={generateKeystore}
             before={
               isPending ? (
                 <span className="pr-1">
@@ -210,41 +229,28 @@ class GenerateForm extends React.Component<{}, IState> {
     );
   };
 
-  private handleCheck = () => {
-    this.setState({ isDisclaimerChecked: !this.state.isDisclaimerChecked });
-  };
-
-  private generateKeystore = () => {
-    const { passphrase } = this.state;
-    this.setState({ encryptStatus: requestStatus.PENDING }, () =>
-      this.worker.postMessage({ passphrase })
-    );
-  };
-
-  private downloadKeystore = () => {
-    const keystoreJSON = this.state.keystoreJSON;
-    if (typeof keystoreJSON !== 'string') {
-      return;
-    }
-    const keystoreObject = JSON.parse(keystoreJSON);
-    const filename = `zilliqa_keystore_${new Date().toISOString()}`;
-    this.setState(
-      {
-        encryptStatus: requestStatus.SUCCEED,
-        currentStep: FINAL_STEP
-      },
-      () => downloadObjectAsJson(keystoreObject, filename)
-    );
-  };
-
-  private changePassphrase = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    e.preventDefault();
-    const value = e.target.value;
-    const key = 'passphrase';
-    const regex = PASSPHRASE_REGEX;
-    const validationResult = getInputValidationState(key, value, regex);
-    this.setState({ ...validationResult, [key]: value });
-  };
-}
+  return (
+    <div>
+      <Card>
+        <div className="py-5">
+          <Row>
+            <Col xs={11} sm={11} md={10} lg={8} className="mr-auto ml-auto">
+              <Steps size="small" current={currentStep}>
+                <Step title="Passphrase" />
+                <Step title="Keystore" />
+                <Step title="Complete" />
+              </Steps>
+            </Col>
+            <Col xs={10} sm={10} md={8} lg={7} className="mr-auto ml-auto">
+              {currentStep === FIRST_STEP ? renderPassphraseStep() : null}
+              {currentStep === SECOND_STEP ? renderKeystoreStep() : null}
+              {currentStep === FINAL_STEP ? renderFinalStep() : null}
+            </Col>
+          </Row>
+        </div>
+      </Card>
+    </div>
+  );
+};
 
 export default GenerateForm;
