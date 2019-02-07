@@ -8,19 +8,17 @@ interface IProps {
   location: H.Location;
 }
 
-class CreateContainer extends React.Component<IProps, {}> {
-  public render() {
-    return (
-      <div>
-        <Layout>
-          <div className="p-4">
-            <span className="pl-1 text-secondary">Create New Wallet</span>
-            <GenerateForm />
-          </div>
-        </Layout>
-      </div>
-    );
-  }
-}
+const CreateContainer: React.FunctionComponent<IProps> = (props) => {
+  return (
+    <div>
+      <Layout>
+        <div className="p-4">
+          <span className="pl-1 text-secondary">Create New Wallet</span>
+          <GenerateForm />
+        </div>
+      </Layout>
+    </div>
+  );
+};
 
 export default CreateContainer;

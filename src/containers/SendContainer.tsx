@@ -12,28 +12,26 @@ interface IProps {
   authStatus?: string;
 }
 
-class SendContainer extends React.Component<IProps, {}> {
-  public render() {
-    const { authStatus } = this.props;
-    const isAuth = authStatus === requestStatus.SUCCEED;
-    return (
-      <div>
-        <Layout>
-          <div className="p-4">
-            {isAuth ? (
-              <SendForm />
-            ) : (
-              <div>
-                <span className="pl-1 text-secondary">Send ZIL</span>
-                <AccessForm />
-              </div>
-            )}
-          </div>
-        </Layout>
-      </div>
-    );
-  }
-}
+const SendContainer: React.FunctionComponent<IProps> = (props) => {
+  const { authStatus } = props;
+  const isAuth = authStatus === requestStatus.SUCCEED;
+  return (
+    <div>
+      <Layout>
+        <div className="p-4">
+          {isAuth ? (
+            <SendForm />
+          ) : (
+            <div>
+              <span className="pl-1 text-secondary">Send ZIL</span>
+              <AccessForm />
+            </div>
+          )}
+        </div>
+      </Layout>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => ({
   authStatus: state.zil.authStatus
