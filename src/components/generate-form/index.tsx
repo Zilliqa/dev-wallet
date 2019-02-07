@@ -61,11 +61,14 @@ const GenerateForm: React.FunctionComponent = (props) => {
     }
   });
 
-  useEffect(() => {
-    if (privateKey && keystoreJSON) {
-      downloadKeystore();
-    }
-  }, [privateKey, keystoreJSON]);
+  useEffect(
+    () => {
+      if (privateKey && keystoreJSON) {
+        downloadKeystore();
+      }
+    },
+    [privateKey, keystoreJSON]
+  );
 
   const [passphrase, setPassphrase] = useState(initialState.passphrase);
   const [passphraseValid, setPassphraseValid] = useState(initialState.passphraseValid);

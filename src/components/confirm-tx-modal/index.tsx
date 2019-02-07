@@ -53,21 +53,24 @@ const SendTxModal: React.FunctionComponent<IProps> = (props) => {
   const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(initialState.isSubmitting);
   const [prevSendTxStatus, setPrevSendTxStatus] = useState(initialState.prevSendTxStatus);
 
-  useEffect(() => {
-    if (prevSendTxStatus === requestStatus.PENDING && sendTxStatus === requestStatus.FAILED) {
-      setIsSubmitting(false);
-      setIsComplete(false);
-      setIsFailed(true);
-      setIsDisclaimerChecked(false);
-    }
-    if (prevSendTxStatus === requestStatus.PENDING && sendTxStatus === requestStatus.SUCCEED) {
-      setIsSubmitting(false);
-      setIsComplete(true);
-      setIsFailed(false);
-      setIsDisclaimerChecked(false);
-    }
-    setPrevSendTxStatus(sendTxStatus);
-  }, [sendTxStatus, prevSendTxStatus]);
+  useEffect(
+    () => {
+      if (prevSendTxStatus === requestStatus.PENDING && sendTxStatus === requestStatus.FAILED) {
+        setIsSubmitting(false);
+        setIsComplete(false);
+        setIsFailed(true);
+        setIsDisclaimerChecked(false);
+      }
+      if (prevSendTxStatus === requestStatus.PENDING && sendTxStatus === requestStatus.SUCCEED) {
+        setIsSubmitting(false);
+        setIsComplete(true);
+        setIsFailed(false);
+        setIsDisclaimerChecked(false);
+      }
+      setPrevSendTxStatus(sendTxStatus);
+    },
+    [sendTxStatus, prevSendTxStatus]
+  );
 
   const handleCheck = () => {
     setIsDisclaimerChecked(!isDisclaimerChecked);
