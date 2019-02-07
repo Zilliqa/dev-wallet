@@ -156,7 +156,7 @@ class SendTxModal extends React.Component<IProps, IState> {
           <small className="my-1 text-secondary">
             <b>{'Gas Price'}</b>
           </small>
-          {gasPrice} LI
+          {gasPrice} ZIL
         </div>
         <br />
         <Form onSubmit={(e) => e.preventDefault()}>

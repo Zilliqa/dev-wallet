@@ -67,7 +67,7 @@ export function* sendTxSaga(action) {
         version: VERSION,
         toAddr,
         amount: units.toQa(amount, units.Units.Zil), // Sending an amount measured in Zil, converting to Qa.
-        gasPrice: units.toQa(gasPrice, units.Units.Li), // Minimum gasPrice measured in Li, converting to Qa.
+        gasPrice: units.toQa(gasPrice, units.Units.Zil), // Minimum gasPrice measured in Zil, converting to Qa.
         gasLimit: Long.fromNumber(1),
         pubKey: publicKey,
         nonce

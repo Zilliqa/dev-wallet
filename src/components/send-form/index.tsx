@@ -86,7 +86,9 @@ class SendForm extends React.Component<IProps, IState> {
       gasPrice
     } = this.state;
 
-    const isBalanceInsufficient = balance === '0';
+    const balanceBN = new BN(balance);
+    const gasPriceBN = new BN(gasPrice);
+    const isBalanceInsufficient = balanceBN.lt(gasPriceBN);
     const isSendButtonDisabled = toAddressInvalid || !amount || isBalanceInsufficient;
     const sendButtonText = 'Send';
     return (
@@ -149,7 +151,7 @@ class SendForm extends React.Component<IProps, IState> {
                       <FormGroup>
                         <Label for="gasPrice">
                           <small>
-                            <b>{'Gas Price (LIs)'}</b>
+                            <b>{'Gas Price (ZILs)'}</b>
                           </small>
                         </Label>
                         <Input
@@ -173,7 +175,11 @@ class SendForm extends React.Component<IProps, IState> {
                       </div>
                       {isBalanceInsufficient && !isUpdatingBalance ? (
                         <p className="text-center text-danger">
-                          <small>{'Your balance is not sufficient to send transaction.'}</small>
+                          <small>
+                            {'Your balance is not sufficient to send transaction.'}
+                            <br />
+                            {`Minimum Gas Price: ${gasPrice} ZIL`}
+                          </small>
                         </p>
                       ) : null}
                     </Form>
@@ -224,8 +230,9 @@ class SendForm extends React.Component<IProps, IState> {
     this.setState({ isUpdatingGasPrice: true });
     try {
       const response = await zilliqa.blockchain.getMinimumGasPrice();
-      const minGasPriceInLi: string = response.result;
-      this.setState({ gasPrice: `${minGasPriceInLi}`, isUpdatingGasPrice: false });
+      const minGasPriceInQa: string = response.result;
+      const minGasPriceInZil = units.fromQa(new BN(minGasPriceInQa), units.Units.Zil); // Minimum gasPrice measured in Qa, converting to Zil.
+      this.setState({ gasPrice: `${minGasPriceInZil}`, isUpdatingGasPrice: false });
     } catch (error) {
       console.log(error);
     }
