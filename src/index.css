@@ -271,3 +271,7 @@ div.recaptcha {
   margin: 0 auto;
   width: 304px;
 }
+
+.cursor-pointer {
+  cursor: 'pointer';
+}

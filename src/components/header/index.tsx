@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem, NavLink, NavbarBrand, Collapse, NavbarToggler } from 'reactstrap';
@@ -17,68 +17,58 @@ interface IProps {
   clear: () => void;
 }
 
-class Header extends React.Component<IProps, {}> {
-  public readonly state = {
-    isOpen: false
-  };
-  public render() {
-    const { authStatus } = this.props;
-    const isAuth = authStatus === requestStatus.SUCCEED;
+const Header: React.FunctionComponent<IProps> = (props) => {
+  const [isOpen, setOpen] = useState(false);
 
-    return (
-      <div>
-        <Navbar fixed={'top'} dark={true} color="faded" expand="sm">
-          <NavbarBrand href="/">
-            {'Nucleus Wallet'}
-            <small className="release-text">{'beta'}</small>
-          </NavbarBrand>
+  const { authStatus } = props;
+  const isAuth = authStatus === requestStatus.SUCCEED;
 
-          <NavbarToggler
-            onClick={() => this.setState({ isOpen: !this.state.isOpen })}
-            aria-label="toggler"
-          />
+  return (
+    <div>
+      <Navbar fixed={'top'} dark={true} color="faded" expand="sm">
+        <NavbarBrand href="/">
+          {'Nucleus Wallet'}
+          <small className="release-text">{'beta'}</small>
+        </NavbarBrand>
 
-          <Collapse isOpen={this.state.isOpen} navbar={true}>
-            <Nav className="ml-auto" navbar={true}>
-              <NavItem className="sidebar-link">
-                <Link to={paths.home} className={`nav-link`}>
-                  {'Home'}
-                </Link>
-              </NavItem>
-              <NavItem className="sidebar-link">
-                <Link to={paths.generate} className={`nav-link`}>
-                  {'Create New Wallet'}
-                </Link>
-              </NavItem>
-              <NavItem className="sidebar-link">
-                <Link to={paths.send} className={`nav-link`}>
-                  {'Send ZIL'}
-                </Link>
-              </NavItem>
-              <NavItem className="sidebar-link">
-                <Link to={paths.faucet} className={`nav-link`}>
-                  {'ZIL Faucet'}
-                </Link>
-              </NavItem>
-              {isAuth ? (
-                <NavLink style={{ cursor: 'pointer' }} onClick={this.signOut}>
-                  {'Sign Out'}
-                </NavLink>
-              ) : null}
-              <span className="nav-link">
-                <span className="network">{this.props.network}</span>
-              </span>
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
-    );
-  }
+        <NavbarToggler onClick={() => setOpen(!isOpen)} aria-label="toggler" />
 
-  private signOut = () => {
-    this.props.clear();
-  };
-}
+        <Collapse isOpen={isOpen} navbar={true}>
+          <Nav className="ml-auto" navbar={true}>
+            <NavItem className="sidebar-link">
+              <Link to={paths.home} className={`nav-link`}>
+                {'Home'}
+              </Link>
+            </NavItem>
+            <NavItem className="sidebar-link">
+              <Link to={paths.generate} className={`nav-link`}>
+                {'Create New Wallet'}
+              </Link>
+            </NavItem>
+            <NavItem className="sidebar-link">
+              <Link to={paths.send} className={`nav-link`}>
+                {'Send ZIL'}
+              </Link>
+            </NavItem>
+            <NavItem className="sidebar-link">
+              <Link to={paths.faucet} className={`nav-link`}>
+                {'ZIL Faucet'}
+              </Link>
+            </NavItem>
+            {isAuth ? (
+              <NavLink className="cursor-pointer" onClick={props.clear}>
+                {'Sign Out'}
+              </NavLink>
+            ) : null}
+            <span className="nav-link">
+              <span className="network">{props.network}</span>
+            </span>
+          </Nav>
+        </Collapse>
+      </Navbar>
+    </div>
+  );
+};
 
 // @ts-ignore
 const HeaderWithRouter = withRouter(Header);
