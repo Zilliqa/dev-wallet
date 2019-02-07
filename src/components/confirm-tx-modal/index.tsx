@@ -14,7 +14,6 @@ interface IProps {
   gasPrice: string;
   sendTxStatus?: string;
   closeModal: () => void;
-  toggleModal: () => void;
   txInfo: any;
 }
 
@@ -41,7 +40,6 @@ const SendTxModal: React.FunctionComponent<IProps> = (props) => {
     gasPrice,
     isModalOpen,
     txInfo,
-    toggleModal,
     closeModal,
     sendTx,
     sendTxStatus
@@ -180,8 +178,8 @@ const SendTxModal: React.FunctionComponent<IProps> = (props) => {
   };
 
   return (
-    <Modal isOpen={isModalOpen} toggle={toggleModal} size="lg" className="modal-container">
-      <ModalHeader className="text-secondary" toggle={toggleModal}>
+    <Modal isOpen={isModalOpen} toggle={closeModal} size="lg" className="modal-container">
+      <ModalHeader className="text-secondary" toggle={closeModal}>
         <b>{'Send Transaction'}</b>
       </ModalHeader>
       <div className="modal-body">

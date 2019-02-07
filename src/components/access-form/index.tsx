@@ -112,17 +112,20 @@ const AccessForm: React.FunctionComponent<IProps> = (props) => {
     }
   });
 
-  useEffect(() => {
-    const isFailed =
-      authStatus === requestStatus.FAILED && prevAuthStatus === requestStatus.PENDING;
-    const isSucceeded =
-      authStatus === requestStatus.SUCCEED && prevAuthStatus === requestStatus.PENDING;
+  useEffect(
+    () => {
+      const isFailed =
+        authStatus === requestStatus.FAILED && prevAuthStatus === requestStatus.PENDING;
+      const isSucceeded =
+        authStatus === requestStatus.SUCCEED && prevAuthStatus === requestStatus.PENDING;
 
-    if (isFailed || isSucceeded) {
-      setIsAccessing(false);
-    }
-    setPrevAuthStatus(prevAuthStatus);
-  }, [authStatus, prevAuthStatus]);
+      if (isFailed || isSucceeded) {
+        setIsAccessing(false);
+      }
+      setPrevAuthStatus(prevAuthStatus);
+    },
+    [authStatus, prevAuthStatus]
+  );
 
   const handleCheck = () => {
     setIsDisclaimerChecked(!isDisclaimerChecked);
