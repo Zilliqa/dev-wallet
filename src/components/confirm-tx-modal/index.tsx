@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../button';
 import { Modal, ModalHeader, Row, Col } from 'reactstrap';
 import { requestStatus, EXPLORER_URL } from '../../constants';
@@ -23,65 +23,63 @@ interface IState {
   isComplete: boolean;
   isFailed: boolean;
   isDisclaimerChecked: boolean;
+  prevSendTxStatus?: string;
 }
 
-const initialState = {
+const initialState: IState = {
   isSubmitting: false,
   isComplete: false,
   isFailed: false,
-  isDisclaimerChecked: false
+  isDisclaimerChecked: false,
+  prevSendTxStatus: requestStatus.PENDING
 };
 
-class SendTxModal extends React.Component<IProps, IState> {
-  public readonly state = initialState;
+const SendTxModal: React.FunctionComponent<IProps> = (props) => {
+  const {
+    toAddress,
+    amount,
+    gasPrice,
+    isModalOpen,
+    txInfo,
+    toggleModal,
+    closeModal,
+    sendTx,
+    sendTxStatus
+  } = props;
 
-  public componentWillReceiveProps(nextProps) {
-    if (
-      this.props.sendTxStatus === requestStatus.PENDING &&
-      nextProps.sendTxStatus === requestStatus.FAILED
-    ) {
-      this.setState({
-        isSubmitting: false,
-        isFailed: true,
-        isComplete: false,
-        isDisclaimerChecked: false
-      });
+  const [isSubmitting, setIsSubmitting] = useState(initialState.isSubmitting);
+  const [isComplete, setIsComplete] = useState(initialState.isSubmitting);
+  const [isFailed, setIsFailed] = useState(initialState.isSubmitting);
+  const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(initialState.isSubmitting);
+  const [prevSendTxStatus, setPrevSendTxStatus] = useState(initialState.prevSendTxStatus);
+
+  useEffect(() => {
+    if (prevSendTxStatus === requestStatus.PENDING && sendTxStatus === requestStatus.FAILED) {
+      setIsSubmitting(false);
+      setIsComplete(false);
+      setIsFailed(true);
+      setIsDisclaimerChecked(false);
     }
-    if (
-      this.props.sendTxStatus === requestStatus.PENDING &&
-      nextProps.sendTxStatus === requestStatus.SUCCEED
-    ) {
-      this.setState({ isSubmitting: false, isComplete: true, isFailed: false });
+    if (prevSendTxStatus === requestStatus.PENDING && sendTxStatus === requestStatus.SUCCEED) {
+      setIsSubmitting(false);
+      setIsComplete(true);
+      setIsFailed(false);
+      setIsDisclaimerChecked(false);
     }
-  }
+    setPrevSendTxStatus(sendTxStatus);
+  }, [sendTxStatus, prevSendTxStatus]);
 
-  public render() {
-    const { isModalOpen } = this.props;
-    const { isSubmitting, isComplete } = this.state;
+  const handleCheck = () => {
+    setIsDisclaimerChecked(!isDisclaimerChecked);
+  };
 
-    return (
-      <Modal isOpen={isModalOpen} toggle={this.handleToggle} size="lg" className="modal-container">
-        <ModalHeader className="text-secondary" toggle={this.handleToggle}>
-          <b>{'Send Transaction'}</b>
-        </ModalHeader>
-        <div className="modal-body">
-          <Row>
-            <Col xs={11} sm={11} md={11} lg={8} className="mr-auto ml-auto">
-              {isSubmitting || isComplete ? (
-                this.renderTransactionProcess()
-              ) : (
-                <div>{this.renderCreateForm()}</div>
-              )}
-            </Col>
-          </Row>
-        </div>
-      </Modal>
-    );
-  }
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    sendTx(toAddress, amount, gasPrice);
+  };
 
-  private renderTransactionProcess = () => {
-    const { txInfo } = this.props;
-    const { isSubmitting, isComplete } = this.state;
+  const renderTransactionProcess = () => {
     let txId;
     if (txInfo) {
       txId = txInfo.id;
@@ -118,12 +116,7 @@ class SendTxModal extends React.Component<IProps, IState> {
             ) : null}
             <br />
             <div className="py-5">
-              <Button
-                text={'Confirm'}
-                type="primary"
-                onClick={this.handleClose}
-                ariaLabel={'Confirm'}
-              />
+              <Button text={'Confirm'} type="primary" onClick={closeModal} ariaLabel={'Confirm'} />
             </div>
           </div>
         ) : null}
@@ -131,9 +124,7 @@ class SendTxModal extends React.Component<IProps, IState> {
     );
   };
 
-  private renderCreateForm = () => {
-    const { toAddress, amount, gasPrice } = this.props;
-    const { isSubmitting, isFailed, isDisclaimerChecked } = this.state;
+  const renderCreateForm = () => {
     const isSubmitButtonDisabled = isSubmitting || !isDisclaimerChecked;
     const submitButtonText = 'Confirm';
     const messageForTxFailure = 'Failed to send transaction. Please try again later.';
@@ -161,7 +152,7 @@ class SendTxModal extends React.Component<IProps, IState> {
         <br />
         <Form onSubmit={(e) => e.preventDefault()}>
           <FormGroup inline={true} className="px-5 text-center">
-            <Label check={this.state.isDisclaimerChecked} onChange={this.handleCheck}>
+            <Label check={isDisclaimerChecked} onChange={handleCheck}>
               <Input type="checkbox" /> <Disclaimer />
             </Label>
           </FormGroup>
@@ -169,7 +160,7 @@ class SendTxModal extends React.Component<IProps, IState> {
             <Button
               text={submitButtonText}
               type="primary"
-              onClick={this.onSubmit}
+              onClick={onSubmit}
               ariaLabel={submitButtonText}
               IsSubmitButton={true}
               disabled={isSubmitButtonDisabled}
@@ -185,23 +176,24 @@ class SendTxModal extends React.Component<IProps, IState> {
     );
   };
 
-  private handleCheck = () => {
-    this.setState({ isDisclaimerChecked: !this.state.isDisclaimerChecked });
-  };
-
-  private handleToggle = () => {
-    this.props.toggleModal();
-  };
-
-  private handleClose = () => {
-    this.props.closeModal();
-  };
-
-  private onSubmit = (e) => {
-    e.preventDefault();
-    const { toAddress, amount, gasPrice } = this.props;
-    this.setState({ isSubmitting: true }, () => this.props.sendTx(toAddress, amount, gasPrice));
-  };
-}
+  return (
+    <Modal isOpen={isModalOpen} toggle={toggleModal} size="lg" className="modal-container">
+      <ModalHeader className="text-secondary" toggle={toggleModal}>
+        <b>{'Send Transaction'}</b>
+      </ModalHeader>
+      <div className="modal-body">
+        <Row>
+          <Col xs={11} sm={11} md={11} lg={8} className="mr-auto ml-auto">
+            {isSubmitting || isComplete ? (
+              renderTransactionProcess()
+            ) : (
+              <div>{renderCreateForm()}</div>
+            )}
+          </Col>
+        </Row>
+      </div>
+    </Modal>
+  );
+};
 
 export default SendTxModal;
