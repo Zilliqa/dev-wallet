@@ -16,41 +16,36 @@ interface IProps {
 }
 
 type Size = 'lg' | 'md' | 'sm';
-export type ButtonType = 'primary' | 'secondary' | 'tertiary';
+type ButtonType = 'primary' | 'secondary' | 'tertiary';
 
-export default class Button extends React.PureComponent<IProps, {}> {
-  public static displayName = 'Button';
+const Button: React.SFC<IProps> = ({
+  type,
+  disabled,
+  className,
+  onClick,
+  before,
+  after,
+  text,
+  size,
+  ariaLabel,
+  IsSubmitButton
+}) => (
+  <button
+    className={`btn btn-${size} type-${type} ${className}`}
+    onClick={onClick}
+    aria-label={ariaLabel}
+    disabled={disabled}
+    type={IsSubmitButton ? 'submit' : 'button'}
+  >
+    {before ? before : null} {text} {after ? after : null}
+  </button>
+);
 
-  public static defaultProps = {
-    text: '',
-    size: 'md',
-    className: '',
-    IsSubmitButton: false
-  };
+Button.defaultProps = {
+  text: '',
+  size: 'md',
+  className: '',
+  IsSubmitButton: false
+};
 
-  public render() {
-    const {
-      type,
-      disabled,
-      className,
-      onClick,
-      before,
-      after,
-      text,
-      size,
-      ariaLabel,
-      IsSubmitButton
-    } = this.props;
-    return (
-      <button
-        className={`btn btn-${size} type-${type} ${className}`}
-        onClick={onClick}
-        aria-label={ariaLabel}
-        disabled={disabled}
-        type={IsSubmitButton ? 'submit' : 'button'}
-      >
-        {before ? before : null} {text} {after ? after : null}
-      </button>
-    );
-  }
-}
+export default Button;

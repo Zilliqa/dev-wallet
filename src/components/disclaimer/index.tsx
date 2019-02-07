@@ -1,4 +1,5 @@
 import React from 'react';
+
 export const Disclaimer: React.SFC = () => (
   <small className="text-danger">
     This is Zilliqa Test Net wallet. Do not send any interim ERC-20 ZIL tokens to this wallet. You
