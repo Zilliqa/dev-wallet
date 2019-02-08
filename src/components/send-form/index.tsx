@@ -27,8 +27,10 @@ interface IState {
   amount: string;
   isSendingTx: boolean;
   balance: string;
+  balanceInQa: string;
   isUpdatingBalance: boolean;
   gasPrice: string;
+  gasPriceInQa: string;
   isUpdatingGasPrice: boolean;
   isModalOpen: boolean;
 }
@@ -40,9 +42,11 @@ const initialState: IState = {
   toAddressInvalid: false,
   amount: '',
   isSendingTx: false,
-  balance: '',
+  balance: '0',
+  balanceInQa: '0',
   isUpdatingBalance: false,
-  gasPrice: '',
+  gasPrice: '0',
+  gasPriceInQa: '0',
   isUpdatingGasPrice: false
 };
 
@@ -56,17 +60,28 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
   const [amount, setAmount] = useState(initialState.amount);
 
   const [balance, setBalance] = useState(initialState.balance);
+  const [balanceInQa, setBalanceInQa] = useState(initialState.balanceInQa);
   const [isUpdatingBalance, setIsUpdatingBalance] = useState(initialState.isUpdatingBalance);
+  useEffect(
+    () => {
+      if (!isUpdatingBalance) {
+        getBalance();
+      }
+    },
+    [balance]
+  );
+
   const [gasPrice, setGasPrice] = useState(initialState.gasPrice);
+  const [gasPriceInQa, setGasPriceInQa] = useState(initialState.gasPrice);
   const [isUpdatingGasPrice, setIsUpdatingGasPrice] = useState(initialState.isUpdatingGasPrice);
-  useEffect(() => {
-    if (balance === '') {
-      getBalance();
-    }
-    if (gasPrice === '') {
-      getGasPrice();
-    }
-  });
+  useEffect(
+    () => {
+      if (!isUpdatingGasPrice) {
+        getGasPrice();
+      }
+    },
+    [gasPrice]
+  );
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -100,6 +115,7 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
       const minGasPriceInQa: string = response.result;
       const minGasPriceInZil = units.fromQa(new BN(minGasPriceInQa), units.Units.Zil); // Minimum gasPrice measured in Qa, converting to Zil.
 
+      setGasPriceInQa(`${minGasPriceInQa}`);
       setGasPrice(`${minGasPriceInZil}`);
       setIsUpdatingGasPrice(false);
     } catch (error) {
@@ -111,12 +127,14 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
     setIsUpdatingBalance(true);
     try {
       const response = await zilliqa.blockchain.getBalance(address);
+
       if (response.error) {
         setIsUpdatingBalance(false);
       } else {
         if (response.result) {
-          const balanceInQa = response.result.balance;
-          const balanceInZil = units.fromQa(new BN(balanceInQa), units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
+          const myBalanceInQa = response.result.balance;
+          setBalanceInQa(myBalanceInQa);
+          const balanceInZil = units.fromQa(new BN(myBalanceInQa), units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
           setBalance(balanceInZil);
           setIsUpdatingBalance(false);
         }
@@ -127,11 +145,14 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const balanceBN = new BN(balance);
-  const gasPriceBN = new BN(gasPrice);
-  const isBalanceInsufficient = balanceBN.lt(gasPriceBN);
-  const isSendButtonDisabled = toAddressInvalid || !amount || isBalanceInsufficient;
+  const isBalanceInsufficient = new BN(balanceInQa).lte(new BN(gasPriceInQa));
+  const isSendButtonDisabled =
+    toAddressInvalid ||
+    toAddress === initialState.toAddress ||
+    amount === initialState.amount ||
+    isBalanceInsufficient;
   const sendButtonText = 'Send';
+
   return (
     <div>
       <AccountInfo
@@ -204,6 +225,9 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
                         disabled={isUpdatingGasPrice || true}
                         placeholder={'Loading gas price'}
                       />
+                      {isUpdatingGasPrice ? (
+                        <small className="text-secondary">loading</small>
+                      ) : null}
                     </FormGroup>
                     <div className="py-4 text-center">
                       <Button
