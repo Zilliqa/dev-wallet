@@ -44,7 +44,9 @@ const FaucetForm: React.FunctionComponent<IProps> = (props) => {
   const [balance, setBalance] = useState(initialState.balance);
   useEffect(
     () => {
-      getBalance();
+      if (!isUpdatingBalance) {
+        getBalance();
+      }
     },
     [balance]
   );
