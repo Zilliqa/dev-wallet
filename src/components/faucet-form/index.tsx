@@ -3,10 +3,12 @@ import { Card, Row, Col } from 'reactstrap';
 import { BN, units } from '@zilliqa-js/util';
 import * as zilActions from '../../redux/zil/actions';
 import { connect } from 'react-redux';
-import ReCAPTCHA from 'react-google-recaptcha';
-import { CAPTCHA_SITE_KEY, requestStatus, EXPLORER_URL } from '../../constants';
+import { requestStatus } from '../../constants';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
 import { AccountInfo } from '../account-info';
+import FaucetPending from '../faucet-pending';
+import FaucetComplete from '../faucet-complete';
+import Recaptcha from '../recaptcha';
 
 interface IProps {
   runFaucet: (address: string, token: string) => void;
@@ -124,54 +126,26 @@ const FaucetForm: React.FunctionComponent<IProps> = (props) => {
                 </h2>
                 <p className="text-secondary">
                   {`This Zil faucet is running on The ${network} Network.`}
-
                   <br />
                   {'Please run the faucet to receive a small amount of Zil for testing.'}
                 </p>
                 <div className="py-4">
-                  {isRunningFaucet || isFaucetComplete ? (
+                  {isRunningFaucet ? (
                     <div>
-                      <SpinnerWithCheckMark loading={isRunningFaucet} />
-                      {isRunningFaucet ? (
-                        <div className="text-center py-4">
-                          <p className="text-secondary text-fade-in">
-                            {'Running Faucet'}
-                            <br />
-                            <small>{'Please kindly wait. It might take a while.'}</small>
-                          </p>
-                        </div>
-                      ) : null}
-                      {isFaucetComplete ? (
-                        <div>
-                          <p className="pt-4 text-secondary">
-                            <span className="text-primary">{'Transaction In Process'}</span>
-                            <br />
-                            <br />
-                            <small>{'Your transaction is pending blockchain confirmation.'}</small>
-                            <br />
-                            <small>{'Please check after a few minutes.'}</small>
-                          </p>
-                          {faucetTxId ? (
-                            <u>
-                              <a
-                                target="_blank"
-                                href={`${EXPLORER_URL}/transactions/${faucetTxId}`}
-                                rel="noreferrer"
-                              >
-                                {'View Your Transaction'}
-                              </a>
-                            </u>
-                          ) : null}
-                        </div>
-                      ) : null}
+                      <SpinnerWithCheckMark loading={true} />
+                      <FaucetPending />
                     </div>
-                  ) : (
-                    <div className="recaptcha">
-                      <ReCAPTCHA
-                        sitekey={CAPTCHA_SITE_KEY}
-                        onChange={handleCaptcha}
-                        badge="inline"
-                      />
+                  ) : null}
+                  {isFaucetComplete ? (
+                    <div>
+                      <SpinnerWithCheckMark loading={false} />
+                      {faucetTxId ? <FaucetComplete txId={faucetTxId} /> : null}
+                    </div>
+                  ) : null}
+
+                  {isRunningFaucet || isFaucetComplete ? null : (
+                    <div>
+                      <Recaptcha onChange={handleCaptcha} />
                       {isFaucetIncomplete ? (
                         <p className="pt-4">
                           <small className="text-danger text-fade-in">
