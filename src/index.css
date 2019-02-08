@@ -100,11 +100,11 @@ a:hover {
   margin-bottom: 0.5rem;
 }
 
-input.form-control-file {
+form input.form-control-file {
   display: none;
 }
 
-input.form-control {
+form input.form-control {
   border: 0;
   border-radius: 0;
   border-bottom: 1px solid --gray300;
@@ -123,17 +123,17 @@ input.form-control {
   cursor: not-allowed;
 }
 
-input[type=text]:focus,
-input[type=password]:focus,
-input[type=number]:focus {
+form input[type=text]:focus,
+form input[type=password]:focus,
+form input[type=number]:focus {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0) !important;
   border: none;
   border-bottom: 1px solid --black;
 }
 
-input[type=text]::placeholder,
-input[type=password]::placeholder,
-input[type=number]::placeholder {
+form input[type=text]::placeholder,
+form input[type=password]::placeholder,
+form input[type=number]::placeholder {
   color: --gray300;
 }
 
