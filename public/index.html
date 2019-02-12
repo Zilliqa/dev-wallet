@@ -25,6 +25,21 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Nucleus Wallet</title>
+
+    <!-- Frame-busting -->
+    <style id="antiClickjack">
+      body {
+        display: none !important;
+      }
+    </style>
+    <script type="text/javascript">
+      if (self === top) {
+          var antiClickjack = document.getElementById("antiClickjack");
+          antiClickjack.parentNode.removeChild(antiClickjack);
+      } else {
+          top.location = self.location;
+      }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
