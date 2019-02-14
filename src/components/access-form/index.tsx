@@ -20,7 +20,6 @@ import React, { useState, useEffect } from 'react';
 import { Card, Label, Input, FormGroup, Form, Row, Col, FormFeedback } from 'reactstrap';
 import { PASSPHRASE_REGEX } from '../../regex';
 import Button from '../button';
-import './style.css';
 import Spinner from '../spinner';
 import * as zilActions from '../../redux/zil/actions';
 import { connect } from 'react-redux';
