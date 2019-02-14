@@ -47,7 +47,7 @@ const initialState: IState = {
   isComplete: false,
   isFailed: false,
   isDisclaimerChecked: false,
-  prevSendTxStatus: requestStatus.PENDING
+  prevSendTxStatus: undefined
 };
 
 const SendTxModal: React.FunctionComponent<IProps> = (props) => {
@@ -63,9 +63,9 @@ const SendTxModal: React.FunctionComponent<IProps> = (props) => {
   } = props;
 
   const [isSubmitting, setIsSubmitting] = useState(initialState.isSubmitting);
-  const [isComplete, setIsComplete] = useState(initialState.isSubmitting);
-  const [isFailed, setIsFailed] = useState(initialState.isSubmitting);
-  const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(initialState.isSubmitting);
+  const [isComplete, setIsComplete] = useState(initialState.isComplete);
+  const [isFailed, setIsFailed] = useState(initialState.isFailed);
+  const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(initialState.isDisclaimerChecked);
   const [prevSendTxStatus, setPrevSendTxStatus] = useState(initialState.prevSendTxStatus);
 
   useEffect(
