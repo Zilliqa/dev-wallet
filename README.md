@@ -4,6 +4,13 @@
 
 # [nucleus-wallet](https://dev-wallet.zilliqa.com)
 
+
+## Contributing
+
+We recommend the community help us make improvements. To report bugs please create an issue in this repository.
+
+#### Read our [contribution guidelines](./CONTRIBUTING.md).
+
 ## Installation and Usage
 
 ### `yarn`
@@ -19,18 +26,6 @@ Open `http://localhost:3000` to view it in the browser.
 
 Runs the test watcher in an interactive mode.
 We use [Jest](https://jestjs.io/) for testing.
-
-### Development Tooling
-
-We recommend you use the [VSCode](https://code.visualstudio.com/) text editor.
-
-#### Linter
-
-We use [TSLint](https://palantir.github.io/tslint/) with [custom configs](https://github.com/Zilliqa/nucleus-wallet/blob/master/tslint.json) to keep our code-style consistent.
-
-#### Auto-formatter
-
-We use [Prettier](https://prettier.io/) to auto-format our code.
 
 ## License
 
