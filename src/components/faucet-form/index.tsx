@@ -134,7 +134,7 @@ const FaucetForm: React.FunctionComponent<IProps> = (props) => {
         isUpdatingBalance={isUpdatingBalance}
       />
       <Row className="pt-4">
-        <Col xs={12} sm={12} md={10} lg={9} className="mr-auto">
+        <Col xs={12} sm={12} md={10} lg={10} className="mr-auto">
           <Card>
             <div className="py-5">
               <div className="px-4 text-center">

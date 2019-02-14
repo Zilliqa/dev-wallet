@@ -179,14 +179,14 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
         isUpdatingBalance={isUpdatingBalance}
       />
       <Row className="pt-4">
-        <Col xs={12} sm={12} md={10} lg={9} className="mr-auto">
+        <Col xs={12} sm={12} md={10} lg={10} className="mr-auto">
           <Card>
             <div className="py-5">
               <div className="px-4 text-center">
                 <h2 className="pb-2">
                   <b>{'Send'}</b>
                 </h2>
-                <Col xs={12} sm={12} md={10} lg={8} className="mr-auto ml-auto">
+                <Col xs={12} sm={12} md={12} lg={8} className="mr-auto ml-auto">
                   <Form className="mt-4 text-left" onSubmit={(e) => e.preventDefault()}>
                     <FormGroup>
                       <Label for="Address">
