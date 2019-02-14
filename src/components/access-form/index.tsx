@@ -16,23 +16,9 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import classnames from 'classnames';
-import {
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Card,
-  Label,
-  Input,
-  FormGroup,
-  Form,
-  Row,
-  Col,
-  FormFeedback
-} from 'reactstrap';
-import { PRIVATE_KEY_REGEX, PASSPHRASE_REGEX } from '../../regex';
+
+import { Card, Label, Input, FormGroup, Form, Row, Col, FormFeedback } from 'reactstrap';
+import { PASSPHRASE_REGEX } from '../../regex';
 import Button from '../button';
 import './style.css';
 import Spinner from '../spinner';
@@ -66,16 +52,8 @@ interface IState {
   passphraseInvalid: boolean;
   filename: string;
   keystoreV3?: any;
-
-  privateKey: string;
-  privateKeyValid: boolean;
-  privateKeyInvalid: boolean;
   isDisclaimerChecked: boolean;
-  activeTab: string;
 }
-
-const KEYSTORE_TAB = '0';
-const PRIVATE_KEY_TAB = '1';
 
 const initialState: IState = {
   worker: undefined,
@@ -86,11 +64,7 @@ const initialState: IState = {
   passphraseInvalid: false,
   filename: '',
   keystoreV3: undefined,
-  isAccessing: false,
-  privateKey: '',
-  privateKeyValid: false,
-  privateKeyInvalid: false,
-  activeTab: KEYSTORE_TAB
+  isAccessing: false
 };
 
 const AccessForm: React.FunctionComponent<IProps> = (props) => {
@@ -105,10 +79,6 @@ const AccessForm: React.FunctionComponent<IProps> = (props) => {
   const [filename, setFilename] = useState(initialState.filename);
   const [keystoreV3, setKeystoreV3] = useState(initialState.keystoreV3);
   const [isAccessing, setIsAccessing] = useState(initialState.isAccessing);
-  const [privateKey, setPrivateKey] = useState(initialState.privateKey);
-  const [privateKeyValid, setPrivateKeyValid] = useState(initialState.privateKeyValid);
-  const [privateKeyInvalid, setPrivateKeyInvalid] = useState(initialState.privateKeyInvalid);
-  const [activeTab, setActiveTab] = useState(KEYSTORE_TAB);
 
   useEffect(() => {
     if (worker === undefined) {
@@ -148,12 +118,6 @@ const AccessForm: React.FunctionComponent<IProps> = (props) => {
     setIsDisclaimerChecked(!isDisclaimerChecked);
   };
 
-  const toggle = (tab) => {
-    if (activeTab !== tab) {
-      setActiveTab(tab);
-    }
-  };
-
   const importkeystoreV3 = (e): void => {
     e.preventDefault();
     try {
@@ -176,30 +140,13 @@ const AccessForm: React.FunctionComponent<IProps> = (props) => {
     const key = 'passphrase';
     const regex = PASSPHRASE_REGEX;
     const validationResult: any = getInputValidationState(key, value, regex);
-    setPassphrase(value);
     setPassphraseValid(validationResult.passphraseValid);
     setPassphraseInvalid(validationResult.passphraseInvalid);
-  };
-
-  const changePrivateKey = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    e.preventDefault();
-    const value = e.target.value;
-    const key = 'privateKey';
-    const regex = PRIVATE_KEY_REGEX;
-    const validationResult: any = getInputValidationState(key, value, regex);
-    setPrivateKey(value);
-    setPrivateKeyValid(validationResult.privateKeyValid);
-    setPrivateKeyInvalid(validationResult.privateKeyInvalid);
+    setPassphrase(value);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    if (activeTab === PRIVATE_KEY_TAB && privateKey) {
-      setIsAccessing(true);
-      return props.accessWallet(privateKey);
-    }
-
     setDecryptStatus(requestStatus.PENDING);
     const keystoreV3Json = JSON.parse(keystoreV3);
     worker.postMessage({ passphrase, keystoreV3: keystoreV3Json });
@@ -212,23 +159,18 @@ const AccessForm: React.FunctionComponent<IProps> = (props) => {
 
   let isSubmitButtonDisabled = false;
 
-  if (activeTab === KEYSTORE_TAB) {
-    if (
-      !passphraseValid ||
-      keystoreV3 === undefined ||
-      isDecrypting ||
-      isAccessing ||
-      !isDisclaimerChecked
-    ) {
-      isSubmitButtonDisabled = true;
-    }
-  } else {
-    if (!privateKeyValid || isAccessing || !isDisclaimerChecked) {
-      isSubmitButtonDisabled = true;
-    }
+  if (
+    !passphraseValid ||
+    keystoreV3 === undefined ||
+    isDecrypting ||
+    isAccessing ||
+    !isDisclaimerChecked
+  ) {
+    isSubmitButtonDisabled = true;
   }
 
   let submitButtonText = isDecrypting ? 'Decrypting' : 'Access';
+
   if (isAccessing) {
     submitButtonText = 'Accessing';
   }
@@ -249,104 +191,50 @@ const AccessForm: React.FunctionComponent<IProps> = (props) => {
               </div>
               <div>
                 <Form className="mt-4" onSubmit={(e) => e.preventDefault()}>
-                  <Nav tabs={true}>
-                    <NavItem>
-                      <NavLink
-                        className={classnames({
-                          active: activeTab === KEYSTORE_TAB
-                        })}
-                        onClick={() => toggle(KEYSTORE_TAB)}
-                      >
-                        {'keystore File'}
-                      </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink
-                        className={classnames({
-                          active: activeTab === PRIVATE_KEY_TAB
-                        })}
-                        onClick={() => {
-                          toggle(PRIVATE_KEY_TAB);
-                        }}
-                      >
-                        {'Private Key'}
-                      </NavLink>
-                    </NavItem>
-                  </Nav>
-                  <TabContent activeTab={activeTab}>
-                    <TabPane tabId={KEYSTORE_TAB}>
-                      <FormGroup className="px-5">
-                        <div className="py-3">
-                          <small>
-                            <b>{'Keystore File'}</b>
-                          </small>
-                        </div>
-                        <Label for="keystoreFile" className="btn type-secondary btn-file">
-                          <small>
-                            <b>{'Import Keystore File (.json)'}</b>
-                          </small>
-                        </Label>
-                        <Input
-                          type="file"
-                          name="file"
-                          id="keystoreFile"
-                          accept="application/json"
-                          onChange={importkeystoreV3}
-                        />
-                        <p className="text-success">
-                          {filename ? <small> {filename}</small> : null}
-                        </p>
-                        <br />
-                        <Label for="Passphrase">
-                          <small>
-                            <b>{'Passphrase'}</b>
-                          </small>
-                        </Label>
-                        <Input
-                          id="passphrase"
-                          type="password"
-                          name="passphrase"
-                          data-test-id="passphrase"
-                          value={passphrase}
-                          onChange={changePassphrase}
-                          valid={passphraseValid}
-                          invalid={passphraseInvalid}
-                          placeholder="Enter the passphrase"
-                          // autoComplete="new-password"
-                          autoComplete="off"
-                          maxLength={32}
-                          minLength={8}
-                        />
-                        <FormFeedback>{'invalid passphrase'}</FormFeedback>
-                        <FormFeedback valid={true}>{'valid passphrase'}</FormFeedback>
-                      </FormGroup>
-                    </TabPane>
-                    <TabPane tabId={PRIVATE_KEY_TAB}>
-                      <FormGroup className="px-5 pt-5">
-                        <Label for="privateKey">
-                          <small>
-                            <b>{'Private Key'}</b>
-                          </small>
-                        </Label>
-                        <Input
-                          id="private-key"
-                          type="text"
-                          name="privateKey"
-                          data-test-id="privateKey"
-                          value={privateKey}
-                          onChange={changePrivateKey}
-                          valid={privateKeyValid}
-                          invalid={privateKeyInvalid}
-                          // autoComplete="new-password"
-                          autoComplete="off"
-                          placeholder="Enter the private key"
-                          maxLength={64}
-                        />
-                        <FormFeedback>{'invalid private key'}</FormFeedback>
-                        <FormFeedback valid={true}>{'valid private key'}</FormFeedback>
-                      </FormGroup>
-                    </TabPane>
-                  </TabContent>
+                  <FormGroup className="px-5">
+                    <div className="py-3">
+                      <small>
+                        <b>{'Keystore File'}</b>
+                      </small>
+                    </div>
+                    <Label for="keystoreFile" className="btn type-secondary btn-file">
+                      <small>
+                        <b>{'Import Keystore File (.json)'}</b>
+                      </small>
+                    </Label>
+                    <Input
+                      type="file"
+                      name="file"
+                      id="keystoreFile"
+                      accept="application/json"
+                      onChange={importkeystoreV3}
+                    />
+                    <p className="text-success">{filename ? <small> {filename}</small> : null}</p>
+                    <br />
+                    <Label for="Passphrase">
+                      <small>
+                        <b>{'Passphrase'}</b>
+                      </small>
+                    </Label>
+                    <Input
+                      id="passphrase"
+                      type="password"
+                      name="passphrase"
+                      data-test-id="passphrase"
+                      value={passphrase}
+                      onChange={changePassphrase}
+                      valid={passphraseValid}
+                      invalid={passphraseInvalid}
+                      placeholder="Enter the passphrase"
+                      // autoComplete="new-password"
+                      autoComplete="off"
+                      maxLength={32}
+                      minLength={8}
+                    />
+                    <FormFeedback>{'invalid passphrase'}</FormFeedback>
+                    <FormFeedback valid={true}>{'valid passphrase'}</FormFeedback>
+                  </FormGroup>
+
                   <br />
                   <FormGroup className="mx-4 px-5" inline={true}>
                     <Label check={isDisclaimerChecked} onChange={handleCheck}>
