@@ -65,7 +65,7 @@ const initialState: IState = {
   isAccessing: false
 };
 
-const AccessForm: React.FunctionComponent<IProps> = (props) => {
+const AccessKeystore: React.FunctionComponent<IProps> = (props) => {
   const { authStatus } = props;
   const [worker, setWorker] = useState(initialState.worker);
   const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(initialState.isDisclaimerChecked);
@@ -268,4 +268,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AccessForm);
+)(AccessKeystore);

@@ -23,8 +23,6 @@ import * as zilActions from '../../redux/zil/actions';
 import { connect } from 'react-redux';
 import { requestStatus } from '../../constants';
 
-// @ts-ignore
-import Worker from '../../decrypt.worker';
 import { getInputValidationState } from '../../utils';
 import { Disclaimer } from '../disclaimer';
 
@@ -35,7 +33,7 @@ interface IProps {
 
 interface IState {
   worker: any;
-  decryptStatus?: string;
+  prevAuthStatus?: string;
   isAccessing: boolean;
   privateKey: string;
   privateKeyValid: boolean;
@@ -46,42 +44,21 @@ interface IState {
 const initialState: IState = {
   worker: undefined,
   isDisclaimerChecked: false,
-  decryptStatus: undefined,
+  prevAuthStatus: undefined,
   isAccessing: false,
   privateKey: '',
   privateKeyValid: false,
   privateKeyInvalid: false
 };
 
-const AccessForm: React.FunctionComponent<IProps> = (props) => {
+const AccessPrivateKey: React.FunctionComponent<IProps> = (props) => {
   const { authStatus } = props;
-  const [worker, setWorker] = useState(initialState.worker);
   const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(initialState.isDisclaimerChecked);
-  const [decryptStatus, setDecryptStatus] = useState(initialState.decryptStatus);
-  const [prevAuthStatus, setPrevAuthStatus] = useState(initialState.decryptStatus);
+  const [prevAuthStatus, setPrevAuthStatus] = useState(initialState.prevAuthStatus);
   const [isAccessing, setIsAccessing] = useState(initialState.isAccessing);
   const [privateKey, setPrivateKey] = useState(initialState.privateKey);
   const [privateKeyValid, setPrivateKeyValid] = useState(initialState.privateKeyValid);
   const [privateKeyInvalid, setPrivateKeyInvalid] = useState(initialState.privateKeyInvalid);
-
-  useEffect(() => {
-    if (worker === undefined) {
-      const myWorker = new Worker();
-
-      myWorker.onmessage = (event) => {
-        const { data } = event;
-        if (data.privateKey === undefined) {
-          return setDecryptStatus(requestStatus.FAILED);
-        }
-
-        setDecryptStatus(requestStatus.SUCCEED);
-        setIsAccessing(true);
-
-        props.accessWallet(data.privateKey);
-      };
-      setWorker(myWorker);
-    }
-  });
 
   useEffect(
     () => {
@@ -114,23 +91,16 @@ const AccessForm: React.FunctionComponent<IProps> = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
     setIsAccessing(true);
     return props.accessWallet(privateKey);
   };
 
-  const messageForDecryptFailure = `Decryption failed. Please check your keystore file and passphrase.`;
-  const messageForaccessWalletFailure = `Access Failed.`;
-
-  const isDecrypting = decryptStatus === requestStatus.PENDING;
-
   let isSubmitButtonDisabled = false;
-
   if (!privateKeyValid || isAccessing || !isDisclaimerChecked) {
     isSubmitButtonDisabled = true;
   }
 
-  let submitButtonText = isDecrypting ? 'Decrypting' : 'Access';
+  let submitButtonText = 'Access';
   if (isAccessing) {
     submitButtonText = 'Accessing';
   }
@@ -176,7 +146,7 @@ const AccessForm: React.FunctionComponent<IProps> = (props) => {
             ariaLabel="private key submit"
             IsSubmitButton={true}
             before={
-              isDecrypting || isAccessing ? (
+              isAccessing ? (
                 <span className="pr-1">
                   <Spinner size="small" />
                 </span>
@@ -185,14 +155,10 @@ const AccessForm: React.FunctionComponent<IProps> = (props) => {
             disabled={isSubmitButtonDisabled}
           />
         }
-        {decryptStatus === requestStatus.FAILED ? (
-          <p className="text-danger text-fade-in py-3">
-            <small>{messageForDecryptFailure}</small>
-          </p>
-        ) : null}
+
         {authStatus === requestStatus.FAILED ? (
           <p className="text-danger text-fade-in py-3">
-            <small>{messageForaccessWalletFailure}</small>
+            <small>{'Access Failed.'}</small>
           </p>
         ) : null}
       </div>
@@ -211,4 +177,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AccessForm);
+)(AccessPrivateKey);
