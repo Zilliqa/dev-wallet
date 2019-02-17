@@ -17,7 +17,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, Label, Input, FormGroup, Form, Row, Col, FormFeedback } from 'reactstrap';
-import { PASSPHRASE_REGEX } from '../../regex';
 import Button from '../button';
 import Steps, { Step } from 'rc-steps';
 
@@ -119,8 +118,7 @@ const GenerateForm: React.FunctionComponent = (props) => {
     e.preventDefault();
     const value = e.target.value;
     const key = 'passphrase';
-    const regex = PASSPHRASE_REGEX;
-    const validationResult: any = getInputValidationState(key, value, regex);
+    const validationResult: any = getInputValidationState(key, value, /^.{8,}$/);
     setPassphrase(value);
     setPassphraseValid(validationResult.passphraseValid);
     setPassphraseInvalid(validationResult.passphraseInvalid);

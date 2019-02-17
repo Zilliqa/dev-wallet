@@ -19,7 +19,7 @@ import React from 'react';
 import * as H from 'history';
 import { connect } from 'react-redux';
 import { requestStatus } from '../constants';
-import AccessForm from '../components/access-form';
+import AccessTabs from '../components/access-tabs';
 import Layout from '../components/layout';
 import FaucetForm from '../components/faucet-form';
 
@@ -41,7 +41,7 @@ const FaucetContainer: React.FunctionComponent<IProps> = (props) => {
           ) : (
             <div>
               <span className="pl-1 text-secondary">ZIL Faucet</span>
-              <AccessForm />
+              <AccessTabs />
             </div>
           )}
         </div>

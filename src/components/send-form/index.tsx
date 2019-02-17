@@ -21,7 +21,6 @@ import { BN, units } from '@zilliqa-js/util';
 import Button from '../button';
 import * as zilActions from '../../redux/zil/actions';
 import { connect } from 'react-redux';
-import { ADDRESS_REGEX } from '../../regex';
 import { getInputValidationState } from '../../utils';
 import ConfirmTxModal from '../confirm-tx-modal';
 import { AccountInfo } from '../account-info';
@@ -112,8 +111,7 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
     e.preventDefault();
     const value = e.target.value;
     const key = 'toAddress';
-    const regex = ADDRESS_REGEX;
-    const validationResult: any = getInputValidationState(key, value, regex);
+    const validationResult: any = getInputValidationState(key, value, /^[a-zA-Z0-9]{40}$/);
     setToAddress(value);
     setToAddressValid(validationResult.toAddressValid);
     setToAddressInvalid(validationResult.toAddressInvalid);
