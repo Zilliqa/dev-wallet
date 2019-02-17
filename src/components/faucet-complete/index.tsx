@@ -18,7 +18,7 @@
 import React from 'react';
 import { EXPLORER_URL } from '../../constants';
 
-const FaucetComplete: React.SFC<{ txId: string }> = (txId) => (
+const FaucetComplete: React.SFC<{ txId: string }> = ({ txId }) => (
   <div>
     <p className="pt-4 text-secondary">
       <span className="text-primary">{'Transaction In Process'}</span>
