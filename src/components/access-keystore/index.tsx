@@ -17,8 +17,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { Card, Label, Input, FormGroup, Form, Row, Col, FormFeedback } from 'reactstrap';
-import { PASSPHRASE_REGEX } from '../../regex';
+import { Label, Input, FormGroup, Form, FormFeedback } from 'reactstrap';
 import Button from '../button';
 import Spinner from '../spinner';
 import * as zilActions from '../../redux/zil/actions';
@@ -137,8 +136,7 @@ const AccessForm: React.FunctionComponent<IProps> = (props) => {
     e.preventDefault();
     const value = e.target.value;
     const key = 'passphrase';
-    const regex = PASSPHRASE_REGEX;
-    const validationResult: any = getInputValidationState(key, value, regex);
+    const validationResult: any = getInputValidationState(key, value, /^.{8,}$/);
     setPassphraseValid(validationResult.passphraseValid);
     setPassphraseInvalid(validationResult.passphraseInvalid);
     setPassphrase(value);
@@ -175,107 +173,87 @@ const AccessForm: React.FunctionComponent<IProps> = (props) => {
   }
 
   return (
-    <div>
-      <Card>
-        <div className="pb-5 sign-in-form-container">
-          <Row>
-            <Col xs={10} sm={10} md={8} lg={7} className="mr-auto ml-auto">
-              <div className="text-center">
-                <h2 className="pt-5">
-                  <b>{'Access Existing Wallet'}</b>
-                </h2>
-                <p className="text-secondary py-3">
-                  {'You can access your wallet with your keystore file and passphrase.'}
-                </p>
-              </div>
-              <div>
-                <Form className="mt-4" onSubmit={(e) => e.preventDefault()}>
-                  <FormGroup className="px-5">
-                    <div className="py-3">
-                      <small>
-                        <b>{'Keystore File'}</b>
-                      </small>
-                    </div>
-                    <Label for="keystoreFile" className="btn type-secondary btn-file">
-                      <small>
-                        <b>{'Import Keystore File (.json)'}</b>
-                      </small>
-                    </Label>
-                    <Input
-                      type="file"
-                      name="file"
-                      id="keystoreFile"
-                      accept="application/json"
-                      onChange={importkeystoreV3}
-                    />
-                    <p className="text-success">{filename ? <small> {filename}</small> : null}</p>
-                    <br />
-                    <Label for="Passphrase">
-                      <small>
-                        <b>{'Passphrase'}</b>
-                      </small>
-                    </Label>
-                    <Input
-                      id="passphrase"
-                      type="password"
-                      name="passphrase"
-                      data-test-id="passphrase"
-                      value={passphrase}
-                      onChange={changePassphrase}
-                      valid={passphraseValid}
-                      invalid={passphraseInvalid}
-                      placeholder="Enter the passphrase"
-                      // autoComplete="new-password"
-                      autoComplete="off"
-                      maxLength={32}
-                      minLength={8}
-                    />
-                    <FormFeedback>{'invalid passphrase'}</FormFeedback>
-                    <FormFeedback valid={true}>{'valid passphrase'}</FormFeedback>
-                  </FormGroup>
-
-                  <br />
-                  <FormGroup className="mx-4 px-5" inline={true}>
-                    <Label check={isDisclaimerChecked} onChange={handleCheck}>
-                      <Input type="checkbox" /> <Disclaimer />
-                    </Label>
-                  </FormGroup>
-                  <div className="text-center">
-                    {
-                      <Button
-                        text={submitButtonText}
-                        type="primary"
-                        onClick={onSubmit}
-                        ariaLabel="private key submit"
-                        IsSubmitButton={true}
-                        before={
-                          isDecrypting || isAccessing ? (
-                            <span className="pr-1">
-                              <Spinner size="small" />
-                            </span>
-                          ) : null
-                        }
-                        disabled={isSubmitButtonDisabled}
-                      />
-                    }
-                    {decryptStatus === requestStatus.FAILED ? (
-                      <p className="text-danger text-fade-in py-3">
-                        <small>{messageForDecryptFailure}</small>
-                      </p>
-                    ) : null}
-                    {authStatus === requestStatus.FAILED ? (
-                      <p className="text-danger text-fade-in py-3">
-                        <small>{messageForaccessWalletFailure}</small>
-                      </p>
-                    ) : null}
-                  </div>
-                </Form>
-              </div>
-            </Col>
-          </Row>
+    <Form className="mt-4" onSubmit={(e) => e.preventDefault()}>
+      <FormGroup className="px-5">
+        <div className="py-3">
+          <small>
+            <b>{'Keystore File'}</b>
+          </small>
         </div>
-      </Card>
-    </div>
+        <Label for="keystoreFile" className="btn type-secondary btn-file">
+          <small>
+            <b>{'Import Keystore File (.json)'}</b>
+          </small>
+        </Label>
+        <Input
+          type="file"
+          name="file"
+          id="keystoreFile"
+          accept="application/json"
+          onChange={importkeystoreV3}
+        />
+        <p className="text-success">{filename ? <small> {filename}</small> : null}</p>
+        <br />
+        <Label for="Passphrase">
+          <small>
+            <b>{'Passphrase'}</b>
+          </small>
+        </Label>
+        <Input
+          id="passphrase"
+          type="password"
+          name="passphrase"
+          data-test-id="passphrase"
+          value={passphrase}
+          onChange={changePassphrase}
+          valid={passphraseValid}
+          invalid={passphraseInvalid}
+          placeholder="Enter the passphrase"
+          // autoComplete="new-password"
+          autoComplete="off"
+          maxLength={32}
+          minLength={8}
+        />
+        <FormFeedback>{'invalid passphrase'}</FormFeedback>
+        <FormFeedback valid={true}>{'valid passphrase'}</FormFeedback>
+      </FormGroup>
+
+      <br />
+      <FormGroup className="mx-4 px-5" inline={true}>
+        <Label check={isDisclaimerChecked} onChange={handleCheck}>
+          <Input type="checkbox" /> <Disclaimer />
+        </Label>
+      </FormGroup>
+      <div className="text-center">
+        {
+          <Button
+            text={submitButtonText}
+            type="primary"
+            onClick={onSubmit}
+            ariaLabel="private key submit"
+            IsSubmitButton={true}
+            before={
+              isDecrypting || isAccessing ? (
+                <span className="pr-1">
+                  <Spinner size="small" />
+                </span>
+              ) : null
+            }
+            disabled={isSubmitButtonDisabled}
+          />
+        }
+        {decryptStatus === requestStatus.FAILED ? (
+          <p className="text-danger text-fade-in py-3">
+            <small>{messageForDecryptFailure}</small>
+          </p>
+        ) : null}
+        {authStatus === requestStatus.FAILED ? (
+          <p className="text-danger text-fade-in py-3">
+            <small>{messageForaccessWalletFailure}</small>
+          </p>
+        ) : null}
+      </div>
+    </Form>
   );
 };
 
