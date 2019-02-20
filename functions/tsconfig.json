@@ -6,8 +6,8 @@
     "outDir": "lib",
     "sourceMap": true,
     "target": "es6",
-    "types" : ["node", "express"]
-
+    "types" : ["node", "express"],
+    "skipLibCheck": true
   },
   "compileOnSave": true,
   "include": [

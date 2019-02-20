@@ -8,10 +8,12 @@ node_js:
 sudo: false
 
 script:
-- yarn ci
+  - yarn ci
+  - if [[ $TRAVIS_BRANCH = "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then
+      yarn build; yarn global add firebase-tools typescript tslint; firebase deploy --token $FIREBASE_TOKEN --non-interactive;
+    fi
 
 after_success:
-# - yarn codecov
-- if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then
-    npm run deploy-storybook -- --ci;
-  fi
+  - if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then
+      npm run deploy-storybook -- --ci;
+    fi
