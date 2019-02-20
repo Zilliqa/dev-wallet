@@ -13,7 +13,7 @@
     "tslint": "tslint --project tsconfig.json --format stylish",
     "stylelint": "stylelint ./src/**/*.css --fix",
     "format": "prettier --write '**/*.{ts,tsx,js}' --config .prettierrc",
-    "ci": "yarn tslint && yarn stylelint && yarn format && yarn test:ci",
+    "ci": "yarn tslint && yarn stylelint && yarn test:ci",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "deploy-storybook": "storybook-to-ghpages"
@@ -27,7 +27,9 @@
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
-    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.ts",
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
+    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}"
