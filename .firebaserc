@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "nucleus-wallet"
+    "default": "nucleus-wallet",
+    "production": "nucleus-wallet"
   }
 }

@@ -20,6 +20,7 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import axios from 'axios';
+require('dotenv').config({ path: '.env' });
 
 const app = express();
 app.use(cors());
@@ -31,19 +32,24 @@ const { getAddressFromPrivateKey, getPubKeyFromPrivateKey } = require('@zilliqa-
 const { Transaction } = require('@zilliqa-js/account');
 const { HTTPProvider, RPCMethod } = require('@zilliqa-js/core');
 
+const TRANSFER_AMOUNT: string = '300';
+
+const RECAPTCHA_SECRET = functions.config().faucet.recaptcha_secret;
 const PRIVATE_KEY = functions.config().faucet.private_key;
 const PUBLIC_KEY = getPubKeyFromPrivateKey(PRIVATE_KEY);
-const RECAPTCHA_SECRET = functions.config().faucet.recaptcha_secret;
-const TRANSFER_AMOUNT = functions.config().faucet.transfer_amount;
-const TESTNET_URL = functions.config().faucet.testnet_url;
-const NETWORK = functions.config().faucet.network;
-const CHAIN_ID = parseInt(functions.config().faucet.chain_id, 10);
-const MSG_VERSION = parseInt(functions.config().faucet.msg_version, 10);
-const VERSION = bytes.pack(CHAIN_ID, MSG_VERSION);
 const ADDRESS = getAddressFromPrivateKey(PRIVATE_KEY);
 
-const provider = new HTTPProvider(TESTNET_URL);
-const zilliqa = new Zilliqa(TESTNET_URL, provider);
+const CHAIN_ID: number =
+  process.env.REACT_APP_CHAIN_ID !== undefined ? parseInt(process.env.REACT_APP_CHAIN_ID, 10) : 0;
+const MSG_VERSION: number =
+  process.env.REACT_APP_MSG_VERSION !== undefined
+    ? parseInt(process.env.REACT_APP_MSG_VERSION, 10)
+    : 0;
+const VERSION = bytes.pack(CHAIN_ID, MSG_VERSION);
+const NODE_URL: string = process.env.REACT_APP_NODE_URL || '';
+
+const provider = new HTTPProvider(NODE_URL);
+const zilliqa = new Zilliqa(NODE_URL, provider);
 
 zilliqa.wallet.addByPrivateKey(PRIVATE_KEY);
 
@@ -58,12 +64,12 @@ async function getGasPrice(): Promise<string> {
   }
 }
 
-async function getNonce(network, address) {
+async function getNonce(address) {
   try {
     const response = await zilliqa.blockchain.getBalance(address);
     const result = response.result || { nonce: 0 };
     const nextNonce: number = result.nonce + 1;
-    console.log('next nonce:', nextNonce);
+    console.log('Next nonce:', nextNonce);
     return nextNonce;
   } catch (error) {
     console.log(error);
@@ -78,7 +84,7 @@ async function runFaucet(address) {
     const gasPrice = units.toQa(await getGasPrice(), units.Units.Li); // Minimum gasPrice measured in Li, converting to Qa.
     const pubKey = PUBLIC_KEY;
     const toAddr = address.toLowerCase();
-    const nonce: number = await getNonce(NETWORK, ADDRESS);
+    const nonce: number = await getNonce(ADDRESS);
 
     const wallet = zilliqa.wallet;
     wallet.addByPrivateKey(PRIVATE_KEY);
@@ -101,6 +107,7 @@ async function runFaucet(address) {
     // Send a transaction to the network
     const { result } = await provider.send(RPCMethod.CreateTransaction, txParams);
     const txId = result.TranID;
+    console.log(`txid: ${txId}`);
     return txId;
   } catch (error) {
     console.log(error);
@@ -115,6 +122,13 @@ function validateAddress(address) {
 }
 
 app.post('/run', async (req, res) => {
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  console.log(`IP Address: ${ip}`);
+
+  console.log(`Node URL: ${NODE_URL}`);
+  console.log(`Chain ID: ${CHAIN_ID}`);
+  console.log(`Msg Version: ${MSG_VERSION}`);
+
   const { address } = req.body;
   console.log('Check if request has the valid Recaptcha token');
   const { token } = req.body;
@@ -151,6 +165,7 @@ app.post('/run', async (req, res) => {
   }
 
   try {
+    console.log(`Address: ${address}`);
     validateAddress(address);
     console.log('Vaild address');
   } catch (error) {
