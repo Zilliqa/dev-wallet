@@ -27,7 +27,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const { Zilliqa } = require('@zilliqa-js/zilliqa');
-const { Long, bytes, units } = require('@zilliqa-js/util');
+const { Long, bytes, units, BN } = require('@zilliqa-js/util');
 const { getAddressFromPrivateKey, getPubKeyFromPrivateKey } = require('@zilliqa-js/crypto');
 const { Transaction } = require('@zilliqa-js/account');
 const { HTTPProvider, RPCMethod } = require('@zilliqa-js/core');
@@ -81,7 +81,7 @@ async function runFaucet(address) {
   try {
     const gasLimit = Long.fromNumber(1);
     const amount = units.toQa(TRANSFER_AMOUNT, units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
-    const gasPrice = units.toQa(await getGasPrice(), units.Units.Li); // Minimum gasPrice measured in Li, converting to Qa.
+    const gasPrice = new BN(await getGasPrice());
     const pubKey = PUBLIC_KEY;
     const toAddr = address.toLowerCase();
     const nonce: number = await getNonce(ADDRESS);
