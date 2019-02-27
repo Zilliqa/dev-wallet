@@ -113,6 +113,7 @@
     "fork-ts-checker-webpack-plugin-alt": "0.4.14",
     "fs-extra": "7.0.0",
     "html-webpack-plugin": "4.0.0-alpha.2",
+    "husky": "^1.3.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "^24.1.0",
     "jest-pnp-resolver": "1.0.1",
@@ -124,7 +125,6 @@
     "postcss-loader": "3.0.0",
     "postcss-preset-env": "6.3.1",
     "postcss-safe-parser": "4.0.1",
-    "pre-push": "^0.1.1",
     "rc-steps": "^3.3.1",
     "react": "^16.8.1",
     "react-app-polyfill": "^0.2.0",
@@ -161,13 +161,10 @@
     "workbox-webpack-plugin": "^3.6.3",
     "worker-loader": "^2.0.0"
   },
-  "pre-push": {
-    "run": [
-      "tslint",
-      "stylelint",
-      "format",
-      "test:cov"
-    ]
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn tslint && yarn stylelint && yarn format && yarn test:cov"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
