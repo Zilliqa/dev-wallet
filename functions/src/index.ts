@@ -53,67 +53,6 @@ const zilliqa = new Zilliqa(NODE_URL, provider);
 
 zilliqa.wallet.addByPrivateKey(PRIVATE_KEY);
 
-async function getGasPrice(): Promise<string> {
-  try {
-    const response = await zilliqa.blockchain.getMinimumGasPrice();
-    const minGasPrice: string = response.result;
-    return `${minGasPrice}`;
-  } catch (error) {
-    console.log(error);
-    throw Error('Failed to get minimum gas price.');
-  }
-}
-
-async function getNonce(address) {
-  try {
-    const response = await zilliqa.blockchain.getBalance(address);
-    const result = response.result || { nonce: 0 };
-    const nextNonce: number = result.nonce + 1;
-    console.log('Next nonce:', nextNonce);
-    return nextNonce;
-  } catch (error) {
-    console.log(error);
-    throw new Error('Failed to get nonce.');
-  }
-}
-
-async function runFaucet(address) {
-  try {
-    const gasLimit = Long.fromNumber(1);
-    const amount = units.toQa(TRANSFER_AMOUNT, units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
-    const gasPrice = new BN(await getGasPrice());
-    const pubKey = PUBLIC_KEY;
-    const toAddr = address.toLowerCase();
-    const nonce: number = await getNonce(ADDRESS);
-
-    const wallet = zilliqa.wallet;
-    wallet.addByPrivateKey(PRIVATE_KEY);
-
-    const tx = new Transaction(
-      {
-        version: VERSION,
-        toAddr,
-        amount,
-        gasPrice,
-        gasLimit,
-        pubKey,
-        nonce
-      },
-      provider
-    );
-    const signedTx = await wallet.sign(tx);
-    const { txParams } = signedTx;
-
-    // Send a transaction to the network
-    const { result } = await provider.send(RPCMethod.CreateTransaction, txParams);
-    const txId = result.TranID;
-    console.log(`txid: ${txId}`);
-    return txId;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 function validateAddress(address) {
   const formattedAddress = (address || '').toUpperCase();
   if (!/^[a-zA-Z0-9]{40}$/.test(formattedAddress)) {
@@ -174,7 +113,44 @@ app.post('/run', async (req, res) => {
   }
 
   try {
-    const txId = await runFaucet(address);
+    const gasLimit = Long.fromNumber(1);
+    const amount = units.toQa(TRANSFER_AMOUNT, units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
+
+    const gasResponse = await zilliqa.blockchain.getMinimumGasPrice();
+    const minGasPrice: string = gasResponse.result;
+    console.log('Min Gas Price:', minGasPrice);
+
+    const gasPrice = new BN(minGasPrice);
+    const pubKey = PUBLIC_KEY;
+    const toAddr = address.toLowerCase();
+
+    const response = await zilliqa.blockchain.getBalance(ADDRESS);
+    const nonceResult = response.result || { nonce: 0 };
+    const nonce: number = nonceResult.nonce + 1;
+    console.log('Nonce:', nonce);
+
+    const wallet = zilliqa.wallet;
+    wallet.addByPrivateKey(PRIVATE_KEY);
+
+    const tx = new Transaction(
+      {
+        version: VERSION,
+        toAddr,
+        amount,
+        gasPrice,
+        gasLimit,
+        pubKey,
+        nonce
+      },
+      provider
+    );
+    const signedTx = await wallet.sign(tx);
+    const { txParams } = signedTx;
+
+    // Send a transaction to the network
+    const { result } = await provider.send(RPCMethod.CreateTransaction, txParams);
+    const txId = result.TranID;
+    console.log(`txid: ${txId}`);
     res.status(200).json({ txId });
   } catch (error) {
     res.status(500).json({ errorCode: 500, errorMessage: error.message });
