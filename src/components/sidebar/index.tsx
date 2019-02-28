@@ -23,6 +23,7 @@ import * as H from 'history';
 import { paths } from '../../routes';
 import './style.css';
 import { FaHome, FaPlusSquare, FaTint, FaPaperPlane } from 'react-icons/fa';
+import { faucetHostnameList } from '../../constants';
 
 interface IProps {
   history: H.History;
@@ -31,12 +32,15 @@ interface IProps {
 
 const Sidebar: React.SFC<IProps> = (props) => {
   const { pathname } = props.location;
+  const { hostname } = location;
+
   const renderLink = (path, name, icon) => (
     <Link to={path} className={`nav-link ${pathname === path ? 'active' : ''}`}>
       <span className="sidebar-icon pr-2">{icon}</span>
       {name}
     </Link>
   );
+
   return (
     <div className="sidebar">
       <div className="sidebar-background">
@@ -45,7 +49,9 @@ const Sidebar: React.SFC<IProps> = (props) => {
             <NavItem>{renderLink(paths.home, 'Home', <FaHome />)}</NavItem>
             <NavItem>{renderLink(paths.generate, 'Create New Wallet', <FaPlusSquare />)}</NavItem>
             <NavItem>{renderLink(paths.send, 'Send ZIL', <FaPaperPlane />)}</NavItem>
-            <NavItem>{renderLink(paths.faucet, 'ZIL Faucet', <FaTint />)}</NavItem>
+            {faucetHostnameList.includes(hostname) ? (
+              <NavItem>{renderLink(paths.faucet, 'ZIL Faucet', <FaTint />)}</NavItem>
+            ) : null}
           </ul>
         </div>
       </div>
