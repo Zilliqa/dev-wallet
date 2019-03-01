@@ -17,7 +17,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, Row, Col } from 'reactstrap';
-import { BN, units } from '@zilliqa-js/util';
 import * as zilActions from '../../redux/zil/actions';
 import { connect } from 'react-redux';
 import { requestStatus } from '../../constants';
@@ -35,15 +34,15 @@ interface IProps {
   publicKey: string;
   address: string;
   network: string;
-  zilliqa: any;
+  getBalance: () => void;
+  balanceInQa: string;
+  getBalanceStatus?: string;
 }
 
 interface IState {
   isRunningFaucet: boolean;
-  isUpdatingBalance: boolean;
   isFaucetComplete: boolean;
   isFaucetIncomplete: boolean;
-  balance: string;
   prevFaucetStatus?: string;
 }
 
@@ -51,46 +50,29 @@ const initialState: IState = {
   isRunningFaucet: false,
   isFaucetComplete: false,
   isFaucetIncomplete: false,
-  isUpdatingBalance: false,
-  balance: '0',
   prevFaucetStatus: requestStatus.PENDING
 };
 
 const FaucetForm: React.FunctionComponent<IProps> = (props) => {
-  const { zilliqa, address, network, faucetTxId, faucetStatus } = props;
+  const {
+    address,
+    network,
+    faucetTxId,
+    faucetStatus,
+    getBalance,
+    balanceInQa,
+    getBalanceStatus
+  } = props;
 
-  const [isUpdatingBalance, setIsUpdatingBalance] = useState(initialState.isUpdatingBalance);
-  const [balance, setBalance] = useState(initialState.balance);
+  const isUpdatingBalance = getBalanceStatus === requestStatus.PENDING;
   useEffect(
     () => {
-      if (!isUpdatingBalance) {
+      if (getBalanceStatus === undefined) {
         getBalance();
       }
     },
-    [balance]
+    [balanceInQa]
   );
-
-  const getBalance = async () => {
-    setIsUpdatingBalance(true);
-    try {
-      const response = await zilliqa.blockchain.getBalance(address);
-
-      if (response.error) {
-        console.log(response);
-        setIsUpdatingBalance(false);
-      } else {
-        if (response.result) {
-          const balanceInQa = response.result.balance;
-          const balanceInZil = units.fromQa(new BN(balanceInQa), units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
-          setBalance(balanceInZil);
-          setIsUpdatingBalance(false);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-      setIsUpdatingBalance(false);
-    }
-  };
 
   const [isFaucetComplete, setIsFaucetComplete] = useState(initialState.isFaucetComplete);
   const [isFaucetIncomplete, setIsFaucetIncomplete] = useState(initialState.isFaucetIncomplete);
@@ -129,7 +111,7 @@ const FaucetForm: React.FunctionComponent<IProps> = (props) => {
     <div>
       <AccountInfo
         address={address}
-        balance={balance}
+        balanceInQa={balanceInQa}
         getBalance={getBalance}
         isUpdatingBalance={isUpdatingBalance}
       />
@@ -183,17 +165,19 @@ const FaucetForm: React.FunctionComponent<IProps> = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+  balanceInQa: state.zil.balanceInQa,
+  getBalanceStatus: state.zil.getBalanceStatus,
   faucetTxId: state.zil.faucetTxId,
   faucetStatus: state.zil.faucetStatus,
   network: state.zil.network,
   address: state.zil.address,
-  publicKey: state.zil.publicKey,
-  zilliqa: state.zil.zilliqa
+  publicKey: state.zil.publicKey
 });
 
 const mapDispatchToProps = (dispatch) => ({
   runFaucet: (address, token) => dispatch(zilActions.runFaucet(address, token)),
-  clear: () => dispatch(zilActions.clear())
+  clear: () => dispatch(zilActions.clear()),
+  getBalance: () => dispatch(zilActions.getBalance())
 });
 
 export default connect(

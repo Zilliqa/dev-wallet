@@ -24,7 +24,23 @@ import { requestStatus, NODE_URL, NETWORK } from '../../constants';
 const provider = new HTTPProvider(NODE_URL);
 const zilliqa = new Zilliqa(NODE_URL, provider);
 
-const initialState: any = { zilliqa, provider, network: NETWORK };
+const initialState: any = {
+  zilliqa,
+  provider,
+  network: NETWORK,
+  address: undefined,
+  publicKey: undefined,
+  privateKey: undefined,
+  faucetTxId: undefined,
+  sendTxId: undefined,
+  authStatus: undefined,
+  faucetStatus: undefined,
+  sendTxStatus: undefined,
+  balanceInQa: undefined,
+  getBalanceStatus: undefined,
+  minGasPriceInQa: undefined,
+  getMinGasPriceStatus: undefined
+};
 
 export default function zil(state = initialState, action) {
   switch (action.type) {
@@ -74,19 +90,55 @@ export default function zil(state = initialState, action) {
       return {
         ...state,
         sendTxStatus: requestStatus.PENDING,
-        txInfo: undefined
+        sendTxId: undefined
       };
     case consts.SEND_TX_SUCCEEDED:
       return {
         ...state,
         sendTxStatus: requestStatus.SUCCEED,
-        txInfo: action.payload.txInfo
+        sendTxId: action.payload.sendTxId
       };
     case consts.SEND_TX_FAILED:
       return {
         ...state,
         sendTxStatus: requestStatus.FAILED,
-        txInfo: undefined
+        sendTxId: undefined
+      };
+    case consts.GET_BALANCE:
+      return {
+        ...state,
+        getBalanceStatus: requestStatus.PENDING,
+        balanceInQa: undefined
+      };
+    case consts.GET_BALANCE_SUCCEEDED:
+      return {
+        ...state,
+        getBalanceStatus: requestStatus.SUCCEED,
+        balanceInQa: action.payload.balanceInQa
+      };
+    case consts.GET_BALANCE_FAILED:
+      return {
+        ...state,
+        getBalanceStatus: requestStatus.FAILED,
+        balanceInQa: undefined
+      };
+    case consts.GET_MIN_GAS_PRICE:
+      return {
+        ...state,
+        getMinGasPriceStatus: requestStatus.PENDING,
+        minGasPriceInQa: undefined
+      };
+    case consts.GET_MIN_GAS_PRICE_SUCCEEDED:
+      return {
+        ...state,
+        getMinGasPriceStatus: requestStatus.SUCCEED,
+        minGasPriceInQa: action.payload.minGasPriceInQa
+      };
+    case consts.GET_MIN_GAS_PRICE_FAILED:
+      return {
+        ...state,
+        getMinGasPriceStatus: requestStatus.FAILED,
+        minGasPriceInQa: undefined
       };
     case consts.CLEAR:
       return initialState;

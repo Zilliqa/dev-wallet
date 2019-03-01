@@ -24,16 +24,22 @@ import { connect } from 'react-redux';
 import { getInputValidationState } from '../../utils';
 import ConfirmTxModal from '../confirm-tx-modal';
 import { AccountInfo } from '../account-info';
+import { requestStatus } from '../../constants';
 
 interface IProps {
   sendTx: (toAddress, amount, gasPrice) => void;
   clear: () => void;
+  getMinGasPrice: () => void;
+  minGasPriceInQa: string;
+  getMinGasPriceStatus?: string;
+  getBalance: () => void;
+  balanceInQa: string;
+  getBalanceStatus?: string;
   sendTxStatus?: string;
   publicKey: string;
   address: string;
   network: string;
-  zilliqa: any;
-  txInfo: any;
+  sendTxId?: string;
 }
 
 interface IState {
@@ -42,9 +48,6 @@ interface IState {
   toAddressInvalid: boolean;
   amount: string;
   isSendingTx: boolean;
-  balance: string;
-  balanceInQa: string;
-  isUpdatingBalance: boolean;
   gasPrice: string;
   gasPriceInQa: string;
   isUpdatingGasPrice: boolean;
@@ -58,16 +61,23 @@ const initialState: IState = {
   toAddressInvalid: false,
   amount: '',
   isSendingTx: false,
-  balance: '0',
-  balanceInQa: '0',
-  isUpdatingBalance: false,
   gasPrice: '0',
   gasPriceInQa: '0',
   isUpdatingGasPrice: false
 };
 
 const SendForm: React.FunctionComponent<IProps> = (props) => {
-  const { zilliqa, address, sendTxStatus, txInfo } = props;
+  const {
+    address,
+    sendTxStatus,
+    sendTxId,
+    getBalance,
+    balanceInQa,
+    getBalanceStatus,
+    minGasPriceInQa,
+    getMinGasPriceStatus,
+    getMinGasPrice
+  } = props;
 
   const [isModalOpen, setIsModalOpen] = useState(initialState.isModalOpen);
   const [toAddress, setToAddress] = useState(initialState.toAddress);
@@ -75,28 +85,24 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
   const [toAddressInvalid, setToAddressInvalid] = useState(initialState.toAddressInvalid);
   const [amount, setAmount] = useState(initialState.amount);
 
-  const [balance, setBalance] = useState(initialState.balance);
-  const [balanceInQa, setBalanceInQa] = useState(initialState.balanceInQa);
-  const [isUpdatingBalance, setIsUpdatingBalance] = useState(initialState.isUpdatingBalance);
+  const isUpdatingBalance = getBalanceStatus === requestStatus.PENDING;
   useEffect(
     () => {
-      if (!isUpdatingBalance) {
+      if (getBalanceStatus === undefined) {
         getBalance();
       }
     },
-    [balance]
+    [balanceInQa]
   );
 
-  const [gasPrice, setGasPrice] = useState(initialState.gasPrice);
-  const [gasPriceInQa, setGasPriceInQa] = useState(initialState.gasPrice);
-  const [isUpdatingGasPrice, setIsUpdatingGasPrice] = useState(initialState.isUpdatingGasPrice);
+  const isUpdatingMinGasPrice = getMinGasPriceStatus === requestStatus.PENDING;
   useEffect(
     () => {
-      if (!isUpdatingGasPrice) {
-        getGasPrice();
+      if (getMinGasPriceStatus === undefined) {
+        getMinGasPrice();
       }
     },
-    [gasPrice]
+    [minGasPriceInQa]
   );
 
   const closeModal = () => {
@@ -123,44 +129,7 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
     setAmount(e.target.value);
   };
 
-  const getGasPrice = async () => {
-    setIsUpdatingGasPrice(true);
-    try {
-      const response = await zilliqa.blockchain.getMinimumGasPrice();
-      const minGasPriceInQa: string = response.result;
-      const minGasPriceInZil = units.fromQa(new BN(minGasPriceInQa), units.Units.Zil); // Minimum gasPrice measured in Qa, converting to Zil.
-
-      setGasPriceInQa(`${minGasPriceInQa}`);
-      setGasPrice(`${minGasPriceInZil}`);
-      setIsUpdatingGasPrice(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getBalance = async () => {
-    setIsUpdatingBalance(true);
-    try {
-      const response = await zilliqa.blockchain.getBalance(address);
-
-      if (response.error) {
-        setIsUpdatingBalance(false);
-      } else {
-        if (response.result) {
-          const myBalanceInQa = response.result.balance;
-          setBalanceInQa(myBalanceInQa);
-          const balanceInZil = units.fromQa(new BN(myBalanceInQa), units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
-          setBalance(balanceInZil);
-          setIsUpdatingBalance(false);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-      setIsUpdatingBalance(false);
-    }
-  };
-
-  const isBalanceInsufficient = new BN(balanceInQa).lte(new BN(gasPriceInQa));
+  const isBalanceInsufficient = new BN(balanceInQa).lte(new BN(minGasPriceInQa));
   const isSendButtonDisabled =
     toAddressInvalid ||
     toAddress === initialState.toAddress ||
@@ -168,11 +137,13 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
     isBalanceInsufficient;
   const sendButtonText = 'Send';
 
+  const minGasPriceInZil = units.fromQa(new BN(minGasPriceInQa), units.Units.Zil);
+
   return (
     <div>
       <AccountInfo
         address={address}
-        balance={balance}
+        balanceInQa={balanceInQa}
         getBalance={getBalance}
         isUpdatingBalance={isUpdatingBalance}
       />
@@ -236,11 +207,11 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
                         type="number"
                         name="gasPrice"
                         data-test-id="gasPrice"
-                        value={gasPrice}
-                        disabled={isUpdatingGasPrice || true}
+                        value={minGasPriceInZil}
+                        disabled={isUpdatingMinGasPrice || true}
                         placeholder={'Loading gas price'}
                       />
-                      {isUpdatingGasPrice ? (
+                      {isUpdatingMinGasPrice ? (
                         <small className="text-secondary">loading</small>
                       ) : null}
                     </FormGroup>
@@ -258,7 +229,7 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
                         <small>
                           {'Your balance is not sufficient to send transaction.'}
                           <br />
-                          {`Minimum Gas Price: ${gasPrice} ZIL`}
+                          {`Minimum Gas Price: ${minGasPriceInZil} ZIL`}
                         </small>
                       </p>
                     ) : null}
@@ -271,11 +242,11 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
       </Row>
       {isModalOpen ? (
         <ConfirmTxModal
-          txInfo={txInfo}
+          sendTxId={sendTxId}
           sendTxStatus={sendTxStatus}
           toAddress={toAddress}
           amount={amount}
-          gasPrice={gasPrice}
+          gasPrice={minGasPriceInZil}
           isModalOpen={isModalOpen}
           sendTx={props.sendTx}
           closeModal={closeModal}
@@ -286,8 +257,12 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+  balanceInQa: state.zil.balanceInQa,
+  getBalanceStatus: state.zil.getBalanceStatus,
+  minGasPriceInQa: state.zil.minGasPriceInQa,
+  getMinGasPriceStatus: state.zil.getMinGasPriceStatus,
   sendTxStatus: state.zil.sendTxStatus,
-  txInfo: state.zil.txInfo,
+  sendTxId: state.zil.sendTxId,
   network: state.zil.network,
   address: state.zil.address,
   publicKey: state.zil.publicKey,
@@ -295,8 +270,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sendTx: (toAddress, amount, gasPrice) => dispatch(zilActions.sendTx(toAddress, amount, gasPrice)),
-  clear: () => dispatch(zilActions.clear())
+  sendTx: (toAddress, amount) => dispatch(zilActions.sendTx(toAddress, amount)),
+  clear: () => dispatch(zilActions.clear()),
+  getBalance: () => dispatch(zilActions.getBalance()),
+  getMinGasPrice: () => dispatch(zilActions.getMinGasPrice())
 });
 
 export default connect(

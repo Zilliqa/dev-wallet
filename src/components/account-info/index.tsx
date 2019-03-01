@@ -17,18 +17,22 @@
 
 import React from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
+import { BN, units } from '@zilliqa-js/util';
 import Button from '../button';
+
 import { MdRefresh } from 'react-icons/md';
 
 interface IProps {
   address: string;
-  balance: string;
+  balanceInQa: string;
   getBalance: () => void;
   isUpdatingBalance: boolean;
 }
 
 export const AccountInfo: React.SFC<IProps> = (props) => {
-  const { isUpdatingBalance, balance, address } = props;
+  const { isUpdatingBalance, balanceInQa, address } = props;
+  const balanceInZil = units.fromQa(new BN(balanceInQa), units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
+
   return (
     <div>
       <div className="px-4">
@@ -55,7 +59,7 @@ export const AccountInfo: React.SFC<IProps> = (props) => {
                   className="mb-1 py-0 px-1"
                 />
               </b>
-              <p>{isUpdatingBalance ? 'loading...' : `${balance} ZIL`}</p>
+              <p>{isUpdatingBalance ? 'loading...' : `${balanceInZil} ZIL`}</p>
             </small>
           </div>
         </div>

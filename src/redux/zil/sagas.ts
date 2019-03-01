@@ -15,10 +15,10 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { select, put, takeLatest } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
+import { delay, select, put, takeLatest } from 'redux-saga/effects';
+
 import { getAddressFromPrivateKey, getPubKeyFromPrivateKey } from '@zilliqa-js/crypto';
-import { Long, bytes, units } from '@zilliqa-js/util';
+import { Long, bytes, units, BN } from '@zilliqa-js/util';
 import { RPCMethod } from '@zilliqa-js/core';
 import { Transaction } from '@zilliqa-js/account';
 
@@ -66,10 +66,13 @@ export function* sendTxSaga(action) {
   yield delay(500);
   try {
     const { payload } = action;
-    const { toAddress, amount, gasPrice } = payload;
+    const { toAddress, amount } = payload;
 
     const zilState = yield select(getZilState);
     const { zilliqa, provider, privateKey, address, publicKey } = zilState;
+
+    const response = yield zilliqa.blockchain.getMinimumGasPrice();
+    const minGasPriceInQa: string = response.result;
 
     const nonceResponse = yield zilliqa.blockchain.getBalance(address);
     const nonceData = nonceResponse.result.nonce || { nonce: 0 };
@@ -83,8 +86,8 @@ export function* sendTxSaga(action) {
       {
         version: VERSION,
         toAddr,
-        amount: units.toQa(amount, units.Units.Zil), // Sending an amount measured in Zil, converting to Qa.
-        gasPrice: units.toQa(gasPrice, units.Units.Zil), // Minimum gasPrice measured in Zil, converting to Qa.
+        amount: units.toQa(amount, units.Units.Zil),
+        gasPrice: new BN(minGasPriceInQa),
         gasLimit: Long.fromNumber(1),
         pubKey: publicKey,
         nonce
@@ -102,11 +105,11 @@ export function* sendTxSaga(action) {
       throw Error(data.error.message);
     }
 
-    const id = data.result.TranID;
+    const sendTxId = data.result.TranID;
 
     yield put({
       type: consts.SEND_TX_SUCCEEDED,
-      payload: { txInfo: { id } }
+      payload: { sendTxId }
     });
   } catch (error) {
     console.log(error);
@@ -149,4 +152,52 @@ export function* runFaucet(action) {
 }
 export function* watchRunFaucetSaga() {
   yield takeLatest(consts.RUN_FAUCET, runFaucet);
+}
+
+export function* getBalance(action) {
+  // debounce by 500ms
+  yield delay(500);
+  try {
+    const zilState = yield select(getZilState);
+    const { zilliqa, address } = zilState;
+
+    const response = yield zilliqa.blockchain.getBalance(address);
+    let balanceInQa = '0';
+    if (response.result) {
+      balanceInQa = response.result.balance;
+    }
+
+    yield put({
+      type: consts.GET_BALANCE_SUCCEEDED,
+      payload: { balanceInQa }
+    });
+  } catch (error) {
+    console.log(error);
+    yield put({ type: consts.GET_BALANCE_FAILED });
+  }
+}
+export function* watchGetBalanceSaga() {
+  yield takeLatest(consts.GET_BALANCE, getBalance);
+}
+
+export function* getMinGasPrice(action) {
+  // debounce by 500ms
+  yield delay(500);
+  try {
+    const zilState = yield select(getZilState);
+    const { zilliqa } = zilState;
+
+    const response = yield zilliqa.blockchain.getMinimumGasPrice();
+    const minGasPriceInQa: string = response.result;
+    yield put({
+      type: consts.GET_MIN_GAS_PRICE_SUCCEEDED,
+      payload: { minGasPriceInQa }
+    });
+  } catch (error) {
+    console.log(error);
+    yield put({ type: consts.GET_MIN_GAS_PRICE_FAILED });
+  }
+}
+export function* watchGetMinGasPriceSaga() {
+  yield takeLatest(consts.GET_MIN_GAS_PRICE, getMinGasPrice);
 }
