@@ -24,10 +24,14 @@ import { connect } from 'react-redux';
 import { getInputValidationState } from '../../utils';
 import ConfirmTxModal from '../confirm-tx-modal';
 import { AccountInfo } from '../account-info';
+import { requestStatus } from '../../constants';
 
 interface IProps {
   sendTx: (toAddress, amount, gasPrice) => void;
   clear: () => void;
+  getBalance: () => void;
+  balanceInQa: string;
+  getBalanceStatus?: string;
   sendTxStatus?: string;
   publicKey: string;
   address: string;
@@ -42,9 +46,6 @@ interface IState {
   toAddressInvalid: boolean;
   amount: string;
   isSendingTx: boolean;
-  balance: string;
-  balanceInQa: string;
-  isUpdatingBalance: boolean;
   gasPrice: string;
   gasPriceInQa: string;
   isUpdatingGasPrice: boolean;
@@ -58,16 +59,21 @@ const initialState: IState = {
   toAddressInvalid: false,
   amount: '',
   isSendingTx: false,
-  balance: '0',
-  balanceInQa: '0',
-  isUpdatingBalance: false,
   gasPrice: '0',
   gasPriceInQa: '0',
   isUpdatingGasPrice: false
 };
 
 const SendForm: React.FunctionComponent<IProps> = (props) => {
-  const { zilliqa, address, sendTxStatus, txInfo } = props;
+  const {
+    zilliqa,
+    address,
+    sendTxStatus,
+    txInfo,
+    getBalance,
+    balanceInQa,
+    getBalanceStatus
+  } = props;
 
   const [isModalOpen, setIsModalOpen] = useState(initialState.isModalOpen);
   const [toAddress, setToAddress] = useState(initialState.toAddress);
@@ -75,29 +81,21 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
   const [toAddressInvalid, setToAddressInvalid] = useState(initialState.toAddressInvalid);
   const [amount, setAmount] = useState(initialState.amount);
 
-  const [balance, setBalance] = useState(initialState.balance);
-  const [balanceInQa, setBalanceInQa] = useState(initialState.balanceInQa);
-  const [isUpdatingBalance, setIsUpdatingBalance] = useState(initialState.isUpdatingBalance);
-  useEffect(
-    () => {
-      if (!isUpdatingBalance) {
-        getBalance();
-      }
-    },
-    [balance]
-  );
+  const isUpdatingBalance = getBalanceStatus === requestStatus.PENDING;
+  useEffect(() => {
+    if (getBalanceStatus === undefined) {
+      getBalance();
+    }
+  }, [balanceInQa]);
 
   const [gasPrice, setGasPrice] = useState(initialState.gasPrice);
   const [gasPriceInQa, setGasPriceInQa] = useState(initialState.gasPrice);
   const [isUpdatingGasPrice, setIsUpdatingGasPrice] = useState(initialState.isUpdatingGasPrice);
-  useEffect(
-    () => {
-      if (!isUpdatingGasPrice) {
-        getGasPrice();
-      }
-    },
-    [gasPrice]
-  );
+  useEffect(() => {
+    if (!isUpdatingGasPrice) {
+      getGasPrice();
+    }
+  }, [gasPrice]);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -138,28 +136,6 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
     }
   };
 
-  const getBalance = async () => {
-    setIsUpdatingBalance(true);
-    try {
-      const response = await zilliqa.blockchain.getBalance(address);
-
-      if (response.error) {
-        setIsUpdatingBalance(false);
-      } else {
-        if (response.result) {
-          const myBalanceInQa = response.result.balance;
-          setBalanceInQa(myBalanceInQa);
-          const balanceInZil = units.fromQa(new BN(myBalanceInQa), units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
-          setBalance(balanceInZil);
-          setIsUpdatingBalance(false);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-      setIsUpdatingBalance(false);
-    }
-  };
-
   const isBalanceInsufficient = new BN(balanceInQa).lte(new BN(gasPriceInQa));
   const isSendButtonDisabled =
     toAddressInvalid ||
@@ -172,7 +148,7 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
     <div>
       <AccountInfo
         address={address}
-        balance={balance}
+        balanceInQa={balanceInQa}
         getBalance={getBalance}
         isUpdatingBalance={isUpdatingBalance}
       />
@@ -286,6 +262,8 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+  balanceInQa: state.zil.balanceInQa,
+  getBalanceStatus: state.zil.getBalanceStatus,
   sendTxStatus: state.zil.sendTxStatus,
   txInfo: state.zil.txInfo,
   network: state.zil.network,
@@ -296,7 +274,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   sendTx: (toAddress, amount, gasPrice) => dispatch(zilActions.sendTx(toAddress, amount, gasPrice)),
-  clear: () => dispatch(zilActions.clear())
+  clear: () => dispatch(zilActions.clear()),
+  getBalance: () => dispatch(zilActions.getBalance())
 });
 
 export default connect(

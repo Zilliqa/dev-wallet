@@ -46,3 +46,9 @@ export const sendTx = (toAddress, amount, gasPrice) => ({
   type: SEND_TX,
   payload: { toAddress, amount, gasPrice }
 });
+
+export const GET_BALANCE = 'GET_BALANCE';
+export const GET_BALANCE_SUCCEEDED = 'GET_BALANCE_SUCCEEDED';
+export const GET_BALANCE_FAILED = 'GET_BALANCE_FAILED';
+
+export const getBalance = () => ({ type: GET_BALANCE });

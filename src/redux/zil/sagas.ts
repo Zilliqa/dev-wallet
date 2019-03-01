@@ -150,3 +150,29 @@ export function* runFaucet(action) {
 export function* watchRunFaucetSaga() {
   yield takeLatest(consts.RUN_FAUCET, runFaucet);
 }
+
+export function* getBalance(action) {
+  // debounce by 500ms
+  yield delay(500);
+  try {
+    const zilState = yield select(getZilState);
+    const { zilliqa, address } = zilState;
+
+    const response = yield zilliqa.blockchain.getBalance(address);
+    let balanceInQa = '0';
+    if (response.result) {
+      balanceInQa = response.result.balance;
+    }
+
+    yield put({
+      type: consts.GET_BALANCE_SUCCEEDED,
+      payload: { balanceInQa }
+    });
+  } catch (error) {
+    console.log(error);
+    yield put({ type: consts.GET_BALANCE_FAILED });
+  }
+}
+export function* watchGetBalanceSaga() {
+  yield takeLatest(consts.GET_BALANCE, getBalance);
+}

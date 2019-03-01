@@ -24,7 +24,21 @@ import { requestStatus, NODE_URL, NETWORK } from '../../constants';
 const provider = new HTTPProvider(NODE_URL);
 const zilliqa = new Zilliqa(NODE_URL, provider);
 
-const initialState: any = { zilliqa, provider, network: NETWORK };
+const initialState: any = {
+  zilliqa,
+  provider,
+  network: NETWORK,
+  address: undefined,
+  publicKey: undefined,
+  privateKey: undefined,
+  balanceInQa: undefined,
+  faucetTxId: undefined,
+  txInfo: undefined,
+  authStatus: undefined,
+  faucetStatus: undefined,
+  sendTxStatus: undefined,
+  getBalanceStatus: undefined
+};
 
 export default function zil(state = initialState, action) {
   switch (action.type) {
@@ -87,6 +101,24 @@ export default function zil(state = initialState, action) {
         ...state,
         sendTxStatus: requestStatus.FAILED,
         txInfo: undefined
+      };
+    case consts.GET_BALANCE:
+      return {
+        ...state,
+        getBalanceStatus: requestStatus.PENDING,
+        balanceInQa: undefined
+      };
+    case consts.GET_BALANCE_SUCCEEDED:
+      return {
+        ...state,
+        getBalanceStatus: requestStatus.SUCCEED,
+        balanceInQa: action.payload.balanceInQa
+      };
+    case consts.GET_BALANCE_FAILED:
+      return {
+        ...state,
+        getBalanceStatus: requestStatus.FAILED,
+        balanceInQa: undefined
       };
     case consts.CLEAR:
       return initialState;
