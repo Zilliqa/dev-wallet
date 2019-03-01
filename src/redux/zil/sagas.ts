@@ -15,8 +15,8 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { select, put, takeLatest } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
+import { delay, select, put, takeLatest } from 'redux-saga/effects';
+
 import { getAddressFromPrivateKey, getPubKeyFromPrivateKey } from '@zilliqa-js/crypto';
 import { Long, bytes, units, BN } from '@zilliqa-js/util';
 import { RPCMethod } from '@zilliqa-js/core';
