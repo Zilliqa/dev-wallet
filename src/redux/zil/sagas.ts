@@ -18,7 +18,7 @@
 import { select, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { getAddressFromPrivateKey, getPubKeyFromPrivateKey } from '@zilliqa-js/crypto';
-import { Long, bytes, units } from '@zilliqa-js/util';
+import { Long, bytes, units, BN } from '@zilliqa-js/util';
 import { RPCMethod } from '@zilliqa-js/core';
 import { Transaction } from '@zilliqa-js/account';
 
@@ -66,10 +66,13 @@ export function* sendTxSaga(action) {
   yield delay(500);
   try {
     const { payload } = action;
-    const { toAddress, amount, gasPrice } = payload;
+    const { toAddress, amount } = payload;
 
     const zilState = yield select(getZilState);
     const { zilliqa, provider, privateKey, address, publicKey } = zilState;
+
+    const response = yield zilliqa.blockchain.getMinimumGasPrice();
+    const minGasPriceInQa: string = response.result;
 
     const nonceResponse = yield zilliqa.blockchain.getBalance(address);
     const nonceData = nonceResponse.result.nonce || { nonce: 0 };
@@ -83,8 +86,8 @@ export function* sendTxSaga(action) {
       {
         version: VERSION,
         toAddr,
-        amount: units.toQa(amount, units.Units.Zil), // Sending an amount measured in Zil, converting to Qa.
-        gasPrice: units.toQa(gasPrice, units.Units.Zil), // Minimum gasPrice measured in Zil, converting to Qa.
+        amount: units.toQa(amount, units.Units.Zil),
+        gasPrice: new BN(minGasPriceInQa),
         gasLimit: Long.fromNumber(1),
         pubKey: publicKey,
         nonce
@@ -175,4 +178,26 @@ export function* getBalance(action) {
 }
 export function* watchGetBalanceSaga() {
   yield takeLatest(consts.GET_BALANCE, getBalance);
+}
+
+export function* getMinGasPrice(action) {
+  // debounce by 500ms
+  yield delay(500);
+  try {
+    const zilState = yield select(getZilState);
+    const { zilliqa } = zilState;
+
+    const response = yield zilliqa.blockchain.getMinimumGasPrice();
+    const minGasPriceInQa: string = response.result;
+    yield put({
+      type: consts.GET_MIN_GAS_PRICE_SUCCEEDED,
+      payload: { minGasPriceInQa }
+    });
+  } catch (error) {
+    console.log(error);
+    yield put({ type: consts.GET_MIN_GAS_PRICE_FAILED });
+  }
+}
+export function* watchGetMinGasPriceSaga() {
+  yield takeLatest(consts.GET_MIN_GAS_PRICE, getMinGasPrice);
 }

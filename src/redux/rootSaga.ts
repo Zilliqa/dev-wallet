@@ -22,6 +22,7 @@ import * as zilSagas from './zil/sagas';
 function* rootSaga() {
   yield all([
     /* ZIL */
+    zilSagas.watchGetMinGasPriceSaga(),
     zilSagas.watchGetBalanceSaga(),
     zilSagas.watchAccessWalletSaga(),
     zilSagas.watchSendTxSaga(),

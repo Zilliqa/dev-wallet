@@ -31,13 +31,15 @@ const initialState: any = {
   address: undefined,
   publicKey: undefined,
   privateKey: undefined,
-  balanceInQa: undefined,
   faucetTxId: undefined,
   txInfo: undefined,
   authStatus: undefined,
   faucetStatus: undefined,
   sendTxStatus: undefined,
-  getBalanceStatus: undefined
+  balanceInQa: undefined,
+  getBalanceStatus: undefined,
+  minGasPriceInQa: undefined,
+  getMinGasPriceStatus: undefined
 };
 
 export default function zil(state = initialState, action) {
@@ -119,6 +121,24 @@ export default function zil(state = initialState, action) {
         ...state,
         getBalanceStatus: requestStatus.FAILED,
         balanceInQa: undefined
+      };
+    case consts.GET_MIN_GAS_PRICE:
+      return {
+        ...state,
+        getMinGasPriceStatus: requestStatus.PENDING,
+        minGasPriceInQa: undefined
+      };
+    case consts.GET_MIN_GAS_PRICE_SUCCEEDED:
+      return {
+        ...state,
+        getMinGasPriceStatus: requestStatus.SUCCEED,
+        minGasPriceInQa: action.payload.minGasPriceInQa
+      };
+    case consts.GET_MIN_GAS_PRICE_FAILED:
+      return {
+        ...state,
+        getMinGasPriceStatus: requestStatus.FAILED,
+        minGasPriceInQa: undefined
       };
     case consts.CLEAR:
       return initialState;

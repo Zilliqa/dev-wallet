@@ -65,36 +65,42 @@ const FaucetForm: React.FunctionComponent<IProps> = (props) => {
   } = props;
 
   const isUpdatingBalance = getBalanceStatus === requestStatus.PENDING;
-  useEffect(() => {
-    if (getBalanceStatus === undefined) {
-      getBalance();
-    }
-  }, [balanceInQa]);
+  useEffect(
+    () => {
+      if (getBalanceStatus === undefined) {
+        getBalance();
+      }
+    },
+    [balanceInQa]
+  );
 
   const [isFaucetComplete, setIsFaucetComplete] = useState(initialState.isFaucetComplete);
   const [isFaucetIncomplete, setIsFaucetIncomplete] = useState(initialState.isFaucetIncomplete);
   const [isRunningFaucet, setIsRunningFaucet] = useState(initialState.isRunningFaucet);
   const [prevFaucetStatus, setPrevFaucetStatus] = useState(initialState.prevFaucetStatus);
-  useEffect(() => {
-    const isFailed =
-      faucetStatus === requestStatus.FAILED && prevFaucetStatus === requestStatus.PENDING;
+  useEffect(
+    () => {
+      const isFailed =
+        faucetStatus === requestStatus.FAILED && prevFaucetStatus === requestStatus.PENDING;
 
-    const isSucceeded =
-      faucetStatus === requestStatus.SUCCEED && prevFaucetStatus === requestStatus.PENDING;
+      const isSucceeded =
+        faucetStatus === requestStatus.SUCCEED && prevFaucetStatus === requestStatus.PENDING;
 
-    if (isFailed) {
-      setIsRunningFaucet(false);
-      setIsFaucetComplete(false);
-      setIsFaucetIncomplete(true);
-    }
-    if (isSucceeded) {
-      setIsRunningFaucet(false);
-      setIsFaucetComplete(true);
-      setIsFaucetIncomplete(false);
-    }
+      if (isFailed) {
+        setIsRunningFaucet(false);
+        setIsFaucetComplete(false);
+        setIsFaucetIncomplete(true);
+      }
+      if (isSucceeded) {
+        setIsRunningFaucet(false);
+        setIsFaucetComplete(true);
+        setIsFaucetIncomplete(false);
+      }
 
-    setPrevFaucetStatus(faucetStatus);
-  }, [faucetStatus, prevFaucetStatus]);
+      setPrevFaucetStatus(faucetStatus);
+    },
+    [faucetStatus, prevFaucetStatus]
+  );
 
   const handleCaptcha = (token) => {
     setIsRunningFaucet(true);
