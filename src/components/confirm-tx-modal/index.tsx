@@ -31,7 +31,7 @@ interface IProps {
   gasPrice: string;
   sendTxStatus?: string;
   closeModal: () => void;
-  txInfo: any;
+  sendTxId?: string;
 }
 
 interface IState {
@@ -56,7 +56,7 @@ const SendTxModal: React.FunctionComponent<IProps> = (props) => {
     amount,
     gasPrice,
     isModalOpen,
-    txInfo,
+    sendTxId,
     closeModal,
     sendTx,
     sendTxStatus
@@ -98,11 +98,6 @@ const SendTxModal: React.FunctionComponent<IProps> = (props) => {
   };
 
   const renderTransactionProcess = () => {
-    let txId;
-    if (txInfo) {
-      txId = txInfo.id;
-    }
-
     return (
       <div className="text-center pt-5">
         <SpinnerWithCheckMark loading={!isComplete} />
@@ -125,9 +120,13 @@ const SendTxModal: React.FunctionComponent<IProps> = (props) => {
               <br />
               <small>{'Please check after a few minutes.'}</small>
             </p>
-            {txId ? (
+            {sendTxId ? (
               <u>
-                <a target="_blank" href={`${EXPLORER_URL}/transactions/${txId}`} rel="noreferrer">
+                <a
+                  target="_blank"
+                  href={`${EXPLORER_URL}/transactions/${sendTxId}`}
+                  rel="noreferrer"
+                >
                   {'View Your Transaction'}
                 </a>
               </u>

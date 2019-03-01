@@ -105,11 +105,11 @@ export function* sendTxSaga(action) {
       throw Error(data.error.message);
     }
 
-    const id = data.result.TranID;
+    const sendTxId = data.result.TranID;
 
     yield put({
       type: consts.SEND_TX_SUCCEEDED,
-      payload: { txInfo: { id } }
+      payload: { sendTxId }
     });
   } catch (error) {
     console.log(error);

@@ -32,7 +32,7 @@ const initialState: any = {
   publicKey: undefined,
   privateKey: undefined,
   faucetTxId: undefined,
-  txInfo: undefined,
+  sendTxId: undefined,
   authStatus: undefined,
   faucetStatus: undefined,
   sendTxStatus: undefined,
@@ -90,19 +90,19 @@ export default function zil(state = initialState, action) {
       return {
         ...state,
         sendTxStatus: requestStatus.PENDING,
-        txInfo: undefined
+        sendTxId: undefined
       };
     case consts.SEND_TX_SUCCEEDED:
       return {
         ...state,
         sendTxStatus: requestStatus.SUCCEED,
-        txInfo: action.payload.txInfo
+        sendTxId: action.payload.sendTxId
       };
     case consts.SEND_TX_FAILED:
       return {
         ...state,
         sendTxStatus: requestStatus.FAILED,
-        txInfo: undefined
+        sendTxId: undefined
       };
     case consts.GET_BALANCE:
       return {

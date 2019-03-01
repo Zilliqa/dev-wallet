@@ -39,7 +39,7 @@ interface IProps {
   publicKey: string;
   address: string;
   network: string;
-  txInfo: any;
+  sendTxId?: string;
 }
 
 interface IState {
@@ -70,7 +70,7 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
   const {
     address,
     sendTxStatus,
-    txInfo,
+    sendTxId,
     getBalance,
     balanceInQa,
     getBalanceStatus,
@@ -86,18 +86,24 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
   const [amount, setAmount] = useState(initialState.amount);
 
   const isUpdatingBalance = getBalanceStatus === requestStatus.PENDING;
-  useEffect(() => {
-    if (getBalanceStatus === undefined) {
-      getBalance();
-    }
-  }, [balanceInQa]);
+  useEffect(
+    () => {
+      if (getBalanceStatus === undefined) {
+        getBalance();
+      }
+    },
+    [balanceInQa]
+  );
 
   const isUpdatingMinGasPrice = getMinGasPriceStatus === requestStatus.PENDING;
-  useEffect(() => {
-    if (getMinGasPriceStatus === undefined) {
-      getMinGasPrice();
-    }
-  }, [minGasPriceInQa]);
+  useEffect(
+    () => {
+      if (getMinGasPriceStatus === undefined) {
+        getMinGasPrice();
+      }
+    },
+    [minGasPriceInQa]
+  );
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -236,7 +242,7 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
       </Row>
       {isModalOpen ? (
         <ConfirmTxModal
-          txInfo={txInfo}
+          sendTxId={sendTxId}
           sendTxStatus={sendTxStatus}
           toAddress={toAddress}
           amount={amount}
@@ -256,7 +262,7 @@ const mapStateToProps = (state) => ({
   minGasPriceInQa: state.zil.minGasPriceInQa,
   getMinGasPriceStatus: state.zil.getMinGasPriceStatus,
   sendTxStatus: state.zil.sendTxStatus,
-  txInfo: state.zil.txInfo,
+  sendTxId: state.zil.sendTxId,
   network: state.zil.network,
   address: state.zil.address,
   publicKey: state.zil.publicKey,
