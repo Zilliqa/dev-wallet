@@ -19,8 +19,15 @@ import * as functions from 'firebase-functions';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
+import * as admin from 'firebase-admin';
 import axios from 'axios';
+
 require('dotenv').config({ path: '.env' });
+
+admin.initializeApp(functions.config().firebase);
+const firestore = admin.firestore();
+const settings = { timestampsInSnapshots: true };
+firestore.settings(settings);
 
 const app = express();
 app.use(cors());
@@ -32,7 +39,7 @@ const { getAddressFromPrivateKey, getPubKeyFromPrivateKey } = require('@zilliqa-
 const { Transaction } = require('@zilliqa-js/account');
 const { HTTPProvider, RPCMethod } = require('@zilliqa-js/core');
 
-const TRANSFER_AMOUNT: string = '300';
+const TRANSFER_AMOUNT: number = 100;
 
 const RECAPTCHA_SECRET = functions.config().faucet.recaptcha_secret;
 const PRIVATE_KEY = functions.config().faucet.private_key;
@@ -53,20 +60,13 @@ const zilliqa = new Zilliqa(NODE_URL, provider);
 
 zilliqa.wallet.addByPrivateKey(PRIVATE_KEY);
 
-function validateAddress(address) {
-  const formattedAddress = (address || '').toUpperCase();
-  if (!/^[a-zA-Z0-9]{40}$/.test(formattedAddress)) {
-    throw new Error('Invalid Address.');
-  }
-}
-
 app.post('/run', async (req, res) => {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   console.log(`IP Address: ${ip}`);
 
   console.log(`Node URL: ${NODE_URL}`);
-  console.log(`Chain ID: ${CHAIN_ID}`);
-  console.log(`Msg Version: ${MSG_VERSION}`);
+  console.log(`Chain ID: ${CHAIN_ID}, Msg Version: ${MSG_VERSION}`);
+  console.log(`Version: ${VERSION}`);
 
   const { address } = req.body;
   console.log('Check if request has the valid Recaptcha token');
@@ -94,27 +94,49 @@ app.post('/run', async (req, res) => {
     if (responseData && !responseData.success) {
       console.log('Invaild recaptcha token');
       const errorMessage = responseData['error-codes'].join(', ');
-      res.status(400).json({ errorCode: 400, errorMessage: errorMessage });
-    } else {
-      console.log('Vaild recaptcha token');
+      throw new Error(errorMessage);
     }
-  } catch (error) {
-    res.status(400).json({ errorCode: 400, errorMessage: error.message });
-    console.log(error);
-  }
+    console.log('Vaild recaptcha token ✓');
 
-  try {
     console.log(`Address: ${address}`);
-    validateAddress(address);
-    console.log('Vaild address');
+    const formattedAddress = (address || '').toUpperCase();
+    if (!/^[a-zA-Z0-9]{40}$/.test(formattedAddress)) {
+      throw new Error('Invalid Address.');
+    }
+    console.log('Vaild address ✓');
   } catch (error) {
-    console.log('Error validating address', error);
+    console.log(error);
     res.status(400).json({ errorCode: 400, errorMessage: error.message });
+    return;
   }
 
   try {
+    let claimInterval;
+    const userRef = firestore
+      .collection(`versions`)
+      .doc(`${VERSION}`)
+      .collection(`users`)
+      .doc(`${address}`);
+
+    const doc = await userRef.get();
+    if (doc.exists) {
+      const claimedAt = doc.data().claimed_at;
+      console.log(`Claimed at: ${claimedAt}`);
+      claimInterval = Date.now() - claimedAt;
+      console.log(`Claim Interval: ${claimInterval}`);
+    } else {
+      console.log('No such document!');
+    }
+
+    let faucetAmount: number = TRANSFER_AMOUNT;
+
+    if (claimInterval !== undefined && claimInterval < 1000 * 60 * 60) {
+      faucetAmount = TRANSFER_AMOUNT / 10;
+    }
+    console.log(`Faucet Amount: ${faucetAmount}`);
+
     const gasLimit = Long.fromNumber(1);
-    const amount = units.toQa(TRANSFER_AMOUNT, units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
+    const amount = units.toQa(faucetAmount.toString(), units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
 
     const gasResponse = await zilliqa.blockchain.getMinimumGasPrice();
     const minGasPrice: string = gasResponse.result;
@@ -150,10 +172,22 @@ app.post('/run', async (req, res) => {
     // Send a transaction to the network
     const { result } = await provider.send(RPCMethod.CreateTransaction, txParams);
     const txId = result.TranID;
-    console.log(`txid: ${txId}`);
+    console.log(`TxId: ${txId}`);
+
+    if (txId) {
+      const userData = {
+        claimed_at: Date.now(),
+        nonce
+      };
+      await userRef.set(userData);
+      console.log(`Updated user data: ${userData}`);
+    }
+
     res.status(200).json({ txId });
+    return;
   } catch (error) {
     res.status(500).json({ errorCode: 500, errorMessage: error.message });
+    return;
   }
 });
 
