@@ -62,15 +62,13 @@ zilliqa.wallet.addByPrivateKey(PRIVATE_KEY);
 
 app.post('/run', async (req, res) => {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  console.log(`IP Address: ${ip}`);
+  console.log(`IP address: ${ip}`);
 
   console.log(`Node URL: ${NODE_URL}`);
-  console.log(`Chain ID: ${CHAIN_ID}, Msg Version: ${MSG_VERSION}`);
+  console.log(`Chain ID: ${CHAIN_ID}, Msg version: ${MSG_VERSION}`);
   console.log(`Version: ${VERSION}`);
 
-  const { address } = req.body;
-  console.log('Check if request has the valid Recaptcha token');
-  const { token } = req.body;
+  const { token, address } = req.body;
   try {
     const verificationUrl =
       'https://www.google.com/recaptcha/api/siteverify?secret=' +
@@ -92,7 +90,7 @@ app.post('/run', async (req, res) => {
 
     const responseData = result.data;
     if (responseData && !responseData.success) {
-      console.log('Invaild recaptcha token');
+      console.log('Invaild recaptcha token!');
       const errorMessage = responseData['error-codes'].join(', ');
       throw new Error(errorMessage);
     }
@@ -101,7 +99,7 @@ app.post('/run', async (req, res) => {
     console.log(`Address: ${address}`);
     const formattedAddress = (address || '').toUpperCase();
     if (!/^[a-zA-Z0-9]{40}$/.test(formattedAddress)) {
-      throw new Error('Invalid Address.');
+      throw new Error('Invalid Address!');
     }
     console.log('Vaild address ✓');
   } catch (error) {
@@ -121,9 +119,9 @@ app.post('/run', async (req, res) => {
     const doc = await userRef.get();
     if (doc.exists) {
       const claimedAt = doc.data().claimed_at;
-      console.log(`Claimed at: ${claimedAt}`);
+      console.log(`The latest claimed at: ${claimedAt}`);
       claimInterval = Date.now() - claimedAt;
-      console.log(`Claim Interval: ${claimInterval}`);
+      console.log(`Interval: ${claimInterval}`);
     } else {
       console.log('No such document!');
     }
@@ -133,14 +131,14 @@ app.post('/run', async (req, res) => {
     if (claimInterval !== undefined && claimInterval < 1000 * 60 * 60) {
       faucetAmount = TRANSFER_AMOUNT / 10;
     }
-    console.log(`Faucet Amount: ${faucetAmount}`);
+    console.log(`Faucet amount: ${faucetAmount}`);
 
     const gasLimit = Long.fromNumber(1);
     const amount = units.toQa(faucetAmount.toString(), units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
 
     const gasResponse = await zilliqa.blockchain.getMinimumGasPrice();
     const minGasPrice: string = gasResponse.result;
-    console.log('Min Gas Price:', minGasPrice);
+    console.log('Min gas price:', minGasPrice);
 
     const gasPrice = new BN(minGasPrice);
     const pubKey = PUBLIC_KEY;
@@ -172,16 +170,20 @@ app.post('/run', async (req, res) => {
     // Send a transaction to the network
     const { result } = await provider.send(RPCMethod.CreateTransaction, txParams);
     const txId = result.TranID;
-    console.log(`TxId: ${txId}`);
 
-    if (txId) {
-      const userData = {
-        claimed_at: Date.now(),
-        nonce
-      };
-      await userRef.set(userData);
-      console.log(`Updated user data: ${userData}`);
+    if (txId === undefined) {
+      throw Error('No TxID!');
     }
+
+    console.log(`TxID: ${txId}`);
+
+    const now = Date.now();
+    const userData = {
+      claimed_at: now,
+      nonce
+    };
+    await userRef.set(userData);
+    console.log(`Claimed at: ${now}`);
 
     res.status(200).json({ txId });
     return;
