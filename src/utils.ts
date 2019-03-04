@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License along with
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
+import { BN, units } from '@zilliqa-js/util';
 
 export const getInputValidationState = (key: string, value: string, regex: RegExp) => {
   const isInvalid: boolean = regex.test(value);
@@ -35,6 +36,7 @@ export const getInputValidationState = (key: string, value: string, regex: RegEx
     return state;
   }
 };
+
 export const exportToCsv = (filename, rows) => {
   const processRow = (row) => {
     let finalVal = '';
@@ -89,4 +91,24 @@ export const downloadObjectAsJson = (exportObj, exportName) => {
   document.body.appendChild(downloadAnchorNode); // required for firefox
   downloadAnchorNode.click();
   downloadAnchorNode.remove();
+};
+
+export const formatSendAmountInZil = (
+  amountInZil: string,
+  balanceInZil: string,
+  minGasPriceInZil: string
+): string => {
+  const amountInQaBN: BN = units.toQa(amountInZil, units.Units.Zil);
+  const balanceInQaBN: BN = units.toQa(balanceInZil, units.Units.Zil);
+  const minGasPriceInQaBN: BN = units.toQa(minGasPriceInZil, units.Units.Zil);
+
+  const maxAmountInQaBN = balanceInQaBN.sub(minGasPriceInQaBN);
+
+  if (amountInQaBN.lte(minGasPriceInQaBN)) {
+    return units.fromQa(minGasPriceInQaBN, units.Units.Zil).toString();
+  } else if (amountInQaBN.gt(maxAmountInQaBN)) {
+    return units.fromQa(maxAmountInQaBN, units.Units.Zil).toString();
+  } else {
+    return units.fromQa(amountInQaBN, units.Units.Zil).toString();
+  }
 };

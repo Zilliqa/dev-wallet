@@ -21,7 +21,7 @@ import { BN, units } from '@zilliqa-js/util';
 import Button from '../button';
 import * as zilActions from '../../redux/zil/actions';
 import { connect } from 'react-redux';
-import { getInputValidationState } from '../../utils';
+import { getInputValidationState, formatSendAmountInZil } from '../../utils';
 import ConfirmTxModal from '../confirm-tx-modal';
 import { AccountInfo } from '../account-info';
 import { requestStatus } from '../../constants';
@@ -96,6 +96,8 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
   );
 
   const isUpdatingMinGasPrice = getMinGasPriceStatus === requestStatus.PENDING;
+  const minGasPriceInZil = units.fromQa(new BN(minGasPriceInQa), units.Units.Zil);
+
   useEffect(
     () => {
       if (getMinGasPriceStatus === undefined) {
@@ -125,8 +127,22 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
 
   const changeAmount = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
+    if (e.target.value === '' || /^\d*\.?\d*$/.test(e.target.value)) {
+      setAmount(e.target.value);
+    }
+  };
 
-    setAmount(e.target.value);
+  const formatAmount = (): void => {
+    if (amount !== initialState.amount) {
+      const amountInZil: string = parseFloat(amount).toFixed(3);
+      const balanceInZil: string = units.fromQa(new BN(balanceInQa), units.Units.Zil);
+      const amountFormattedInZil = formatSendAmountInZil(
+        amountInZil,
+        balanceInZil,
+        minGasPriceInZil
+      );
+      setAmount(amountFormattedInZil);
+    }
   };
 
   const isBalanceInsufficient = new BN(balanceInQa).lte(new BN(minGasPriceInQa));
@@ -136,8 +152,6 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
     amount === initialState.amount ||
     isBalanceInsufficient;
   const sendButtonText = 'Send';
-
-  const minGasPriceInZil = units.fromQa(new BN(minGasPriceInQa), units.Units.Zil);
 
   return (
     <div>
@@ -154,86 +168,75 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
               <h2 className="pb-2">
                 <b>{'Send'}</b>
               </h2>
-              <Col xs={12} sm={12} md={12} lg={8} className="mr-auto ml-auto">
-                <Form className="mt-4 text-left" onSubmit={(e) => e.preventDefault()}>
-                  <FormGroup>
-                    <Label for="Address">
-                      <small>
-                        <b>{'To Address'}</b>
-                      </small>
-                    </Label>
-                    <Input
-                      id="toAddress"
-                      type="text"
-                      name="toAddress"
-                      data-test-id="toAddress"
-                      value={toAddress}
-                      onChange={changeToAddress}
-                      valid={toAddressValid}
-                      invalid={toAddressInvalid}
-                      placeholder="Enter the Address to Send"
-                      maxLength={42}
-                    />
-                    <FormFeedback>{'invalid address'}</FormFeedback>
-                    <FormFeedback valid={true}>{'valid address'}</FormFeedback>
-                  </FormGroup>
-                  <br />
-                  <FormGroup>
-                    <Label for="amount">
-                      <small>
-                        <b>{'Amount to Send (ZILs)'}</b>
-                      </small>
-                    </Label>
-                    <Input
-                      id="amount"
-                      type="number"
-                      name="amount"
-                      data-test-id="amount"
-                      value={amount}
-                      onChange={changeAmount}
-                      placeholder="Enter the Amount"
-                    />
-                  </FormGroup>
-                  <br />
-                  <FormGroup>
-                    <Label for="gasPrice">
-                      <small>
-                        <b>{'Gas Price (ZILs)'}</b>
-                      </small>
-                    </Label>
-                    <Input
-                      id="gasPrice"
-                      type="number"
-                      name="gasPrice"
-                      data-test-id="gasPrice"
-                      value={minGasPriceInZil}
-                      disabled={isUpdatingMinGasPrice || true}
-                      placeholder={'Loading gas price'}
-                    />
-                    {isUpdatingMinGasPrice ? (
-                      <small className="text-secondary">loading</small>
+              <Row>
+                <Col xs={12} sm={12} md={12} lg={8} className="mr-auto ml-auto">
+                  <Form className="mt-4 text-left" onSubmit={(e) => e.preventDefault()}>
+                    <FormGroup>
+                      <Label for="Address">
+                        <small>
+                          <b>{'To Address'}</b>
+                        </small>
+                      </Label>
+                      <Input
+                        id="toAddress"
+                        type="text"
+                        name="toAddress"
+                        data-test-id="toAddress"
+                        value={toAddress}
+                        onChange={changeToAddress}
+                        valid={toAddressValid}
+                        invalid={toAddressInvalid}
+                        placeholder="Enter the Address to Send"
+                        maxLength={42}
+                      />
+                      <FormFeedback>{'invalid address'}</FormFeedback>
+                      <FormFeedback valid={true}>{'valid address'}</FormFeedback>
+                    </FormGroup>
+                    <br />
+                    <FormGroup>
+                      <Label for="amount">
+                        <small>
+                          <b>{'Amount to Send (ZILs)'}</b>
+                        </small>
+                      </Label>
+                      <Input
+                        id="amount"
+                        type="tel"
+                        name="amount"
+                        maxLength={10}
+                        data-test-id="amount"
+                        value={amount}
+                        onChange={changeAmount}
+                        placeholder="Enter the Amount"
+                        onBlur={formatAmount}
+                        disabled={isUpdatingBalance || isUpdatingMinGasPrice}
+                      />
+                    </FormGroup>
+                    <small className="text-secondary">
+                      Gas Price: {isUpdatingMinGasPrice ? 'loading...' : `${minGasPriceInZil} ZIL`}
+                    </small>
+                    <br />
+                    <div className="py-5 text-center">
+                      <Button
+                        text={sendButtonText}
+                        type="primary"
+                        ariaLabel={'sendButtonText'}
+                        onClick={() => setIsModalOpen(true)}
+                        disabled={isSendButtonDisabled}
+                      />
+                    </div>
+                    {isBalanceInsufficient && !isUpdatingBalance ? (
+                      <p className="text-center text-danger">
+                        <small>
+                          {'Your balance is not sufficient to send transaction.'}
+                          <br />
+                          {`Minimum Gas Price: ${minGasPriceInZil} ZIL`}
+                        </small>
+                      </p>
                     ) : null}
-                  </FormGroup>
-                  <div className="py-4 text-center">
-                    <Button
-                      text={sendButtonText}
-                      type="primary"
-                      ariaLabel={'sendButtonText'}
-                      onClick={() => setIsModalOpen(true)}
-                      disabled={isSendButtonDisabled}
-                    />
-                  </div>
-                  {isBalanceInsufficient && !isUpdatingBalance ? (
-                    <p className="text-center text-danger">
-                      <small>
-                        {'Your balance is not sufficient to send transaction.'}
-                        <br />
-                        {`Minimum Gas Price: ${minGasPriceInZil} ZIL`}
-                      </small>
-                    </p>
-                  ) : null}
-                </Form>
-              </Col>
+                  </Form>
+                </Col>
+              </Row>
             </div>
           </div>
         </Card>
