@@ -39,7 +39,9 @@ const { getAddressFromPrivateKey, getPubKeyFromPrivateKey } = require('@zilliqa-
 const { Transaction } = require('@zilliqa-js/account');
 const { HTTPProvider, RPCMethod } = require('@zilliqa-js/core');
 
-const TRANSFER_AMOUNT: number = 100;
+const DEFAULT_TRANSFER_AMOUNT: number = 300;
+const PENALTY_TRANSFER_AMOUNT: number = 10;
+const PENALTY_TIME: number = 1000 * 60 * 60 * 2;
 
 const RECAPTCHA_SECRET = functions.config().faucet.recaptcha_secret;
 const PRIVATE_KEY = functions.config().faucet.private_key;
@@ -126,10 +128,10 @@ app.post('/run', async (req, res) => {
       console.log('No such document!');
     }
 
-    let faucetAmount: number = TRANSFER_AMOUNT;
+    let faucetAmount: number = DEFAULT_TRANSFER_AMOUNT;
 
-    if (claimInterval !== undefined && claimInterval < 1000 * 60 * 60) {
-      faucetAmount = TRANSFER_AMOUNT / 10;
+    if (claimInterval !== undefined && claimInterval < PENALTY_TIME) {
+      faucetAmount = PENALTY_TRANSFER_AMOUNT;
     }
     console.log(`Faucet amount: ${faucetAmount}`);
 
@@ -179,8 +181,7 @@ app.post('/run', async (req, res) => {
 
     const now = Date.now();
     const userData = {
-      claimed_at: now,
-      nonce
+      claimed_at: now
     };
     await userRef.set(userData);
     console.log(`Claimed at: ${now}`);
