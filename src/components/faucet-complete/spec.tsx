@@ -16,26 +16,25 @@
  */
 
 import React from 'react';
-import { EXPLORER_URL } from '../../constants';
+import renderer from 'react-test-renderer';
+import FaucetComplete from '.';
+import { shallow } from 'enzyme';
 
-const FaucetComplete: React.SFC<{ txId: string }> = ({ txId }) => (
-  <div data-test-id="FaucetComplete">
-    <p className="pt-4 text-secondary">
-      <span className="text-primary">{'Transaction In Process'}</span>
-      <br />
-      <br />
-      <small>{'Your transaction is pending blockchain confirmation.'}</small>
-      <br />
-      <small>{'Please check after a few minutes.'}</small>
-    </p>
-    {txId ? (
-      <u>
-        <a target="_blank" href={`${EXPLORER_URL}/transactions/${txId}`} rel="noreferrer">
-          {'View Your Transaction'}
-        </a>
-      </u>
-    ) : null}
-  </div>
-);
+const txId = '92a17d292024e0321da6b1bf2d57287ceed623678b959c9bb3be4f3763a0c0e6';
 
-export default FaucetComplete;
+describe('FaucetComplete tests', () => {
+  const baseComponent = () => <FaucetComplete txId={txId} />;
+
+  describe('basic tests', () => {
+    it('matches the snapshot', () => {
+      const tree = renderer.create(baseComponent()).toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+
+    it('renders the component', () => {
+      const wrapper = shallow(baseComponent());
+      const assertion = wrapper.find('[data-test-id="FaucetComplete"]').length;
+      expect(assertion).toBe(1);
+    });
+  });
+});

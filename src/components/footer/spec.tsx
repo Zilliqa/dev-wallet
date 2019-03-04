@@ -31,7 +31,7 @@ describe('Footer tests', () => {
 
     it('renders the component', () => {
       const wrapper = shallow(baseComponent());
-      const assertion = wrapper.find('footer').length;
+      const assertion = wrapper.find('[data-test-id="Footer"]').length;
       expect(assertion).toBe(1);
     });
   });

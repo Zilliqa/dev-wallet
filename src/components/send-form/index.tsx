@@ -86,18 +86,24 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
   const [amount, setAmount] = useState(initialState.amount);
 
   const isUpdatingBalance = getBalanceStatus === requestStatus.PENDING;
-  useEffect(() => {
-    if (getBalanceStatus === undefined) {
-      getBalance();
-    }
-  }, [balanceInQa]);
+  useEffect(
+    () => {
+      if (getBalanceStatus === undefined) {
+        getBalance();
+      }
+    },
+    [balanceInQa]
+  );
 
   const isUpdatingMinGasPrice = getMinGasPriceStatus === requestStatus.PENDING;
-  useEffect(() => {
-    if (getMinGasPriceStatus === undefined) {
-      getMinGasPrice();
-    }
-  }, [minGasPriceInQa]);
+  useEffect(
+    () => {
+      if (getMinGasPriceStatus === undefined) {
+        getMinGasPrice();
+      }
+    },
+    [minGasPriceInQa]
+  );
 
   const closeModal = () => {
     setIsModalOpen(false);

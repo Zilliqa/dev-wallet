@@ -27,7 +27,7 @@ import { requestStatus } from '../../constants';
 // @ts-ignore
 import Worker from '../../decrypt.worker';
 import { getInputValidationState } from '../../utils';
-import { Disclaimer } from '../disclaimer';
+import Disclaimer from '../disclaimer';
 
 const formatFilename = (str: string) => {
   if (str.length > 35) {

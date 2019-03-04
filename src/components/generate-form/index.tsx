@@ -26,7 +26,7 @@ import Worker from '../../encrypt.worker';
 import Spinner from '../spinner';
 import { getInputValidationState, downloadObjectAsJson } from '../../utils';
 import { requestStatus } from '../../constants';
-import { Disclaimer } from '../disclaimer';
+import Disclaimer from '../disclaimer';
 
 const FIRST_STEP = 0;
 const SECOND_STEP = 1;

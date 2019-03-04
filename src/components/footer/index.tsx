@@ -18,11 +18,10 @@
 import React from 'react';
 import { FaGithub, FaGitter, FaTwitter } from 'react-icons/fa';
 import style from './style.module.css';
-import { CHAIN_ID, MSG_VERSION, NODE_URL } from '../../constants';
 const copyright: string = 'Copyright © 2019 Zilliqa Research Pte. Ltd.';
 
 const Footer: React.SFC = () => (
-  <footer className={style.footer}>
+  <footer data-test-id="Footer" className={style.footer}>
     <div className="text-center py-2">
       <ul className="nav justify-content-center">
         <li className="nav-item">

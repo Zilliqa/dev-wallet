@@ -21,7 +21,7 @@ import { Modal, ModalHeader, Row, Col } from 'reactstrap';
 import { requestStatus, EXPLORER_URL } from '../../constants';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
-import { Disclaimer } from '../disclaimer';
+import Disclaimer from '../disclaimer';
 
 interface IProps {
   sendTx: (toAddress, amount, gasPrice) => void;
