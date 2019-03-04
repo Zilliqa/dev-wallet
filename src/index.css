@@ -74,6 +74,10 @@ a:hover {
   color: --blue500 !important;
 }
 
+.text-secondary {
+  color: --gray700 !important;
+}
+
 .text-nucleus {
   color: --blue800 !important;
 }
@@ -290,5 +294,5 @@ div.recaptcha {
 }
 
 .cursor-pointer {
-  cursor: 'pointer';
+  cursor: pointer;
 }

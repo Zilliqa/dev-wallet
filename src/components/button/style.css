@@ -16,7 +16,7 @@
  */
 
 @value colors: "../../assets/colors/colors.css";
-@value --white, --gray500, --gray700, --blue500, --blue700, --yellow500, --red500, --red700 from colors;
+@value --white, --gray600, --gray700, --blue500, --blue700, --yellow500, --red500, --red700 from colors;
 
 .type-primary {
   background-color: --blue500;
@@ -37,27 +37,27 @@
 }
 
 .type-secondary {
-  border-color: --gray500 !important;
-  color: --gray500;
+  border-color: --gray600 !important;
+  color: --gray600;
   background-color: transparent;
 }
 
 .type-secondary:hover,
 .type-secondary:active {
-  border-color: --gray500 !important;
+  border-color: --gray600 !important;
   color: --white;
-  background-color: --gray500;
+  background-color: --gray600;
 }
 
 .type-secondary.disabled,
 .type-secondary:disabled {
-  color: --gray500;
+  color: --gray600;
   cursor: not-allowed;
   background-color: transparent;
 }
 
 .type-tertiary {
-  color: --gray500;
+  color: --gray600;
   background-color: transparent;
 }
 
@@ -70,6 +70,6 @@
 
 .type-tertiary.disabled,
 .type-tertiary:disabled {
-  color: --gray500;
+  color: --gray600;
   cursor: not-allowed;
 }

@@ -100,7 +100,7 @@ exports[`Footer tests basic tests matches the snapshot 1`] = `
       </li>
     </ul>
     <span
-      className="copyright"
+      className="text-secondary copyright"
     >
       Copyright © 2019 Zilliqa Research Pte. Ltd.
     </span>
