@@ -16,28 +16,23 @@
  */
 
 import React from 'react';
-import Sidebar from '../sidebar';
-import Header from '../header';
-import Footer from '../footer';
-import './style.css';
+import renderer from 'react-test-renderer';
+import Footer from '.';
+import { shallow } from 'enzyme';
 
-interface IProps {
-  children: React.ReactNode;
-}
+describe('Footer tests', () => {
+  const baseComponent = () => <Footer />;
 
-const Layout: React.SFC<IProps> = (props) => {
-  return (
-    <div>
-      <Header />
-      <div className="layout">
-        <Sidebar />
-        <div className="content-section">
-          {props.children}
-          <Footer />
-        </div>
-      </div>
-    </div>
-  );
-};
+  describe('basic tests', () => {
+    it('matches the snapshot', () => {
+      const tree = renderer.create(baseComponent()).toJSON();
+      expect(tree).toMatchSnapshot();
+    });
 
-export default Layout;
+    it('renders the component', () => {
+      const wrapper = shallow(baseComponent());
+      const assertion = wrapper.find('footer').length;
+      expect(assertion).toBe(1);
+    });
+  });
+});
