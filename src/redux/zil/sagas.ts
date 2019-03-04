@@ -78,7 +78,7 @@ export function* sendTxSaga(action) {
     const nonceData = nonceResponse.result.nonce || { nonce: 0 };
     const nonce: number = nonceData.nonce + 1;
 
-    const toAddr = toAddress.toLowerCase();
+    const toAddr = toAddress.toLowerCase().replace('0x', '');
     const wallet = zilliqa.wallet;
     wallet.addByPrivateKey(privateKey);
 
