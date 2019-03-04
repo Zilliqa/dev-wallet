@@ -117,7 +117,7 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
     e.preventDefault();
     const value = e.target.value;
     const key = 'toAddress';
-    const validationResult: any = getInputValidationState(key, value, /^[a-zA-Z0-9]{40}$/);
+    const validationResult: any = getInputValidationState(key, value, /^0x[a-fA-F0-9]{40}$/);
     setToAddress(value);
     setToAddressValid(validationResult.toAddressValid);
     setToAddressInvalid(validationResult.toAddressInvalid);
@@ -172,7 +172,7 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
                       valid={toAddressValid}
                       invalid={toAddressInvalid}
                       placeholder="Enter the Address to Send"
-                      maxLength={40}
+                      maxLength={42}
                     />
                     <FormFeedback>{'invalid address'}</FormFeedback>
                     <FormFeedback valid={true}>{'valid address'}</FormFeedback>
