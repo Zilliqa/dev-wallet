@@ -214,11 +214,6 @@ form input[type=number]::placeholder {
   font-size: 10px;
 }
 
-.node-info {
-  font-size: 12px;
-  color: --gray500;
-}
-
 .text-fade-in {
   -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 1s; /* Firefox < 16 */

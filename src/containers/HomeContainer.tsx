@@ -37,7 +37,7 @@ const Home: React.FunctionComponent = () => {
             </div>
           </div>
         </div>
-        <div className="node-info text-center text-fade-in">
+        <div className="text-secondary text-center text-fade-in">
           <small>{`Chain ID: ${CHAIN_ID}`}</small>
           {' | '}
           <small>{`Msg Ver: ${MSG_VERSION}`}</small>
