@@ -17,11 +17,11 @@
 
 import React from 'react';
 import { FaGithub, FaGitter, FaTwitter } from 'react-icons/fa';
-import style from './style.module.css';
+import './style.css';
 const copyright: string = 'Copyright © 2019 Zilliqa Research Pte. Ltd.';
 
 const Footer: React.SFC = () => (
-  <footer data-test-id="Footer" className={style.footer}>
+  <footer data-test-id="Footer" className={'footer'}>
     <div className="text-center py-2">
       <ul className="nav justify-content-center">
         <li className="nav-item">
@@ -58,7 +58,7 @@ const Footer: React.SFC = () => (
           </a>
         </li>
       </ul>
-      <span className={style.copyright}>{copyright}</span>
+      <span className="text-secondary copyright">{copyright}</span>
     </div>
   </footer>
 );

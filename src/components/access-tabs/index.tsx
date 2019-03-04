@@ -33,7 +33,7 @@ interface IState {
 const KEYSTORE_TAB = '0';
 const PRIVATE_KEY_TAB = '1';
 
-const AccessForm: React.FunctionComponent = () => {
+const AccessTabs: React.FunctionComponent = () => {
   const [activeTab, setActiveTab] = useState(KEYSTORE_TAB);
   const toggle = (tab) => {
     if (activeTab !== tab) {
@@ -46,7 +46,7 @@ const AccessForm: React.FunctionComponent = () => {
   return (
     <div>
       <Card>
-        <div className="pb-5 sign-in-form-container">
+        <div className="pb-5 access-tabs">
           <Row>
             <Col xs={10} sm={10} md={8} lg={7} className="mr-auto ml-auto">
               <div className="text-center">
@@ -99,4 +99,4 @@ const AccessForm: React.FunctionComponent = () => {
   );
 };
 
-export default AccessForm;
+export default AccessTabs;

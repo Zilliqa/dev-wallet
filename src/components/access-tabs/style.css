@@ -16,16 +16,17 @@
 */
 
 @value colors: "../../assets/colors/colors.css";
-@value --white, --gray100, --gray300, --gray500 from colors;
+@value --white, --gray100, --gray300, --gray600 from colors;
 
-.sign-in-form-container a.nav-link {
+.access-tabs a.nav-link {
+  color: --gray600;
   background-color: --gray100;
   border-bottom: 1px solid --gray300;
   border-radius: 0;
   font-weight: bold;
 }
 
-.sign-in-form-container li.nav-item {
+.access-tabs li.nav-item {
   width: 50%;
   text-align: center;
   color: --gray500;

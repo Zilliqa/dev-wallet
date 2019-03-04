@@ -180,21 +180,21 @@ const AccessKeystore: React.FunctionComponent<IProps> = (props) => {
             <b>{'Keystore File'}</b>
           </small>
         </div>
-        <Label for="keystoreFile" className="btn type-secondary btn-file">
+        <Label for="keystoreFile" className="btn btn-file type-secondary cursor-pointer">
           <small>
             <b>{'Import Keystore File (.json)'}</b>
           </small>
         </Label>
         <Input
           type="file"
-          name="file"
+          name="keystoreFile"
           id="keystoreFile"
           accept="application/json"
           onChange={importkeystoreV3}
         />
         <p className="text-success">{filename ? <small> {filename}</small> : null}</p>
         <br />
-        <Label for="Passphrase">
+        <Label for="passphrase">
           <small>
             <b>{'Passphrase'}</b>
           </small>
