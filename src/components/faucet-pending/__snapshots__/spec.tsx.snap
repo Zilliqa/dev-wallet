@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FaucetPending tests basic tests matches the snapshot 1`] = `
+<div
+  className="text-center py-4"
+  data-test-id="FaucetPending"
+>
+  <p
+    className="text-secondary text-fade-in"
+  >
+    Running Faucet
+    <br />
+    <small>
+      Please kindly wait. It might take a while.
+    </small>
+  </p>
+</div>
+`;

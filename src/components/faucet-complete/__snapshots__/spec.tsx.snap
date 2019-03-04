@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FaucetComplete tests basic tests matches the snapshot 1`] = `
+<div
+  data-test-id="FaucetComplete"
+>
+  <p
+    className="pt-4 text-secondary"
+  >
+    <span
+      className="text-primary"
+    >
+      Transaction In Process
+    </span>
+    <br />
+    <br />
+    <small>
+      Your transaction is pending blockchain confirmation.
+    </small>
+    <br />
+    <small>
+      Please check after a few minutes.
+    </small>
+  </p>
+  <u>
+    <a
+      href="https://dev-explorer.zilliqa.com/transactions/92a17d292024e0321da6b1bf2d57287ceed623678b959c9bb3be4f3763a0c0e6"
+      rel="noreferrer"
+      target="_blank"
+    >
+      View Your Transaction
+    </a>
+  </u>
+</div>
+`;

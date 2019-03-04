@@ -16,28 +16,25 @@
  */
 
 import React from 'react';
-import Sidebar from '../sidebar';
-import Header from '../header';
-import Footer from '../footer';
-import './style.css';
+import renderer from 'react-test-renderer';
+import FaucetComplete from '.';
+import { shallow } from 'enzyme';
 
-interface IProps {
-  children: React.ReactNode;
-}
+const txId = '92a17d292024e0321da6b1bf2d57287ceed623678b959c9bb3be4f3763a0c0e6';
 
-const Layout: React.SFC<IProps> = (props) => {
-  return (
-    <div>
-      <Header />
-      <div className="layout">
-        <Sidebar />
-        <div className="content-section">
-          {props.children}
-          <Footer />
-        </div>
-      </div>
-    </div>
-  );
-};
+describe('FaucetComplete tests', () => {
+  const baseComponent = () => <FaucetComplete txId={txId} />;
 
-export default Layout;
+  describe('basic tests', () => {
+    it('matches the snapshot', () => {
+      const tree = renderer.create(baseComponent()).toJSON();
+      expect(tree).toMatchSnapshot();
+    });
+
+    it('renders the component', () => {
+      const wrapper = shallow(baseComponent());
+      const assertion = wrapper.find('[data-test-id="FaucetComplete"]').length;
+      expect(assertion).toBe(1);
+    });
+  });
+});

@@ -24,7 +24,7 @@ import { connect } from 'react-redux';
 import { requestStatus } from '../../constants';
 
 import { getInputValidationState } from '../../utils';
-import { Disclaimer } from '../disclaimer';
+import Disclaimer from '../disclaimer';
 
 interface IProps {
   accessWallet: (privateKey: string) => void;

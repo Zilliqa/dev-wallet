@@ -115,51 +115,49 @@ const FaucetForm: React.FunctionComponent<IProps> = (props) => {
         getBalance={getBalance}
         isUpdatingBalance={isUpdatingBalance}
       />
-      <Row className="pt-4">
-        <Col xs={12} sm={12} md={10} lg={10} className="mr-auto">
-          <Card>
-            <div className="py-5">
-              <div className="px-4 text-center">
-                <h2 className="pb-2">
-                  <b>{'ZIL Faucet'}</b>
-                </h2>
-                <p className="text-secondary">
-                  {`This Zil faucet is running on The ${network} Network.`}
-                  <br />
-                  {'Please run the faucet to receive a small amount of Zil for testing.'}
-                </p>
-                <div className="py-4">
-                  {isRunningFaucet ? (
-                    <div>
-                      <SpinnerWithCheckMark loading={true} />
-                      <FaucetPending />
-                    </div>
-                  ) : null}
-                  {isFaucetComplete ? (
-                    <div>
-                      <SpinnerWithCheckMark loading={false} />
-                      {faucetTxId ? <FaucetComplete txId={faucetTxId} /> : null}
-                    </div>
-                  ) : null}
+      <div className="pt-4">
+        <Card>
+          <div className="py-5">
+            <div className="px-4 text-center">
+              <h2 className="pb-2">
+                <b>{'ZIL Faucet'}</b>
+              </h2>
+              <p className="text-secondary">
+                {`This Zil faucet is running on The ${network} Network.`}
+                <br />
+                {'Please run the faucet to receive a small amount of Zil for testing.'}
+              </p>
+              <div className="py-4">
+                {isRunningFaucet ? (
+                  <div>
+                    <SpinnerWithCheckMark loading={true} />
+                    <FaucetPending />
+                  </div>
+                ) : null}
+                {isFaucetComplete ? (
+                  <div>
+                    <SpinnerWithCheckMark loading={false} />
+                    {faucetTxId ? <FaucetComplete txId={faucetTxId} /> : null}
+                  </div>
+                ) : null}
 
-                  {isRunningFaucet || isFaucetComplete ? null : (
-                    <div>
-                      <Recaptcha onChange={handleCaptcha} />
-                      {isFaucetIncomplete ? (
-                        <p className="pt-4">
-                          <small className="text-danger text-fade-in">
-                            {'Failed to run faucet. Please try again later.'}
-                          </small>
-                        </p>
-                      ) : null}
-                    </div>
-                  )}
-                </div>
+                {isRunningFaucet || isFaucetComplete ? null : (
+                  <div>
+                    <Recaptcha onChange={handleCaptcha} />
+                    {isFaucetIncomplete ? (
+                      <p className="pt-4">
+                        <small className="text-danger text-fade-in">
+                          {'Failed to run faucet. Please try again later.'}
+                        </small>
+                      </p>
+                    ) : null}
+                  </div>
+                )}
               </div>
             </div>
-          </Card>
-        </Col>
-      </Row>
+          </div>
+        </Card>
+      </div>
     </div>
   );
 };

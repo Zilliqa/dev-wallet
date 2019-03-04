@@ -21,7 +21,7 @@ import { NODE_URL, CHAIN_ID, MSG_VERSION } from '../constants';
 import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
 import { MdSecurity, MdBeenhere } from 'react-icons/md';
-import { Disclaimer } from '../components/disclaimer';
+import Disclaimer from '../components/disclaimer';
 
 const Home: React.FunctionComponent = () => {
   return (

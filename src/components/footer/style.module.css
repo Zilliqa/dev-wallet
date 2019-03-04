@@ -15,29 +15,16 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react';
-import Sidebar from '../sidebar';
-import Header from '../header';
-import Footer from '../footer';
-import './style.css';
-
-interface IProps {
-  children: React.ReactNode;
+.footer {
+  padding-top: 30px;
 }
 
-const Layout: React.SFC<IProps> = (props) => {
-  return (
-    <div>
-      <Header />
-      <div className="layout">
-        <Sidebar />
-        <div className="content-section">
-          {props.children}
-          <Footer />
-        </div>
-      </div>
-    </div>
-  );
-};
+.copyright {
+  color: #6c757d;
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
 
-export default Layout;
+.zilliqa {
+  height: 16px;
+}
