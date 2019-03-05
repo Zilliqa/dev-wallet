@@ -172,9 +172,12 @@ const AccessKeystore: React.FunctionComponent<IProps> = (props) => {
     submitButtonText = 'Accessing';
   }
 
+  const description = 'You can access your wallet with your keystore file and passphrase.';
+
   return (
     <Form className="mt-4" onSubmit={(e) => e.preventDefault()}>
       <FormGroup className="px-5">
+        <p className="text-secondary">{description}</p>
         <div className="py-3">
           <small>
             <b>{'Keystore File'}</b>

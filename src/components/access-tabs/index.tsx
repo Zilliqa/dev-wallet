@@ -41,8 +41,6 @@ const AccessTabs: React.FunctionComponent = () => {
     }
   };
 
-  const keystoreDescription = 'You can access your wallet with your keystore file and passphrase.';
-  const privateKeyDescription = 'You can access your wallet with private key.';
   return (
     <div>
       <Card>
@@ -50,20 +48,17 @@ const AccessTabs: React.FunctionComponent = () => {
           <Row>
             <Col xs={10} sm={10} md={8} lg={7} className="mr-auto ml-auto">
               <div className="text-center">
-                <h2 className="pt-5">
+                <h2 className="pt-5 pb-4">
                   <b>{'Access Existing Wallet'}</b>
                 </h2>
-                <p className="text-secondary py-3">
-                  {activeTab === KEYSTORE_TAB ? keystoreDescription : privateKeyDescription}
-                </p>
               </div>
               <div>
                 <Nav tabs={true}>
                   <NavItem>
                     <NavLink
-                      className={classnames({
+                      className={`cursor-pointer ${classnames({
                         active: activeTab === KEYSTORE_TAB
-                      })}
+                      })}`}
                       onClick={() => toggle(KEYSTORE_TAB)}
                     >
                       {'keystore File'}
@@ -71,9 +66,9 @@ const AccessTabs: React.FunctionComponent = () => {
                   </NavItem>
                   <NavItem>
                     <NavLink
-                      className={classnames({
+                      className={`cursor-pointer ${classnames({
                         active: activeTab === PRIVATE_KEY_TAB
-                      })}
+                      })}`}
                       onClick={() => {
                         toggle(PRIVATE_KEY_TAB);
                       }}

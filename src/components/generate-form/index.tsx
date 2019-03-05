@@ -194,16 +194,14 @@ const GenerateForm: React.FunctionComponent = (props) => {
       <div>
         <div className="text-center">
           <h2 className="pt-5">
-            <b>{'Please Save your Private Key'}</b>
+            <b>{'Please Save Your Private Key'}</b>
           </h2>
           <p className="text-secondary py-3">
             {`Your new wallet has been created.`}
             <br />
-            {`Make sure to COPY the private key below and SAVE it.`}
+            {`Make sure to copy the private key below and save it.`}
           </p>
         </div>
-
-        <br />
         <small>
           <b>Private Key</b>
         </small>

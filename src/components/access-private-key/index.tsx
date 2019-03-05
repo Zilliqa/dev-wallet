@@ -105,9 +105,12 @@ const AccessPrivateKey: React.FunctionComponent<IProps> = (props) => {
     submitButtonText = 'Accessing';
   }
 
+  const description = 'You can access your wallet with private key.';
+
   return (
     <Form className="mt-4" onSubmit={(e) => e.preventDefault()}>
-      <FormGroup className="px-5 pt-5">
+      <FormGroup className="px-5">
+        <p className="text-secondary pb-3">{description}</p>
         <Label for="privateKey">
           <small>
             <b>{'Private Key'}</b>
