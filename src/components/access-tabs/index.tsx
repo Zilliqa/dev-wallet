@@ -24,12 +24,6 @@ import './style.css';
 import AccessKeystore from '../access-keystore';
 import AccessPrivateKey from '../access-private-key';
 
-interface IState {
-  worker: any;
-  decryptStatus?: string;
-  activeTab: string;
-}
-
 const KEYSTORE_TAB = '0';
 const PRIVATE_KEY_TAB = '1';
 
