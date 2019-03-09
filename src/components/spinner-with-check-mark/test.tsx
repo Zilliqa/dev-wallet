@@ -16,23 +16,18 @@
  */
 
 import React from 'react';
-import renderer from 'react-test-renderer';
-import Footer from '.';
-import { shallow } from 'enzyme';
+import { render, cleanup } from 'react-testing-library';
+import Spinner from '.';
 
-describe('Footer tests', () => {
-  const baseComponent = () => <Footer />;
+// automatically unmount and cleanup DOM after the test is finished.
+afterEach(cleanup);
 
-  describe('basic tests', () => {
-    it('matches the snapshot', () => {
-      const tree = renderer.create(baseComponent()).toJSON();
-      expect(tree).toMatchSnapshot();
-    });
+test('matches the snapshot when loading', () => {
+  const { container } = render(<Spinner loading={true} />);
+  expect(container.firstChild).toMatchSnapshot();
+});
 
-    it('renders the component', () => {
-      const wrapper = shallow(baseComponent());
-      const assertion = wrapper.find('[data-testid="Footer"]').length;
-      expect(assertion).toBe(1);
-    });
-  });
+test('matches the snapshot when loaded', () => {
+  const { container } = render(<Spinner loading={false} />);
+  expect(container.firstChild).toMatchSnapshot();
 });

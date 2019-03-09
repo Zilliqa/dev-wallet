@@ -14,8 +14,4 @@
  * You should have received a copy of the GNU General Public License along with
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-import Enzyme from 'enzyme';
-import EnzymeAdapter from 'enzyme-adapter-react-16';
-
-Enzyme.configure({ adapter: new EnzymeAdapter() });
+import 'jest-dom/extend-expect';

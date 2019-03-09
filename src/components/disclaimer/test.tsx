@@ -16,23 +16,14 @@
  */
 
 import React from 'react';
-import renderer from 'react-test-renderer';
-import FaucetPending from '.';
-import { shallow } from 'enzyme';
+import { render, cleanup } from 'react-testing-library';
 
-describe('FaucetPending tests', () => {
-  const baseComponent = () => <FaucetPending />;
+import Disclaimer from '.';
 
-  describe('basic tests', () => {
-    it('matches the snapshot', () => {
-      const tree = renderer.create(baseComponent()).toJSON();
-      expect(tree).toMatchSnapshot();
-    });
+// automatically unmount and cleanup DOM after the test is finished.
+afterEach(cleanup);
 
-    it('renders the component', () => {
-      const wrapper = shallow(baseComponent());
-      const assertion = wrapper.find('[data-testid="FaucetPending"]').length;
-      expect(assertion).toBe(1);
-    });
-  });
+test('matches the snapshot', () => {
+  const { container } = render(<Disclaimer />);
+  expect(container.firstChild).toMatchSnapshot();
 });

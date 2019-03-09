@@ -1,22 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Footer tests basic tests matches the snapshot 1`] = `
+exports[`matches the snapshot 1`] = `
 <footer
-  className="footer"
-  data-testid="Footer"
+  class="footer"
+  data-testid="footer"
 >
   <div
-    className="text-center py-2"
+    class="text-center py-2"
   >
     <ul
-      className="nav justify-content-center"
+      class="nav justify-content-center"
     >
       <li
-        className="nav-item"
+        class="nav-item"
       >
         <a
           aria-label="Zilliqa GitHub"
-          className="text-secondary nav-link"
+          class="text-secondary nav-link"
           href="https://github.com/Zilliqa"
           rel="noreferrer"
           target="_blank"
@@ -25,12 +25,7 @@ exports[`Footer tests basic tests matches the snapshot 1`] = `
             fill="currentColor"
             height="1em"
             stroke="currentColor"
-            strokeWidth="0"
-            style={
-              Object {
-                "color": undefined,
-              }
-            }
+            stroke-width="0"
             viewBox="0 0 496 512"
             width="1em"
           >
@@ -41,11 +36,11 @@ exports[`Footer tests basic tests matches the snapshot 1`] = `
         </a>
       </li>
       <li
-        className="nav-item"
+        class="nav-item"
       >
         <a
           aria-label="Zilliqa Gitter"
-          className="text-secondary nav-link"
+          class="text-secondary nav-link"
           href="https://gitter.im/Zilliqa"
           rel="noreferrer"
           target="_blank"
@@ -54,12 +49,7 @@ exports[`Footer tests basic tests matches the snapshot 1`] = `
             fill="currentColor"
             height="1em"
             stroke="currentColor"
-            strokeWidth="0"
-            style={
-              Object {
-                "color": undefined,
-              }
-            }
+            stroke-width="0"
             viewBox="0 0 384 512"
             width="1em"
           >
@@ -70,11 +60,11 @@ exports[`Footer tests basic tests matches the snapshot 1`] = `
         </a>
       </li>
       <li
-        className="nav-item"
+        class="nav-item"
       >
         <a
           aria-label="Zilliqa Twitter"
-          className="text-secondary nav-link"
+          class="text-secondary nav-link"
           href="https://twitter.com/zilliqa"
           rel="noreferrer"
           target="_blank"
@@ -83,12 +73,7 @@ exports[`Footer tests basic tests matches the snapshot 1`] = `
             fill="currentColor"
             height="1em"
             stroke="currentColor"
-            strokeWidth="0"
-            style={
-              Object {
-                "color": undefined,
-              }
-            }
+            stroke-width="0"
             viewBox="0 0 512 512"
             width="1em"
           >
@@ -100,7 +85,7 @@ exports[`Footer tests basic tests matches the snapshot 1`] = `
       </li>
     </ul>
     <span
-      className="text-secondary copyright"
+      class="text-secondary copyright"
     >
       Copyright © 2019 Zilliqa Research Pte. Ltd.
     </span>

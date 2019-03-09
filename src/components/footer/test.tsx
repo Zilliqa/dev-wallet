@@ -16,23 +16,13 @@
  */
 
 import React from 'react';
-import renderer from 'react-test-renderer';
-import Disclaimer from '.';
-import { shallow } from 'enzyme';
+import { render, cleanup } from 'react-testing-library';
+import Footer from '.';
 
-describe('Disclaimer tests', () => {
-  const baseComponent = () => <Disclaimer />;
+// automatically unmount and cleanup DOM after the test is finished.
+afterEach(cleanup);
 
-  describe('basic tests', () => {
-    it('matches the snapshot', () => {
-      const tree = renderer.create(baseComponent()).toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders the component', () => {
-      const wrapper = shallow(baseComponent());
-      const assertion = wrapper.find('[data-testid="Disclaimer"]').length;
-      expect(assertion).toBe(1);
-    });
-  });
+test('matches the snapshot', () => {
+  const { container } = render(<Footer />);
+  expect(container.firstChild).toMatchSnapshot();
 });
