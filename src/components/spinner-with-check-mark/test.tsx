@@ -16,25 +16,18 @@
  */
 
 import React from 'react';
-import renderer from 'react-test-renderer';
-import FaucetComplete from '.';
-import { shallow } from 'enzyme';
+import { render, cleanup } from 'react-testing-library';
+import Spinner from '.';
 
-const txId = '92a17d292024e0321da6b1bf2d57287ceed623678b959c9bb3be4f3763a0c0e6';
+// automatically unmount and cleanup DOM after the test is finished.
+afterEach(cleanup);
 
-describe('FaucetComplete tests', () => {
-  const baseComponent = () => <FaucetComplete txId={txId} />;
+test('matches the snapshot when loading', () => {
+  const { container } = render(<Spinner loading={true} />);
+  expect(container.firstChild).toMatchSnapshot();
+});
 
-  describe('basic tests', () => {
-    it('matches the snapshot', () => {
-      const tree = renderer.create(baseComponent()).toJSON();
-      expect(tree).toMatchSnapshot();
-    });
-
-    it('renders the component', () => {
-      const wrapper = shallow(baseComponent());
-      const assertion = wrapper.find('[data-test-id="FaucetComplete"]').length;
-      expect(assertion).toBe(1);
-    });
-  });
+test('matches the snapshot when loaded', () => {
+  const { container } = render(<Spinner loading={false} />);
+  expect(container.firstChild).toMatchSnapshot();
 });

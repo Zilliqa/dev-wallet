@@ -16,23 +16,14 @@
  */
 
 import React from 'react';
-import * as renderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
-import Spinner from '.';
+import { render, cleanup } from 'react-testing-library';
 
-describe('Spinner tests', () => {
-  const baseComponent = () => <Spinner />;
+import Disclaimer from '.';
 
-  describe('basic tests', () => {
-    it('matches the snapshot', () => {
-      const tree = renderer.create(baseComponent()).toJSON();
-      expect(tree).toMatchSnapshot();
-    });
+// automatically unmount and cleanup DOM after the test is finished.
+afterEach(cleanup);
 
-    it('renders the component', () => {
-      const wrapper = shallow(baseComponent());
-      const assertion = wrapper.find('[data-test-id="spinner"]').length;
-      expect(assertion).toBe(1);
-    });
-  });
+test('matches the snapshot', () => {
+  const { container } = render(<Disclaimer />);
+  expect(container.firstChild).toMatchSnapshot();
 });

@@ -18,7 +18,7 @@
 import React from 'react';
 
 const Disclaimer: React.SFC = () => (
-  <small data-test-id="Disclaimer" className="text-danger">
+  <small data-testid="disclaimer" className="text-danger">
     This is Zilliqa Test Net wallet. Do not send any interim ERC-20 ZIL tokens to this wallet. You
     are solely responsible for your account funds.
   </small>
