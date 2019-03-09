@@ -16,15 +16,13 @@
  */
 
 import React from 'react';
+import { render, cleanup } from 'react-testing-library';
+import Spinner from '.';
 
-const FaucetPending: React.SFC = () => (
-  <div data-testid="faucet-pending" className="text-center py-4">
-    <p className="text-secondary text-fade-in">
-      {'Running Faucet'}
-      <br />
-      <small>{'Please kindly wait. It might take a while.'}</small>
-    </p>
-  </div>
-);
+// automatically unmount and cleanup DOM after the test is finished.
+afterEach(cleanup);
 
-export default FaucetPending;
+test('matches the snapshot', () => {
+  const { container } = render(<Spinner />);
+  expect(container.firstChild).toMatchSnapshot();
+});

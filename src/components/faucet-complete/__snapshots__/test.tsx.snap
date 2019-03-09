@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FaucetComplete tests basic tests matches the snapshot 1`] = `
+exports[`matches the snapshot 1`] = `
 <div
-  data-test-id="FaucetComplete"
+  data-testid="faucet-complete"
 >
   <p
-    className="pt-4 text-secondary"
+    class="pt-4 text-secondary"
   >
     <span
-      className="text-primary"
+      class="text-primary"
     >
       Transaction In Process
     </span>

@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Disclaimer tests basic tests matches the snapshot 1`] = `
+exports[`matches the snapshot 1`] = `
 <small
-  className="text-danger"
-  data-test-id="Disclaimer"
+  class="text-danger"
+  data-testid="disclaimer"
 >
   This is Zilliqa Test Net wallet. Do not send any interim ERC-20 ZIL tokens to this wallet. You are solely responsible for your account funds.
 </small>

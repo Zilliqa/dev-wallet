@@ -16,23 +16,15 @@
  */
 
 import React from 'react';
-import renderer from 'react-test-renderer';
-import Disclaimer from '.';
-import { shallow } from 'enzyme';
+import { render, cleanup } from 'react-testing-library';
+import FaucetComplete from '.';
 
-describe('Disclaimer tests', () => {
-  const baseComponent = () => <Disclaimer />;
+// automatically unmount and cleanup DOM after the test is finished.
+afterEach(cleanup);
 
-  describe('basic tests', () => {
-    it('matches the snapshot', () => {
-      const tree = renderer.create(baseComponent()).toJSON();
-      expect(tree).toMatchSnapshot();
-    });
+const txId = '92a17d292024e0321da6b1bf2d57287ceed623678b959c9bb3be4f3763a0c0e6';
 
-    it('renders the component', () => {
-      const wrapper = shallow(baseComponent());
-      const assertion = wrapper.find('[data-test-id="Disclaimer"]').length;
-      expect(assertion).toBe(1);
-    });
-  });
+test('matches the snapshot', () => {
+  const { container } = render(<FaucetComplete txId={txId} />);
+  expect(container.firstChild).toMatchSnapshot();
 });
