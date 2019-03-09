@@ -3,7 +3,7 @@
 exports[`FaucetPending tests basic tests matches the snapshot 1`] = `
 <div
   className="text-center py-4"
-  data-test-id="FaucetPending"
+  data-testid="FaucetPending"
 >
   <p
     className="text-secondary text-fade-in"

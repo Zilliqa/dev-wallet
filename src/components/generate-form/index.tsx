@@ -151,7 +151,7 @@ const GenerateForm: React.FunctionComponent = (props) => {
                 id="passphrase"
                 type="password"
                 name="passphrase"
-                data-test-id="passphrase"
+                data-testid="passphrase"
                 value={passphrase}
                 onChange={changePassphrase}
                 valid={passphraseValid}

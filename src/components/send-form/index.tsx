@@ -181,7 +181,7 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
                         id="toAddress"
                         type="text"
                         name="toAddress"
-                        data-test-id="toAddress"
+                        data-testid="toAddress"
                         value={toAddress}
                         onChange={changeToAddress}
                         valid={toAddressValid}
@@ -204,7 +204,7 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
                         type="tel"
                         name="amount"
                         maxLength={10}
-                        data-test-id="amount"
+                        data-testid="amount"
                         value={amount}
                         onChange={changeAmount}
                         placeholder="Enter the Amount"

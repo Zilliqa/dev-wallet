@@ -18,7 +18,7 @@
 import React from 'react';
 
 const FaucetPending: React.SFC = () => (
-  <div data-test-id="FaucetPending" className="text-center py-4">
+  <div data-testid="FaucetPending" className="text-center py-4">
     <p className="text-secondary text-fade-in">
       {'Running Faucet'}
       <br />

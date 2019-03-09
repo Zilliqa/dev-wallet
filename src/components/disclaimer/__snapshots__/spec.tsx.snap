@@ -3,7 +3,7 @@
 exports[`Disclaimer tests basic tests matches the snapshot 1`] = `
 <small
   className="text-danger"
-  data-test-id="Disclaimer"
+  data-testid="Disclaimer"
 >
   This is Zilliqa Test Net wallet. Do not send any interim ERC-20 ZIL tokens to this wallet. You are solely responsible for your account funds.
 </small>

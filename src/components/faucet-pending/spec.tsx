@@ -31,7 +31,7 @@ describe('FaucetPending tests', () => {
 
     it('renders the component', () => {
       const wrapper = shallow(baseComponent());
-      const assertion = wrapper.find('[data-test-id="FaucetPending"]').length;
+      const assertion = wrapper.find('[data-testid="FaucetPending"]').length;
       expect(assertion).toBe(1);
     });
   });

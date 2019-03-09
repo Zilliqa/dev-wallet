@@ -3,7 +3,7 @@
 exports[`Footer tests basic tests matches the snapshot 1`] = `
 <footer
   className="footer"
-  data-test-id="Footer"
+  data-testid="Footer"
 >
   <div
     className="text-center py-2"

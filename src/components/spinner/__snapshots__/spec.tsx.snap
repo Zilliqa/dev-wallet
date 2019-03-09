@@ -3,7 +3,7 @@
 exports[`Spinner tests basic tests matches the snapshot 1`] = `
 <div
   className="spinner"
-  data-test-id="spinner"
+  data-testid="spinner"
   style={
     Object {
       "height": 50,

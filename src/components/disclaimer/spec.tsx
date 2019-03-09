@@ -31,7 +31,7 @@ describe('Disclaimer tests', () => {
 
     it('renders the component', () => {
       const wrapper = shallow(baseComponent());
-      const assertion = wrapper.find('[data-test-id="Disclaimer"]').length;
+      const assertion = wrapper.find('[data-testid="Disclaimer"]').length;
       expect(assertion).toBe(1);
     });
   });

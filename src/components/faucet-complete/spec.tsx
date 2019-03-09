@@ -33,7 +33,7 @@ describe('FaucetComplete tests', () => {
 
     it('renders the component', () => {
       const wrapper = shallow(baseComponent());
-      const assertion = wrapper.find('[data-test-id="FaucetComplete"]').length;
+      const assertion = wrapper.find('[data-testid="FaucetComplete"]').length;
       expect(assertion).toBe(1);
     });
   });

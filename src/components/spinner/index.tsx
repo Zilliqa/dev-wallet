@@ -33,7 +33,7 @@ const Spinner: React.SFC<IProps> = ({ size }) => {
   } else if (size === 'large') {
     style = { width: LARGE, height: LARGE };
   }
-  return <div data-test-id="spinner" className="spinner" style={style} />;
+  return <div data-testid="spinner" className="spinner" style={style} />;
 };
 
 export default Spinner;

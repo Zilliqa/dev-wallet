@@ -21,7 +21,7 @@ import './style.css';
 const copyright: string = 'Copyright © 2019 Zilliqa Research Pte. Ltd.';
 
 const Footer: React.SFC = () => (
-  <footer data-test-id="Footer" className={'footer'}>
+  <footer data-testid="Footer" className={'footer'}>
     <div className="text-center py-2">
       <ul className="nav justify-content-center">
         <li className="nav-item">

@@ -120,7 +120,7 @@ const AccessPrivateKey: React.FunctionComponent<IProps> = (props) => {
           id="private-key"
           type="text"
           name="privateKey"
-          data-test-id="privateKey"
+          data-testid="privateKey"
           value={privateKey}
           onChange={changePrivateKey}
           valid={privateKeyValid}
