@@ -1,6 +1,5 @@
 [![Build Status][travis-svg]][travis-url] 
 [![License][license-svg]][license-url]
-[![Storybook][storybook-svg]][storybook-url]
 
 # [nucleus-wallet](https://dev-wallet.zilliqa.com)
 
@@ -33,9 +32,6 @@ This project is open source software licensed as [GPL-3.0](https://github.com/zi
 
 [travis-svg]: https://travis-ci.com/Zilliqa/nucleus-wallet.svg?token=zQ1VLsuY7iH5Nn3yKbai&branch=master
 [travis-url]: https://travis-ci.com/Zilliqa/nucleus-wallet
-
-[storybook-svg]: https://github.com/storybooks/brand/blob/master/badge/badge-storybook.svg
-[storybook-url]: https://zilliqa.github.io/nucleus-wallet
 
 [license-svg]: https://img.shields.io/badge/License-GPLv3-blue.svg
 [license-url]: https://github.com/zilliqa/nucleus-wallet/blob/master/LICENSE
