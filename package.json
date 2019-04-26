@@ -12,8 +12,11 @@
     "test:ci": "CI=true node scripts/test.js --coverage --updateSnapshot --forceExit --detectOpenHandles",
     "tslint": "tslint --project tsconfig.json --format stylish",
     "stylelint": "stylelint ./src/**/*.css --fix",
-    "format": "prettier --write '**/*.{ts,tsx,js}' --config .prettierrc",
-    "ci": "yarn tslint && yarn stylelint && yarn test:ci"
+    "lint": "yarn tslint && yarn stylelint",
+    "prettier": "prettier \"**/*.+(ts|tsx)\"",
+    "format": "npm run prettier -- --write",
+    "validate": "npm run lint && npm run prettier -- --list-different && tsc --noEmit",
+    "ci": "yarn validate && yarn test:ci"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -150,7 +153,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn tslint && yarn stylelint && yarn format && yarn test:cov"
+      "pre-commit": "yarn validate && yarn test:cov"
     }
   },
   "eslintConfig": {
