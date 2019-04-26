@@ -15,18 +15,15 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-@value colors: "../../assets/colors/colors.css";
-@value --green400, --blue800 from colors;
-
 nav.navbar {
-  background-color: --blue800;
+  background-color: var(--blue800);
 }
 
 .network {
   font-size: 13px;
   font-weight: 500;
   min-width: 148px;
-  color: --green400;
+  color: var(--green400);
   text-align: center;
   line-height: 24px;
 }
@@ -37,7 +34,7 @@ nav.navbar {
   height: 8px;
   display: inline-block;
   vertical-align: middle;
-  background-color: --green400;
+  background-color: var(--green400);
   border-radius: 50%;
   margin-right: 6px;
 }
