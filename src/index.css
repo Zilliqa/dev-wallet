@@ -15,8 +15,50 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-@value colors: "./assets/colors/colors.css";
-@value --white, --gray100, --gray300, --gray500, --gray700, --blue500, --blue700, --blue800, --green500, --red500, --red700 yellow500, --black from colors;
+:root {
+  --white: #fff;
+  --black: #24292e;
+  --gray100: #f9f9fd;
+  --gray200: #e9e9f4;
+  --gray300: #c5c5d3;
+  --gray400: #a0a1b2;
+  --gray500: #7c7d8c;
+  --gray600: #525360;
+  --gray700: #343546;
+  --gray800: #242536;
+  --blue100: #d9ddfe;
+  --blue200: #aaafef;
+  --blue300: #7b82e1;
+  --blue400: #4c54d2;
+  --blue500: #392dd1;
+  --blue600: #2d23a7;
+  --blue700: #21197d;
+  --blue800: #383f6e;
+  --green100: #d3f2e2;
+  --green200: #96dfba;
+  --green300: #58cd92;
+  --green400: #1bba6a;
+  --green500: #148e50;
+  --green600: #0d6137;
+  --green700: #06351d;
+  --green800: #0d2521;
+  --red100: #f5acb8;
+  --red200: #f18295;
+  --red300: #ec5871;
+  --red400: #e72f4e;
+  --red500: #e2052a;
+  --red600: #be032d;
+  --red700: #99022f;
+  --red800: #750032;
+  --yellow100: #f9ebd0;
+  --yellow200: #f5dba2;
+  --yellow300: #f1cb74;
+  --yellow400: #edbb46;
+  --yellow500: #e9ab18;
+  --yellow600: #d19200;
+  --yellow700: #9d6e00;
+  --yellow800: #694900;
+}
 
 @font-face {
   font-family: 'Noto Sans';
@@ -38,7 +80,7 @@
 
 body {
   margin: 0;
-  background-color: --gray100;
+  background-color: var(--gray100);
   padding: 0;
   font-family:
     "Noto Sans",
@@ -59,48 +101,48 @@ body {
 }
 
 a {
-  color: --blue500;
+  color: var(--blue500);
 }
 
 a:hover {
-  color: --blue700;
+  color: var(--blue700);
 }
 
 .bg-dark {
-  background-color: --black !important;
+  background-color: var(--black) !important;
 }
 
 .text-primary {
-  color: --blue500 !important;
+  color: var(--blue500) !important;
 }
 
 .text-secondary {
-  color: --gray700 !important;
+  color: var(--gray700) !important;
 }
 
 .text-nucleus {
-  color: --blue800 !important;
+  color: var(--blue800) !important;
 }
 
 .valid-feedback,
 .text-success {
-  color: --green500 !important;
+  color: var(--green500) !important;
 }
 
 .form-control.is-valid {
-  border-color: --green500;
+  border-color: var(--green500);
   background-image: none;
   padding-right: 0;
 }
 
 .invalid-feedback,
 .text-danger {
-  color: --red500 !important;
+  color: var(--red500) !important;
 }
 
 .form-container a.nav-link {
-  background-color: --gray100;
-  border-bottom: 1px solid --gray300;
+  background-color: var(--gray100);
+  border-bottom: 1px solid var(--gray300);
   border-radius: 0;
   font-weight: bold;
 }
@@ -108,11 +150,11 @@ a:hover {
 .form-container li.nav-item {
   width: 50%;
   text-align: center;
-  color: --gray500;
+  color: var(--gray500);
 }
 
 .form-control.is-invalid {
-  border-color: --red500;
+  border-color: var(--red500);
   background-image: none;
   padding-right: 0;
 }
@@ -128,7 +170,7 @@ form input.form-control-file {
 form input.form-control {
   border: 0;
   border-radius: 0;
-  border-bottom: 1px solid --gray300;
+  border-bottom: 1px solid var(--gray300);
   padding: 0;
   transition: border-width 0.1s linear, border-color 0.3s linear;
   position: relative;
@@ -139,8 +181,8 @@ form input.form-control {
 .form-control:disabled,
 .form-control[readonly] {
   background-color: transparent;
-  color: --gray700;
-  border-bottom: 1px solid --green300;
+  color: var(--gray700);
+  border-bottom: 1px solid var(--green300);
   cursor: not-allowed;
 }
 
@@ -149,13 +191,13 @@ form input[type=password]:focus,
 form input[type=tel]:focus {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0) !important;
   border: none;
-  border-bottom: 1px solid --black;
+  border-bottom: 1px solid var(--black);
 }
 
 form input[type=text]::placeholder,
 form input[type=password]::placeholder,
 form input[type=tel]::placeholder {
-  color: --gray300;
+  color: var(--gray300);
 }
 
 .nucleus-header-container {
@@ -188,7 +230,7 @@ form input[type=tel]::placeholder {
 
 .nucleus-header {
   padding: 5rem;
-  color: --white;
+  color: var(--white);
   margin: 0;
 }
 
@@ -209,7 +251,7 @@ form input[type=tel]::placeholder {
 }
 
 .release-text {
-  color: --gray300;
+  color: var(--gray300);
   padding-left: 5px;
   font-size: 10px;
 }
@@ -253,34 +295,34 @@ form input[type=tel]::placeholder {
 }
 
 .rc-steps-small .rc-steps-item-title {
-  color: --gray500;
+  color: var(--gray500);
 }
 
 .rc-steps-item-wait .rc-steps-item-icon {
-  border-color: --gray500;
+  border-color: var(--gray500);
 }
 
 .rc-steps-item-wait .rc-steps-item-icon > .rc-steps-icon {
-  color: --gray500;
+  color: var(--gray500);
 }
 
 .rc-steps-item-process .rc-steps-item-icon {
   font-weight: bold;
-  background-color: --blue500;
-  border-color: --blue500;
+  background-color: var(--blue500);
+  border-color: var(--blue500);
 }
 
 .rc-steps-item-finish .rc-steps-item-icon {
-  border-color: --blue500;
+  border-color: var(--blue500);
   font-weight: bold;
 }
 
 .rc-steps-item-process .rc-steps-item-title::after {
-  background-color: --gray500;
+  background-color: var(--gray500);
 }
 
 .rc-steps-item-finish .rc-steps-item-title::after {
-  background-color: --blue500;
+  background-color: var(--blue500);
 }
 
 div.recaptcha {

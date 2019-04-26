@@ -15,12 +15,9 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-@value colors: "../../assets/colors/colors.css";
-@value --gray300 from colors;
-
 .spinner {
   border: 2px solid rgba(0, 0, 0, 0.1);
-  border-left-color: --gray300;
+  border-left-color: var(--gray300);
   animation: loader-spin 1s infinite linear;
   position: relative;
   display: inline-block;
