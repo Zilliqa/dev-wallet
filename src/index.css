@@ -182,7 +182,7 @@ form input.form-control {
 .form-control[readonly] {
   background-color: transparent;
   color: var(--gray700);
-  border-bottom: 1px solid var(--green300);
+  border-bottom: 1px solid var(--gray300);
   cursor: not-allowed;
 }
 
