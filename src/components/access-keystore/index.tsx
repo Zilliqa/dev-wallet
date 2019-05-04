@@ -154,23 +154,14 @@ const AccessKeystore: React.FunctionComponent<IProps> = (props) => {
 
   const isDecrypting = decryptStatus === requestStatus.PENDING;
 
-  let isSubmitButtonDisabled = false;
-
-  if (
+  const isSubmitButtonDisabled =
     !passphraseValid ||
     keystoreV3 === undefined ||
     isDecrypting ||
     isAccessing ||
-    !isDisclaimerChecked
-  ) {
-    isSubmitButtonDisabled = true;
-  }
+    !isDisclaimerChecked;
 
-  let submitButtonText = isDecrypting ? 'Decrypting' : 'Access';
-
-  if (isAccessing) {
-    submitButtonText = 'Accessing';
-  }
+  const submitButtonText = isDecrypting ? 'Decrypting' : isAccessing ? 'Accessing' : 'Access';
 
   const description = 'You can access your wallet with your keystore file and passphrase.';
 

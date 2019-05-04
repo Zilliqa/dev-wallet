@@ -95,15 +95,9 @@ const AccessPrivateKey: React.FunctionComponent<IProps> = (props) => {
     return props.accessWallet(privateKey);
   };
 
-  let isSubmitButtonDisabled = false;
-  if (!privateKeyValid || isAccessing || !isDisclaimerChecked) {
-    isSubmitButtonDisabled = true;
-  }
+  const isSubmitButtonDisabled = !privateKeyValid || isAccessing || !isDisclaimerChecked;
 
-  let submitButtonText = 'Access';
-  if (isAccessing) {
-    submitButtonText = 'Accessing';
-  }
+  const submitButtonText = isAccessing ? 'Accessing' : 'Access';
 
   const description = 'You can access your wallet with private key.';
 
