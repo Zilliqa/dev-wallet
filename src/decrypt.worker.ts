@@ -17,11 +17,7 @@
 
 import { decryptPrivateKey } from '@zilliqa-js/crypto';
 
-// Worker.ts
-const ctx: Worker = self as any;
-
-// Respond to message from parent thread
-ctx.addEventListener('message', async (event) => {
+const decrypt = async (event) => {
   try {
     const { passphrase, keystoreV3 } = event.data;
     const privateKey = await decryptPrivateKey(passphrase, keystoreV3);
@@ -32,4 +28,10 @@ ctx.addEventListener('message', async (event) => {
     // @ts-ignore
     self.postMessage({ privateKey: undefined });
   }
-});
+};
+
+// Worker.ts
+const ctx: Worker = self as any;
+
+// Respond to message from parent thread
+ctx.addEventListener('message', (event) => decrypt(event).catch(console.log));

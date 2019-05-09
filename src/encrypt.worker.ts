@@ -17,11 +17,7 @@
 
 import { schnorr, encryptPrivateKey } from '@zilliqa-js/crypto';
 
-// Worker.ts
-const ctx: Worker = self as any;
-
-// Respond to message from parent thread
-ctx.addEventListener('message', async (event) => {
+const encrypt = async (event) => {
   try {
     const { passphrase } = event.data;
     const privateKey = schnorr.generatePrivateKey();
@@ -33,4 +29,10 @@ ctx.addEventListener('message', async (event) => {
     // @ts-ignore
     self.postMessage({ keystoreJSON: undefined, privateKey: undefined });
   }
-});
+};
+
+// Worker.ts
+const ctx: Worker = self as any;
+
+// Respond to message from parent thread
+ctx.addEventListener('message', (event) => encrypt(event).catch(console.log));
