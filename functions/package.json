@@ -12,7 +12,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "@zilliqa-js/zilliqa": "0.5.0",
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
