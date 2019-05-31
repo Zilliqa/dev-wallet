@@ -17,6 +17,7 @@
 
 import React from 'react';
 import { EXPLORER_URL } from '../../constants';
+import { getExplorerURL } from '../../api';
 
 const FaucetComplete: React.SFC<{ txId: string }> = ({ txId }) => (
   <div data-testid="faucet-complete">
@@ -30,7 +31,7 @@ const FaucetComplete: React.SFC<{ txId: string }> = ({ txId }) => (
     </p>
     {txId ? (
       <u>
-        <a target="_blank" href={`${EXPLORER_URL}/transactions/${txId}`} rel="noreferrer">
+        <a target="_blank" href={getExplorerURL(txId)} rel="noreferrer">
           {'View Your Transaction'}
         </a>
       </u>

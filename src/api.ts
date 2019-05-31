@@ -29,3 +29,5 @@ export const getErrorStatus = (error): number => {
   const { status } = request;
   return status;
 };
+
+export const getExplorerURL = (txId) => `https://viewblock.io/zilliqa/tx/${txId}?network=testnet`;

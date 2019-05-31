@@ -22,6 +22,7 @@ import { requestStatus, EXPLORER_URL } from '../../constants';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import Disclaimer from '../disclaimer';
+import { getExplorerURL } from '../../api';
 
 interface IProps {
   sendTx: (toAddress, amount, gasPrice) => void;
@@ -122,11 +123,7 @@ const SendTxModal: React.FunctionComponent<IProps> = (props) => {
             </p>
             {sendTxId ? (
               <u>
-                <a
-                  target="_blank"
-                  href={`${EXPLORER_URL}/transactions/${sendTxId}`}
-                  rel="noreferrer"
-                >
+                <a target="_blank" href={getExplorerURL(sendTxId)} rel="noreferrer">
                   {'View Your Transaction'}
                 </a>
               </u>

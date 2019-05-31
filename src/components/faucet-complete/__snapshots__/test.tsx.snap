@@ -24,7 +24,7 @@ exports[`matches the snapshot 1`] = `
   </p>
   <u>
     <a
-      href="https://dev-explorer.zilliqa.com/transactions/92a17d292024e0321da6b1bf2d57287ceed623678b959c9bb3be4f3763a0c0e6"
+      href="https://viewblock.io/zilliqa/tx/92a17d292024e0321da6b1bf2d57287ceed623678b959c9bb3be4f3763a0c0e6?network=testnet"
       rel="noreferrer"
       target="_blank"
     >
