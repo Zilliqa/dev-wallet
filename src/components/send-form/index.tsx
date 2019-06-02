@@ -25,6 +25,7 @@ import { getInputValidationState, formatSendAmountInZil } from '../../utils';
 import ConfirmTxModal from '../confirm-tx-modal';
 import { AccountInfo } from '../account-info';
 import { requestStatus } from '../../constants';
+import { isBech32 } from '@zilliqa-js/util/dist/validation';
 
 interface IProps {
   sendTx: (toAddress, amount, gasPrice) => void;
@@ -119,7 +120,7 @@ const SendForm: React.FunctionComponent<IProps> = (props) => {
     e.preventDefault();
     const value = e.target.value;
     const key = 'toAddress';
-    const validationResult: any = getInputValidationState(key, value, /^0x[a-fA-F0-9]{40}$/);
+    const validationResult: any = getInputValidationState(key, value, isBech32(value));
     setToAddress(value);
     setToAddressValid(validationResult.toAddressValid);
     setToAddressInvalid(validationResult.toAddressInvalid);
