@@ -17,7 +17,11 @@
 
 import { delay, select, put, takeLatest } from 'redux-saga/effects';
 
-import { getAddressFromPrivateKey, getPubKeyFromPrivateKey } from '@zilliqa-js/crypto';
+import {
+  getAddressFromPrivateKey,
+  getPubKeyFromPrivateKey,
+  fromBech32Address
+} from '@zilliqa-js/crypto';
 import { Long, bytes, units, BN } from '@zilliqa-js/util';
 import { RPCMethod } from '@zilliqa-js/core';
 import { Transaction } from '@zilliqa-js/account';
@@ -78,7 +82,7 @@ export function* sendTxSaga(action) {
     const nonceData = nonceResponse.result.nonce || { nonce: 0 };
     const nonce: number = nonceData.nonce + 1;
 
-    const toAddr = toAddress.toLowerCase().replace('0x', '');
+    const toAddr = fromBech32Address(toAddress);
     const wallet = zilliqa.wallet;
     wallet.addByPrivateKey(privateKey);
 
@@ -131,7 +135,7 @@ export function* runFaucet(action) {
     const headers = {
       'Content-Type': 'application/json'
     };
-    const data = JSON.stringify({ address, token });
+    const data = JSON.stringify({ address: address.replace('0x', ''), token });
 
     const res = yield axios({
       method: 'post',

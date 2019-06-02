@@ -16,8 +16,8 @@
  */
 import { BN, units } from '@zilliqa-js/util';
 
-export const getInputValidationState = (key: string, value: string, regex: RegExp) => {
-  const isInvalid: boolean = regex.test(value);
+export const getInputValidationState = (key: string, value: string, testVal: RegExp | boolean) => {
+  const isInvalid: boolean = typeof testVal === 'boolean' ? testVal : testVal.test(value);
   const keyValid = key + 'Valid';
   const keyInvalid = key + 'Invalid';
   const state = {};

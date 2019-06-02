@@ -16,7 +16,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Card, Row, Col } from 'reactstrap';
+import { Card } from 'reactstrap';
 import * as zilActions from '../../redux/zil/actions';
 import { connect } from 'react-redux';
 import { requestStatus } from '../../constants';
