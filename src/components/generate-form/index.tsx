@@ -23,7 +23,7 @@ import Steps, { Step } from 'rc-steps';
 // @ts-ignore
 import Worker from '../../encrypt.worker';
 
-import Spinner from '../spinner';
+import { Spinner } from 'accessible-ui';
 import { getInputValidationState, downloadObjectAsJson } from '../../utils';
 import { requestStatus } from '../../constants';
 import Disclaimer from '../disclaimer';

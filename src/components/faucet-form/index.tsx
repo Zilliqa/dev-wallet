@@ -15,106 +15,22 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Card } from 'reactstrap';
-import * as zilActions from '../../redux/zil/actions';
-import { connect } from 'react-redux';
-import { requestStatus } from '../../constants';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
-import { AccountInfo } from '../account-info';
+
 import FaucetPending from '../faucet-pending';
 import FaucetComplete from '../faucet-complete';
 import Recaptcha from '../recaptcha';
+import { useAsync } from 'react-async';
 
-interface IProps {
-  runFaucet: (address: string, token: string) => void;
-  clear: () => void;
-  faucetStatus?: string;
-  faucetTxId?: string;
-  publicKey: string;
-  address: string;
-  network: string;
-  getBalance: () => void;
-  balanceInQa: string;
-  getBalanceStatus?: string;
-}
-
-interface IState {
-  isRunningFaucet: boolean;
-  isFaucetComplete: boolean;
-  isFaucetIncomplete: boolean;
-  prevFaucetStatus?: string;
-}
-
-const initialState: IState = {
-  isRunningFaucet: false,
-  isFaucetComplete: false,
-  isFaucetIncomplete: false,
-  prevFaucetStatus: requestStatus.PENDING
-};
-
-const FaucetForm: React.FunctionComponent<IProps> = (props) => {
-  const {
-    address,
-    network,
-    faucetTxId,
-    faucetStatus,
-    getBalance,
-    balanceInQa,
-    getBalanceStatus
-  } = props;
-
-  const isUpdatingBalance = getBalanceStatus === requestStatus.PENDING;
-  useEffect(
-    () => {
-      if (getBalanceStatus === undefined) {
-        getBalance();
-      }
-    },
-    [balanceInQa]
-  );
-
-  const [isFaucetComplete, setIsFaucetComplete] = useState(initialState.isFaucetComplete);
-  const [isFaucetIncomplete, setIsFaucetIncomplete] = useState(initialState.isFaucetIncomplete);
-  const [isRunningFaucet, setIsRunningFaucet] = useState(initialState.isRunningFaucet);
-  const [prevFaucetStatus, setPrevFaucetStatus] = useState(initialState.prevFaucetStatus);
-  useEffect(
-    () => {
-      const isFailed =
-        faucetStatus === requestStatus.FAILED && prevFaucetStatus === requestStatus.PENDING;
-
-      const isSucceeded =
-        faucetStatus === requestStatus.SUCCEED && prevFaucetStatus === requestStatus.PENDING;
-
-      if (isFailed) {
-        setIsRunningFaucet(false);
-        setIsFaucetComplete(false);
-        setIsFaucetIncomplete(true);
-      }
-      if (isSucceeded) {
-        setIsRunningFaucet(false);
-        setIsFaucetComplete(true);
-        setIsFaucetIncomplete(false);
-      }
-
-      setPrevFaucetStatus(faucetStatus);
-    },
-    [faucetStatus, prevFaucetStatus]
-  );
-
-  const handleCaptcha = (token) => {
-    setIsRunningFaucet(true);
-    props.runFaucet(address, token);
-  };
+const FaucetForm = ({ faucet }) => {
+  const { error, isPending, isFulfilled, data, run } = useAsync({
+    deferFn: faucet
+  });
 
   return (
     <div>
-      <AccountInfo
-        address={address}
-        balanceInQa={balanceInQa}
-        getBalance={getBalance}
-        isUpdatingBalance={isUpdatingBalance}
-      />
       <div className="pt-4">
         <Card>
           <div className="py-5">
@@ -123,28 +39,23 @@ const FaucetForm: React.FunctionComponent<IProps> = (props) => {
                 <b>{'ZIL Faucet'}</b>
               </h2>
               <p className="text-secondary">
-                {`This Zil faucet is running on The ${network} Network.`}
-                <br />
                 {'Please run the faucet to receive a small amount of Zil for testing.'}
               </p>
               <div className="py-4">
-                {isRunningFaucet ? (
+                {isPending ? (
                   <div>
                     <SpinnerWithCheckMark loading={true} />
                     <FaucetPending />
                   </div>
-                ) : null}
-                {isFaucetComplete ? (
+                ) : isFulfilled ? (
                   <div>
                     <SpinnerWithCheckMark loading={false} />
-                    {faucetTxId ? <FaucetComplete txId={faucetTxId} /> : null}
+                    {data ? <FaucetComplete txId={data as string} /> : null}
                   </div>
-                ) : null}
-
-                {isRunningFaucet || isFaucetComplete ? null : (
+                ) : (
                   <div>
-                    <Recaptcha onChange={handleCaptcha} />
-                    {isFaucetIncomplete ? (
+                    <Recaptcha onChange={(token) => run(token)} />
+                    {error ? (
                       <p className="pt-4">
                         <small className="text-danger text-fade-in">
                           {'Failed to run faucet. Please try again later.'}
@@ -161,24 +72,4 @@ const FaucetForm: React.FunctionComponent<IProps> = (props) => {
     </div>
   );
 };
-
-const mapStateToProps = (state) => ({
-  balanceInQa: state.zil.balanceInQa,
-  getBalanceStatus: state.zil.getBalanceStatus,
-  faucetTxId: state.zil.faucetTxId,
-  faucetStatus: state.zil.faucetStatus,
-  network: state.zil.network,
-  address: state.zil.address,
-  publicKey: state.zil.publicKey
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  runFaucet: (address, token) => dispatch(zilActions.runFaucet(address, token)),
-  clear: () => dispatch(zilActions.clear()),
-  getBalance: () => dispatch(zilActions.getBalance())
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FaucetForm);
+export default FaucetForm;

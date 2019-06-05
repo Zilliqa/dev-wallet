@@ -16,42 +16,32 @@
  */
 
 import React from 'react';
-import * as H from 'history';
-import { connect } from 'react-redux';
-import { requestStatus } from '../constants';
 import AccessTabs from '../components/access-tabs';
 import Layout from '../components/layout';
 import SendForm from '../components/send-form';
+import AccountInfo from '../components/account-info';
 
-interface IProps {
-  history: H.History;
-  location: H.Location;
-  authStatus?: string;
-}
-
-const SendContainer: React.FunctionComponent<IProps> = (props) => {
-  const { authStatus } = props;
-  const isAuth = authStatus === requestStatus.SUCCEED;
+const SendContainer = (props) => {
+  const { zilContext } = props;
+  const { isAuth, address, accessWallet, getBalance, getMinGasPrice, send } = zilContext;
   return (
-    <div>
-      <Layout>
+    <>
+      <Layout zilContext={zilContext}>
         <div className="p-4">
           {isAuth ? (
-            <SendForm />
+            <>
+              <AccountInfo address={address} getBalance={getBalance} />
+              <SendForm send={send} getBalance={getBalance} getMinGasPrice={getMinGasPrice} />
+            </>
           ) : (
-            <div>
+            <>
               <span className="pl-1 text-secondary">Send ZIL</span>
-              <AccessTabs />
-            </div>
+              <AccessTabs accessWallet={accessWallet} />
+            </>
           )}
         </div>
       </Layout>
-    </div>
+    </>
   );
 };
-
-const mapStateToProps = (state) => ({
-  authStatus: state.zil.authStatus
-});
-
-export default connect(mapStateToProps)(SendContainer);
+export default SendContainer;

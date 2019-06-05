@@ -112,3 +112,5 @@ export const formatSendAmountInZil = (
     return units.fromQa(amountInQaBN, units.Units.Zil).toString();
   }
 };
+
+export const getExplorerURL = (txId) => `https://viewblock.io/zilliqa/tx/${txId}?network=testnet`;

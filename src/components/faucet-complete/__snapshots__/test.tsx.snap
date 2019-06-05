@@ -25,7 +25,7 @@ exports[`matches the snapshot 1`] = `
   <u>
     <a
       href="https://viewblock.io/zilliqa/tx/92a17d292024e0321da6b1bf2d57287ceed623678b959c9bb3be4f3763a0c0e6?network=testnet"
-      rel="noreferrer"
+      rel="noopener noreferrer"
       target="_blank"
     >
       View Your Transaction

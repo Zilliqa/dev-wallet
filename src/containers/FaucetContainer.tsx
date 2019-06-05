@@ -16,42 +16,32 @@
  */
 
 import React from 'react';
-import * as H from 'history';
-import { connect } from 'react-redux';
-import { requestStatus } from '../constants';
 import AccessTabs from '../components/access-tabs';
 import Layout from '../components/layout';
 import FaucetForm from '../components/faucet-form';
+import AccountInfo from '../components/account-info';
 
-interface IProps {
-  history: H.History;
-  location: H.Location;
-  authStatus?: string;
-}
-
-const FaucetContainer: React.FunctionComponent<IProps> = (props) => {
-  const { authStatus } = props;
-  const isAuth = authStatus === requestStatus.SUCCEED;
+const FaucetContainer = ({ zilContext }) => {
+  const { isAuth, address, accessWallet, getBalance, faucet } = zilContext;
   return (
-    <div>
-      <Layout>
+    <>
+      <Layout zilContext={zilContext}>
         <div className="p-4">
           {isAuth ? (
-            <FaucetForm />
+            <>
+              <AccountInfo address={address} getBalance={getBalance} />
+              <FaucetForm faucet={faucet} />
+            </>
           ) : (
-            <div>
+            <>
               <span className="pl-1 text-secondary">ZIL Faucet</span>
-              <AccessTabs />
-            </div>
+              <AccessTabs accessWallet={accessWallet} />
+            </>
           )}
         </div>
       </Layout>
-    </div>
+    </>
   );
 };
 
-const mapStateToProps = (state) => ({
-  authStatus: state.zil.authStatus
-});
-
-export default connect(mapStateToProps)(FaucetContainer);
+export default FaucetContainer;

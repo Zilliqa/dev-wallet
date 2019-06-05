@@ -17,15 +17,14 @@
 
 // @ts-ignore
 import React, { Suspense } from 'react';
-import { connect } from 'react-redux';
-
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import Home from './containers/HomeContainer';
 import FaucetContainer from './containers/FaucetContainer';
 import SendContainer from './containers/SendContainer';
 import GenerateContainer from './containers/GenerateContainer';
-import Spinner from './components/spinner';
+import { Spinner } from 'accessible-ui';
+import { ZilProvider, ZilContext } from './contexts/zil-context';
 
 export const paths = {
   faucet: '/faucet',
@@ -35,15 +34,52 @@ export const paths = {
 };
 
 export const RouterNode = () => (
-  <Router>
-    <Suspense fallback={<Spinner />}>
-      <Switch>
-        <Route exact={true} path={paths.home} component={Home} />
-        <Route exact={true} path={paths.faucet} component={FaucetContainer} />
-        <Route exact={true} path={paths.send} component={SendContainer} />
-        <Route exact={true} path={paths.generate} component={GenerateContainer} />
-        <Redirect from="/" to={paths.home} />
-      </Switch>
-    </Suspense>
-  </Router>
+  <ZilProvider>
+    <ZilContext.Consumer>
+      {(zilContext) => {
+        const RouteList: ReadonlyArray<any> = [
+          {
+            path: paths.home,
+            component: Home
+          },
+          {
+            path: paths.faucet,
+            component: FaucetContainer
+          },
+          {
+            path: paths.send,
+            component: SendContainer
+          },
+          {
+            path: paths.generate,
+            component: GenerateContainer
+          }
+        ];
+        console.log('zilContext', zilContext);
+        return (
+          <Router>
+            <Suspense fallback={<Spinner size="medium" />}>
+              <Switch>
+                {RouteList.map((curr) => (
+                  <PublicRoute
+                    key={curr.path}
+                    path={curr.path}
+                    zilContext={zilContext}
+                    component={curr.component}
+                    exact={true}
+                  />
+                ))}
+
+                <Redirect from="/" to={paths.home} />
+              </Switch>
+            </Suspense>
+          </Router>
+        );
+      }}
+    </ZilContext.Consumer>
+  </ZilProvider>
 );
+
+const PublicRoute = ({ component: Component, zilContext, ...rest }) => {
+  return <Route {...rest} render={(props) => <Component {...props} zilContext={zilContext} />} />;
+};

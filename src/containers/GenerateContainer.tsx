@@ -18,17 +18,11 @@
 import React from 'react';
 import Layout from '../components/layout';
 import GenerateForm from '../components/generate-form';
-import * as H from 'history';
 
-interface IProps {
-  history: H.History;
-  location: H.Location;
-}
-
-const CreateContainer: React.FunctionComponent<IProps> = (props) => {
+const CreateContainer = ({ zilContext }) => {
   return (
     <div>
-      <Layout>
+      <Layout zilContext={zilContext}>
         <div className="p-4">
           <span className="pl-1 text-secondary">Create New Wallet</span>
           <GenerateForm />

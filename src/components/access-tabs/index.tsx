@@ -27,7 +27,7 @@ import AccessPrivateKey from '../access-private-key';
 const KEYSTORE_TAB = '0';
 const PRIVATE_KEY_TAB = '1';
 
-const AccessTabs: React.FunctionComponent = () => {
+const AccessTabs = ({ accessWallet }) => {
   const [activeTab, setActiveTab] = useState(KEYSTORE_TAB);
   const toggle = (tab) => {
     if (activeTab !== tab) {
@@ -73,10 +73,10 @@ const AccessTabs: React.FunctionComponent = () => {
                 </Nav>
                 <TabContent activeTab={activeTab}>
                   <TabPane tabId={KEYSTORE_TAB}>
-                    <AccessKeystore />
+                    <AccessKeystore accessWallet={accessWallet} />
                   </TabPane>
                   <TabPane tabId={PRIVATE_KEY_TAB}>
-                    <AccessPrivateKey />
+                    <AccessPrivateKey accessWallet={accessWallet} />
                   </TabPane>
                 </TabContent>
               </div>
