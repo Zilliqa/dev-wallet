@@ -15,18 +15,16 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Label, Input, FormGroup, Form, FormFeedback } from 'reactstrap';
 import Button from '../button';
 import { Spinner } from 'accessible-ui';
-import { requestStatus } from '../../constants';
 
 import { getInputValidationState } from '../../utils';
 import Disclaimer from '../disclaimer';
 
 interface IProps {
   accessWallet: (privateKey: string) => void;
-  authStatus?: string;
 }
 
 interface IState {
@@ -50,28 +48,11 @@ const initialState: IState = {
 };
 
 const AccessPrivateKey: React.FunctionComponent<IProps> = (props) => {
-  const { authStatus } = props;
   const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(initialState.isDisclaimerChecked);
-  const [prevAuthStatus, setPrevAuthStatus] = useState(initialState.prevAuthStatus);
   const [isAccessing, setIsAccessing] = useState(initialState.isAccessing);
   const [privateKey, setPrivateKey] = useState(initialState.privateKey);
   const [privateKeyValid, setPrivateKeyValid] = useState(initialState.privateKeyValid);
   const [privateKeyInvalid, setPrivateKeyInvalid] = useState(initialState.privateKeyInvalid);
-
-  useEffect(
-    () => {
-      const isFailed =
-        authStatus === requestStatus.FAILED && prevAuthStatus === requestStatus.PENDING;
-      const isSucceeded =
-        authStatus === requestStatus.SUCCEED && prevAuthStatus === requestStatus.PENDING;
-
-      if (isFailed || isSucceeded) {
-        setIsAccessing(false);
-      }
-      setPrevAuthStatus(prevAuthStatus);
-    },
-    [authStatus, prevAuthStatus]
-  );
 
   const handleCheck = () => {
     setIsDisclaimerChecked(!isDisclaimerChecked);
@@ -94,9 +75,7 @@ const AccessPrivateKey: React.FunctionComponent<IProps> = (props) => {
   };
 
   const isSubmitButtonDisabled = !privateKeyValid || isAccessing || !isDisclaimerChecked;
-
   const submitButtonText = isAccessing ? 'Accessing' : 'Access';
-
   const description = 'You can access your wallet with private key.';
 
   return (
@@ -150,12 +129,6 @@ const AccessPrivateKey: React.FunctionComponent<IProps> = (props) => {
             disabled={isSubmitButtonDisabled}
           />
         }
-
-        {authStatus === requestStatus.FAILED ? (
-          <p className="text-danger text-fade-in py-3">
-            <small>{'Access Failed.'}</small>
-          </p>
-        ) : null}
       </div>
     </Form>
   );

@@ -26,7 +26,6 @@ import { units, BN } from '@zilliqa-js/util';
 const AccountInfo = ({ address, getBalance }) => {
   const bech32Address = toBech32Address(address);
   const { data, error, isLoading, reload } = useAsync({ promiseFn: getBalance });
-
   return (
     <div>
       <div className="px-4">
@@ -63,7 +62,7 @@ const AccountInfo = ({ address, getBalance }) => {
             ) : error ? (
               <div data-testid="container-error">{`Something went wrong: ${error.message}`}</div>
             ) : data ? (
-              <div>
+              <div data-testid="container-data">
                 <small>{`${units.fromQa(new BN(data as string), units.Units.Zil)} ZIL`}</small>
               </div>
             ) : (
