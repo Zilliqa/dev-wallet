@@ -16,12 +16,10 @@
  */
 
 import React from 'react';
-import { render, cleanup } from 'react-testing-library';
+import { render } from 'react-testing-library';
 import { FaCheck } from 'react-icons/fa';
 import Button from '.';
 
-// automatically unmount and cleanup DOM after the test is finished.
-afterEach(cleanup);
 const baseComponent = (props) => (
   <Button
     type={props.type}

@@ -16,11 +16,8 @@
  */
 
 import React from 'react';
-import { render, cleanup } from 'react-testing-library';
+import { render } from 'react-testing-library';
 import Spinner from '.';
-
-// automatically unmount and cleanup DOM after the test is finished.
-afterEach(cleanup);
 
 test('matches the snapshot when loading', () => {
   const { container } = render(<Spinner loading={true} />);

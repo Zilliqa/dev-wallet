@@ -16,11 +16,8 @@
  */
 
 import React from 'react';
-import { render, cleanup } from 'react-testing-library';
+import { render } from 'react-testing-library';
 import Footer from '.';
-
-// automatically unmount and cleanup DOM after the test is finished.
-afterEach(cleanup);
 
 test('matches the snapshot', () => {
   const { container } = render(<Footer />);

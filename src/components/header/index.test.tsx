@@ -17,10 +17,27 @@
 
 import React from 'react';
 import { render } from 'react-testing-library';
-
-import Disclaimer from '.';
+import Header from '.';
+import { MemoryRouter } from 'react-router';
 
 test('matches the snapshot', () => {
-  const { container } = render(<Disclaimer />);
-  expect(container.firstChild).toMatchSnapshot();
+  const clearAuth = jest.fn();
+  const isAuth = false;
+  const { container } = render(
+    <MemoryRouter>
+      <Header isAuth={isAuth} clearAuth={clearAuth} />
+    </MemoryRouter>
+  );
+  expect(container).toMatchSnapshot();
+});
+
+test('matches the snapshot', () => {
+  const clearAuth = jest.fn();
+  const isAuth = true;
+  const { container } = render(
+    <MemoryRouter>
+      <Header isAuth={isAuth} clearAuth={clearAuth} />
+    </MemoryRouter>
+  );
+  expect(container).toMatchSnapshot();
 });
