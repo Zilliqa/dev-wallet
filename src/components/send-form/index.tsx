@@ -20,11 +20,21 @@ import { Card, Label, Input, FormGroup, Form, Row, Col, FormFeedback } from 'rea
 import { BN, units } from '@zilliqa-js/util';
 import Button from '../button';
 import { getInputValidationState, formatSendAmountInZil } from '../../utils';
-import ConfirmTxModal from '../confirm-tx-modal';
+import SpinnerWithCheckMark from '../spinner-with-check-mark';
+import Disclaimer from '../disclaimer';
+import { getExplorerURL } from '../../utils';
+
 import { isBech32 } from '@zilliqa-js/util/dist/validation';
 import { useAsync } from 'react-async';
 
 const SendForm = ({ send, getBalance, getMinGasPrice }) => {
+  const [hasRun, setHasRun] = useState(false);
+  const [isDraft, setIsDraft] = useState(true);
+  const [toAddress, setToAddress] = useState('');
+  const [toAddressValid, setToAddressValid] = useState(false);
+  const [toAddressInvalid, setToAddressInvalid] = useState(false);
+  const [amount, setAmount] = useState('');
+
   const minGasProps = useAsync({ promiseFn: getMinGasPrice });
   const minGasPriceInQa = minGasProps.data as string;
   const isUpdatingMinGasPrice = minGasProps.isLoading;
@@ -41,14 +51,9 @@ const SendForm = ({ send, getBalance, getMinGasPrice }) => {
     deferFn: send
   });
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [toAddress, setToAddress] = useState('');
-  const [toAddressValid, setToAddressValid] = useState(false);
-  const [toAddressInvalid, setToAddressInvalid] = useState(false);
-  const [amount, setAmount] = useState('');
-
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const confirm = () => {
+    setIsDraft(true);
+    setHasRun(false);
     setToAddress('');
     setToAddressValid(false);
     setToAddressInvalid(false);
@@ -98,89 +103,218 @@ const SendForm = ({ send, getBalance, getMinGasPrice }) => {
               <h2 className="pb-2">
                 <b>{'Send'}</b>
               </h2>
-              <Row>
-                <Col xs={12} sm={12} md={12} lg={8} className="mr-auto ml-auto">
-                  <Form className="mt-4 text-left" onSubmit={(e) => e.preventDefault()}>
-                    <FormGroup>
-                      <Label for="Address">
-                        <small>
-                          <b>{'To Address'}</b>
-                        </small>
-                      </Label>
-                      <Input
-                        id="toAddress"
-                        type="text"
-                        name="toAddress"
-                        data-testid="to-address"
-                        value={toAddress}
-                        onChange={changeToAddress}
-                        valid={toAddressValid}
-                        invalid={toAddressInvalid}
-                        placeholder="Enter the Address to Send"
-                        maxLength={42}
-                      />
-                      <FormFeedback>{'invalid address'}</FormFeedback>
-                      <FormFeedback valid={true}>{'valid address'}</FormFeedback>
-                    </FormGroup>
-                    <br />
-                    <FormGroup>
-                      <Label for="amount">
-                        <small>
-                          <b>{'Amount to Send (ZILs)'}</b>
-                        </small>
-                      </Label>
-                      <Input
-                        id="amount"
-                        type="tel"
-                        name="amount"
-                        maxLength={10}
-                        data-testid="amount"
-                        value={amount}
-                        onChange={changeAmount}
-                        placeholder="Enter the Amount"
-                        onBlur={formatAmount}
-                        disabled={isUpdatingBalance || isUpdatingMinGasPrice}
-                      />
-                    </FormGroup>
-                    <small className="text-secondary">
-                      Gas Price: {isUpdatingMinGasPrice ? 'loading...' : `${minGasPriceInZil} ZIL`}
-                    </small>
-                    <br />
-                    <div className="py-5 text-center">
-                      <Button
-                        text={'Send'}
-                        type="primary"
-                        ariaLabel={'sendButtonText'}
-                        onClick={() => setIsModalOpen(true)}
-                        disabled={isSendButtonDisabled}
-                      />
-                    </div>
-                    {isBalanceInsufficient && !isUpdatingBalance ? (
-                      <p className="text-center text-danger">
-                        <small>
-                          {'Your balance is not sufficient to send transaction.'}
-                          <br />
-                          {`Minimum Gas Price: ${minGasPriceInZil} ZIL`}
-                        </small>
-                      </p>
-                    ) : null}
-                  </Form>
-                </Col>
-              </Row>
+
+              {isDraft ? (
+                <Row>
+                  <Col xs={12} sm={12} md={12} lg={8} className="mr-auto ml-auto">
+                    <Form className="mt-4 text-left" onSubmit={(e) => e.preventDefault()}>
+                      <FormGroup>
+                        <Label for="Address">
+                          <small>
+                            <b>{'To Address'}</b>
+                          </small>
+                        </Label>
+                        <Input
+                          id="toAddress"
+                          type="text"
+                          name="toAddress"
+                          data-testid="to-address"
+                          value={toAddress}
+                          onChange={changeToAddress}
+                          valid={toAddressValid}
+                          invalid={toAddressInvalid}
+                          placeholder="Enter the Address to Send"
+                          maxLength={42}
+                        />
+                        <FormFeedback>{'invalid address'}</FormFeedback>
+                        <FormFeedback valid={true}>{'valid address'}</FormFeedback>
+                      </FormGroup>
+                      <br />
+                      <FormGroup>
+                        <Label for="amount">
+                          <small>
+                            <b>{'Amount to Send (ZILs)'}</b>
+                          </small>
+                        </Label>
+                        <Input
+                          id="amount"
+                          type="tel"
+                          name="amount"
+                          maxLength={10}
+                          data-testid="amount"
+                          value={amount}
+                          onChange={changeAmount}
+                          placeholder="Enter the Amount"
+                          onBlur={formatAmount}
+                          disabled={isUpdatingBalance || isUpdatingMinGasPrice}
+                        />
+                      </FormGroup>
+                      <small className="text-secondary">
+                        Gas Price:{' '}
+                        {isUpdatingMinGasPrice ? 'loading...' : `${minGasPriceInZil} ZIL`}
+                      </small>
+                      <br />
+                      <div className="py-5 text-center">
+                        <Button
+                          text={'Send'}
+                          type="primary"
+                          ariaLabel={'sendButtonText'}
+                          onClick={() => setIsDraft(false)}
+                          disabled={isSendButtonDisabled}
+                        />
+                      </div>
+                      {isBalanceInsufficient && !isUpdatingBalance ? (
+                        <p className="text-center text-danger">
+                          <small>
+                            {'Your balance is not sufficient to send transaction.'}
+                            <br />
+                            {`Minimum Gas Price: ${minGasPriceInZil} ZIL`}
+                          </small>
+                        </p>
+                      ) : null}
+                    </Form>
+                  </Col>
+                </Row>
+              ) : (
+                <Row>
+                  <Col xs={11} sm={11} md={11} lg={8} className="mr-auto ml-auto">
+                    {hasRun ? (
+                      <TransactionProcess confirm={confirm} mutationProps={mutationProps} />
+                    ) : (
+                      <div>
+                        <CreateForm
+                          setIsDraft={setIsDraft}
+                          setHasRun={setHasRun}
+                          toAddress={toAddress}
+                          amount={amount}
+                          gasPrice={minGasPriceInZil}
+                          mutationProps={mutationProps}
+                        />
+                      </div>
+                    )}
+                  </Col>
+                </Row>
+              )}
             </div>
           </div>
         </Card>
       </div>
-      {isModalOpen ? (
-        <ConfirmTxModal
-          mutationProps={mutationProps}
-          toAddress={toAddress}
-          amount={amount}
-          gasPrice={minGasPriceInZil}
-          isModalOpen={isModalOpen}
-          closeModal={closeModal}
-        />
+    </div>
+  );
+};
+
+const TransactionProcess = ({ confirm, mutationProps }) => {
+  const { isFulfilled, isPending, error, data } = mutationProps;
+
+  return (
+    <div className="text-center pt-5">
+      {isPending ? (
+        <div className="text-center">
+          <div className="py-3">
+            <SpinnerWithCheckMark loading={true} />
+          </div>
+          <p className="pt-4 text-secondary text-fade-in">
+            <b>{'Sending Transaction'}</b>
+            <br />
+            <small>{'Please kindly wait.'}</small>
+          </p>
+        </div>
+      ) : error ? (
+        <div data-testid="container-error">{error.message}</div>
+      ) : isFulfilled ? (
+        <>
+          <div className="py-3">
+            <SpinnerWithCheckMark loading={false} />
+          </div>
+          <p className="pt-4 text-secondary">
+            <span className="text-primary">{'Transaction In Process'}</span>
+            <br />
+            <br />
+            <small>{'the transaction is pending blockchain confirmation.'}</small>
+            <br />
+            <small>{'Please check after a few minutes.'}</small>
+          </p>
+          {data ? (
+            <u>
+              <a target="_blank" href={getExplorerURL(data)} rel="noopener noreferrer">
+                {'View Your Transaction'}
+              </a>
+            </u>
+          ) : null}
+          <br />
+          <div className="py-5">
+            <Button text={'Confirm'} type="primary" onClick={confirm} ariaLabel={'Confirm'} />
+          </div>
+        </>
       ) : null}
+    </div>
+  );
+};
+
+const CreateForm = ({ setIsDraft, toAddress, amount, gasPrice, setHasRun, mutationProps }) => {
+  const { isPending, run, error } = mutationProps;
+  const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(false);
+
+  const onSubmit = () => {
+    setHasRun(true);
+    run(toAddress, amount);
+  };
+
+  const isSubmitButtonDisabled = isPending || !isDisclaimerChecked;
+  const submitButtonText = 'Confirm';
+  return (
+    <div>
+      <small className="text-secondary">
+        <b>Transaction Info:</b>
+      </small>
+      <div className="card p-3 mt-3">
+        <small className="my-1 text-secondary">
+          <b>{'To Address'}</b>
+        </small>
+        <span className="font-monospace">{toAddress}</span>
+        <hr className="my-2" />
+        <small className="my-1 text-secondary">
+          <b>{'Amount to Send'}</b>
+        </small>
+        {amount} ZIL
+        <hr className="my-2" />
+        <small className="my-1 text-secondary">
+          <b>{'Gas Price'}</b>
+        </small>
+        {gasPrice} ZIL
+      </div>
+      <br />
+      <Form onSubmit={(e) => e.preventDefault()}>
+        <FormGroup inline={true} className="px-5 text-center">
+          <Label
+            check={isDisclaimerChecked}
+            onChange={() => setIsDisclaimerChecked(!isDisclaimerChecked)}
+          >
+            <Input type="checkbox" /> <Disclaimer />
+          </Label>
+        </FormGroup>
+        <div className="text-center pt-2 pb-4">
+          <Button
+            text={'Back'}
+            type="secondary"
+            onClick={() => setIsDraft(true)}
+            ariaLabel={'Back'}
+          />{' '}
+          <Button
+            text={submitButtonText}
+            type="primary"
+            onClick={onSubmit}
+            ariaLabel={submitButtonText}
+            IsSubmitButton={true}
+            disabled={isSubmitButtonDisabled}
+          />
+          {error ? (
+            <p className="text-danger pt-4 text-fade-in">
+              <small>{error.message}</small>
+            </p>
+          ) : null}
+        </div>
+      </Form>
     </div>
   );
 };

@@ -17,10 +17,10 @@
 
 import React from 'react';
 import { render } from 'react-testing-library';
+import AccessPrivateKey from '.';
 
-import Disclaimer from '.';
-
-test('matches the snapshot', () => {
-  const { container } = render(<Disclaimer />);
+test('matches the snapshot when loading', () => {
+  const accessWallet = jest.fn();
+  const { container } = render(<AccessPrivateKey accessWallet={accessWallet} />);
   expect(container.firstChild).toMatchSnapshot();
 });

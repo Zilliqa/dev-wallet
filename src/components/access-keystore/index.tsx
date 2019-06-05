@@ -36,7 +36,6 @@ const formatFilename = (str: string) => {
 
 interface IProps {
   accessWallet: (privateKey: string) => void;
-  authStatus?: string;
 }
 
 interface IState {

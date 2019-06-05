@@ -17,10 +17,19 @@
 
 import React from 'react';
 import { render } from 'react-testing-library';
-
-import Disclaimer from '.';
+import Layout from '.';
+import { MemoryRouter } from 'react-router';
 
 test('matches the snapshot', () => {
-  const { container } = render(<Disclaimer />);
-  expect(container.firstChild).toMatchSnapshot();
+  const clearAuth = jest.fn();
+  const isAuth = false;
+  const zilContext = { clearAuth, isAuth };
+  const { container } = render(
+    <MemoryRouter>
+      <Layout zilContext={zilContext}>
+        <div data-testid="children" />
+      </Layout>
+    </MemoryRouter>
+  );
+  expect(container).toMatchSnapshot();
 });

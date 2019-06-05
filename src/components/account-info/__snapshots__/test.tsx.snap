@@ -1,0 +1,478 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches the snapshot when failed 1`] = `
+<div>
+  <div
+    class="px-4"
+  >
+    <h5>
+      <b>
+        Account Info
+      </b>
+    </h5>
+    <div
+      class="d-flex"
+    >
+      <div
+        class="py-2"
+      >
+        <div
+          class="paper"
+          style="border-radius: 50px; display: inline-block; margin: 0px; overflow: hidden; padding: 0px; background-color: rgb(24, 151, 242); height: 100px; width: 100px;"
+        >
+          <svg
+            height="100"
+            width="100"
+            x="0"
+            xmlns="http://www.w3.org/2000/svg"
+            y="0"
+          >
+            <rect
+              fill="#2362E1"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(11.216656827476617 -16.66972069760476) rotate(458.4 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+            <rect
+              fill="#F94301"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(-48.01081028015691 24.976098860895725) rotate(268.8 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+            <rect
+              fill="#FA7900"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(-28.363293997816946 92.12504962713555) rotate(117.3 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+            <rect
+              fill="#C8144A"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(-86.19966856894627 77.50849454212809) rotate(280.5 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        class="px-4 text-left text-secondary"
+      >
+        <small>
+          <b>
+            Address
+          </b>
+          <p
+            class="pt-1 font-monospace"
+          >
+            zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+          </p>
+          <b>
+            Balance
+            <button
+              aria-label="Update Balance"
+              class="btn btn-md type-tertiary mb-1 py-0 px-1"
+              type="button"
+            >
+              <svg
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <path
+                  d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
+                />
+              </svg>
+               
+              
+               
+            </button>
+          </b>
+        </small>
+        <div
+          data-testid="container-error"
+        >
+          Something went wrong: undefined
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`matches the snapshot when loaded 1`] = `
+<div>
+  <div
+    class="px-4"
+  >
+    <h5>
+      <b>
+        Account Info
+      </b>
+    </h5>
+    <div
+      class="d-flex"
+    >
+      <div
+        class="py-2"
+      >
+        <div
+          class="paper"
+          style="border-radius: 50px; display: inline-block; margin: 0px; overflow: hidden; padding: 0px; background-color: rgb(24, 151, 242); height: 100px; width: 100px;"
+        >
+          <svg
+            height="100"
+            width="100"
+            x="0"
+            xmlns="http://www.w3.org/2000/svg"
+            y="0"
+          >
+            <rect
+              fill="#2362E1"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(11.216656827476617 -16.66972069760476) rotate(458.4 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+            <rect
+              fill="#F94301"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(-48.01081028015691 24.976098860895725) rotate(268.8 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+            <rect
+              fill="#FA7900"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(-28.363293997816946 92.12504962713555) rotate(117.3 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+            <rect
+              fill="#C8144A"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(-86.19966856894627 77.50849454212809) rotate(280.5 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        class="px-4 text-left text-secondary"
+      >
+        <small>
+          <b>
+            Address
+          </b>
+          <p
+            class="pt-1 font-monospace"
+          >
+            zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+          </p>
+          <b>
+            Balance
+            <button
+              aria-label="Update Balance"
+              class="btn btn-md type-tertiary mb-1 py-0 px-1"
+              disabled=""
+              type="button"
+            >
+              <svg
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <path
+                  d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
+                />
+              </svg>
+               
+              
+               
+            </button>
+          </b>
+        </small>
+        <div
+          data-testid="container-loading"
+        >
+          <small>
+            Loading...
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`matches the snapshot when loaded 2`] = `
+<div>
+  <div
+    class="px-4"
+  >
+    <h5>
+      <b>
+        Account Info
+      </b>
+    </h5>
+    <div
+      class="d-flex"
+    >
+      <div
+        class="py-2"
+      >
+        <div
+          class="paper"
+          style="border-radius: 50px; display: inline-block; margin: 0px; overflow: hidden; padding: 0px; background-color: rgb(24, 151, 242); height: 100px; width: 100px;"
+        >
+          <svg
+            height="100"
+            width="100"
+            x="0"
+            xmlns="http://www.w3.org/2000/svg"
+            y="0"
+          >
+            <rect
+              fill="#2362E1"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(11.216656827476617 -16.66972069760476) rotate(458.4 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+            <rect
+              fill="#F94301"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(-48.01081028015691 24.976098860895725) rotate(268.8 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+            <rect
+              fill="#FA7900"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(-28.363293997816946 92.12504962713555) rotate(117.3 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+            <rect
+              fill="#C8144A"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(-86.19966856894627 77.50849454212809) rotate(280.5 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        class="px-4 text-left text-secondary"
+      >
+        <small>
+          <b>
+            Address
+          </b>
+          <p
+            class="pt-1 font-monospace"
+          >
+            zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+          </p>
+          <b>
+            Balance
+            <button
+              aria-label="Update Balance"
+              class="btn btn-md type-tertiary mb-1 py-0 px-1"
+              type="button"
+            >
+              <svg
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <path
+                  d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
+                />
+              </svg>
+               
+              
+               
+            </button>
+          </b>
+        </small>
+        <div
+          data-testid="container-data"
+        >
+          <small>
+            0.0000001 ZIL
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`matches the snapshot when no data 1`] = `
+<div>
+  <div
+    class="px-4"
+  >
+    <h5>
+      <b>
+        Account Info
+      </b>
+    </h5>
+    <div
+      class="d-flex"
+    >
+      <div
+        class="py-2"
+      >
+        <div
+          class="paper"
+          style="border-radius: 50px; display: inline-block; margin: 0px; overflow: hidden; padding: 0px; background-color: rgb(24, 151, 242); height: 100px; width: 100px;"
+        >
+          <svg
+            height="100"
+            width="100"
+            x="0"
+            xmlns="http://www.w3.org/2000/svg"
+            y="0"
+          >
+            <rect
+              fill="#2362E1"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(11.216656827476617 -16.66972069760476) rotate(458.4 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+            <rect
+              fill="#F94301"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(-48.01081028015691 24.976098860895725) rotate(268.8 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+            <rect
+              fill="#FA7900"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(-28.363293997816946 92.12504962713555) rotate(117.3 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+            <rect
+              fill="#C8144A"
+              height="100"
+              rx="0"
+              ry="0"
+              transform="translate(-86.19966856894627 77.50849454212809) rotate(280.5 50 50)"
+              width="100"
+              x="0"
+              y="0"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        class="px-4 text-left text-secondary"
+      >
+        <small>
+          <b>
+            Address
+          </b>
+          <p
+            class="pt-1 font-monospace"
+          >
+            zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+          </p>
+          <b>
+            Balance
+            <button
+              aria-label="Update Balance"
+              class="btn btn-md type-tertiary mb-1 py-0 px-1"
+              type="button"
+            >
+              <svg
+                fill="currentColor"
+                height="1em"
+                stroke="currentColor"
+                stroke-width="0"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <path
+                  d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
+                />
+              </svg>
+               
+              
+               
+            </button>
+          </b>
+        </small>
+        <div
+          data-testid="container-no-data"
+        >
+          No data
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
