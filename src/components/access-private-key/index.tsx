@@ -18,9 +18,7 @@
 import React, { useState, useEffect } from 'react';
 import { Label, Input, FormGroup, Form, FormFeedback } from 'reactstrap';
 import Button from '../button';
-import Spinner from '../spinner';
-import * as zilActions from '../../redux/zil/actions';
-import { connect } from 'react-redux';
+import { Spinner } from 'accessible-ui';
 import { requestStatus } from '../../constants';
 
 import { getInputValidationState } from '../../utils';
@@ -163,15 +161,4 @@ const AccessPrivateKey: React.FunctionComponent<IProps> = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  authStatus: state.zil.authStatus
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  accessWallet: (privateKey: string) => dispatch(zilActions.accessWallet(privateKey))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AccessPrivateKey);
+export default AccessPrivateKey;

@@ -16,24 +16,17 @@
  */
 
 import React from 'react';
+import { useAsync } from 'react-async';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { BN, units } from '@zilliqa-js/util';
 import Button from '../button';
-
 import { MdRefresh } from 'react-icons/md';
 import { toBech32Address } from '@zilliqa-js/crypto';
+import { units, BN } from '@zilliqa-js/util';
 
-interface IProps {
-  address: string;
-  balanceInQa: string;
-  getBalance: () => void;
-  isUpdatingBalance: boolean;
-}
-
-export const AccountInfo: React.SFC<IProps> = (props) => {
-  const { isUpdatingBalance, balanceInQa, address } = props;
-  const balanceInZil = units.fromQa(new BN(balanceInQa), units.Units.Zil); // Sending an amount measured in Zil, converting to Qa.
+const AccountInfo = ({ address, getBalance }) => {
   const bech32Address = toBech32Address(address);
+  const { data, error, isLoading, reload } = useAsync({ promiseFn: getBalance });
+
   return (
     <div>
       <div className="px-4">
@@ -56,17 +49,31 @@ export const AccountInfo: React.SFC<IProps> = (props) => {
                   type="tertiary"
                   text={''}
                   before={<MdRefresh />}
-                  onClick={props.getBalance}
-                  disabled={isUpdatingBalance}
+                  onClick={reload}
+                  disabled={isLoading}
                   ariaLabel={'Update Balance'}
                   className="mb-1 py-0 px-1"
                 />
               </b>
-              <p>{isUpdatingBalance ? 'loading...' : `${balanceInZil} ZIL`}</p>
             </small>
+            {isLoading ? (
+              <div data-testid="container-loading">
+                <small>Loading...</small>
+              </div>
+            ) : error ? (
+              <div data-testid="container-error">{`Something went wrong: ${error.message}`}</div>
+            ) : data ? (
+              <div>
+                <small>{`${units.fromQa(new BN(data as string), units.Units.Zil)} ZIL`}</small>
+              </div>
+            ) : (
+              <div data-testid="container-no-data">No data</div>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+export default AccountInfo;

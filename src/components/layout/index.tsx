@@ -21,18 +21,15 @@ import Header from '../header';
 import Footer from '../footer';
 import './style.css';
 
-interface IProps {
-  children: React.ReactNode;
-}
-
-const Layout: React.SFC<IProps> = (props) => {
+const Layout = ({ zilContext, children }) => {
+  const { isAuth, clearAuth } = zilContext;
   return (
     <div>
-      <Header />
+      <Header isAuth={isAuth} clearAuth={clearAuth} />
       <div className="layout">
         <Sidebar />
         <div className="content-section">
-          {props.children}
+          {children}
           <Footer />
         </div>
       </div>

@@ -19,9 +19,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Label, Input, FormGroup, Form, FormFeedback } from 'reactstrap';
 import Button from '../button';
-import Spinner from '../spinner';
-import * as zilActions from '../../redux/zil/actions';
-import { connect } from 'react-redux';
+import { Spinner } from 'accessible-ui';
 import { requestStatus } from '../../constants';
 
 // @ts-ignore
@@ -66,17 +64,15 @@ const initialState: IState = {
 };
 
 const AccessKeystore: React.FunctionComponent<IProps> = (props) => {
-  const { authStatus } = props;
   const [worker, setWorker] = useState(initialState.worker);
   const [isDisclaimerChecked, setIsDisclaimerChecked] = useState(initialState.isDisclaimerChecked);
   const [decryptStatus, setDecryptStatus] = useState(initialState.decryptStatus);
-  const [prevAuthStatus, setPrevAuthStatus] = useState(initialState.decryptStatus);
+
   const [passphrase, setPassphrase] = useState(initialState.passphrase);
   const [passphraseValid, setPassphraseValid] = useState(initialState.passphraseValid);
   const [passphraseInvalid, setPassphraseInvalid] = useState(initialState.passphraseInvalid);
   const [filename, setFilename] = useState(initialState.filename);
   const [keystoreV3, setKeystoreV3] = useState(initialState.keystoreV3);
-  const [isAccessing, setIsAccessing] = useState(initialState.isAccessing);
 
   useEffect(() => {
     if (worker === undefined) {
@@ -89,28 +85,12 @@ const AccessKeystore: React.FunctionComponent<IProps> = (props) => {
         }
 
         setDecryptStatus(requestStatus.SUCCEED);
-        setIsAccessing(true);
 
         props.accessWallet(data.privateKey);
       };
       setWorker(myWorker);
     }
   });
-
-  useEffect(
-    () => {
-      const isFailed =
-        authStatus === requestStatus.FAILED && prevAuthStatus === requestStatus.PENDING;
-      const isSucceeded =
-        authStatus === requestStatus.SUCCEED && prevAuthStatus === requestStatus.PENDING;
-
-      if (isFailed || isSucceeded) {
-        setIsAccessing(false);
-      }
-      setPrevAuthStatus(prevAuthStatus);
-    },
-    [authStatus, prevAuthStatus]
-  );
 
   const handleCheck = () => {
     setIsDisclaimerChecked(!isDisclaimerChecked);
@@ -150,18 +130,13 @@ const AccessKeystore: React.FunctionComponent<IProps> = (props) => {
   };
 
   const messageForDecryptFailure = `Decryption failed. Please check your keystore file and passphrase.`;
-  const messageForaccessWalletFailure = `Access Failed.`;
 
   const isDecrypting = decryptStatus === requestStatus.PENDING;
 
   const isSubmitButtonDisabled =
-    !passphraseValid ||
-    keystoreV3 === undefined ||
-    isDecrypting ||
-    isAccessing ||
-    !isDisclaimerChecked;
+    !passphraseValid || keystoreV3 === undefined || isDecrypting || !isDisclaimerChecked;
 
-  const submitButtonText = isDecrypting ? 'Decrypting' : isAccessing ? 'Accessing' : 'Access';
+  const submitButtonText = isDecrypting ? 'Accessing' : 'Access';
 
   const description = 'You can access your wallet with your keystore file and passphrase.';
 
@@ -227,7 +202,7 @@ const AccessKeystore: React.FunctionComponent<IProps> = (props) => {
             ariaLabel="private key submit"
             IsSubmitButton={true}
             before={
-              isDecrypting || isAccessing ? (
+              isDecrypting ? (
                 <span className="pr-1">
                   <Spinner size="small" />
                 </span>
@@ -241,25 +216,8 @@ const AccessKeystore: React.FunctionComponent<IProps> = (props) => {
             <small>{messageForDecryptFailure}</small>
           </p>
         ) : null}
-        {authStatus === requestStatus.FAILED ? (
-          <p className="text-danger text-fade-in py-3">
-            <small>{messageForaccessWalletFailure}</small>
-          </p>
-        ) : null}
       </div>
     </Form>
   );
 };
-
-const mapStateToProps = (state) => ({
-  authStatus: state.zil.authStatus
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  accessWallet: (privateKey: string) => dispatch(zilActions.accessWallet(privateKey))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AccessKeystore);
+export default AccessKeystore;

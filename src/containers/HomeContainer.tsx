@@ -23,10 +23,10 @@ import Col from 'reactstrap/lib/Col';
 import { MdSecurity, MdBeenhere } from 'react-icons/md';
 import Disclaimer from '../components/disclaimer';
 
-const Home: React.FunctionComponent = () => {
+const Home = ({ zilContext }) => {
   return (
     <div>
-      <Layout>
+      <Layout zilContext={zilContext}>
         <div className="nucleus-header-container text-center">
           <div className="nucleus-header-bg">
             <div className="nucleus-header">
