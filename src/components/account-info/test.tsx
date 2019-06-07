@@ -16,7 +16,7 @@
  */
 
 import React from 'react';
-import { render, wait } from 'react-testing-library';
+import { render, wait } from '@testing-library/react';
 import AccountInfo from '.';
 
 test('matches the snapshot when loaded', async () => {

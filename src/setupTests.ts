@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License along with
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
-import 'react-testing-library/cleanup-after-each';
+import '@testing-library/react/cleanup-after-each';
 import 'jest-dom/extend-expect';
 
 /* tslint:disable */

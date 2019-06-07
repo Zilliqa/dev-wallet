@@ -873,12 +873,12 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@babel/runtime@^7.1.5", "@babel/runtime@^7.3.1":
-  version "7.3.4"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.3.4.tgz#73d12ba819e365fcf7fd152aed56d6df97d21c83"
-  integrity sha512-IvfvnMdSaLBateu0jfsYIpZTxAc2cKEXEMiezGGN75QcBcecDUKd3PgLAncT0oOgxKy8dd8hrJKj9MfzgfZd6g==
+"@babel/runtime@^7.4.5":
+  version "7.4.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.4.5.tgz#582bb531f5f9dc67d2fcb682979894f75e253f12"
+  integrity sha512-TuI4qpWZP6lGOGIuGWtp9sPluqYICmbk8T/1vpSysqJxRPkudh/ofFWyqdcMsDf2s7KvDL4/YHgKyvcS3g9CJQ==
   dependencies:
-    regenerator-runtime "^0.12.0"
+    regenerator-runtime "^0.13.2"
 
 "@babel/template@^7.0.0", "@babel/template@^7.1.0", "@babel/template@^7.1.2", "@babel/template@^7.2.2":
   version "7.2.2"
@@ -1330,6 +1330,24 @@
     "@babel/preset-react" "^7.0.0"
     "@svgr/core" "^2.4.1"
     loader-utils "^1.1.0"
+
+"@testing-library/dom@^5.0.0":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-5.1.1.tgz#091a30b1ca058080bf432cd1aeb2b7c646022f97"
+  integrity sha512-twpAkqomsI0xeOLehijOAmPxeKvs6+WZC/6/nXD0+HNQupP3OZeZho/PBlNhrGL+8nQWiPjdvmxeyU0tq+hctA==
+  dependencies:
+    "@babel/runtime" "^7.4.5"
+    "@sheerun/mutationobserver-shim" "^0.3.2"
+    pretty-format "^24.8.0"
+    wait-for-expect "^1.2.0"
+
+"@testing-library/react@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-8.0.1.tgz#91c254adf855b13de50020613cb5d3915f9f7875"
+  integrity sha512-N/1pJfhEnNYkGyxuw4xbp03evaS0z/CT8o0QgTfJqGlukAcU15xf9uU1w03NHKZJcU69nOCBAoAkXHtHzYwMbg==
+  dependencies:
+    "@babel/runtime" "^7.4.5"
+    "@testing-library/dom" "^5.0.0"
 
 "@types/babel__core@^7.1.0":
   version "7.1.2"
@@ -3864,16 +3882,6 @@ dom-storage@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/dom-storage/-/dom-storage-2.1.0.tgz#00fb868bc9201357ea243c7bcfd3304c1e34ea39"
   integrity sha512-g6RpyWXzl0RR6OTElHKBl7nwnK87GUyZMYC7JWsB/IA73vpqK2K6LT39x4VepLxlSsWBFrPVLnsSR5Jyty0+2Q==
-
-dom-testing-library@^3.13.1:
-  version "3.16.8"
-  resolved "https://registry.yarnpkg.com/dom-testing-library/-/dom-testing-library-3.16.8.tgz#26549b249f131a25e4339ebec9fcaa2e7642527f"
-  integrity sha512-VGn2piehGoN9lmZDYd+xoTZwwcS+FoXebvZMw631UhS5LshiLTFNJs9bxRa9W7fVb1cAn9AYKAKZXh67rCDaqw==
-  dependencies:
-    "@babel/runtime" "^7.1.5"
-    "@sheerun/mutationobserver-shim" "^0.3.2"
-    pretty-format "^24.0.0"
-    wait-for-expect "^1.1.0"
 
 domain-browser@^1.1.1:
   version "1.2.0"
@@ -9031,14 +9039,6 @@ react-router@5.0.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-testing-library@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-6.0.0.tgz#81edfcfae8a795525f48685be9bf561df45bb35d"
-  integrity sha512-h0h+YLe4KWptK6HxOMnoNN4ngu3W8isrwDmHjPC5gxc+nOZOCurOvbKVYCvvuAw91jdO7VZSm/5KR7TxKnz0qA==
-  dependencies:
-    "@babel/runtime" "^7.3.1"
-    dom-testing-library "^3.13.1"
-
 react-transition-group@^2.3.1:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.5.2.tgz#9457166a9ba6ce697a3e1b076b3c049b9fb2c408"
@@ -9208,6 +9208,11 @@ regenerator-runtime@^0.12.0:
   version "0.12.1"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz#fa1a71544764c036f8c49b13a08b2594c9f8a0de"
   integrity sha512-odxIc1/vDlo4iZcfXqRYFj0vpXFNoGdKMAUieAlFYO6m/nl5e9KR/beGf41z4a1FI+aQgtjhuaSlDxQ0hmkrHg==
+
+regenerator-runtime@^0.13.2:
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.2.tgz#32e59c9a6fb9b1a4aff09b4930ca2d4477343447"
+  integrity sha512-S/TQAZJO+D3m9xeN1WTI8dLKBBiRgXBlTJvbWjCThHWZj9EvHK70Ff50/tYj2J/fvBY6JtFVwRuazHN2E7M9BA==
 
 regenerator-transform@^0.13.3:
   version "0.13.3"
@@ -10852,10 +10857,10 @@ w3c-xmlserializer@^1.0.1:
     webidl-conversions "^4.0.2"
     xml-name-validator "^3.0.0"
 
-wait-for-expect@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/wait-for-expect/-/wait-for-expect-1.1.0.tgz#6607375c3f79d32add35cd2c87ce13f351a3d453"
-  integrity sha512-vQDokqxyMyknfX3luCDn16bSaRcOyH6gGuUXMIbxBLeTo6nWuEWYqMTT9a+44FmW8c2m6TRWBdNvBBjA1hwEKg==
+wait-for-expect@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/wait-for-expect/-/wait-for-expect-1.2.0.tgz#fdab6a26e87d2039101db88bff3d8158e5c3e13f"
+  integrity sha512-EJhKpA+5UHixduMBEGhTFuLuVgQBKWxkFbefOdj2bbk2/OpA5Opsc4aUTGmF+qJ+v3kTGxDRNYwKaT4j6g5n8Q==
 
 walker@^1.0.7, walker@~1.0.5:
   version "1.0.7"
