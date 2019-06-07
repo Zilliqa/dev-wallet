@@ -16,7 +16,7 @@
  */
 
 import React from 'react';
-import { render } from 'react-testing-library';
+import { render } from '@testing-library/react';
 import FaucetPending from '.';
 
 test('matches the snapshot', () => {

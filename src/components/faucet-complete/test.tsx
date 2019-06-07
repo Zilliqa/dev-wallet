@@ -16,7 +16,7 @@
  */
 
 import React from 'react';
-import { render } from 'react-testing-library';
+import { render } from '@testing-library/react';
 import FaucetComplete from '.';
 
 const txId = '92a17d292024e0321da6b1bf2d57287ceed623678b959c9bb3be4f3763a0c0e6';

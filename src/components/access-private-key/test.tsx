@@ -16,7 +16,7 @@
  */
 
 import React from 'react';
-import { render } from 'react-testing-library';
+import { render } from '@testing-library/react';
 import AccessPrivateKey from '.';
 
 test('matches the snapshot when loading', () => {
