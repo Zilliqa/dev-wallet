@@ -17,7 +17,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, Label, Input, FormGroup, Form, Row, Col, FormFeedback } from 'reactstrap';
-import Button from '../button';
+import { Button } from 'accessible-ui';
 import Steps, { Step } from 'rc-steps';
 
 // @ts-ignore
@@ -143,8 +143,7 @@ const PassphraseStep = ({ passphrase, setPassphrase, setCurrentStep }) => {
             <div className="text-center">
               <Button
                 text={'Confirm'}
-                type="primary"
-                ariaLabel={'Confirm'}
+                level="primary"
                 onClick={() => setCurrentStep(SECOND_STEP)}
                 disabled={isDisabled}
               />
@@ -218,8 +217,7 @@ const KeystoreStep = ({ setCurrentStep, setPrivateKey, privateKey, passphrase })
       <div className="py-4 text-center">
         <Button
           text={buttonText}
-          type="primary"
-          ariaLabel={buttonText}
+          level="primary"
           onClick={generateKeystore}
           before={
             isPending ? (

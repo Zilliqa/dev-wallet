@@ -18,7 +18,7 @@
 import React, { useState } from 'react';
 import { Card, Label, Input, FormGroup, Form, Row, Col, FormFeedback } from 'reactstrap';
 import { BN, units } from '@zilliqa-js/util';
-import Button from '../button';
+import { Button } from 'accessible-ui';
 import { getInputValidationState, formatSendAmountInZil } from '../../utils';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
 import Disclaimer from '../disclaimer';
@@ -157,8 +157,7 @@ const SendForm = ({ send, getBalance, getMinGasPrice }) => {
                       <div className="py-5 text-center">
                         <Button
                           text={'Send'}
-                          type="primary"
-                          ariaLabel={'sendButtonText'}
+                          level="primary"
                           onClick={() => setIsDraft(false)}
                           disabled={isSendButtonDisabled}
                         />
@@ -243,7 +242,7 @@ const TransactionProcess = ({ confirm, mutationProps }) => {
           ) : null}
           <br />
           <div className="py-5">
-            <Button text={'Confirm'} type="primary" onClick={confirm} ariaLabel={'Confirm'} />
+            <Button text={'Confirm'} level="primary" onClick={confirm} />
           </div>
         </>
       ) : null}
@@ -294,18 +293,11 @@ const CreateForm = ({ setIsDraft, toAddress, amount, gasPrice, setHasRun, mutati
           </Label>
         </FormGroup>
         <div className="text-center pt-2 pb-4">
-          <Button
-            text={'Back'}
-            type="secondary"
-            onClick={() => setIsDraft(true)}
-            ariaLabel={'Back'}
-          />{' '}
+          <Button text={'Back'} level="secondary" onClick={() => setIsDraft(true)} />{' '}
           <Button
             text={submitButtonText}
-            type="primary"
+            level="primary"
             onClick={onSubmit}
-            ariaLabel={submitButtonText}
-            IsSubmitButton={true}
             disabled={isSubmitButtonDisabled}
           />
           {error ? (

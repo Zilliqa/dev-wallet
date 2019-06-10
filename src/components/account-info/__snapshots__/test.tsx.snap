@@ -85,9 +85,9 @@ exports[`matches the snapshot when failed 1`] = `
           <b>
             Balance
             <button
-              aria-label="Update Balance"
-              class="btn btn-md type-tertiary mb-1 py-0 px-1"
-              type="button"
+              aria-label=""
+              class="mb-1 py-0 px-1 sc-bdVaJa gMoiZy"
+              type="submit"
             >
               <svg
                 fill="currentColor"
@@ -203,10 +203,10 @@ exports[`matches the snapshot when loaded 1`] = `
           <b>
             Balance
             <button
-              aria-label="Update Balance"
-              class="btn btn-md type-tertiary mb-1 py-0 px-1"
+              aria-label=""
+              class="mb-1 py-0 px-1 sc-bdVaJa gMoiZy"
               disabled=""
-              type="button"
+              type="submit"
             >
               <svg
                 fill="currentColor"
@@ -324,9 +324,9 @@ exports[`matches the snapshot when loaded 2`] = `
           <b>
             Balance
             <button
-              aria-label="Update Balance"
-              class="btn btn-md type-tertiary mb-1 py-0 px-1"
-              type="button"
+              aria-label=""
+              class="mb-1 py-0 px-1 sc-bdVaJa gMoiZy"
+              type="submit"
             >
               <svg
                 fill="currentColor"
@@ -444,9 +444,9 @@ exports[`matches the snapshot when no data 1`] = `
           <b>
             Balance
             <button
-              aria-label="Update Balance"
-              class="btn btn-md type-tertiary mb-1 py-0 px-1"
-              type="button"
+              aria-label=""
+              class="mb-1 py-0 px-1 sc-bdVaJa gMoiZy"
+              type="submit"
             >
               <svg
                 fill="currentColor"

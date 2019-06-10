@@ -17,8 +17,7 @@
 
 import React, { useState } from 'react';
 import { Label, Input, FormGroup, Form, FormFeedback } from 'reactstrap';
-import Button from '../button';
-import { Spinner } from 'accessible-ui';
+import { Spinner, Button } from 'accessible-ui';
 
 import { getInputValidationState } from '../../utils';
 import Disclaimer from '../disclaimer';
@@ -115,10 +114,8 @@ const AccessPrivateKey: React.FunctionComponent<IProps> = (props) => {
         {
           <Button
             text={submitButtonText}
-            type="primary"
+            level="primary"
             onClick={onSubmit}
-            ariaLabel="private key submit"
-            IsSubmitButton={true}
             before={
               isAccessing ? (
                 <span className="pr-1">
