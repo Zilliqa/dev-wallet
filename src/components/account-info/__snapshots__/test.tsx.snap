@@ -18,7 +18,7 @@ exports[`matches the snapshot when failed 1`] = `
       >
         <div
           class="paper"
-          style="border-radius: 50px; display: inline-block; margin: 0px; overflow: hidden; padding: 0px; background-color: rgb(24, 151, 242); height: 100px; width: 100px;"
+          style="border-radius: 50px; display: inline-block; margin: 0px; overflow: hidden; padding: 0px; background-color: rgb(3, 85, 94); height: 100px; width: 100px;"
         >
           <svg
             height="100"
@@ -28,41 +28,41 @@ exports[`matches the snapshot when failed 1`] = `
             y="0"
           >
             <rect
-              fill="#2362E1"
+              fill="#FA6800"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(11.216656827476617 -16.66972069760476) rotate(458.4 50 50)"
+              transform="translate(7.332176576371118 5.932298588714297) rotate(79.1 50 50)"
               width="100"
               x="0"
               y="0"
             />
             <rect
-              fill="#F94301"
+              fill="#236FE1"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(-48.01081028015691 24.976098860895725) rotate(268.8 50 50)"
+              transform="translate(57.127223703787955 -31.273129535154165) rotate(409.1 50 50)"
               width="100"
               x="0"
               y="0"
             />
             <rect
-              fill="#FA7900"
+              fill="#C81456"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(-28.363293997816946 92.12504962713555) rotate(117.3 50 50)"
+              transform="translate(56.64908831248396 43.86654244724025) rotate(76.8 50 50)"
               width="100"
               x="0"
               y="0"
             />
             <rect
-              fill="#C8144A"
+              fill="#FB186B"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(-86.19966856894627 77.50849454212809) rotate(280.5 50 50)"
+              transform="translate(7.595406197345499 -101.65110911481909) rotate(394.6 50 50)"
               width="100"
               x="0"
               y="0"
@@ -85,9 +85,9 @@ exports[`matches the snapshot when failed 1`] = `
           <b>
             Balance
             <button
-              aria-label="Update Balance"
-              class="btn btn-md type-tertiary mb-1 py-0 px-1"
-              type="button"
+              aria-label=""
+              class="mb-1 py-0 px-1 sc-bdVaJa gMoiZy"
+              type="submit"
             >
               <svg
                 fill="currentColor"
@@ -136,7 +136,7 @@ exports[`matches the snapshot when loaded 1`] = `
       >
         <div
           class="paper"
-          style="border-radius: 50px; display: inline-block; margin: 0px; overflow: hidden; padding: 0px; background-color: rgb(24, 151, 242); height: 100px; width: 100px;"
+          style="border-radius: 50px; display: inline-block; margin: 0px; overflow: hidden; padding: 0px; background-color: rgb(3, 85, 94); height: 100px; width: 100px;"
         >
           <svg
             height="100"
@@ -146,41 +146,41 @@ exports[`matches the snapshot when loaded 1`] = `
             y="0"
           >
             <rect
-              fill="#2362E1"
+              fill="#FA6800"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(11.216656827476617 -16.66972069760476) rotate(458.4 50 50)"
+              transform="translate(7.332176576371118 5.932298588714297) rotate(79.1 50 50)"
               width="100"
               x="0"
               y="0"
             />
             <rect
-              fill="#F94301"
+              fill="#236FE1"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(-48.01081028015691 24.976098860895725) rotate(268.8 50 50)"
+              transform="translate(57.127223703787955 -31.273129535154165) rotate(409.1 50 50)"
               width="100"
               x="0"
               y="0"
             />
             <rect
-              fill="#FA7900"
+              fill="#C81456"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(-28.363293997816946 92.12504962713555) rotate(117.3 50 50)"
+              transform="translate(56.64908831248396 43.86654244724025) rotate(76.8 50 50)"
               width="100"
               x="0"
               y="0"
             />
             <rect
-              fill="#C8144A"
+              fill="#FB186B"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(-86.19966856894627 77.50849454212809) rotate(280.5 50 50)"
+              transform="translate(7.595406197345499 -101.65110911481909) rotate(394.6 50 50)"
               width="100"
               x="0"
               y="0"
@@ -203,10 +203,10 @@ exports[`matches the snapshot when loaded 1`] = `
           <b>
             Balance
             <button
-              aria-label="Update Balance"
-              class="btn btn-md type-tertiary mb-1 py-0 px-1"
+              aria-label=""
+              class="mb-1 py-0 px-1 sc-bdVaJa gMoiZy"
               disabled=""
-              type="button"
+              type="submit"
             >
               <svg
                 fill="currentColor"
@@ -257,7 +257,7 @@ exports[`matches the snapshot when loaded 2`] = `
       >
         <div
           class="paper"
-          style="border-radius: 50px; display: inline-block; margin: 0px; overflow: hidden; padding: 0px; background-color: rgb(24, 151, 242); height: 100px; width: 100px;"
+          style="border-radius: 50px; display: inline-block; margin: 0px; overflow: hidden; padding: 0px; background-color: rgb(3, 85, 94); height: 100px; width: 100px;"
         >
           <svg
             height="100"
@@ -267,41 +267,41 @@ exports[`matches the snapshot when loaded 2`] = `
             y="0"
           >
             <rect
-              fill="#2362E1"
+              fill="#FA6800"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(11.216656827476617 -16.66972069760476) rotate(458.4 50 50)"
+              transform="translate(7.332176576371118 5.932298588714297) rotate(79.1 50 50)"
               width="100"
               x="0"
               y="0"
             />
             <rect
-              fill="#F94301"
+              fill="#236FE1"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(-48.01081028015691 24.976098860895725) rotate(268.8 50 50)"
+              transform="translate(57.127223703787955 -31.273129535154165) rotate(409.1 50 50)"
               width="100"
               x="0"
               y="0"
             />
             <rect
-              fill="#FA7900"
+              fill="#C81456"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(-28.363293997816946 92.12504962713555) rotate(117.3 50 50)"
+              transform="translate(56.64908831248396 43.86654244724025) rotate(76.8 50 50)"
               width="100"
               x="0"
               y="0"
             />
             <rect
-              fill="#C8144A"
+              fill="#FB186B"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(-86.19966856894627 77.50849454212809) rotate(280.5 50 50)"
+              transform="translate(7.595406197345499 -101.65110911481909) rotate(394.6 50 50)"
               width="100"
               x="0"
               y="0"
@@ -324,9 +324,9 @@ exports[`matches the snapshot when loaded 2`] = `
           <b>
             Balance
             <button
-              aria-label="Update Balance"
-              class="btn btn-md type-tertiary mb-1 py-0 px-1"
-              type="button"
+              aria-label=""
+              class="mb-1 py-0 px-1 sc-bdVaJa gMoiZy"
+              type="submit"
             >
               <svg
                 fill="currentColor"
@@ -377,7 +377,7 @@ exports[`matches the snapshot when no data 1`] = `
       >
         <div
           class="paper"
-          style="border-radius: 50px; display: inline-block; margin: 0px; overflow: hidden; padding: 0px; background-color: rgb(24, 151, 242); height: 100px; width: 100px;"
+          style="border-radius: 50px; display: inline-block; margin: 0px; overflow: hidden; padding: 0px; background-color: rgb(3, 85, 94); height: 100px; width: 100px;"
         >
           <svg
             height="100"
@@ -387,41 +387,41 @@ exports[`matches the snapshot when no data 1`] = `
             y="0"
           >
             <rect
-              fill="#2362E1"
+              fill="#FA6800"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(11.216656827476617 -16.66972069760476) rotate(458.4 50 50)"
+              transform="translate(7.332176576371118 5.932298588714297) rotate(79.1 50 50)"
               width="100"
               x="0"
               y="0"
             />
             <rect
-              fill="#F94301"
+              fill="#236FE1"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(-48.01081028015691 24.976098860895725) rotate(268.8 50 50)"
+              transform="translate(57.127223703787955 -31.273129535154165) rotate(409.1 50 50)"
               width="100"
               x="0"
               y="0"
             />
             <rect
-              fill="#FA7900"
+              fill="#C81456"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(-28.363293997816946 92.12504962713555) rotate(117.3 50 50)"
+              transform="translate(56.64908831248396 43.86654244724025) rotate(76.8 50 50)"
               width="100"
               x="0"
               y="0"
             />
             <rect
-              fill="#C8144A"
+              fill="#FB186B"
               height="100"
               rx="0"
               ry="0"
-              transform="translate(-86.19966856894627 77.50849454212809) rotate(280.5 50 50)"
+              transform="translate(7.595406197345499 -101.65110911481909) rotate(394.6 50 50)"
               width="100"
               x="0"
               y="0"
@@ -444,9 +444,9 @@ exports[`matches the snapshot when no data 1`] = `
           <b>
             Balance
             <button
-              aria-label="Update Balance"
-              class="btn btn-md type-tertiary mb-1 py-0 px-1"
-              type="button"
+              aria-label=""
+              class="mb-1 py-0 px-1 sc-bdVaJa gMoiZy"
+              type="submit"
             >
               <svg
                 fill="currentColor"

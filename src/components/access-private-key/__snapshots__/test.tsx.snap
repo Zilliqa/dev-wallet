@@ -68,8 +68,8 @@ exports[`matches the snapshot when loading 1`] = `
     class="text-center"
   >
     <button
-      aria-label="private key submit"
-      class="btn btn-md type-primary "
+      aria-label="Access"
+      class="sc-bdVaJa lihPxa"
       disabled=""
       type="submit"
     >

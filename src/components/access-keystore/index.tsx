@@ -18,8 +18,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Label, Input, FormGroup, Form, FormFeedback } from 'reactstrap';
-import Button from '../button';
-import { Spinner } from 'accessible-ui';
+import { Spinner, Button } from 'accessible-ui';
 import { requestStatus } from '../../constants';
 
 // @ts-ignore
@@ -148,7 +147,7 @@ const AccessKeystore: React.FunctionComponent<IProps> = (props) => {
             <b>{'Keystore File'}</b>
           </small>
         </div>
-        <Label for="keystoreFile" className="btn btn-file type-secondary cursor-pointer">
+        <Label for="keystoreFile" className="btn btn-secondary cursor-pointer">
           <small>
             <b>{'Import Keystore File (.json)'}</b>
           </small>
@@ -196,10 +195,8 @@ const AccessKeystore: React.FunctionComponent<IProps> = (props) => {
         {
           <Button
             text={submitButtonText}
-            type="primary"
+            level="primary"
             onClick={onSubmit}
-            ariaLabel="private key submit"
-            IsSubmitButton={true}
             before={
               isDecrypting ? (
                 <span className="pr-1">

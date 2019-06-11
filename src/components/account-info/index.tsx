@@ -18,9 +18,9 @@
 import React from 'react';
 import { useAsync } from 'react-async';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import Button from '../button';
+import { Button } from 'accessible-ui';
 import { MdRefresh } from 'react-icons/md';
-import { toBech32Address } from '@zilliqa-js/crypto';
+import { toBech32Address, fromBech32Address } from '@zilliqa-js/crypto';
 import { units, BN } from '@zilliqa-js/util';
 
 const AccountInfo = ({ address, getBalance }) => {
@@ -35,7 +35,10 @@ const AccountInfo = ({ address, getBalance }) => {
         <div className="d-flex">
           <div className="py-2">
             {bech32Address ? (
-              <Jazzicon diameter={100} seed={jsNumberForAddress(bech32Address)} />
+              <Jazzicon
+                diameter={100}
+                seed={jsNumberForAddress(fromBech32Address(bech32Address))}
+              />
             ) : null}
           </div>
           <div className="px-4 text-left text-secondary">
@@ -45,12 +48,11 @@ const AccountInfo = ({ address, getBalance }) => {
               <b>
                 {'Balance'}
                 <Button
-                  type="tertiary"
+                  level="tertiary"
                   text={''}
                   before={<MdRefresh />}
                   onClick={reload}
                   disabled={isLoading}
-                  ariaLabel={'Update Balance'}
                   className="mb-1 py-0 px-1"
                 />
               </b>
