@@ -57,9 +57,7 @@ const FaucetForm = ({ faucet }) => {
                     <Recaptcha onChange={(token) => run(token)} />
                     {error ? (
                       <p className="pt-4">
-                        <small className="text-danger text-fade-in">
-                          {'Failed to run faucet. Please try again later.'}
-                        </small>
+                        <small className="text-danger text-fade-in">{error.message}</small>
                       </p>
                     ) : null}
                   </div>
