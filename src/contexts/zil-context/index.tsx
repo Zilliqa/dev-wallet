@@ -116,7 +116,7 @@ export class ZilProvider extends React.Component {
   public faucet = async (args): Promise<string | void> => {
     const token = args;
     const { address } = this.state;
-    const data = JSON.stringify({ address: address.replace('0x', ''), token });
+    const data = JSON.stringify({ address, token });
     const res: any = await Axios({
       method: 'POST',
       url: `${getHost(window.location.hostname)}/faucet/run`,
