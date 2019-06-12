@@ -25,8 +25,6 @@ import './index.css';
 import { RouterNode } from './routes';
 import * as serviceWorker from './serviceWorker';
 
-import './firebase';
-
 ReactDOM.render(<RouterNode />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
