@@ -57,7 +57,11 @@ const FaucetForm = ({ faucet }) => {
                     <Recaptcha onChange={(token) => run(token)} />
                     {error ? (
                       <p className="pt-4">
-                        <small className="text-danger text-fade-in">{error.message}</small>
+                        <small className="text-danger text-fade-in">
+                          {error.message}
+                          <br />
+                          {'Google reCAPTCHA might not work for some country.'}
+                        </small>
                       </p>
                     ) : null}
                   </div>
