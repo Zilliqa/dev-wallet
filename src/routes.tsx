@@ -16,13 +16,11 @@
  */
 
 // @ts-ignore
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import Home from './containers/HomeContainer';
-import FaucetContainer from './containers/FaucetContainer';
-import SendContainer from './containers/SendContainer';
-import GenerateContainer from './containers/GenerateContainer';
+
 import { Spinner } from 'accessible-ui';
 import { ZilProvider, ZilContext } from './contexts/zil-context';
 
@@ -32,6 +30,12 @@ export const paths = {
   generate: '/generate',
   home: '/home'
 };
+
+const Fallback = () => (
+  <div className="d-flex align-items-center justify-content-center my-5 py-5">
+    <Spinner />
+  </div>
+);
 
 export const RouterNode = () => (
   <ZilProvider>
@@ -44,21 +48,21 @@ export const RouterNode = () => (
           },
           {
             path: paths.faucet,
-            component: FaucetContainer
+            component: lazy(() => import('./containers/FaucetContainer'))
           },
           {
             path: paths.send,
-            component: SendContainer
+            component: lazy(() => import('./containers/SendContainer'))
           },
           {
             path: paths.generate,
-            component: GenerateContainer
+            component: lazy(() => import('./containers/GenerateContainer'))
           }
         ];
         console.log('zilContext', zilContext);
         return (
           <Router>
-            <Suspense fallback={<Spinner size="medium" />}>
+            <Suspense fallback={<Fallback />}>
               <Switch>
                 {RouteList.map((curr) => (
                   <PublicRoute
