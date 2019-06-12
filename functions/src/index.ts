@@ -16,11 +16,12 @@
  */
 
 import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
+import * as admin from 'firebase-admin';
 import axios from 'axios';
+
 require('dotenv').config({ path: '.env' });
 
 admin.initializeApp(functions.config().firebase);
@@ -34,11 +35,7 @@ app.use(bodyParser.json());
 
 const { Zilliqa } = require('@zilliqa-js/zilliqa');
 const { Long, bytes, units, BN } = require('@zilliqa-js/util');
-const {
-  getAddressFromPrivateKey,
-  getPubKeyFromPrivateKey,
-  isValidChecksumAddress
-} = require('@zilliqa-js/crypto');
+const { getAddressFromPrivateKey, getPubKeyFromPrivateKey } = require('@zilliqa-js/crypto');
 const { Transaction } = require('@zilliqa-js/account');
 const { HTTPProvider, RPCMethod } = require('@zilliqa-js/core');
 
@@ -68,7 +65,10 @@ zilliqa.wallet.addByPrivateKey(PRIVATE_KEY);
 app.post('/run', async (req, res) => {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   console.log(`IP address: ${ip}`);
-  console.log(`${NODE_URL}, ${CHAIN_ID}, ${MSG_VERSION}`);
+
+  console.log(`Node URL: ${NODE_URL}`);
+  console.log(`Chain ID: ${CHAIN_ID}, Msg version: ${MSG_VERSION}`);
+  console.log(`Version: ${VERSION}`);
 
   const { token, address } = req.body;
   try {
@@ -99,12 +99,13 @@ app.post('/run', async (req, res) => {
     console.log('Vaild recaptcha token ✓');
 
     console.log(`Address: ${address}`);
-    if (!isValidChecksumAddress(address)) {
-      throw new Error('Invalid Checksum Address!');
+    const formattedAddress = (address || '').toUpperCase();
+    if (!/^[a-zA-Z0-9]{40}$/.test(formattedAddress)) {
+      throw new Error('Invalid Address!');
     }
     console.log('Vaild address ✓');
   } catch (error) {
-    console.error(error);
+    console.log(error);
     res.status(400).json({ errorCode: 400, errorMessage: error.message });
     return;
   }
@@ -119,13 +120,12 @@ app.post('/run', async (req, res) => {
 
     const doc = await userRef.get();
     if (doc.exists) {
-      console.log('Existing address');
       const claimedAt = doc.data().claimed_at;
       console.log(`The latest claimed at: ${claimedAt}`);
       claimInterval = Date.now() - claimedAt;
       console.log(`Interval: ${claimInterval}`);
     } else {
-      console.log('New address');
+      console.log('No such document!');
     }
 
     let faucetAmount: number = DEFAULT_TRANSFER_AMOUNT;
@@ -144,7 +144,7 @@ app.post('/run', async (req, res) => {
 
     const gasPrice = new BN(minGasPrice);
     const pubKey = PUBLIC_KEY;
-    const toAddr = address;
+    const toAddr = address.toLowerCase();
 
     const response = await zilliqa.blockchain.getBalance(ADDRESS);
     const nonceResult = response.result || { nonce: 0 };
@@ -153,6 +153,7 @@ app.post('/run', async (req, res) => {
 
     const wallet = zilliqa.wallet;
     wallet.addByPrivateKey(PRIVATE_KEY);
+
     const tx = new Transaction(
       {
         version: VERSION,
@@ -188,7 +189,6 @@ app.post('/run', async (req, res) => {
     res.status(200).json({ txId });
     return;
   } catch (error) {
-    console.error(error.message);
     res.status(500).json({ errorCode: 500, errorMessage: error.message });
     return;
   }

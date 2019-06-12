@@ -13,6 +13,9 @@ functions/node_modules
 # production
 /build
 
+# storybook build
+out9206
+
 # misc
 .DS_Store
 .env.local
@@ -26,4 +29,3 @@ yarn-error.log*
 # firebase
 .firebase
 firebase-debug.log*
-functions/.runtimeconfig.json

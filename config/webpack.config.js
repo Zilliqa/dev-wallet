@@ -611,7 +611,7 @@ module.exports = function(webpackEnv) {
             module: 'esnext',
             moduleResolution: 'node',
             resolveJsonModule: true,
-            isolatedModules: false,
+            isolatedModules: true,
             noEmit: true,
             jsx: 'preserve'
           },

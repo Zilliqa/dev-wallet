@@ -172,11 +172,14 @@ const KeystoreStep = ({ setCurrentStep, setPrivateKey, privateKey, passphrase })
     downloadObjectAsJson(keystoreObject, filename);
   };
 
-  useEffect(() => {
-    if (privateKey && keystoreJSON) {
-      downloadKeystore();
-    }
-  }, [privateKey, keystoreJSON]);
+  useEffect(
+    () => {
+      if (privateKey && keystoreJSON) {
+        downloadKeystore();
+      }
+    },
+    [privateKey, keystoreJSON]
+  );
 
   useEffect(() => {
     if (worker === undefined) {
