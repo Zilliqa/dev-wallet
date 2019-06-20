@@ -44,7 +44,11 @@ const AccountInfo = ({ address, getBalance }) => {
           <div className="px-4 text-left text-secondary">
             <small>
               <b>{'Address'}</b>
-              <p className="pt-1 font-monospace">{`${bech32Address}`}</p>
+              <p className="pt-1 font-monospace">
+                {`${bech32Address}`}
+                <br />
+                <small>{`(${address})`}</small>
+              </p>
               <b>
                 {'Balance'}
                 <Button

@@ -81,6 +81,10 @@ exports[`matches the snapshot when failed 1`] = `
             class="pt-1 font-monospace"
           >
             zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+            <br />
+            <small>
+              (0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
+            </small>
           </p>
           <b>
             Balance
@@ -200,6 +204,10 @@ exports[`matches the snapshot when loaded 1`] = `
             class="pt-1 font-monospace"
           >
             zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+            <br />
+            <small>
+              (0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
+            </small>
           </p>
           <b>
             Balance
@@ -322,6 +330,10 @@ exports[`matches the snapshot when loaded 2`] = `
             class="pt-1 font-monospace"
           >
             zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+            <br />
+            <small>
+              (0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
+            </small>
           </p>
           <b>
             Balance
@@ -443,6 +455,10 @@ exports[`matches the snapshot when no data 1`] = `
             class="pt-1 font-monospace"
           >
             zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+            <br />
+            <small>
+              (0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
+            </small>
           </p>
           <b>
             Balance
