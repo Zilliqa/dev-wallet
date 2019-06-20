@@ -15,6 +15,7 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 import { BN, units } from '@zilliqa-js/util';
+import { EXPLORER_URL } from './constants';
 
 export const getInputValidationState = (key: string, value: string, testVal: RegExp | boolean) => {
   const isInvalid: boolean = typeof testVal === 'boolean' ? testVal : testVal.test(value);
@@ -113,4 +114,6 @@ export const formatSendAmountInZil = (
   }
 };
 
-export const getExplorerURL = (txId) => `https://viewblock.io/zilliqa/tx/${txId}?network=testnet`;
+export const getTxExplorerURL = (txId) => `${EXPLORER_URL}/tx/${txId}?network=testnet`;
+export const getAddressExplorerURL = (bechAddress) =>
+  `${EXPLORER_URL}/address/${bechAddress}?network=testnet`;
