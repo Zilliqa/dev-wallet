@@ -22,6 +22,7 @@ import { Button } from 'accessible-ui';
 import { MdRefresh } from 'react-icons/md';
 import { toBech32Address, fromBech32Address } from '@zilliqa-js/crypto';
 import { units, BN } from '@zilliqa-js/util';
+import { getAddressExplorerURL } from '../../utils';
 
 const AccountInfo = ({ address, getBalance }) => {
   const bech32Address = toBech32Address(address);
@@ -45,9 +46,13 @@ const AccountInfo = ({ address, getBalance }) => {
             <small>
               <b>{'Address'}</b>
               <p className="pt-1 font-monospace">
-                {`${bech32Address}`}
+                <a
+                  target="_blank"
+                  href={getAddressExplorerURL(bech32Address)}
+                  rel="noopener noreferrer"
+                >{`${bech32Address}`}</a>
                 <br />
-                <small>{`(${address})`}</small>
+                <small>{`(ByStr20: ${address})`}</small>
               </p>
               <b>
                 {'Balance'}

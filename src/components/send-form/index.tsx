@@ -22,7 +22,7 @@ import { Button } from 'accessible-ui';
 import { getInputValidationState, formatSendAmountInZil } from '../../utils';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
 import Disclaimer from '../disclaimer';
-import { getExplorerURL } from '../../utils';
+import { getTxExplorerURL } from '../../utils';
 
 import { isBech32 } from '@zilliqa-js/util/dist/validation';
 import { useAsync } from 'react-async';
@@ -235,7 +235,7 @@ const TransactionProcess = ({ confirm, mutationProps }) => {
           </p>
           {data ? (
             <u>
-              <a target="_blank" href={getExplorerURL(data)} rel="noopener noreferrer">
+              <a target="_blank" href={getTxExplorerURL(data)} rel="noopener noreferrer">
                 {'View Your Transaction'}
               </a>
             </u>
