@@ -52,7 +52,7 @@ const AccountInfo = ({ address, getBalance }) => {
                   rel="noopener noreferrer"
                 >{`${bech32Address}`}</a>
                 <br />
-                <small>{`(${address})`}</small>
+                <small>{`(ByStr20: ${address})`}</small>
               </p>
               <b>
                 {'Balance'}

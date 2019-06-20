@@ -89,7 +89,7 @@ exports[`matches the snapshot when failed 1`] = `
             </a>
             <br />
             <small>
-              (0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
+              (ByStr20: 0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
             </small>
           </p>
           <b>
@@ -218,7 +218,7 @@ exports[`matches the snapshot when loaded 1`] = `
             </a>
             <br />
             <small>
-              (0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
+              (ByStr20: 0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
             </small>
           </p>
           <b>
@@ -350,7 +350,7 @@ exports[`matches the snapshot when loaded 2`] = `
             </a>
             <br />
             <small>
-              (0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
+              (ByStr20: 0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
             </small>
           </p>
           <b>
@@ -481,7 +481,7 @@ exports[`matches the snapshot when no data 1`] = `
             </a>
             <br />
             <small>
-              (0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
+              (ByStr20: 0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
             </small>
           </p>
           <b>
