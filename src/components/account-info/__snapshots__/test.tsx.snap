@@ -80,7 +80,13 @@ exports[`matches the snapshot when failed 1`] = `
           <p
             class="pt-1 font-monospace"
           >
-            zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+            <a
+              href="https://viewblock.io/zilliqa/address/zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v?network=testnet"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+            </a>
             <br />
             <small>
               (0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
@@ -203,7 +209,13 @@ exports[`matches the snapshot when loaded 1`] = `
           <p
             class="pt-1 font-monospace"
           >
-            zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+            <a
+              href="https://viewblock.io/zilliqa/address/zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v?network=testnet"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+            </a>
             <br />
             <small>
               (0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
@@ -329,7 +341,13 @@ exports[`matches the snapshot when loaded 2`] = `
           <p
             class="pt-1 font-monospace"
           >
-            zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+            <a
+              href="https://viewblock.io/zilliqa/address/zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v?network=testnet"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+            </a>
             <br />
             <small>
               (0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
@@ -454,7 +472,13 @@ exports[`matches the snapshot when no data 1`] = `
           <p
             class="pt-1 font-monospace"
           >
-            zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+            <a
+              href="https://viewblock.io/zilliqa/address/zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v?network=testnet"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v
+            </a>
             <br />
             <small>
               (0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
