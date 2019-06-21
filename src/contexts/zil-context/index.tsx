@@ -16,7 +16,11 @@
  */
 
 import React from 'react';
-import { getAddressFromPrivateKey, getPubKeyFromPrivateKey } from '@zilliqa-js/crypto';
+import {
+  getAddressFromPrivateKey,
+  getPubKeyFromPrivateKey,
+  fromBech32Address
+} from '@zilliqa-js/crypto';
 import { Long, bytes, units, BN } from '@zilliqa-js/util';
 import { Transaction } from '@zilliqa-js/account';
 
@@ -114,8 +118,9 @@ export class ZilProvider extends React.Component {
   };
 
   public faucet = async (args): Promise<string | void> => {
-    const token = args;
-    const { address } = this.state;
+    const token = args[0];
+    const toAddress = args[1];
+    const address = fromBech32Address(toAddress);
     const data = JSON.stringify({ address, token });
     const res: any = await Axios({
       method: 'POST',

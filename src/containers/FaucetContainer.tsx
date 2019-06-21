@@ -15,32 +15,86 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react';
-import AccessTabs from '../components/access-tabs';
+import React, { useState } from 'react';
 import Layout from '../components/layout';
 import FaucetForm from '../components/faucet-form';
-import AccountInfo from '../components/account-info';
+import { Card, FormGroup, Label, Input, FormFeedback, Row, Col, Form } from 'reactstrap';
+
+import { isBech32 } from '@zilliqa-js/util/dist/validation';
+import { getInputValidationState } from '../utils';
 
 const FaucetContainer = ({ zilContext }) => {
-  const { isAuth, address, accessWallet, getBalance, faucet } = zilContext;
+  const { faucet } = zilContext;
+
+  const [toAddress, setToAddress] = useState('');
+  const [toAddressValid, setToAddressValid] = useState(false);
+  const [toAddressInvalid, setToAddressInvalid] = useState(false);
+
+  const changeToAddress = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault();
+    const value = e.target.value;
+    const key = 'toAddress';
+    const validationResult: any = getInputValidationState(key, value, isBech32(value));
+    setToAddress(value);
+    setToAddressValid(validationResult.toAddressValid);
+    setToAddressInvalid(validationResult.toAddressInvalid);
+  };
+
+  const reset = () => {
+    setToAddress('');
+    setToAddressValid(false);
+    setToAddressInvalid(false);
+  };
+
   return (
-    <>
-      <Layout zilContext={zilContext}>
-        <div className="p-4">
-          {isAuth ? (
-            <>
-              <AccountInfo address={address} getBalance={getBalance} />
-              <FaucetForm faucet={faucet} />
-            </>
-          ) : (
-            <>
-              <span className="pl-1 text-secondary">ZIL Faucet</span>
-              <AccessTabs accessWallet={accessWallet} />
-            </>
-          )}
+    <Layout zilContext={zilContext}>
+      <div className="p-4">
+        <div className="pt-4">
+          <Card>
+            <div className="py-5">
+              <div className="px-4 text-center">
+                <h2 className="pb-2">
+                  <b>{'ZIL Faucet'}</b>
+                </h2>
+                <p className="text-secondary">
+                  {'Please run the faucet to receive a small amount of Zil for testing.'}
+                </p>
+                <Row>
+                  <Col xs={12} sm={12} md={12} lg={8} className="mr-auto ml-auto">
+                    <Form className="mt-4 text-left">
+                      <FormGroup>
+                        <Label for="Address">
+                          <small>
+                            <b>{'To Address'}</b>
+                          </small>
+                        </Label>
+                        <Input
+                          id="toAddress"
+                          type="text"
+                          name="toAddress"
+                          data-testid="to-address"
+                          value={toAddress}
+                          onChange={changeToAddress}
+                          valid={toAddressValid}
+                          invalid={toAddressInvalid}
+                          placeholder="Enter Your Test Net Account Address"
+                          maxLength={42}
+                        />
+                        <FormFeedback>{'invalid address'}</FormFeedback>
+                        <FormFeedback valid={true}>{'valid address'}</FormFeedback>
+                      </FormGroup>
+                    </Form>
+                  </Col>
+                </Row>
+                {toAddressValid ? (
+                  <FaucetForm faucet={faucet} toAddress={toAddress} reset={reset} />
+                ) : null}
+              </div>
+            </div>
+          </Card>
         </div>
-      </Layout>
-    </>
+      </div>
+    </Layout>
   );
 };
 

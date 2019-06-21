@@ -15,62 +15,58 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react';
-import { Card } from 'reactstrap';
+import React, { useState } from 'react';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
-
+import { Button } from 'accessible-ui';
 import FaucetPending from '../faucet-pending';
 import FaucetComplete from '../faucet-complete';
-import Recaptcha from '../recaptcha';
 import { useAsync } from 'react-async';
+import Recaptcha from '../recaptcha';
 
-const FaucetForm = ({ faucet }) => {
+const FaucetForm = ({ faucet, toAddress, reset }) => {
   const { error, isPending, isFulfilled, data, run } = useAsync({
     deferFn: faucet
   });
-
+  const [token, setToken] = useState();
+  console.log(error);
   return (
-    <div>
-      <div className="pt-4">
-        <Card>
-          <div className="py-5">
-            <div className="px-4 text-center">
-              <h2 className="pb-2">
-                <b>{'ZIL Faucet'}</b>
-              </h2>
-              <p className="text-secondary">
-                {'Please run the faucet to receive a small amount of Zil for testing.'}
-              </p>
-              <div className="py-4">
-                {isPending ? (
-                  <div>
-                    <SpinnerWithCheckMark loading={true} />
-                    <FaucetPending />
-                  </div>
-                ) : isFulfilled ? (
-                  <div>
-                    <SpinnerWithCheckMark loading={false} />
-                    {data ? <FaucetComplete txId={data as string} /> : null}
-                  </div>
-                ) : (
-                  <div>
-                    <Recaptcha onChange={(token) => run(token)} />
-                    {error ? (
-                      <p className="pt-4">
-                        <small className="text-danger text-fade-in">
-                          {error.message}
-                          <br />
-                          {'Google reCAPTCHA might not work for some country.'}
-                        </small>
-                      </p>
-                    ) : null}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </Card>
-      </div>
+    <div className="py-4">
+      {isPending ? (
+        <>
+          <SpinnerWithCheckMark loading={true} />
+          <FaucetPending />
+        </>
+      ) : error ? (
+        <>
+          <p className="pt-4">
+            <small className="text-danger text-fade-in">
+              {error.message}
+              <br />
+              {'Google reCAPTCHA might not work for some country.'}
+            </small>
+          </p>
+          <br />
+          <Button text="Try Again" onClick={reset} level="primary" />
+        </>
+      ) : isFulfilled ? (
+        <>
+          <SpinnerWithCheckMark loading={false} />
+          <FaucetComplete txId={data as string} />
+          <br />
+          <Button text="Ok" onClick={reset} level="secondary" />
+        </>
+      ) : (
+        <>
+          <Recaptcha onChange={(recaptchaToken) => setToken(recaptchaToken)} />
+          <br />
+          <Button
+            text="Run Faucet"
+            onClick={() => run(token, toAddress)}
+            level="primary"
+            disabled={token === undefined}
+          />
+        </>
+      )}
     </div>
   );
 };
