@@ -28,7 +28,7 @@ const FaucetForm = ({ faucet, toAddress, reset }) => {
     deferFn: faucet
   });
   const [token, setToken] = useState();
-  console.log(error);
+
   return (
     <div className="py-4">
       {isPending ? (

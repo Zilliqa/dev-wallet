@@ -59,7 +59,7 @@ export const RouterNode = () => (
             component: lazy(() => import('./containers/GenerateContainer'))
           }
         ];
-        console.log('zilContext', zilContext);
+
         return (
           <Router>
             <Suspense fallback={<Fallback />}>
