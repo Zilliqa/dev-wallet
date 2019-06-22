@@ -28,6 +28,7 @@ export const paths = {
   faucet: '/faucet',
   send: '/send',
   generate: '/generate',
+  calculate: '/calculate',
   home: '/home'
 };
 
@@ -57,6 +58,10 @@ export const RouterNode = () => (
           {
             path: paths.generate,
             component: lazy(() => import('./containers/GenerateContainer'))
+          },
+          {
+            path: paths.calculate,
+            component: lazy(() => import('./containers/CalculateContainer'))
           }
         ];
 
