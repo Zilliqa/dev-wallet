@@ -17,28 +17,48 @@
 
 import React, { useState } from 'react';
 import { BN, units } from '@zilliqa-js/util';
-import { Card, FormGroup, Label, Input, Row, Col, Form } from 'reactstrap';
+import { Card, FormGroup, Label, Input, Row, Col, Form, CustomInput } from 'reactstrap';
 import { useAsync } from 'react-async';
 import Layout from '../components/layout';
-import Switch from 'react-switch';
 import { setValIfWholeNum } from '../utils';
 
 const TxCalculatorContainer = ({ zilContext }) => {
   const { getMinGasPrice } = zilContext;
+
+  const consumedSamples = [
+    { key: 's-FT-D', label: 'Fungible Token Deployment', val: '5441' },
+    { key: 's-FT-T', label: 'Fungible Token Transfer', val: '491' },
+    { key: 's-NFT-D', label: 'Non-fungible Token Deployment', val: '12746' },
+    { key: 's-NFT-T', label: 'Non-fungible Token Transfer', val: '484' }
+  ];
+
   const minGasProps = useAsync({ promiseFn: getMinGasPrice });
   const isUpdatingMinGasPrice = minGasProps.isLoading;
   const minGasPriceInQa = minGasProps.data as string;
 
   const minGasPriceInLi: string = units.fromQa(new BN(minGasPriceInQa), units.Units.Li);
 
-  const [consumed, setConsumed] = useState('');
+  const [consumed, setConsumed] = useState(consumedSamples[0].val);
 
   const formatConsumed = () => setConsumed(Number(consumed).toString());
   const [gasPriceInput, setGasPriceInput] = useState('');
-  const [isEditable, setIsEditable] = useState(false);
+  const [isGasPriceEditable, setIsGasPriceEditable] = useState(false);
+  const [isConsumedEditable, setIsConsumeEditable] = useState(false);
 
-  const handleSwitch = (checked) => {
-    setIsEditable(checked);
+  const handleRadio = (val) => () => {
+    if (isConsumedEditable) {
+      setIsConsumeEditable(false);
+    }
+    setConsumed(val);
+  };
+
+  const handleConsumedSwitch = () => {
+    setIsConsumeEditable(!isConsumedEditable);
+    setConsumed('0');
+  };
+
+  const handleGasPriceSwitch = () => {
+    setIsGasPriceEditable(!isGasPriceEditable);
     setGasPriceInput(minGasPriceInLi);
   };
 
@@ -48,7 +68,7 @@ const TxCalculatorContainer = ({ zilContext }) => {
     }
   };
 
-  const gasPriceInLi: string = isEditable ? gasPriceInput : minGasPriceInLi;
+  const gasPriceInLi: string = isGasPriceEditable ? gasPriceInput : minGasPriceInLi;
   const gasPriceInQa = units.toQa(new BN(gasPriceInLi), units.Units.Li);
   const gasPriceInZil = units.fromQa(new BN(gasPriceInQa), units.Units.Zil);
 
@@ -73,42 +93,67 @@ const TxCalculatorContainer = ({ zilContext }) => {
                 <Col xs={12} sm={12} md={12} lg={8} className="mr-auto ml-auto">
                   <Form className="mt-4 text-left" onSubmit={(e) => e.preventDefault()}>
                     <FormGroup>
-                      <Label for="consumed">
-                        <small>
-                          <b>{'Gas Consumed'}</b>
-                        </small>
-                      </Label>
-                      <Input
-                        id="consumed"
-                        type="tel"
-                        name="consumed"
-                        maxLength={5}
-                        data-testid="consumed"
-                        value={consumed}
-                        onChange={setValIfWholeNum(setConsumed)}
-                        onBlur={formatConsumed}
-                        placeholder="Enter Gas Consumed"
+                      <div className="py-2">
+                        {consumedSamples.map(({ key, label, val }) => (
+                          <div key={key}>
+                            <CustomInput
+                              className="py-1"
+                              type="radio"
+                              id={val}
+                              checked={consumed === val}
+                              name="consumed-radio"
+                              label={<small>{label}</small>}
+                              onChange={handleRadio(val)}
+                              disabled={isUpdatingMinGasPrice}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                      <CustomInput
+                        type="switch"
+                        id="is-consumed-editable"
+                        name="is-consumed-editable"
+                        label={<small>Switch to enter custom gas consumed</small>}
+                        onChange={handleConsumedSwitch}
+                        checked={isConsumedEditable}
                         disabled={isUpdatingMinGasPrice}
                       />
-                    </FormGroup>
-                    <FormGroup>
-                      <div data-testid={`container-switch-${isEditable}`}>
-                        <div className="py-2">
-                          <small>
-                            <b>Switch to enter custom gas price</b>
-                          </small>
+                      {isConsumedEditable ? (
+                        <div className="py-3">
+                          <Label for="consumed">
+                            <small>
+                              <b>{'Gas Consumed'}</b>
+                            </small>
+                          </Label>
+                          <Input
+                            id="consumed"
+                            type="tel"
+                            name="consumed"
+                            maxLength={5}
+                            data-testid="consumed"
+                            value={consumed}
+                            onChange={setValIfWholeNum(setConsumed)}
+                            onBlur={formatConsumed}
+                            placeholder="Enter Gas Consumed"
+                            disabled={isUpdatingMinGasPrice}
+                          />
                         </div>
-                        <Switch
-                          name="isEditable"
-                          onChange={handleSwitch}
-                          checked={isEditable}
-                          disabled={isUpdatingMinGasPrice}
-                          width={50}
-                          height={20}
-                        />
-                      </div>
-                      {isEditable ? (
-                        <>
+                      ) : null}
+                    </FormGroup>
+                    <hr />
+                    <FormGroup>
+                      <CustomInput
+                        type="switch"
+                        id="is-gas-price-editable"
+                        name="is-gas-price-editable"
+                        label={<small>Switch to enter custom gas price</small>}
+                        onChange={handleGasPriceSwitch}
+                        checked={isGasPriceEditable}
+                        disabled={isUpdatingMinGasPrice}
+                      />
+
+                      {isGasPriceEditable ? (
+                        <div className="py-3">
                           <Label for="gas-price-input">
                             <small>
                               <b>{'Gas Price (Li)'}</b>
@@ -124,13 +169,11 @@ const TxCalculatorContainer = ({ zilContext }) => {
                             onChange={setValIfWholeNum(setGasPriceInput)}
                             onBlur={formatGasPriceInput}
                             placeholder="Enter Gas Price"
-                            disabled={isUpdatingMinGasPrice || !isEditable}
+                            disabled={isUpdatingMinGasPrice || !isGasPriceEditable}
                           />
-                          <br />
-                        </>
+                        </div>
                       ) : null}
                     </FormGroup>
-
                     <div>
                       <hr />
                       <small>
@@ -157,7 +200,6 @@ const TxCalculatorContainer = ({ zilContext }) => {
                             ({consumedNum} x {gasPriceInZilNum})
                           </small>
                         </b>
-                        <hr />
                       </div>
                     </div>
                   </Form>
