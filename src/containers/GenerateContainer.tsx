@@ -21,14 +21,11 @@ import GenerateForm from '../components/generate-form';
 
 const CreateContainer = ({ zilContext }) => {
   return (
-    <div>
-      <Layout zilContext={zilContext}>
-        <div className="p-4">
-          <span className="pl-1 text-secondary">Create New Wallet</span>
-          <GenerateForm />
-        </div>
-      </Layout>
-    </div>
+    <Layout zilContext={zilContext}>
+      <div className="p-4">
+        <GenerateForm />
+      </div>
+    </Layout>
   );
 };
 
