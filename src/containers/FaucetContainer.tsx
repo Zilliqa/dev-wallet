@@ -49,50 +49,48 @@ const FaucetContainer = ({ zilContext }) => {
   return (
     <Layout zilContext={zilContext}>
       <div className="p-4">
-        <div className="pt-4">
-          <Card>
-            <div className="py-5">
-              <div className="px-4 text-center">
-                <h2 className="pb-2">
-                  <b>{'ZIL Faucet'}</b>
-                </h2>
-                <p className="text-secondary">
-                  {'Please run the faucet to receive a small amount of Zil for testing.'}
-                </p>
-                <Row>
-                  <Col xs={12} sm={12} md={12} lg={8} className="mr-auto ml-auto">
-                    <Form className="mt-4 text-left">
-                      <FormGroup>
-                        <Label for="Address">
-                          <small>
-                            <b>{'To Address'}</b>
-                          </small>
-                        </Label>
-                        <Input
-                          id="toAddress"
-                          type="text"
-                          name="toAddress"
-                          data-testid="to-address"
-                          value={toAddress}
-                          onChange={changeToAddress}
-                          valid={toAddressValid}
-                          invalid={toAddressInvalid}
-                          placeholder="Enter Your Test Net Account Address"
-                          maxLength={42}
-                        />
-                        <FormFeedback>{'invalid address'}</FormFeedback>
-                        <FormFeedback valid={true}>{'valid address'}</FormFeedback>
-                      </FormGroup>
-                    </Form>
-                  </Col>
-                </Row>
-                {toAddressValid ? (
-                  <FaucetForm faucet={faucet} toAddress={toAddress} reset={reset} />
-                ) : null}
-              </div>
+        <Card>
+          <div className="py-5">
+            <div className="px-4 text-center">
+              <h2 className="pb-2">
+                <b>{'ZIL Faucet'}</b>
+              </h2>
+              <p className="text-secondary">
+                {'Please run the faucet to receive a small amount of Zil for testing.'}
+              </p>
+              <Row>
+                <Col xs={12} sm={12} md={12} lg={8} className="mr-auto ml-auto">
+                  <Form className="mt-4 text-left">
+                    <FormGroup>
+                      <Label for="Address">
+                        <small>
+                          <b>{'To Address'}</b>
+                        </small>
+                      </Label>
+                      <Input
+                        id="toAddress"
+                        type="text"
+                        name="toAddress"
+                        data-testid="to-address"
+                        value={toAddress}
+                        onChange={changeToAddress}
+                        valid={toAddressValid}
+                        invalid={toAddressInvalid}
+                        placeholder="Enter Your Test Net Account Address"
+                        maxLength={42}
+                      />
+                      <FormFeedback>{'invalid address'}</FormFeedback>
+                      <FormFeedback valid={true}>{'valid address'}</FormFeedback>
+                    </FormGroup>
+                  </Form>
+                </Col>
+              </Row>
+              {toAddressValid ? (
+                <FaucetForm faucet={faucet} toAddress={toAddress} reset={reset} />
+              ) : null}
             </div>
-          </Card>
-        </div>
+          </div>
+        </Card>
       </div>
     </Layout>
   );

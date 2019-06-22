@@ -22,7 +22,7 @@ import { Link } from 'react-router-dom';
 import * as H from 'history';
 import { paths } from '../../routes';
 import './style.css';
-import { FaHome, FaPlusSquare, FaTint, FaPaperPlane } from 'react-icons/fa';
+import { FaHome, FaPlusSquare, FaTint, FaPaperPlane, FaCalculator } from 'react-icons/fa';
 import { faucetHostnameList } from '../../constants';
 
 interface IProps {
@@ -52,6 +52,7 @@ const Sidebar: React.SFC<IProps> = (props) => {
             {faucetHostnameList.includes(hostname) ? (
               <NavItem>{renderLink(paths.faucet, 'ZIL Faucet', <FaTint />)}</NavItem>
             ) : null}
+            <NavItem>{renderLink(paths.calculate, 'Tx Calculator', <FaCalculator />)}</NavItem>
           </ul>
         </div>
       </div>

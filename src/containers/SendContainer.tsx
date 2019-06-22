@@ -35,7 +35,6 @@ const SendContainer = (props) => {
             </>
           ) : (
             <>
-              <span className="pl-1 text-secondary">Send ZIL</span>
               <AccessTabs accessWallet={accessWallet} />
             </>
           )}

@@ -17,6 +17,14 @@
 import { BN, units } from '@zilliqa-js/util';
 import { EXPLORER_URL } from './constants';
 
+export const setValIfWholeNum = (fn) => (e: React.ChangeEvent<HTMLInputElement>): void => {
+  e.preventDefault();
+  const value = e.target.value;
+  const isWholeNumber = /^\d*\.?\d*$/.test(value) && !isNaN(Number(value));
+  const isEmptyString = value === '';
+  return isEmptyString || isWholeNumber ? fn(value) : undefined;
+};
+
 export const getInputValidationState = (key: string, value: string, testVal: RegExp | boolean) => {
   const isInvalid: boolean = typeof testVal === 'boolean' ? testVal : testVal.test(value);
   const keyValid = key + 'Valid';
