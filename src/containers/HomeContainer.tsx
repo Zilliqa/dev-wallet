@@ -49,39 +49,6 @@ const Home = ({ zilContext }) => {
             <Disclaimer />
           </Col>
         </Row>
-        <Row className="pt-5">
-          <Col xs={6} sm={6} md={6} lg={4} className="text-center ml-auto">
-            <MdSecurity size={50} className="text-nucleus" />
-            <div className="text-secondary text-center pt-3">
-              <b>
-                We do not store your private key on our servers or transmit it over the network at
-                any time
-              </b>
-              <br />
-              <p className="pt-1">
-                <small>
-                  The Nucleus Wallet is free, open-source and runs entirely on your computer.
-                  Private key generation and keystore encryption/decryption are handled on your
-                  computer only.
-                </small>
-              </p>
-            </div>
-          </Col>
-          <Col xs={6} sm={6} md={6} lg={4} className="text-center mr-auto">
-            <MdBeenhere size={50} className="text-nucleus" />
-            <div className="text-secondary text-center pt-3">
-              <b>We recommend downloading and securely storing a keystore json file.</b>
-              <br />
-              <p className="pt-1">
-                <small>
-                  keystore json file contains your encrypted private key, which can only be
-                  decrypted with a password you choose. If you lose your private key or the password
-                  to your keystore json, it cannot be recovered by anyone.
-                </small>
-              </p>
-            </div>
-          </Col>
-        </Row>
       </div>
     </Layout>
   );
