@@ -26,6 +26,7 @@ const TxCalculatorContainer = ({ zilContext }) => {
   const { getMinGasPrice } = zilContext;
 
   const consumedSamples = [
+    { key: 's-Z-T', label: 'Normal Transfer of Zils', val: '1' },
     { key: 's-FT-D', label: 'Fungible Token Deployment', val: '5441' },
     { key: 's-FT-T', label: 'Fungible Token Transfer', val: '491' },
     { key: 's-NFT-D', label: 'Non-fungible Token Deployment', val: '12746' },
@@ -53,8 +54,12 @@ const TxCalculatorContainer = ({ zilContext }) => {
   };
 
   const handleConsumedSwitch = () => {
+    if (isConsumedEditable) {
+      setConsumed(consumedSamples[0].val);
+    } else {
+      setConsumed('0');
+    }
     setIsConsumeEditable(!isConsumedEditable);
-    setConsumed('0');
   };
 
   const handleGasPriceSwitch = () => {
@@ -87,11 +92,11 @@ const TxCalculatorContainer = ({ zilContext }) => {
           <div className="py-5">
             <div className="px-4 text-center">
               <h2 className="pb-2">
-                <b>{'Transaction Price Calculator'}</b>
+                <b>{'Transaction Fee Calculator'}</b>
               </h2>
               <Row>
                 <Col xs={12} sm={12} md={12} lg={8} className="mr-auto ml-auto">
-                  <Form className="mt-4 text-left" onSubmit={(e) => e.preventDefault()}>
+                  <Form className="text-left" onSubmit={(e) => e.preventDefault()}>
                     <FormGroup>
                       <div className="py-2">
                         {consumedSamples.map(({ key, label, val }) => (
@@ -177,12 +182,14 @@ const TxCalculatorContainer = ({ zilContext }) => {
                     <div>
                       <hr />
                       <small>
-                        <b>Gas Consumed: {consumedNum}</b>
+                        <b>
+                          Gas Consumed <span className="text-danger">*</span> : {consumedNum}
+                        </b>
                       </small>
                       <br />
                       <small>
                         <b>
-                          Gas Price:{' '}
+                          Gas Price :{' '}
                           {isUpdatingMinGasPrice ? (
                             'loading...'
                           ) : (
@@ -195,12 +202,31 @@ const TxCalculatorContainer = ({ zilContext }) => {
                       <hr />
                       <div>
                         <b>
-                          Transaction Price (Zil) : {txPriceInZil}{' '}
+                          Transaction Fee (Zil) : {txPriceInZil}{' '}
                           <small>
                             ({consumedNum} x {gasPriceInZilNum})
                           </small>
                         </b>
                       </div>
+                      <hr />
+                      <p>
+                        <small>
+                          <b>
+                            <span className="text-danger">*</span>
+                          </b>{' '}
+                          {`Disclaimer: The “Gas Consumed” is an approximate value based on the current gas required for Zil transfer and implementation of fungible-token and non-fungible-token contracts `}
+                          <a
+                            href="https://github.com/Zilliqa/scilla/tree/master/tests/contracts"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            here.
+                          </a>
+                          {
+                            ' The figures are accurate as of 22-06-2019. Actual numbers might vary based on factors such the size of the contract state.'
+                          }
+                        </small>
+                      </p>
                     </div>
                   </Form>
                 </Col>
