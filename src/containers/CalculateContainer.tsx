@@ -32,6 +32,8 @@ const TxCalculatorContainer = ({ zilContext }) => {
   const minGasPriceInLi: string = units.fromQa(new BN(minGasPriceInQa), units.Units.Li);
 
   const [consumed, setConsumed] = useState('');
+
+  const formatConsumed = () => setConsumed(Number(consumed).toString());
   const [gasPriceInput, setGasPriceInput] = useState('');
   const [isEditable, setIsEditable] = useState(false);
 
@@ -42,7 +44,7 @@ const TxCalculatorContainer = ({ zilContext }) => {
 
   const formatGasPriceInput = () => {
     if (Number(gasPriceInput) < Number(minGasPriceInLi)) {
-      setGasPriceInput(minGasPriceInLi);
+      setGasPriceInput(Number(minGasPriceInLi).toString());
     }
   };
 
@@ -84,11 +86,12 @@ const TxCalculatorContainer = ({ zilContext }) => {
                         data-testid="consumed"
                         value={consumed}
                         onChange={setValIfWholeNum(setConsumed)}
+                        onBlur={formatConsumed}
                         placeholder="Enter Gas Consumed"
                         disabled={isUpdatingMinGasPrice}
                       />
-
-                      <br />
+                    </FormGroup>
+                    <FormGroup>
                       <div data-testid={`container-switch-${isEditable}`}>
                         <div className="py-2">
                           <small>
@@ -104,7 +107,6 @@ const TxCalculatorContainer = ({ zilContext }) => {
                           height={20}
                         />
                       </div>
-
                       {isEditable ? (
                         <>
                           <Label for="gas-price-input">
@@ -124,11 +126,13 @@ const TxCalculatorContainer = ({ zilContext }) => {
                             placeholder="Enter Gas Price"
                             disabled={isUpdatingMinGasPrice || !isEditable}
                           />
+                          <br />
                         </>
                       ) : null}
                     </FormGroup>
 
                     <div>
+                      <hr />
                       <small>
                         <b>Gas Consumed: {consumedNum}</b>
                       </small>
@@ -145,8 +149,8 @@ const TxCalculatorContainer = ({ zilContext }) => {
                           )}
                         </b>
                       </small>
-                      <br />
-                      <div className="py-4">
+                      <hr />
+                      <div>
                         <b>
                           Transaction Price (Zil) : {txPriceInZil}{' '}
                           <small>
