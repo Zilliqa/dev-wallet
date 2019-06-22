@@ -19,7 +19,7 @@ import React, { useState } from 'react';
 import { Card, Label, Input, FormGroup, Form, Row, Col, FormFeedback } from 'reactstrap';
 import { BN, units } from '@zilliqa-js/util';
 import { Button } from 'accessible-ui';
-import { getInputValidationState, formatSendAmountInZil } from '../../utils';
+import { getInputValidationState, formatSendAmountInZil, setValIfWholeNum } from '../../utils';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
 import Disclaimer from '../disclaimer';
 import { getTxExplorerURL } from '../../utils';
@@ -68,13 +68,6 @@ const SendForm = ({ send, getBalance, getMinGasPrice }) => {
     setToAddress(value);
     setToAddressValid(validationResult.toAddressValid);
     setToAddressInvalid(validationResult.toAddressInvalid);
-  };
-
-  const changeAmount = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    e.preventDefault();
-    if (e.target.value === '' || /^\d*\.?\d*$/.test(e.target.value)) {
-      setAmount(e.target.value);
-    }
   };
 
   const formatAmount = (): void => {
@@ -143,7 +136,7 @@ const SendForm = ({ send, getBalance, getMinGasPrice }) => {
                           maxLength={10}
                           data-testid="amount"
                           value={amount}
-                          onChange={changeAmount}
+                          onChange={setValIfWholeNum(setAmount)}
                           placeholder="Enter the Amount"
                           onBlur={formatAmount}
                           disabled={isUpdatingBalance || isUpdatingMinGasPrice}
