@@ -16,20 +16,17 @@
  */
 
 import React from 'react';
-import { CAPTCHA_SITE_KEY } from '../../constants';
-import ReCAPTCHA from 'react-google-recaptcha';
+import Layout from '../../components/layout';
+import GenerateForm from '../../components/generate-form';
 
-const Recaptcha: React.SFC<{ onChange: (token: string) => void }> = ({ onChange }) => {
-  // @ts-ignore
-  window.recaptchaOptions = {
-    useRecaptchaNet: true
-  };
-
+const CreateContainer = ({ zilContext }) => {
   return (
-    <div className="recaptcha">
-      <ReCAPTCHA sitekey={CAPTCHA_SITE_KEY} onChange={onChange} badge="inline" />
-    </div>
+    <Layout zilContext={zilContext}>
+      <div className="p-4">
+        <GenerateForm />
+      </div>
+    </Layout>
   );
 };
 
-export default Recaptcha;
+export default CreateContainer;

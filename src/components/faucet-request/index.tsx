@@ -21,9 +21,11 @@ import { Button } from 'accessible-ui';
 import FaucetPending from '../faucet-pending';
 import FaucetComplete from '../faucet-complete';
 import { useAsync } from 'react-async';
-import Recaptcha from '../recaptcha';
 
-const FaucetForm = ({ faucet, toAddress, reset }) => {
+import { CAPTCHA_SITE_KEY } from '../../constants';
+import ReCAPTCHA from 'react-google-recaptcha';
+
+const FaucetRequest = ({ faucet, toAddress, reset }) => {
   const { error, isPending, isFulfilled, data, run } = useAsync({
     deferFn: faucet
   });
@@ -57,7 +59,14 @@ const FaucetForm = ({ faucet, toAddress, reset }) => {
         </>
       ) : (
         <>
-          <Recaptcha onChange={(recaptchaToken) => setToken(recaptchaToken)} />
+          <div className="recaptcha">
+            <ReCAPTCHA
+              sitekey={CAPTCHA_SITE_KEY}
+              onChange={(recaptchaToken) => setToken(recaptchaToken)}
+              badge="inline"
+            />
+          </div>
+
           <br />
           <Button
             text="Run Faucet"
@@ -70,4 +79,5 @@ const FaucetForm = ({ faucet, toAddress, reset }) => {
     </div>
   );
 };
-export default FaucetForm;
+
+export default FaucetRequest;

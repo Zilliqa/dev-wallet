@@ -19,8 +19,8 @@ import React from 'react';
 import { Card, Row, Col } from 'reactstrap';
 import { useAsync } from 'react-async';
 import { Spinner } from 'accessible-ui';
-import Layout from '../components/layout';
-import CalculateForm from '../components/calculate-form';
+import Layout from '../../components/layout';
+import CalculateForm from '../../components/calculate-form';
 
 const TxCalculatorContainer = ({ zilContext }) => {
   const { getMinGasPrice } = zilContext;

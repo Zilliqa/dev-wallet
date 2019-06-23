@@ -19,7 +19,7 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
-import Home from './containers/HomeContainer';
+import Home from './containers/home';
 
 import { Spinner } from 'accessible-ui';
 import { ZilProvider, ZilContext } from './contexts/zil-context';
@@ -49,19 +49,19 @@ export const RouterNode = () => (
           },
           {
             path: paths.faucet,
-            component: lazy(() => import('./containers/FaucetContainer'))
+            component: lazy(() => import('./containers/faucet'))
           },
           {
             path: paths.send,
-            component: lazy(() => import('./containers/SendContainer'))
+            component: lazy(() => import('./containers/send'))
           },
           {
             path: paths.generate,
-            component: lazy(() => import('./containers/GenerateContainer'))
+            component: lazy(() => import('./containers/generate'))
           },
           {
             path: paths.calculate,
-            component: lazy(() => import('./containers/CalculateContainer'))
+            component: lazy(() => import('./containers/calculate'))
           }
         ];
 
