@@ -34,12 +34,12 @@ const FaucetRequest = ({ faucet, toAddress, reset }) => {
   return (
     <div className="py-4">
       {isPending ? (
-        <>
+        <div data-testid="pending">
           <SpinnerWithCheckMark loading={true} />
           <FaucetPending />
-        </>
+        </div>
       ) : error ? (
-        <>
+        <div data-testid="error">
           <p className="pt-4">
             <small className="text-danger text-fade-in">
               {error.message}
@@ -49,16 +49,16 @@ const FaucetRequest = ({ faucet, toAddress, reset }) => {
           </p>
           <br />
           <Button text="Try Again" onClick={reset} level="primary" />
-        </>
+        </div>
       ) : isFulfilled ? (
-        <>
+        <div data-testid="fulfilled">
           <SpinnerWithCheckMark loading={false} />
           <FaucetComplete txId={data as string} />
           <br />
           <Button text="Ok" onClick={reset} level="secondary" />
-        </>
+        </div>
       ) : (
-        <>
+        <div data-testid="recaptcha">
           <div className="recaptcha">
             <ReCAPTCHA
               sitekey={CAPTCHA_SITE_KEY}
@@ -66,7 +66,6 @@ const FaucetRequest = ({ faucet, toAddress, reset }) => {
               badge="inline"
             />
           </div>
-
           <br />
           <Button
             text="Run Faucet"
@@ -74,7 +73,7 @@ const FaucetRequest = ({ faucet, toAddress, reset }) => {
             level="primary"
             disabled={token === undefined}
           />
-        </>
+        </div>
       )}
     </div>
   );
