@@ -18,7 +18,7 @@
 import React from 'react';
 import { useAsync } from 'react-async';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { Button } from 'accessible-ui';
+import { Button, CopyToClipboard } from 'accessible-ui';
 import { MdRefresh } from 'react-icons/md';
 import { toBech32Address, fromBech32Address } from '@zilliqa-js/crypto';
 import { units, BN } from '@zilliqa-js/util';
@@ -43,29 +43,28 @@ const AccountInfo = ({ address, getBalance }) => {
             ) : null}
           </div>
           <div className="px-4 text-left text-secondary">
-            <small>
-              <b>{'Address'}</b>
-              <p className="pt-1 font-monospace">
-                <a
-                  target="_blank"
-                  href={getAddressExplorerURL(bech32Address)}
-                  rel="noopener noreferrer"
-                >{`${bech32Address}`}</a>
-                <br />
-                <small>{`(ByStr20: ${address})`}</small>
-              </p>
-              <b>
-                {'Balance'}
-                <Button
-                  level="tertiary"
-                  text={''}
-                  before={<MdRefresh />}
-                  onClick={reload}
-                  disabled={isLoading}
-                  className="mb-1 py-0 px-1"
-                />
-              </b>
-            </small>
+            <b>{'Address'}</b>
+            <p className="pt-1 font-monospace">
+              <a
+                target="_blank"
+                href={getAddressExplorerURL(bech32Address)}
+                rel="noopener noreferrer"
+              >{`${bech32Address}`}</a>{' '}
+              <CopyToClipboard data={bech32Address} />
+              <br />
+              <small>{`(ByStr20: ${address})`}</small>
+            </p>
+            <b>
+              {'Balance'}
+              <Button
+                level="tertiary"
+                text={''}
+                before={<MdRefresh />}
+                onClick={reload}
+                disabled={isLoading}
+                className="mb-1 py-0 px-1"
+              />
+            </b>
             {isLoading ? (
               <div data-testid="container-loading">
                 <small>Loading...</small>
