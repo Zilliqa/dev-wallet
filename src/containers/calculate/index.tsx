@@ -24,7 +24,7 @@ import CalculateForm from '../../components/calculate-form';
 
 const TxCalculatorContainer = ({ zilContext }) => {
   const { getMinGasPrice } = zilContext;
-  const { data, isLoading } = useAsync({ promiseFn: getMinGasPrice });
+  const { data, isLoading, error } = useAsync({ promiseFn: getMinGasPrice });
   return (
     <Layout zilContext={zilContext}>
       <div className="p-4">
@@ -37,12 +37,21 @@ const TxCalculatorContainer = ({ zilContext }) => {
               <Row>
                 <Col xs={12} sm={12} md={12} lg={8} className="mr-auto ml-auto">
                   {isLoading ? (
-                    <div className="align-items-center justify-content-center py-5">
+                    <div
+                      data-testid="loading"
+                      className="align-items-center justify-content-center py-5"
+                    >
                       <Spinner />
                     </div>
-                  ) : (
-                    <CalculateForm minGasPriceInQa={data} />
-                  )}
+                  ) : error ? (
+                    <div data-testid="error">
+                      <small className="text-danger">{error.message}</small>
+                    </div>
+                  ) : data ? (
+                    <div data-testid="data">
+                      <CalculateForm minGasPriceInQa={data} />
+                    </div>
+                  ) : null}
                 </Col>
               </Row>
             </div>
