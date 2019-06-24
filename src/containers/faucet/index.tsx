@@ -16,12 +16,12 @@
  */
 
 import React, { useState } from 'react';
-import Layout from '../components/layout';
-import FaucetForm from '../components/faucet-form';
 import { Card, FormGroup, Label, Input, FormFeedback, Row, Col, Form } from 'reactstrap';
+import Layout from '../../components/layout';
+import FaucetRequest from '../../components/faucet-request';
 
+import { getInputValidationState } from '../../utils';
 import { isBech32 } from '@zilliqa-js/util/dist/validation';
-import { getInputValidationState } from '../utils';
 
 const FaucetContainer = ({ zilContext }) => {
   const { faucet } = zilContext;
@@ -86,7 +86,7 @@ const FaucetContainer = ({ zilContext }) => {
                 </Col>
               </Row>
               {toAddressValid ? (
-                <FaucetForm faucet={faucet} toAddress={toAddress} reset={reset} />
+                <FaucetRequest faucet={faucet} toAddress={toAddress} reset={reset} />
               ) : null}
             </div>
           </div>

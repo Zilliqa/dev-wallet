@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches the snapshot 1`] = `
+<form
+  class="text-left"
+>
+  <div
+    class="form-group"
+  >
+    <div
+      class="py-2"
+    >
+      <div>
+        <div
+          class="py-1 custom-radio custom-control"
+        >
+          <input
+            checked=""
+            class="custom-control-input"
+            id="1"
+            name="consumed-radio"
+            type="radio"
+          />
+          <label
+            class="custom-control-label"
+            for="1"
+          >
+            <small>
+              Normal Transfer of Zils
+            </small>
+          </label>
+        </div>
+      </div>
+      <div>
+        <div
+          class="py-1 custom-radio custom-control"
+        >
+          <input
+            class="custom-control-input"
+            id="5441"
+            name="consumed-radio"
+            type="radio"
+          />
+          <label
+            class="custom-control-label"
+            for="5441"
+          >
+            <small>
+              Fungible Token Deployment
+            </small>
+          </label>
+        </div>
+      </div>
+      <div>
+        <div
+          class="py-1 custom-radio custom-control"
+        >
+          <input
+            class="custom-control-input"
+            id="491"
+            name="consumed-radio"
+            type="radio"
+          />
+          <label
+            class="custom-control-label"
+            for="491"
+          >
+            <small>
+              Fungible Token Transfer
+            </small>
+          </label>
+        </div>
+      </div>
+      <div>
+        <div
+          class="py-1 custom-radio custom-control"
+        >
+          <input
+            class="custom-control-input"
+            id="12746"
+            name="consumed-radio"
+            type="radio"
+          />
+          <label
+            class="custom-control-label"
+            for="12746"
+          >
+            <small>
+              Non-fungible Token Deployment
+            </small>
+          </label>
+        </div>
+      </div>
+      <div>
+        <div
+          class="py-1 custom-radio custom-control"
+        >
+          <input
+            class="custom-control-input"
+            id="484"
+            name="consumed-radio"
+            type="radio"
+          />
+          <label
+            class="custom-control-label"
+            for="484"
+          >
+            <small>
+              Non-fungible Token Transfer
+            </small>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      class="custom-switch custom-control"
+    >
+      <input
+        class="custom-control-input"
+        id="is-consumed-editable"
+        name="is-consumed-editable"
+        type="checkbox"
+      />
+      <label
+        class="custom-control-label"
+        for="is-consumed-editable"
+      >
+        <small>
+          Switch to enter custom gas consumed
+        </small>
+      </label>
+    </div>
+  </div>
+  <hr />
+  <div
+    class="form-group"
+  >
+    <div
+      class="custom-switch custom-control"
+    >
+      <input
+        class="custom-control-input"
+        id="is-gas-price-editable"
+        name="is-gas-price-editable"
+        type="checkbox"
+      />
+      <label
+        class="custom-control-label"
+        for="is-gas-price-editable"
+      >
+        <small>
+          Switch to enter custom gas price
+        </small>
+      </label>
+    </div>
+  </div>
+  <div>
+    <hr />
+    <small>
+      <b>
+        Gas Consumed 
+        <span
+          class="text-danger"
+        >
+          *
+        </span>
+         : 
+        1
+      </b>
+    </small>
+    <br />
+    <small>
+      <b>
+        Gas Price :
+         
+        <span>
+          0.001
+           Li 
+          <small>
+            (
+            0.001999
+             Zil)
+          </small>
+        </span>
+      </b>
+    </small>
+    <hr />
+    <div>
+      <b>
+        Transaction Fee (Zil) : 
+        0.001999
+         
+        <small>
+          (
+          1
+           x 
+          0.001999
+          )
+        </small>
+      </b>
+    </div>
+    <hr />
+    <p>
+      <small>
+        <b>
+          <span
+            class="text-danger"
+          >
+            *
+          </span>
+        </b>
+         
+        Disclaimer: The “Gas Consumed” is an approximate value based on the current gas required for Zil transfer and implementation of fungible-token and non-fungible-token contracts 
+        <a
+          href="https://github.com/Zilliqa/scilla/tree/master/tests/contracts"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          here.
+        </a>
+         The figures are accurate as of 22-06-2019. Actual numbers might vary based on factors such the size of the contract state.
+      </small>
+    </p>
+  </div>
+</form>
+`;

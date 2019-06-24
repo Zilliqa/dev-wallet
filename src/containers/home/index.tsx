@@ -16,12 +16,11 @@
  */
 
 import React from 'react';
-import Layout from '../components/layout';
-import { NODE_URL, CHAIN_ID, MSG_VERSION } from '../constants';
+import Layout from '../../components/layout';
+import { NODE_URL, CHAIN_ID, MSG_VERSION } from '../../constants';
 import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
-import { MdSecurity, MdBeenhere } from 'react-icons/md';
-import Disclaimer from '../components/disclaimer';
+import Disclaimer from '../../components/disclaimer';
 
 const Home = ({ zilContext }) => {
   return (

@@ -70,7 +70,7 @@
     "@types/react-router-dom": "^4.3.1",
     "@types/reactstrap": "^8.0.1",
     "@zilliqa-js/zilliqa": "^0.6.3",
-    "accessible-ui": "^1.0.1",
+    "accessible-ui": "^1.1.1",
     "axios": "^0.19.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",

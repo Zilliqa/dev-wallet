@@ -21,9 +21,11 @@ import { Button } from 'accessible-ui';
 import FaucetPending from '../faucet-pending';
 import FaucetComplete from '../faucet-complete';
 import { useAsync } from 'react-async';
-import Recaptcha from '../recaptcha';
 
-const FaucetForm = ({ faucet, toAddress, reset }) => {
+import { CAPTCHA_SITE_KEY } from '../../constants';
+import ReCAPTCHA from 'react-google-recaptcha';
+
+const FaucetRequest = ({ faucet, toAddress, reset }) => {
   const { error, isPending, isFulfilled, data, run } = useAsync({
     deferFn: faucet
   });
@@ -32,12 +34,12 @@ const FaucetForm = ({ faucet, toAddress, reset }) => {
   return (
     <div className="py-4">
       {isPending ? (
-        <>
+        <div data-testid="pending">
           <SpinnerWithCheckMark loading={true} />
           <FaucetPending />
-        </>
+        </div>
       ) : error ? (
-        <>
+        <div data-testid="error">
           <p className="pt-4">
             <small className="text-danger text-fade-in">
               {error.message}
@@ -47,17 +49,23 @@ const FaucetForm = ({ faucet, toAddress, reset }) => {
           </p>
           <br />
           <Button text="Try Again" onClick={reset} level="primary" />
-        </>
+        </div>
       ) : isFulfilled ? (
-        <>
+        <div data-testid="fulfilled">
           <SpinnerWithCheckMark loading={false} />
           <FaucetComplete txId={data as string} />
           <br />
           <Button text="Ok" onClick={reset} level="secondary" />
-        </>
+        </div>
       ) : (
-        <>
-          <Recaptcha onChange={(recaptchaToken) => setToken(recaptchaToken)} />
+        <div data-testid="recaptcha">
+          <div className="recaptcha">
+            <ReCAPTCHA
+              sitekey={CAPTCHA_SITE_KEY}
+              onChange={(recaptchaToken) => setToken(recaptchaToken)}
+              badge="inline"
+            />
+          </div>
           <br />
           <Button
             text="Run Faucet"
@@ -65,9 +73,10 @@ const FaucetForm = ({ faucet, toAddress, reset }) => {
             level="primary"
             disabled={token === undefined}
           />
-        </>
+        </div>
       )}
     </div>
   );
 };
-export default FaucetForm;
+
+export default FaucetRequest;

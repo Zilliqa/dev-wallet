@@ -16,17 +16,29 @@
  */
 
 import React from 'react';
-import Layout from '../components/layout';
-import GenerateForm from '../components/generate-form';
+import AccessTabs from '../../components/access-tabs';
+import Layout from '../../components/layout';
+import SendForm from '../../components/send-form';
+import AccountInfo from '../../components/account-info';
 
-const CreateContainer = ({ zilContext }) => {
+const SendContainer = (props) => {
+  const { zilContext } = props;
+  const { isAuth, address, accessWallet, getBalance, getMinGasPrice, send } = zilContext;
   return (
     <Layout zilContext={zilContext}>
       <div className="p-4">
-        <GenerateForm />
+        {isAuth ? (
+          <>
+            <AccountInfo address={address} getBalance={getBalance} />
+            <SendForm send={send} getBalance={getBalance} getMinGasPrice={getMinGasPrice} />
+          </>
+        ) : (
+          <>
+            <AccessTabs accessWallet={accessWallet} />
+          </>
+        )}
       </div>
     </Layout>
   );
 };
-
-export default CreateContainer;
+export default SendContainer;
