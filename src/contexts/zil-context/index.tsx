@@ -89,9 +89,8 @@ export class ZilProvider extends React.Component {
     };
   };
 
-  public send = async (args): Promise<any> => {
-    const toAddress = args[0];
-    const amount = args[1];
+  public send = async ({ args }): Promise<any> => {
+    const { amount, toAddress } = args;
     const { wallet } = this.state;
     const tx = new Transaction(await this.getParams(toAddress, amount), provider);
     const signedTx = await wallet.sign(tx);
@@ -116,17 +115,17 @@ export class ZilProvider extends React.Component {
     return res.result ? res.result : '0';
   };
 
-  public faucet = async (args): Promise<string | void> => {
-    const token = args[0];
-    const toAddress = args[1];
+  public faucet = async ({ args, signal }): Promise<string | void> => {
+    const { token, toAddress } = args;
     const address = fromBech32Address(toAddress);
     const body = JSON.stringify({ address, token });
     const res = await fetch(`${getHost(window.location.hostname)}/faucet/run`, {
+      signal,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body)
+      body
     });
     if (!res.ok) throw new Error(res.statusText);
     const data = await res.json();
