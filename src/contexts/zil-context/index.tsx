@@ -24,7 +24,6 @@ import {
 import { Long, bytes, units, BN } from '@zilliqa-js/util';
 import { Transaction } from '@zilliqa-js/account';
 
-import Axios from 'axios';
 import { Zilliqa } from '@zilliqa-js/zilliqa';
 import { HTTPProvider, RPCMethod } from '@zilliqa-js/core';
 import { NODE_URL, CHAIN_ID, MSG_VERSION } from '../../constants';
@@ -121,17 +120,17 @@ export class ZilProvider extends React.Component {
     const token = args[0];
     const toAddress = args[1];
     const address = fromBech32Address(toAddress);
-    const data = JSON.stringify({ address, token });
-    const res: any = await Axios({
+    const body = JSON.stringify({ address, token });
+    const res = await fetch(`${getHost(window.location.hostname)}/faucet/run`, {
       method: 'POST',
-      url: `${getHost(window.location.hostname)}/faucet/run`,
       headers: {
         'Content-Type': 'application/json'
       },
-      data
+      body: JSON.stringify(body)
     });
-    if (!isOk(res.status)) throw new Error(res);
-    return res.data ? res.data.txId : undefined;
+    if (!res.ok) throw new Error(res.statusText);
+    const data = await res.json();
+    return data ? data.txId : undefined;
   };
 
   public clearAuth = () => {
