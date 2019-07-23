@@ -74,7 +74,6 @@ export class ZilProvider extends React.Component {
   };
 
   private getParams = async (toAddr, amountInZil) => {
-    const { publicKey } = this.state;
     const response = await zilliqa.blockchain.getMinimumGasPrice();
     const gasPrice: string = response.result || '';
 
@@ -84,8 +83,7 @@ export class ZilProvider extends React.Component {
       version,
       amount: amountInQa,
       gasPrice: new BN(gasPrice.toString()),
-      gasLimit: Long.fromNumber(1),
-      publicKey
+      gasLimit: Long.fromNumber(1)
     };
   };
 
