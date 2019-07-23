@@ -17,14 +17,14 @@
 
 import React from 'react';
 import { Card, Row, Col } from 'reactstrap';
-import { useAsync } from 'react-async';
 import { Spinner } from 'accessible-ui';
 import Layout from '../../components/layout';
 import CalculateForm from '../../components/calculate-form';
+import { useAsyncFn } from 'use-async-fn';
 
 const TxCalculatorContainer = ({ zilContext }) => {
   const { getMinGasPrice } = zilContext;
-  const { data, isLoading, error } = useAsync({ promiseFn: getMinGasPrice });
+  const { data, isPending, error } = useAsyncFn({ promiseFn: getMinGasPrice });
   return (
     <Layout zilContext={zilContext}>
       <div className="p-4">
@@ -36,7 +36,7 @@ const TxCalculatorContainer = ({ zilContext }) => {
               </h2>
               <Row>
                 <Col xs={12} sm={12} md={12} lg={8} className="mr-auto ml-auto">
-                  {isLoading ? (
+                  {isPending ? (
                     <div
                       data-testid="loading"
                       className="align-items-center justify-content-center py-5"

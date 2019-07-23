@@ -24,7 +24,6 @@ import {
 import { Long, bytes, units, BN } from '@zilliqa-js/util';
 import { Transaction } from '@zilliqa-js/account';
 
-import Axios from 'axios';
 import { Zilliqa } from '@zilliqa-js/zilliqa';
 import { HTTPProvider, RPCMethod } from '@zilliqa-js/core';
 import { NODE_URL, CHAIN_ID, MSG_VERSION } from '../../constants';
@@ -75,7 +74,6 @@ export class ZilProvider extends React.Component {
   };
 
   private getParams = async (toAddr, amountInZil) => {
-    const { publicKey } = this.state;
     const response = await zilliqa.blockchain.getMinimumGasPrice();
     const gasPrice: string = response.result || '';
 
@@ -85,14 +83,12 @@ export class ZilProvider extends React.Component {
       version,
       amount: amountInQa,
       gasPrice: new BN(gasPrice.toString()),
-      gasLimit: Long.fromNumber(1),
-      publicKey
+      gasLimit: Long.fromNumber(1)
     };
   };
 
-  public send = async (args): Promise<any> => {
-    const toAddress = args[0];
-    const amount = args[1];
+  public send = async ({ args }): Promise<any> => {
+    const { amount, toAddress } = args;
     const { wallet } = this.state;
     const tx = new Transaction(await this.getParams(toAddress, amount), provider);
     const signedTx = await wallet.sign(tx);
@@ -117,21 +113,21 @@ export class ZilProvider extends React.Component {
     return res.result ? res.result : '0';
   };
 
-  public faucet = async (args): Promise<string | void> => {
-    const token = args[0];
-    const toAddress = args[1];
+  public faucet = async ({ args, signal }): Promise<string | void> => {
+    const { token, toAddress } = args;
     const address = fromBech32Address(toAddress);
-    const data = JSON.stringify({ address, token });
-    const res: any = await Axios({
+    const body = JSON.stringify({ address, token });
+    const res = await fetch(`${getHost(window.location.hostname)}/faucet/run`, {
+      signal,
       method: 'POST',
-      url: `${getHost(window.location.hostname)}/faucet/run`,
       headers: {
         'Content-Type': 'application/json'
       },
-      data
+      body
     });
-    if (!isOk(res.status)) throw new Error(res);
-    return res.data ? res.data.txId : undefined;
+    if (!res.ok) throw new Error(res.statusText);
+    const data = await res.json();
+    return data ? data.txId : undefined;
   };
 
   public clearAuth = () => {

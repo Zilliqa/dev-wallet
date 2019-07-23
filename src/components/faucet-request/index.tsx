@@ -20,13 +20,13 @@ import SpinnerWithCheckMark from '../spinner-with-check-mark';
 import { Button } from 'accessible-ui';
 import FaucetPending from '../faucet-pending';
 import FaucetComplete from '../faucet-complete';
-import { useAsync } from 'react-async';
 
 import { CAPTCHA_SITE_KEY } from '../../constants';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { useAsyncFn } from 'use-async-fn';
 
 const FaucetRequest = ({ faucet, toAddress, reset }) => {
-  const { error, isPending, isFulfilled, data, run } = useAsync({
+  const { error, isPending, isFulfilled, data, run } = useAsyncFn({
     deferFn: faucet
   });
   const [token, setToken] = useState();
@@ -69,7 +69,7 @@ const FaucetRequest = ({ faucet, toAddress, reset }) => {
           <br />
           <Button
             text="Run Faucet"
-            onClick={() => run(token, toAddress)}
+            onClick={() => run({ token, toAddress })}
             level="primary"
             disabled={token === undefined}
           />

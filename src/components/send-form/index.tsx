@@ -25,7 +25,7 @@ import Disclaimer from '../disclaimer';
 import { getTxExplorerURL } from '../../utils';
 
 import { isBech32 } from '@zilliqa-js/util/dist/validation';
-import { useAsync } from 'react-async';
+import { useAsyncFn } from 'use-async-fn';
 
 const SendForm = ({ send, getBalance, getMinGasPrice }) => {
   const [hasRun, setHasRun] = useState(false);
@@ -35,19 +35,19 @@ const SendForm = ({ send, getBalance, getMinGasPrice }) => {
   const [toAddressInvalid, setToAddressInvalid] = useState(false);
   const [amount, setAmount] = useState('');
 
-  const minGasProps = useAsync({ promiseFn: getMinGasPrice });
+  const minGasProps = useAsyncFn({ promiseFn: getMinGasPrice });
   const minGasPriceInQa = minGasProps.data as string;
-  const isUpdatingMinGasPrice = minGasProps.isLoading;
+  const isUpdatingMinGasPrice = minGasProps.isPending;
 
   const minGasPriceInZil: string = units.fromQa(new BN(minGasPriceInQa), units.Units.Zil);
 
-  const balanceProps = useAsync({ promiseFn: getBalance });
+  const balanceProps = useAsyncFn({ promiseFn: getBalance });
   const balanceInQa = balanceProps.data as string;
-  const isUpdatingBalance = balanceProps.isLoading;
+  const isUpdatingBalance = balanceProps.isPending;
 
   const balanceInZil: string = units.fromQa(new BN(balanceInQa), units.Units.Zil);
 
-  const mutationProps = useAsync({
+  const mutationProps = useAsyncFn({
     deferFn: send
   });
 
@@ -70,10 +70,10 @@ const SendForm = ({ send, getBalance, getMinGasPrice }) => {
     setToAddressInvalid(validationResult.toAddressInvalid);
   };
 
-  const formatAmount = (): void => {
+  const formatAmount = async (): Promise<void> => {
+    await balanceProps.run();
     if (amount !== '') {
       const amountInZil: string = parseFloat(amount).toFixed(3);
-
       const amountFormattedInZil = formatSendAmountInZil(
         amountInZil,
         balanceInZil,
@@ -249,7 +249,7 @@ const CreateForm = ({ setIsDraft, toAddress, amount, gasPrice, setHasRun, mutati
 
   const onSubmit = () => {
     setHasRun(true);
-    run(toAddress, amount);
+    run({ toAddress, amount });
   };
 
   const isSubmitButtonDisabled = isPending || !isDisclaimerChecked;

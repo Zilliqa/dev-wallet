@@ -16,17 +16,17 @@
  */
 
 import React from 'react';
-import { useAsync } from 'react-async';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { Button, CopyToClipboard } from 'accessible-ui';
 import { MdRefresh } from 'react-icons/md';
 import { toBech32Address, fromBech32Address } from '@zilliqa-js/crypto';
 import { units, BN } from '@zilliqa-js/util';
 import { getAddressExplorerURL } from '../../utils';
+import { useAsyncFn } from 'use-async-fn';
 
 const AccountInfo = ({ address, getBalance }) => {
   const bech32Address = toBech32Address(address);
-  const { data, error, isLoading, reload } = useAsync({ promiseFn: getBalance });
+  const { data, error, isPending, run } = useAsyncFn({ promiseFn: getBalance });
   return (
     <div>
       <div className="px-4">
@@ -60,12 +60,12 @@ const AccountInfo = ({ address, getBalance }) => {
                 level="tertiary"
                 text={''}
                 before={<MdRefresh />}
-                onClick={reload}
-                disabled={isLoading}
+                onClick={run}
+                disabled={isPending}
                 className="mb-1 py-0 px-1"
               />
             </b>
-            {isLoading ? (
+            {isPending ? (
               <div data-testid="container-loading">
                 <small>Loading...</small>
               </div>
