@@ -70,10 +70,10 @@ const SendForm = ({ send, getBalance, getMinGasPrice }) => {
     setToAddressInvalid(validationResult.toAddressInvalid);
   };
 
-  const formatAmount = (): void => {
+  const formatAmount = async (): Promise<void> => {
+    await balanceProps.run();
     if (amount !== '') {
       const amountInZil: string = parseFloat(amount).toFixed(3);
-
       const amountFormattedInZil = formatSendAmountInZil(
         amountInZil,
         balanceInZil,
