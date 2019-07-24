@@ -17,7 +17,8 @@
 
 import React from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { Button, CopyToClipboard } from 'accessible-ui';
+import { Button } from 'accessible-ui';
+import CopyToClipboard from '../copy-to-clipboard';
 import { MdRefresh } from 'react-icons/md';
 import { toBech32Address, fromBech32Address } from '@zilliqa-js/crypto';
 import { units, BN } from '@zilliqa-js/util';
