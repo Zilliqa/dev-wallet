@@ -17,7 +17,7 @@
 
 import React, { useState } from 'react';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
-import { Button } from 'accessible-ui';
+import Button from '../button';
 import FaucetPending from '../faucet-pending';
 import FaucetComplete from '../faucet-complete';
 

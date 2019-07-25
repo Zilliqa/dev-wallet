@@ -17,13 +17,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, Label, Input, FormGroup, Form, Row, Col, FormFeedback } from 'reactstrap';
-import { Button } from 'accessible-ui';
 import Steps, { Step } from 'rc-steps';
-
+import Button from '../button';
+import Spinner from '../spinner';
 // @ts-ignore
 import Worker from '../../encrypt.worker';
 
-import { Spinner } from 'accessible-ui';
 import { getInputValidationState, downloadObjectAsJson } from '../../utils';
 import { requestStatus } from '../../constants';
 import Disclaimer from '../disclaimer';

@@ -18,7 +18,7 @@
 import React, { useState } from 'react';
 import { Card, Label, Input, FormGroup, Form, Row, Col, FormFeedback } from 'reactstrap';
 import { BN, units } from '@zilliqa-js/util';
-import { Button } from 'accessible-ui';
+import Button from '../button';
 import { getInputValidationState, formatSendAmountInZil, setValIfWholeNum } from '../../utils';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
 import Disclaimer from '../disclaimer';

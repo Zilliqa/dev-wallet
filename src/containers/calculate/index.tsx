@@ -17,7 +17,7 @@
 
 import React from 'react';
 import { Card, Row, Col } from 'reactstrap';
-import { Spinner } from 'accessible-ui';
+import Spinner from '../../components/spinner';
 import Layout from '../../components/layout';
 import CalculateForm from '../../components/calculate-form';
 import { useAsyncFn } from 'use-async-fn';

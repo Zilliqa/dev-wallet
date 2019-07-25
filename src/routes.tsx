@@ -20,8 +20,8 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import Home from './containers/home';
+import Spinner from './components/spinner';
 
-import { Spinner } from 'accessible-ui';
 import { ZilProvider, ZilContext } from './contexts/zil-context';
 
 export const paths = {

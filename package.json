@@ -70,7 +70,6 @@
     "@types/react-router-dom": "^4.3.4",
     "@types/reactstrap": "^8.0.1",
     "@zilliqa-js/zilliqa": "^0.7.3",
-    "accessible-ui": "^1.1.2",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
     "babel-jest": "^24.1.0",

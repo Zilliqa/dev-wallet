@@ -16,9 +16,9 @@
  */
 
 import React, { useState, useEffect } from 'react';
-
 import { Label, Input, FormGroup, Form, FormFeedback } from 'reactstrap';
-import { Spinner, Button } from 'accessible-ui';
+import Spinner from '../spinner';
+import Button from '../button';
 import { requestStatus } from '../../constants';
 
 // @ts-ignore
