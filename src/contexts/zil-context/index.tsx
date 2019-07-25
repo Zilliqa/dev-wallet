@@ -125,7 +125,7 @@ export class ZilProvider extends React.Component {
       },
       body
     });
-    if (!res.ok) throw new Error(res.statusText);
+    if (!res.ok) throw new Error('Failed to run faucet');
     const data = await res.json();
     return data ? data.txId : undefined;
   };

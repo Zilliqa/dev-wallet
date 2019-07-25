@@ -186,12 +186,11 @@ app.post('/run', async (req, res) => {
     };
     await userRef.set(userData);
     console.log(`Claimed at: ${now}`);
-
     res.status(200).json({ txId });
     return;
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ errorCode: 500, errorMessage: error.message });
+    res.status(500).send(error.message);
     return;
   }
 });
