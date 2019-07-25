@@ -17,7 +17,8 @@
 
 import React, { useState } from 'react';
 import { Label, Input, FormGroup, Form, FormFeedback } from 'reactstrap';
-import { Spinner, Button } from 'accessible-ui';
+import Spinner from '../spinner';
+import Button from '../button';
 
 import { getInputValidationState } from '../../utils';
 import Disclaimer from '../disclaimer';

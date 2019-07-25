@@ -169,10 +169,12 @@ app.post('/run', async (req, res) => {
     const { txParams } = signedTx;
 
     // Send a transaction to the network
-    const { result } = await provider.send(RPCMethod.CreateTransaction, txParams);
-    const txId = result.TranID;
+    const tsRes = await provider.send(RPCMethod.CreateTransaction, txParams);
+    const { result } = tsRes;
+    const txId = result && result.TranID;
 
     if (txId === undefined) {
+      console.log('Response', tsRes);
       throw Error('No TxID!');
     }
 

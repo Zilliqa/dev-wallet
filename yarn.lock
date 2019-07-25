@@ -1646,11 +1646,6 @@ accepts@~1.3.4, accepts@~1.3.5, accepts@~1.3.7:
     mime-types "~2.1.24"
     negotiator "0.6.2"
 
-accessible-ui@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/accessible-ui/-/accessible-ui-1.1.2.tgz#5031fb10a4714e9c26f629297d0ec183d4776a28"
-  integrity sha512-w38s2CrMdRPptFhiN+AhbkTpnh1x9sZzS5mcE73/+mQWHunZChqEiX33ByNbe5g+lbJvoK0o5yKoh4RQ4/0SYA==
-
 acorn-dynamic-import@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/acorn-dynamic-import/-/acorn-dynamic-import-3.0.0.tgz#901ceee4c7faaef7e07ad2a47e890675da50a278"

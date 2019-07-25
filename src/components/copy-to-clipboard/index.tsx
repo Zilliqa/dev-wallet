@@ -16,7 +16,7 @@
  */
 
 import React, { useState } from 'react';
-import { Button } from 'accessible-ui';
+import Button from '../button';
 import { FaCopy, FaCheck, FaTimes } from 'react-icons/fa';
 
 enum ASYNC_STATUS {
