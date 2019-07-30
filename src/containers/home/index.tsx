@@ -33,33 +33,7 @@ const Container = styled.div`
   color: #fff;
   background: linear-gradient(-45deg, #4c54d2, #fe524a, #4c54d2);
   background-size: 400% 400%;
-  -webkit-animation: Gradient 15s ease infinite;
-  -moz-animation: Gradient 15s ease infinite;
   animation: Gradient 15s ease infinite;
-
-  @-webkit-keyframes Gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-  @-moz-keyframes Gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
 
   @keyframes Gradient {
     0% {
