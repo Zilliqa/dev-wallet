@@ -15,10 +15,6 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-nav.navbar {
-  background-color: var(--blue800);
-}
-
 .network {
   font-size: 13px;
   font-weight: 500;

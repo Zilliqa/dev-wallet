@@ -31,7 +31,7 @@ const Header: React.FunctionComponent<IProps> = ({ isAuth, clearAuth }) => {
 
   return (
     <div>
-      <Navbar fixed={'top'} dark={true} color="faded" expand="sm">
+      <Navbar fixed={'top'} dark={true} color="dark" expand="sm">
         <NavbarBrand href="/">
           {'Nucleus Wallet'}
           <small className="release-text">{'beta'}</small>
