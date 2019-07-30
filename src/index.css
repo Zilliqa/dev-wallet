@@ -95,10 +95,6 @@ a:hover {
   color: var(--gray700) !important;
 }
 
-.text-nucleus {
-  color: var(--blue800) !important;
-}
-
 .valid-feedback,
 .text-success {
   color: var(--green500) !important;
