@@ -4,7 +4,7 @@ exports[`matches the snapshot 1`] = `
 <div>
   <div>
     <nav
-      class="navbar navbar-expand-sm navbar-dark bg-faded fixed-top"
+      class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top"
     >
       <a
         class="navbar-brand"
@@ -92,7 +92,7 @@ exports[`matches the snapshot 2`] = `
 <div>
   <div>
     <nav
-      class="navbar navbar-expand-sm navbar-dark bg-faded fixed-top"
+      class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top"
     >
       <a
         class="navbar-brand"

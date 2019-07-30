@@ -21,21 +21,79 @@ import { NODE_URL, CHAIN_ID, MSG_VERSION } from '../../constants';
 import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
 import Disclaimer from '../../components/disclaimer';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  width: 100%;
+  height: 30rem;
+  display: flex;
+  flexdirection: row;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background: linear-gradient(-45deg, #4c54d2, #fe524a, #4c54d2);
+  background-size: 400% 400%;
+  -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite;
+
+  @-webkit-keyframes Gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @-moz-keyframes Gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes Gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+`;
 
 const Home = ({ zilContext }) => {
   return (
     <Layout zilContext={zilContext}>
-      <div className="nucleus-header-container text-center">
-        <div className="nucleus-header-bg">
-          <div className="nucleus-header">
-            <h1>Nucleus Wallet</h1>
-            <p className="pt-2">
-              Nucleus Wallet is free, open-source, Zilliqa <b>Test Net</b> Wallet.
-            </p>
-          </div>
+      <Container>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            textAlign: 'center'
+          }}
+        >
+          <h1 style={{ fontSize: '4rem' }}>Nucleus Wallet</h1>
+          <p>
+            Nucleus Wallet is free, open-source, Zilliqa <b>Test Net</b> Wallet.
+          </p>
         </div>
-      </div>
-      <div className="text-secondary text-center text-fade-in">
+      </Container>
+      <br />
+
+      <div style={{ textAlign: 'center' }}>
         <small>{`Chain ID: ${CHAIN_ID}`}</small>
         {' | '}
         <small>{`Msg Ver: ${MSG_VERSION}`}</small>

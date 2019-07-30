@@ -60,14 +60,6 @@
   --yellow800: #694900;
 }
 
-@font-face {
-  font-family: 'Noto Sans';
-  font-weight: 400;
-  font-display: block;
-  src: local('Noto Sans Regular'), local('NotoSans-Regular'),
-    url('./assets/fonts/NotoSans-Regular.ttf') format('truetype');
-}
-
 .font-monospace {
   font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 }
@@ -76,8 +68,8 @@ body {
   margin: 0;
   background-color: var(--gray100);
   padding: 0;
-  font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: scroll;
@@ -181,56 +173,6 @@ form input[type='text']::placeholder,
 form input[type='password']::placeholder,
 form input[type='tel']::placeholder {
   color: var(--gray300);
-}
-
-.nucleus-header-container {
-  position: relative;
-}
-
-.nucleus-header::before {
-  background-color: rgba(0, 0, 0, 0.4);
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: block;
-  left: 0;
-  top: 0;
-  content: '';
-}
-
-.nucleus-header-bg {
-  background-size: cover;
-  background-position: top center;
-}
-
-.webp .nucleus-header-bg {
-  background-image: url(./assets/images/nucleus-bg.webp);
-}
-
-.no-webp .nucleus-header-bg {
-  background-image: url(./assets/images/nucleus-bg.jpg);
-}
-
-.nucleus-header {
-  padding: 5rem;
-  color: var(--white);
-  margin: 0;
-}
-
-.nucleus-header > h1 {
-  position: relative;
-  font-size: 50px;
-  -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 1.5s; /* Firefox < 16 */
-  animation: fadein 1.5s;
-}
-
-.nucleus-header > p {
-  position: relative;
-  font-size: 15px;
-  -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 1.5s; /* Firefox < 16 */
-  animation: fadein 1.5s;
 }
 
 .release-text {
