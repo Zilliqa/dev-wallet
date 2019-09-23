@@ -100,8 +100,6 @@ const PassphraseStep = ({ passphrase, setPassphrase, setCurrentStep }) => {
           <b>{'Set Passphrase for your Keystore File'}</b>
         </h2>
         <p className="text-secondary py-3">
-          {`This is your first step in creating your Klaytn Wallet.`}
-          <br />
           {`Please set the password for the keystore file for your new wallet.`}
         </p>
       </div>
