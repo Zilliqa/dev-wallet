@@ -23,7 +23,7 @@ import FaucetComplete from '../faucet-complete';
 
 import { CAPTCHA_SITE_KEY } from '../../constants';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { useAsyncFn } from 'use-async-fn';
+import { useAsyncFn } from 'react-fetcha';
 
 const FaucetRequest = ({ faucet, toAddress, reset }) => {
   const { error, isPending, isFulfilled, data, run } = useAsyncFn({

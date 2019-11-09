@@ -25,7 +25,7 @@ import Disclaimer from '../disclaimer';
 import { getTxExplorerURL } from '../../utils';
 
 import { isBech32 } from '@zilliqa-js/util/dist/validation';
-import { useAsyncFn } from 'use-async-fn';
+import { useAsyncFn } from 'react-fetcha';
 
 const SendForm = ({ send, getBalance, getMinGasPrice }) => {
   const [hasRun, setHasRun] = useState(false);

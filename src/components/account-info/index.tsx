@@ -23,7 +23,7 @@ import { MdRefresh } from 'react-icons/md';
 import { toBech32Address, fromBech32Address } from '@zilliqa-js/crypto';
 import { units, BN } from '@zilliqa-js/util';
 import { getAddressExplorerURL } from '../../utils';
-import { useAsyncFn } from 'use-async-fn';
+import { useAsyncFn } from 'react-fetcha';
 
 const AccountInfo = ({ address, getBalance }) => {
   const bech32Address = toBech32Address(address);
