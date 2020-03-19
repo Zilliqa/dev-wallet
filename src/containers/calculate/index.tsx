@@ -20,7 +20,7 @@ import { Card, Row, Col } from 'reactstrap';
 import Spinner from '../../components/spinner';
 import Layout from '../../components/layout';
 import CalculateForm from '../../components/calculate-form';
-import { useAsyncFn } from 'react-fetcha';
+import { useAsyncFn } from '../../use-async-fn';
 
 const TxCalculatorContainer = ({ zilContext }) => {
   const { getMinGasPrice } = zilContext;
