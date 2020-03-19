@@ -8590,11 +8590,6 @@ react-error-overlay@^5.1.4:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.6.tgz#0cd73407c5d141f9638ae1e0c63e7b2bf7e9929d"
   integrity sha512-X1Y+0jR47ImDVr54Ab6V9eGk0Hnu7fVWGeHQSOXHf/C2pF9c6uy3gef8QUeuUiWlNb0i08InPSE5a/KJzNzw1Q==
 
-react-fetcha@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/react-fetcha/-/react-fetcha-0.0.1.tgz#7344854e47248aabf970539c3bf6ce38e58eae1a"
-  integrity sha512-Kkfl/0EmLyHGRTe+4TchDC3j4OybcDGLxJGlKLqhS18x5dhQViJ90GLldgYCzvMS4WBaGmB7guV+wMN5vuorOw==
-
 react-google-recaptcha@^1.0.5:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-google-recaptcha/-/react-google-recaptcha-1.1.0.tgz#f33bef3e22e8c016820e80da48d573f516bb99e8"

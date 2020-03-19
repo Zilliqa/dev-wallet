@@ -115,7 +115,6 @@
     "react-dev-utils": "^7.0.1",
     "react-docgen-typescript-webpack-plugin": "^1.1.0",
     "react-dom": "16.8.6",
-    "react-fetcha": "^0.0.1",
     "react-google-recaptcha": "^1.0.5",
     "react-icons": "^3.3.0",
     "react-jazzicon": "^0.1.3",
