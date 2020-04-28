@@ -35,7 +35,7 @@ const version = bytes.pack(CHAIN_ID, MSG_VERSION);
 const getHost = (host: string) => {
   switch (host) {
     default:
-      return 'https://us-central1-nucleus-wallet.cloudfunctions.net';
+      return 'https://nucleus-server.zilliqa.com';
   }
 };
 
@@ -117,7 +117,7 @@ export class ZilProvider extends React.Component {
     const { token, toAddress } = args;
     const address = fromBech32Address(toAddress);
     const body = JSON.stringify({ address, token });
-    const res = await fetch(`${getHost(window.location.hostname)}/faucet/run`, {
+    const res = await fetch(`${getHost(window.location.hostname)}/api/v1/run`, {
       signal,
       method: 'POST',
       headers: {
