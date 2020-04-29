@@ -125,7 +125,7 @@ export class ZilProvider extends React.Component {
       },
       body
     });
-    if (!res.ok) throw new Error('Failed to run faucet');
+    if (!res.ok) throw new Error('Failed to run faucet, you may have reached maximum request limit.');
     const data = await res.json();
     return data ? data.txId : undefined;
   };
