@@ -6,7 +6,7 @@
 
 ## Contributing
 
-We recommend the community help us make improvements. To report bugs please create an issue in this repository.
+We recommend that the community helps us make improvements. To report bugs please create an issue in this repository.
 
 #### Read our [contribution guidelines](./CONTRIBUTING.md).
 
