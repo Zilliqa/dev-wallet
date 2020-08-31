@@ -61,7 +61,7 @@ const Home = ({ zilContext }) => {
         >
           <h1 style={{ fontSize: '4rem' }}>Nucleus Wallet</h1>
           <p>
-            Nucleus Wallet is free, open-source, Zilliqa <b>Test Net</b> Wallet.
+            Nucleus Wallet is a free and open-source, Zilliqa <b>Test Net</b> Wallet.
           </p>
         </div>
       </Container>
