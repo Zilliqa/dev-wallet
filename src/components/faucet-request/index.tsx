@@ -44,7 +44,7 @@ const FaucetRequest = ({ faucet, toAddress, reset }) => {
             <small className="text-danger text-fade-in">
               {error.message}
               <br />
-              {'Google reCAPTCHA might not work for some country.'}
+              {'Google reCAPTCHA might not work for some countries.'}
             </small>
           </p>
           <br />
