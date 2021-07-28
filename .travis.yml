@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "10" # ends April 2021
+  - "14" # End-of-life: 2023-04-30
 
 sudo: required
 
@@ -12,9 +12,6 @@ script:
   - yarn ci
   - if [[ $TRAVIS_REPO_SLUG == "Zilliqa/nucleus-wallet" && $TRAVIS_BRANCH = "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then
       yarn build;
-      yarn global add firebase-tools typescript tslint;
-      firebase use production;
-      firebase deploy --token $FIREBASE_TOKEN --non-interactive;
     fi
 
 after_success:
