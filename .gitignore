@@ -22,8 +22,3 @@ functions/node_modules
 
 yarn-debug.log*
 yarn-error.log*
-
-# firebase
-.firebase
-firebase-debug.log*
-functions/.runtimeconfig.json
