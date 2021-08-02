@@ -16,7 +16,7 @@
  */
 
 import React from 'react';
-import { FaGithub, FaDiscord, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaDiscord, FaTelegramPlane, FaTwitter } from 'react-icons/fa';
 import './style.css';
 const copyright: string = 'Copyright © 2019 Zilliqa Research Pte. Ltd.';
 
@@ -44,6 +44,17 @@ const Footer: React.SFC = () => (
             aria-label={'Zilliqa Discord'}
           >
             <FaDiscord />
+          </a>
+        </li>
+        <li className="nav-item">
+          <a
+            className="text-secondary nav-link"
+            href="https://t.me/ZilliqaDevs"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={'Zilliqa Telegram'}
+          >
+            <FaTelegramPlane />
           </a>
         </li>
         <li className="nav-item">
