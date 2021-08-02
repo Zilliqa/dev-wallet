@@ -83,7 +83,7 @@ export class ZilProvider extends React.Component {
       version,
       amount: amountInQa,
       gasPrice: new BN(gasPrice.toString()),
-      gasLimit: Long.fromNumber(1)
+      gasLimit: Long.fromNumber(50)
     };
   };
 
