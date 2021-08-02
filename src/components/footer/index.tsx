@@ -16,7 +16,7 @@
  */
 
 import React from 'react';
-import { FaGithub, FaGitter, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaDiscord, FaTelegramPlane, FaTwitter } from 'react-icons/fa';
 import './style.css';
 const copyright: string = 'Copyright © 2019 Zilliqa Research Pte. Ltd.';
 
@@ -27,7 +27,7 @@ const Footer: React.SFC = () => (
         <li className="nav-item">
           <a
             className="text-secondary nav-link"
-            href="https://github.com/Zilliqa"
+            href="https://github.com/Zilliqa/nucleus-wallet"
             target="_blank"
             rel="noopener noreferrer"
             aria-label={'Zilliqa GitHub'}
@@ -38,12 +38,23 @@ const Footer: React.SFC = () => (
         <li className="nav-item">
           <a
             className="text-secondary nav-link"
-            href="https://gitter.im/Zilliqa"
+            href="https://discord.com/invite/XMRE9tt"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={'Zilliqa Gitter'}
+            aria-label={'Zilliqa Discord'}
           >
-            <FaGitter />
+            <FaDiscord />
+          </a>
+        </li>
+        <li className="nav-item">
+          <a
+            className="text-secondary nav-link"
+            href="https://t.me/ZilliqaDevs"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={'Zilliqa Telegram'}
+          >
+            <FaTelegramPlane />
           </a>
         </li>
         <li className="nav-item">

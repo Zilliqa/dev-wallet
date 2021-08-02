@@ -138,7 +138,7 @@ exports[`matches the snapshot when loading 1`] = `
         class="text-danger"
         data-testid="disclaimer"
       >
-        This is Zilliqa Test Net wallet. Do not send any interim ERC-20 ZIL tokens or Main Net tokens to this wallet. You are solely responsible for your account funds.
+        This is Zilliqa Testnet wallet. Do not send any interim ERC-20 ZIL tokens or Mainnet tokens to this wallet. You are solely responsible for your account funds.
       </small>
     </label>
   </div>
