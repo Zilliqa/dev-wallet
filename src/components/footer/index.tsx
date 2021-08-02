@@ -27,7 +27,7 @@ const Footer: React.SFC = () => (
         <li className="nav-item">
           <a
             className="text-secondary nav-link"
-            href="https://github.com/Zilliqa"
+            href="https://github.com/Zilliqa/nucleus-wallet"
             target="_blank"
             rel="noopener noreferrer"
             aria-label={'Zilliqa GitHub'}

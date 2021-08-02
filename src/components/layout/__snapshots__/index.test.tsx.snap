@@ -262,7 +262,7 @@ exports[`matches the snapshot 1`] = `
                 <a
                   aria-label="Zilliqa GitHub"
                   class="text-secondary nav-link"
-                  href="https://github.com/Zilliqa"
+                  href="https://github.com/Zilliqa/nucleus-wallet"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
