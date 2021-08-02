@@ -30,7 +30,7 @@ We use [Jest](https://jestjs.io/) for testing.
 
 This project is open source software licensed as [GPL-3.0](https://github.com/zilliqa/nucleus-wallet/blob/master/LICENSE).
 
-[travis-svg]: https://travis-ci.com/Zilliqa/nucleus-wallet.svg?token=zQ1VLsuY7iH5Nn3yKbai&branch=master
+[travis-svg]: https://travis-ci.com/Zilliqa/nucleus-wallet.svg?token=zQ1VLsuY7iH5Nn3yKbai&branch=development
 [travis-url]: https://travis-ci.com/Zilliqa/nucleus-wallet
 
 [license-svg]: https://img.shields.io/badge/License-GPLv3-blue.svg
