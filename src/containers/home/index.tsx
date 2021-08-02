@@ -31,7 +31,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   color: #fff;
-  background: linear-gradient(-45deg, #4c54d2, #fe524a, #4c54d2);
+  background: linear-gradient(-45deg, #000, #2d23a7, #000);
   background-size: 400% 400%;
   animation: Gradient 15s ease infinite;
 
