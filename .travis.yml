@@ -1,6 +1,7 @@
 language: node_js
 node_js:
-  - "14" # End-of-life: 2023-04-30
+  # - "14" # End-of-life: 2023-04-30
+  - "12" # End-of-life: 2022-04-30
 
 sudo: required
 
