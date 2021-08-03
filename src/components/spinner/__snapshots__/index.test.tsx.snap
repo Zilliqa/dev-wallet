@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches the snapshot (large) 1`] = `
+<div
+  class="sc-bdVaJa gvsaAB"
+  data-testid="spinner"
+/>
+`;
+
+exports[`matches the snapshot (medium) 1`] = `
+<div
+  class="sc-bdVaJa dPYghA"
+  data-testid="spinner"
+/>
+`;
+
+exports[`matches the snapshot (small) 1`] = `
+<div
+  class="sc-bdVaJa kOGDNG"
+  data-testid="spinner"
+/>
+`;

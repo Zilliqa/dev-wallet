@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'rc-steps/assets/index.css';
 import './index.css';
-import App from './App';
+
+import { RouterNode } from './routes';
+
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RouterNode />
   </React.StrictMode>,
   document.getElementById('root')
 );

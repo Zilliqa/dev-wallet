@@ -1,0 +1,28 @@
+language: node_js
+node_js:
+  - "14" # End-of-life: 2023-04-30
+
+sudo: required
+
+services:
+  - docker
+
+script:
+  - yarn install
+  - yarn ci
+  - if [[ $TRAVIS_REPO_SLUG == "Zilliqa/nucleus-wallet" && $TRAVIS_BRANCH = "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then
+      yarn build;
+    fi
+
+after_success:
+  - if [[ $TRAVIS_REPO_SLUG == "Zilliqa/nucleus-wallet" && $TRAVIS_BRANCH = "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then
+      docker --version;
+      pip install --user awscli;
+      export PATH=$PATH:$HOME/.local/bin;
+      account_id=$(aws sts get-caller-identity --output text --query 'Account');
+      region_id=us-west-2;
+      registry_url=${account_id}.dkr.ecr.${region_id}.amazonaws.com/wallet;
+      eval $(aws ecr get-login --no-include-email --region ${region_id});
+      docker build -t ${registry_url} .;
+      docker push ${registry_url};
+    fi

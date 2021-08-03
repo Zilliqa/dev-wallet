@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches the snapshot 1`] = `
+<small
+  class="text-danger"
+  data-testid="disclaimer"
+>
+  This is Zilliqa Testnet wallet. Do not send any interim ERC-20 ZIL tokens or Mainnet tokens to this wallet. You are solely responsible for your account funds.
+</small>
+`;

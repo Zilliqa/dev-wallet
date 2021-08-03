@@ -1,13 +1,256 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/**
+ * This file is part of nucleus-wallet.
+ * Copyright (c) 2018 - present Zilliqa Research Pte. Ltd.
+ *
+ * nucleus-wallet is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ *
+ * nucleus-wallet is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+:root {
+  --white: #fff;
+  --black: #24292e;
+  --gray100: #f9f9fd;
+  --gray200: #e9e9f4;
+  --gray300: #c5c5d3;
+  --gray400: #a0a1b2;
+  --gray500: #7c7d8c;
+  --gray600: #525360;
+  --gray700: #343546;
+  --gray800: #242536;
+  --blue100: #d9ddfe;
+  --blue200: #aaafef;
+  --blue300: #7b82e1;
+  --blue400: #4c54d2;
+  --blue500: #392dd1;
+  --blue600: #2d23a7;
+  --blue700: #21197d;
+  --blue800: #383f6e;
+  --green100: #d3f2e2;
+  --green200: #96dfba;
+  --green300: #58cd92;
+  --green400: #1bba6a;
+  --green500: #148e50;
+  --green600: #0d6137;
+  --green700: #06351d;
+  --green800: #0d2521;
+  --red100: #f5acb8;
+  --red200: #f18295;
+  --red300: #ec5871;
+  --red400: #e72f4e;
+  --red500: #e2052a;
+  --red600: #be032d;
+  --red700: #99022f;
+  --red800: #750032;
+  --yellow100: #f9ebd0;
+  --yellow200: #f5dba2;
+  --yellow300: #f1cb74;
+  --yellow400: #edbb46;
+  --yellow500: #e9ab18;
+  --yellow600: #d19200;
+  --yellow700: #9d6e00;
+  --yellow800: #694900;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.font-monospace {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+body {
+  margin: 0;
+  background-color: var(--gray100);
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: scroll;
+}
+
+a {
+  color: var(--blue500);
+}
+
+a:hover {
+  color: var(--blue700);
+}
+
+.bg-dark {
+  background-color: var(--black) !important;
+}
+
+.text-primary {
+  color: var(--blue500) !important;
+}
+
+.text-secondary {
+  color: var(--gray700) !important;
+}
+
+.valid-feedback,
+.text-success {
+  color: var(--green500) !important;
+}
+
+.form-control.is-valid {
+  border-color: var(--green500);
+  background-image: none;
+  padding-right: 0;
+}
+
+.invalid-feedback,
+.text-danger {
+  color: var(--red500) !important;
+}
+
+.form-container a.nav-link {
+  background-color: var(--gray100);
+  border-bottom: 1px solid var(--gray300);
+  border-radius: 0;
+  font-weight: bold;
+}
+
+.form-container li.nav-item {
+  width: 50%;
+  text-align: center;
+  color: var(--gray500);
+}
+
+.form-control.is-invalid {
+  border-color: var(--red500);
+  background-image: none;
+  padding-right: 0;
+}
+
+.form-check-label {
+  margin-bottom: 0.5rem;
+}
+
+form input.form-control-file {
+  display: none;
+}
+
+form input.form-control {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--gray300);
+  padding: 0;
+  transition: border-width 0.1s linear, border-color 0.3s linear;
+  position: relative;
+  outline: 0;
+  background-color: transparent;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: transparent;
+  color: var(--gray700);
+  border-bottom: 1px solid var(--gray300);
+  cursor: not-allowed;
+}
+
+form input[type='text']:focus,
+form input[type='password']:focus,
+form input[type='tel']:focus {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0) !important;
+  border: none;
+  border-bottom: 1px solid var(--black);
+}
+
+form input[type='text']::placeholder,
+form input[type='password']::placeholder,
+form input[type='tel']::placeholder {
+  color: var(--gray300);
+}
+
+.release-text {
+  color: var(--gray300);
+  padding-left: 5px;
+  font-size: 10px;
+}
+
+.text-fade-in {
+  -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 1s; /* Firefox < 16 */
+  animation: fadein 1s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.rc-steps-small .rc-steps-item-title {
+  color: var(--gray500);
+}
+
+.rc-steps-item-wait .rc-steps-item-icon {
+  border-color: var(--gray500);
+}
+
+.rc-steps-item-wait .rc-steps-item-icon > .rc-steps-icon {
+  color: var(--gray500);
+}
+
+.rc-steps-item-process .rc-steps-item-icon {
+  font-weight: bold;
+  background-color: var(--blue500);
+  border-color: var(--blue500);
+}
+
+.rc-steps-item-finish .rc-steps-item-icon {
+  border-color: var(--blue500);
+  font-weight: bold;
+}
+
+.rc-steps-item-process .rc-steps-item-title::after {
+  background-color: var(--gray500);
+}
+
+.rc-steps-item-finish .rc-steps-item-title::after {
+  background-color: var(--blue500);
+}
+
+div.recaptcha {
+  margin: 0 auto;
+  width: 304px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
