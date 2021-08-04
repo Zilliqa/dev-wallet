@@ -26,9 +26,20 @@ import { isBech32 } from '@zilliqa-js/util/dist/validation';
 const FaucetContainer = ({ zilContext }) => {
   const { faucet } = zilContext;
 
-  const [toAddress, setToAddress] = useState('');
-  const [toAddressValid, setToAddressValid] = useState(false);
-  const [toAddressInvalid, setToAddressInvalid] = useState(false);
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+  const initialAddress = params['address'];
+
+  let isInitialAddressValid = false;
+  if (initialAddress !== undefined) {
+    isInitialAddressValid = isBech32(initialAddress);
+  }
+
+  const [toAddress, setToAddress] = useState(initialAddress);
+  const [toAddressValid, setToAddressValid] = useState(isInitialAddressValid);
+  const [toAddressInvalid, setToAddressInvalid] = useState(
+    initialAddress !== undefined && !isInitialAddressValid
+  );
 
   const changeToAddress = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
