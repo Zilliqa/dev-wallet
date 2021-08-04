@@ -15,7 +15,7 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { generatePrivateKey, encryptPrivateKey } from '../crypto/crypto';
+import { generatePrivateKey, encryptPrivateKey } from '../../crypto';
 
 const encrypt = async (event) => {
   try {

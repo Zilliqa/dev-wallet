@@ -17,9 +17,7 @@
 
 import { getAddressFromPrivateKey } from '@zilliqa-js/crypto';
 import { bytes } from '@zilliqa-js/util';
-
 import { v4 } from 'uuid';
-
 import elliptic from 'elliptic';
 import aes from 'aes-js';
 import hashjs from 'hash.js';
@@ -27,13 +25,29 @@ import { pbkdf2Sync } from 'pbkdf2';
 
 const ALGO_IDENTIFIER = 'aes-128-ctr';
 
-import { KeystoreV3, KDF, KDFParams, PBKDF2Params } from './types';
+type KDF = 'pbkdf2' | 'scrypt';
+
+interface PBKDF2Params {
+  salt: string;
+  dklen: number;
+  c: number;
+}
+
+interface ScryptParams {
+  salt: string;
+  dklen: number;
+  n: number;
+  r: number;
+  p: number;
+}
+
+type KDFParams = PBKDF2Params | ScryptParams;
 
 const secp256k1 = elliptic.ec('secp256k1');
 const PRIVKEY_SIZE_BYTES = 32;
 const HEX_ENC: 'hex' = 'hex';
 
-export const randomBytes = (bytes: number) => {
+const randomBytes = (bytes: number) => {
   let randBz: number[] | Uint8Array;
   if (crypto && crypto.getRandomValues) {
     randBz = crypto.getRandomValues(new Uint8Array(bytes));
@@ -114,34 +128,4 @@ export const encryptPrivateKey = async (
     id: v4({ random: bytes.hexToIntArray(randomBytes(16)) }),
     version: 3,
   });
-};
-
-export const decryptPrivateKey = async (
-  passphrase: string,
-  keystore: KeystoreV3
-): Promise<string> => {
-  const ciphertext = Buffer.from(keystore.crypto.ciphertext, 'hex');
-  const iv = Buffer.from(keystore.crypto.cipherparams.iv, 'hex');
-  const kdfparams = keystore.crypto.kdfparams;
-
-  const derivedKey = await getDerivedKey(Buffer.from(passphrase), keystore.crypto.kdf, kdfparams);
-
-  const mac = hashjs
-    // @ts-ignore
-    .hmac(hashjs.sha256, derivedKey, 'hex')
-    .update(
-      Buffer.concat([derivedKey.slice(16, 32), ciphertext, iv, Buffer.from(ALGO_IDENTIFIER)]),
-      'hex'
-    )
-    .digest('hex');
-
-  // we need to do a byte-by-byte comparison to avoid non-constant time side
-  // channel attacks.
-  if (!bytes.isEqual(mac.toUpperCase(), keystore.crypto.mac.toUpperCase())) {
-    return Promise.reject('Failed to decrypt.');
-  }
-
-  const cipher = new aes.ModeOfOperation.ctr(derivedKey.slice(0, 16), new aes.Counter(iv));
-
-  return Buffer.from(cipher.decrypt(ciphertext)).toString('hex');
 };
