@@ -1,28 +1,40 @@
-language: node_js
-node_js:
-  - "14" # End-of-life: 2023-04-30
 
+language: generic
 sudo: required
-
 services:
   - docker
 
-script:
-  - yarn install
-  - yarn ci
-  - if [[ $TRAVIS_REPO_SLUG == "Zilliqa/nucleus-wallet" && $TRAVIS_BRANCH = "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then
-      yarn build;
-    fi
+matrix:
+  include:
+    - os: linux
+      dist: xenial
 
-after_success:
-  - if [[ $TRAVIS_REPO_SLUG == "Zilliqa/nucleus-wallet" && $TRAVIS_BRANCH = "master" && $TRAVIS_PULL_REQUEST == "false" ]]; then
-      docker --version;
-      pip install --user awscli;
-      export PATH=$PATH:$HOME/.local/bin;
-      account_id=$(aws sts get-caller-identity --output text --query 'Account');
-      region_id=us-west-2;
-      registry_url=${account_id}.dkr.ecr.${region_id}.amazonaws.com/wallet;
-      eval $(aws ecr get-login --no-include-email --region ${region_id});
-      docker build -t ${registry_url} .;
-      docker push ${registry_url};
-    fi
+addons:
+  apt:
+    update: true
+    package:
+    - build-essential
+    - git
+    - curl
+    - zip
+    - unzip
+
+before_cache:
+  - docker save -o docker_images/images.tar $(docker images -aq)
+
+cache:
+  directories:
+  - docker_images
+
+before_deploy:
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
+  - docker load -i docker_images/images.tar || true
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+    - ./scripts/ci_build.sh
+  on:
+    branch: master

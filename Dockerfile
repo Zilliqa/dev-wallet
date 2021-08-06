@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:14 as build-stage
 
 ARG REACT_APP_CHAIN_ID
 ARG REACT_APP_MSG_VERSION
@@ -10,9 +10,13 @@ ENV REACT_APP_MSG_VERSION=${REACT_APP_MSG_VERSION:-1}
 ENV REACT_APP_NODE_URL=${REACT_APP_NODE_URL:-https://dev-api.zilliqa.com}
 ENV REACT_APP_EXPLORER_URL=${REACT_APP_EXPLORER_URL:-https://viewblock.io/zilliqa}
 
-COPY . /nucleus-wallet
-WORKDIR /nucleus-wallet
-
+WORKDIR /app
+COPY . ./
 RUN yarn install
 RUN yarn ci
 RUN REACT_APP_CHAIN_ID=${REACT_APP_CHAIN_ID} REACT_APP_MSG_VERSION=${REACT_APP_MSG_VERSION} REACT_APP_NODE_URL=${REACT_APP_NODE_URL} REACT_APP_EXPLORER_URL=${REACT_APP_EXPLORER_URL} yarn build
+
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/build /usr/share/nginx/html
+EXPOSE 80
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
