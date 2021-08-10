@@ -26,11 +26,8 @@ cache:
   directories:
   - docker_images
 
-jobs:
-  include:
-  - stage: build
-    script: ./scripts/ci_build.sh
-    skip_cleanup: true
+script: ./scripts/ci_build.sh
+skip_cleanup: true
 
 before_deploy:
 - pip install --user awscli
