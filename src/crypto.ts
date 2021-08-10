@@ -15,15 +15,15 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { getAddressFromPrivateKey } from '@zilliqa-js/crypto';
-import { bytes } from '@zilliqa-js/util';
-import { v4 } from 'uuid';
+import {getAddressFromPrivateKey} from '@zilliqa-js/crypto';
+import {bytes} from '@zilliqa-js/util';
+import {v4} from 'uuid';
 import elliptic from 'elliptic';
 import aes from 'aes-js';
 import hashjs from 'hash.js';
-import { pbkdf2Sync } from 'pbkdf2';
+import {pbkdf2Sync} from 'pbkdf2';
 
-const ALGO_IDENTIFIER = 'aes-128-ctr';
+let ALGO_IDENTIFIER = 'aes-128-ctr';
 
 type KDF = 'pbkdf2' | 'scrypt';
 
@@ -78,7 +78,7 @@ async function getDerivedKey(key: Buffer, kdf: KDF, params: KDFParams): Promise<
   const salt = Buffer.from(params.salt, 'hex');
 
   if (kdf === 'pbkdf2') {
-    const { c, dklen } = params as PBKDF2Params;
+    const {c, dklen} = params as PBKDF2Params;
     return pbkdf2Sync(key, salt, c, dklen, 'sha256');
   }
 
@@ -125,7 +125,7 @@ export const encryptPrivateKey = async (
         )
         .digest('hex'),
     },
-    id: v4({ random: bytes.hexToIntArray(randomBytes(16)) }),
+    id: v4({random: bytes.hexToIntArray(randomBytes(16))}),
     version: 3,
   });
 };
