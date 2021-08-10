@@ -40,4 +40,4 @@ deploy:
   script:
   - ./scripts/ci_deploy.sh
   on:
-    branch: migration
+    branch: master
