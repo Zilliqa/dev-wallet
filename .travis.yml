@@ -2,12 +2,12 @@
 language: generic
 sudo: required
 services:
-  - docker
+- docker
 
 matrix:
   include:
-    - os: linux
-      dist: xenial
+  - os: linux
+    dist: xenial
 
 addons:
   apt:
@@ -20,21 +20,27 @@ addons:
     - unzip
 
 before_cache:
-  - docker save -o docker_images/images.tar $(docker images -aq)
+- docker save -o docker_images/images.tar $(docker images -aq)
 
 cache:
   directories:
   - docker_images
 
+jobs:
+  include:
+  - stage: build
+    script: ./scripts/ci_build.sh
+    skip_cleanup: true
+
 before_deploy:
-  - pip install --user awscli
-  - export PATH=$PATH:$HOME/.local/bin
-  - docker load -i docker_images/images.tar || true
+- pip install --user awscli
+- export PATH=$PATH:$HOME/.local/bin
+- docker load -i docker_images/images.tar || true
 
 deploy:
   provider: script
   skip_cleanup: true
   script:
-    - ./scripts/ci_build.sh
+  - ./scripts/ci_deploy.sh
   on:
     branch: migration
