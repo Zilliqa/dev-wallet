@@ -9,4 +9,3 @@ echo $TRAVIS_COMMIT
 commit=$(git rev-parse --short=7 $TRAVIS_COMMIT)
 
 docker build -t "tempimagebuild:$commit" .
-docker create --name extractbuild "tempimagebuild:$commit"
