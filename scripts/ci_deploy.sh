@@ -16,12 +16,13 @@ registryURL="zilliqa/$application"
 #eval "$(aws ecr get-login --no-include-email --region $regionID)"
 echo "$DOCKER_API_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
+rm -rf "$application"-artifact
+mkdir -p "$application"-artifact/build/
+
+docker create --name extractbuild "tempimagebuild:$commit"
 docker cp extractbuild:/usr/share/nginx/html/. $(pwd)/"$application"-artifact/build/
 docker rm extractbuild
 docker push "$registryURL"
-
-rm -rf "$application"-artifact
-mkdir -p "$application"-artifact/build/
 
 cd "$application"-artifact
 cd build
