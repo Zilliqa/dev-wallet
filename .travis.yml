@@ -21,10 +21,14 @@ addons:
 
 before_cache:
 - docker save -o docker_images/images.tar $(docker images -aq)
+  on:
+    branch: master
 
 cache:
   directories:
-  - docker_images
+    - docker_images
+  on:
+    branch: master
 
 script: ./scripts/ci_build.sh
 skip_cleanup: true
@@ -33,6 +37,8 @@ before_deploy:
 - pip install --user awscli
 - export PATH=$PATH:$HOME/.local/bin
 - docker load -i docker_images/images.tar || true
+  on:
+    branch: master
 
 deploy:
   provider: script
