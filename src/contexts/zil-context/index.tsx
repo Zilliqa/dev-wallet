@@ -32,7 +32,27 @@ export enum NETWORK {
   TestNet = 'testnet',
 }
 
-const initState = (networkKey: string) => {
+const initState = (networkKey?: string) => {
+  let curNetworkKey = networkKey || NETWORK.TestNet;
+
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+  const networkParam = params['network'];
+
+  if ([NETWORK.IsolatedServer, NETWORK.TestNet].includes(networkParam as NETWORK)) {
+    curNetworkKey = networkParam;
+  }
+
+  if (networkParam === undefined) {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    urlSearchParams.set('network', curNetworkKey);
+    window.history.replaceState(
+      null,
+      '',
+      `${window.location.pathname}?${urlSearchParams.toString()}`
+    );
+  }
+
   const isolatedServer = {
     name: NETWORK.IsolatedServer,
     chainId: 222,
@@ -51,7 +71,7 @@ const initState = (networkKey: string) => {
     explorerUrl: 'https://devex.zilliqa.com',
   };
 
-  const curNetwork = networkKey === NETWORK.TestNet ? testnet : isolatedServer;
+  const curNetwork = curNetworkKey === NETWORK.TestNet ? testnet : isolatedServer;
 
   const provider = new HTTPProvider(curNetwork.nodeUrl);
   const zilliqa = new Zilliqa(curNetwork.nodeUrl, provider);
@@ -70,10 +90,10 @@ const initState = (networkKey: string) => {
   return newState;
 };
 
-export const ZilContext = React.createContext(initState(NETWORK.TestNet));
+export const ZilContext = React.createContext(initState());
 
 export class ZilProvider extends React.Component {
-  public readonly state = initState(NETWORK.TestNet);
+  public readonly state = initState();
 
   public accessWallet = (privateKey: string) => {
     try {
@@ -168,6 +188,13 @@ export class ZilProvider extends React.Component {
   };
 
   public switchNetwork = (key) => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    urlSearchParams.set('network', key);
+    window.history.replaceState(
+      null,
+      '',
+      `${window.location.pathname}?${urlSearchParams.toString()}`
+    );
     this.setState(initState(key));
   };
 

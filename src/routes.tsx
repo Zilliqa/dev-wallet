@@ -73,7 +73,7 @@ export const RouterNode = () => (
                   />
                 ))}
 
-                <Redirect from="/" to={paths.home} />
+                <Redirect from="/" to={paths.home + window.location.search} />
               </Switch>
             </Suspense>
           </Router>

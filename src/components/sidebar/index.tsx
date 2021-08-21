@@ -35,7 +35,10 @@ const Sidebar: React.SFC<IProps> = (props) => {
   const { hostname } = window.location;
 
   const renderLink = (path, name, icon) => (
-    <Link to={path} className={`nav-link ${pathname === path ? 'active' : ''}`}>
+    <Link
+      to={path + window.location.search}
+      className={`nav-link ${pathname === path ? 'active' : ''}`}
+    >
       <span className="sidebar-icon pr-2">{icon}</span>
       {name}
     </Link>
