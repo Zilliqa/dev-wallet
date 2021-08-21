@@ -68,7 +68,12 @@ const Header = ({ curNetwork, isAuth, clearAuth, switchNetwork }) => {
 
             <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
               <DropdownToggle className="network-button" color="secondary">
-                <span className="network">{curNetwork.name}</span>
+                <span className="network">
+                  {curNetwork.name
+                    .split('_')
+                    .map((cur) => cur.slice(0, 1).toUpperCase() + cur.slice(1))
+                    .join(' ')}
+                </span>
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem onClick={() => switchNetwork(NETWORK.TestNet)}>Testnet</DropdownItem>

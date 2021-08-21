@@ -28,8 +28,8 @@ import { bytes, Zilliqa } from '@zilliqa-js/zilliqa';
 import { HTTPProvider, RPCMethod } from '@zilliqa-js/core';
 
 export enum NETWORK {
-  IsolatedServer = 'Isolated Server',
-  TestNet = 'Testnet',
+  IsolatedServer = 'isolated_server',
+  TestNet = 'testnet',
 }
 
 const initState = (networkKey: string) => {
