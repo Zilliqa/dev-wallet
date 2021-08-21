@@ -48,7 +48,7 @@ const Sidebar: React.SFC<IProps> = (props) => {
           <ul className="sidebar-nav">
             <NavItem>{renderLink(paths.home, 'Home', <FaHome />)}</NavItem>
             <NavItem>{renderLink(paths.generate, 'Create New Wallet', <FaPlusSquare />)}</NavItem>
-            <NavItem>{renderLink(paths.send, 'Send ZIL', <FaPaperPlane />)}</NavItem>
+            <NavItem>{renderLink(paths.send, 'Access Wallet', <FaPaperPlane />)}</NavItem>
             {faucetHostnameList.includes(hostname) ? (
               <NavItem>{renderLink(paths.faucet, 'ZIL Faucet', <FaTint />)}</NavItem>
             ) : null}

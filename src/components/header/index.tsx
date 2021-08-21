@@ -20,14 +20,13 @@ import { Navbar, Nav, NavItem, NavLink, NavbarBrand, Collapse, NavbarToggler } f
 import './style.css';
 import { Link } from 'react-router-dom';
 import { paths } from '../../routes';
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { NETWORK } from '../../contexts/zil-context';
 
-interface IProps {
-  isAuth: boolean;
-  clearAuth: () => void;
-}
-
-const Header: React.FunctionComponent<IProps> = ({ isAuth, clearAuth }) => {
+const Header = ({ curNetwork, isAuth, clearAuth, switchNetwork }) => {
   const [isOpen, setOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   return (
     <div>
@@ -62,13 +61,22 @@ const Header: React.FunctionComponent<IProps> = ({ isAuth, clearAuth }) => {
               </Link>
             </NavItem>
             {isAuth ? (
-              <NavLink className="cursor-pointer" onClick={clearAuth}>
+              <NavLink className="pr-4 cursor-pointer" onClick={clearAuth}>
                 {'Sign Out'}
               </NavLink>
             ) : null}
-            <span className="nav-link">
-              <span className="network">{'Dev Testnet'}</span>
-            </span>
+
+            <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
+              <DropdownToggle className="network-button" color="secondary">
+                <span className="network">{curNetwork.name}</span>
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem onClick={() => switchNetwork(NETWORK.TestNet)}>Testnet</DropdownItem>
+                <DropdownItem onClick={() => switchNetwork(NETWORK.IsolatedServer)}>
+                  Isolated Server
+                </DropdownItem>
+              </DropdownMenu>
+            </ButtonDropdown>
           </Nav>
         </Collapse>
       </Navbar>

@@ -22,10 +22,15 @@ import Footer from '../footer';
 import './style.css';
 
 const Layout = ({ zilContext, children }) => {
-  const { isAuth, clearAuth } = zilContext;
+  const { isAuth, clearAuth, curNetwork, switchNetwork } = zilContext;
   return (
     <div>
-      <Header isAuth={isAuth} clearAuth={clearAuth} />
+      <Header
+        isAuth={isAuth}
+        clearAuth={clearAuth}
+        curNetwork={curNetwork}
+        switchNetwork={switchNetwork}
+      />
       <div className="layout">
         <Sidebar />
         <div className="content-section">

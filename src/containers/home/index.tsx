@@ -17,7 +17,6 @@
 
 import React from 'react';
 import Layout from '../../components/layout';
-import { NODE_URL, CHAIN_ID, MSG_VERSION } from '../../constants';
 import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
 import Disclaimer from '../../components/disclaimer';
@@ -49,6 +48,7 @@ const Container = styled.div`
 `;
 
 const Home = ({ zilContext }) => {
+  const { curNetwork } = zilContext;
   return (
     <Layout zilContext={zilContext}>
       <Container>
@@ -66,13 +66,26 @@ const Home = ({ zilContext }) => {
         </div>
       </Container>
       <br />
-
       <div style={{ textAlign: 'center' }}>
-        <small>{`Chain ID: ${CHAIN_ID}`}</small>
+        <small>
+          Node URL: <code>{curNetwork.nodeUrl}</code>
+        </small>
+        <br />
+        <small>
+          Chain ID: <code>{curNetwork.chainId}</code>
+        </small>
         {' | '}
-        <small>{`Msg Ver: ${MSG_VERSION}`}</small>
-        {' | '}
-        <small>{`Node URL: ${NODE_URL}`}</small>
+        <small>
+          Msg Ver: <code>{curNetwork.msgVersion}</code>
+        </small>
+        <br />
+        <small>
+          Faucet URL: <code>{curNetwork.faucetUrl}</code>
+        </small>
+        <br />
+        <small>
+          Explorer URL: <code>{curNetwork.explorerUrl}</code>
+        </small>
       </div>
       <div className="container">
         <Row className="pt-4">

@@ -22,12 +22,17 @@ import CopyToClipboard from '../copy-to-clipboard';
 import { MdRefresh } from 'react-icons/md';
 import { toBech32Address, fromBech32Address } from '@zilliqa-js/crypto';
 import { units, BN } from '@zilliqa-js/util';
-import { getAddressExplorerURL } from '../../utils';
 import { useAsyncFn } from '../../use-async-fn';
 
-const AccountInfo = ({ address, getBalance }) => {
+const AccountInfo = ({ address, getBalance, curNetwork }) => {
   const bech32Address = toBech32Address(address);
   const { data, error, isPending, run } = useAsyncFn({ promiseFn: getBalance });
+  const getAddressExplorerURL = (bechAddress) => {
+    return `${curNetwork.explorerUrl}/address/${bechAddress}?network=${encodeURIComponent(
+      curNetwork.nodeUrl
+    )}`;
+  };
+
   return (
     <div>
       <div className="px-4">
