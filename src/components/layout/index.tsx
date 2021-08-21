@@ -35,7 +35,7 @@ const Layout = ({ zilContext, children }) => {
         <Sidebar />
         <div className="content-section">
           {children}
-          <Footer />
+          <Footer year={new Date().getFullYear()} />
         </div>
       </div>
     </div>

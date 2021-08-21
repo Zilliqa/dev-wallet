@@ -20,6 +20,6 @@ import { render } from '@testing-library/react';
 import Footer from '.';
 
 test('matches the snapshot', () => {
-  const { container } = render(<Footer />);
+  const { container } = render(<Footer year={0} />);
   expect(container.firstChild).toMatchSnapshot();
 });
