@@ -1,82 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`matches the snapshot when failed 1`] = `
-.c0 {
-  outline: none;
-  margin: 0;
-  font-family: inherit;
-  overflow: visible;
-  text-transform: none;
-  display: inline-block;
-  font-weight: 400;
-  text-align: center;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 1px solid transparent;
-  -webkit-transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
-  transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
-}
-
-.c0::-webkit-file-upload-button {
-  font: inherit;
-  -webkit-appearance: button;
-}
-
-.c0 [type='button'],
-.c0 [type='reset'],
-.c0 [type='submit'] {
-  -webkit-appearance: button;
-}
-
-.c0:not(:disabled),
-.c0 [type='button']:not(:disabled),
-.c0 [type='reset']:not(:disabled),
-.c0 [type='submit']:not(:disabled) {
-  cursor: pointer;
-}
-
-.c0::-moz-focus-inner,
-.c0 [type='button']::-moz-focus-inner,
-.c0 [type='reset']::-moz-focus-inner,
-.c0 [type='submit']::-moz-focus-inner {
-  padding: 0;
-  border-style: none;
-}
-
-.c0:disabled {
-  cursor: not-allowed;
-}
-
-.c0 {
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  border-radius: 0.25rem;
-}
-
-.c0 {
-  background-color: transparent;
-  color: #585968;
-  border-color: transparent;
-}
-
-.c0:hover,
-.c0:active,
-.c0:focus {
-  color: #242536;
-}
-
-.c0:disabled {
-  color: #A0A1B2;
-}
-
 <div>
   <div
     class="px-4"
@@ -156,7 +80,7 @@ exports[`matches the snapshot when failed 1`] = `
           class="pt-1 font-monospace"
         >
           <a
-            href="https://viewblock.io/zilliqa/address/zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v?network=testnet"
+            href="devex.zilliqa.com/address/zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v?network=https%3A%2F%2Fdev-api.zilliqa.com"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -172,7 +96,7 @@ exports[`matches the snapshot when failed 1`] = `
           Balance
           <button
             aria-label=""
-            class="mb-1 py-0 px-1 c0"
+            class="sc-bdVaJa gMoiZy mb-1 py-0 px-1"
             type="submit"
           >
             <svg
@@ -205,82 +129,6 @@ exports[`matches the snapshot when failed 1`] = `
 `;
 
 exports[`matches the snapshot when loaded 1`] = `
-.c0 {
-  outline: none;
-  margin: 0;
-  font-family: inherit;
-  overflow: visible;
-  text-transform: none;
-  display: inline-block;
-  font-weight: 400;
-  text-align: center;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 1px solid transparent;
-  -webkit-transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
-  transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
-}
-
-.c0::-webkit-file-upload-button {
-  font: inherit;
-  -webkit-appearance: button;
-}
-
-.c0 [type='button'],
-.c0 [type='reset'],
-.c0 [type='submit'] {
-  -webkit-appearance: button;
-}
-
-.c0:not(:disabled),
-.c0 [type='button']:not(:disabled),
-.c0 [type='reset']:not(:disabled),
-.c0 [type='submit']:not(:disabled) {
-  cursor: pointer;
-}
-
-.c0::-moz-focus-inner,
-.c0 [type='button']::-moz-focus-inner,
-.c0 [type='reset']::-moz-focus-inner,
-.c0 [type='submit']::-moz-focus-inner {
-  padding: 0;
-  border-style: none;
-}
-
-.c0:disabled {
-  cursor: not-allowed;
-}
-
-.c0 {
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  border-radius: 0.25rem;
-}
-
-.c0 {
-  background-color: transparent;
-  color: #585968;
-  border-color: transparent;
-}
-
-.c0:hover,
-.c0:active,
-.c0:focus {
-  color: #242536;
-}
-
-.c0:disabled {
-  color: #A0A1B2;
-}
-
 <div>
   <div
     class="px-4"
@@ -360,7 +208,7 @@ exports[`matches the snapshot when loaded 1`] = `
           class="pt-1 font-monospace"
         >
           <a
-            href="https://viewblock.io/zilliqa/address/zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v?network=testnet"
+            href="devex.zilliqa.com/address/zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v?network=https%3A%2F%2Fdev-api.zilliqa.com"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -376,7 +224,7 @@ exports[`matches the snapshot when loaded 1`] = `
           Balance
           <button
             aria-label=""
-            class="mb-1 py-0 px-1 c0"
+            class="sc-bdVaJa gMoiZy mb-1 py-0 px-1"
             disabled=""
             type="submit"
           >
@@ -412,82 +260,6 @@ exports[`matches the snapshot when loaded 1`] = `
 `;
 
 exports[`matches the snapshot when loaded 2`] = `
-.c0 {
-  outline: none;
-  margin: 0;
-  font-family: inherit;
-  overflow: visible;
-  text-transform: none;
-  display: inline-block;
-  font-weight: 400;
-  text-align: center;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 1px solid transparent;
-  -webkit-transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
-  transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
-}
-
-.c0::-webkit-file-upload-button {
-  font: inherit;
-  -webkit-appearance: button;
-}
-
-.c0 [type='button'],
-.c0 [type='reset'],
-.c0 [type='submit'] {
-  -webkit-appearance: button;
-}
-
-.c0:not(:disabled),
-.c0 [type='button']:not(:disabled),
-.c0 [type='reset']:not(:disabled),
-.c0 [type='submit']:not(:disabled) {
-  cursor: pointer;
-}
-
-.c0::-moz-focus-inner,
-.c0 [type='button']::-moz-focus-inner,
-.c0 [type='reset']::-moz-focus-inner,
-.c0 [type='submit']::-moz-focus-inner {
-  padding: 0;
-  border-style: none;
-}
-
-.c0:disabled {
-  cursor: not-allowed;
-}
-
-.c0 {
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  border-radius: 0.25rem;
-}
-
-.c0 {
-  background-color: transparent;
-  color: #585968;
-  border-color: transparent;
-}
-
-.c0:hover,
-.c0:active,
-.c0:focus {
-  color: #242536;
-}
-
-.c0:disabled {
-  color: #A0A1B2;
-}
-
 <div>
   <div
     class="px-4"
@@ -567,7 +339,7 @@ exports[`matches the snapshot when loaded 2`] = `
           class="pt-1 font-monospace"
         >
           <a
-            href="https://viewblock.io/zilliqa/address/zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v?network=testnet"
+            href="devex.zilliqa.com/address/zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v?network=https%3A%2F%2Fdev-api.zilliqa.com"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -583,7 +355,7 @@ exports[`matches the snapshot when loaded 2`] = `
           Balance
           <button
             aria-label=""
-            class="mb-1 py-0 px-1 c0"
+            class="sc-bdVaJa gMoiZy mb-1 py-0 px-1"
             type="submit"
           >
             <svg
@@ -618,82 +390,6 @@ exports[`matches the snapshot when loaded 2`] = `
 `;
 
 exports[`matches the snapshot when no data 1`] = `
-.c0 {
-  outline: none;
-  margin: 0;
-  font-family: inherit;
-  overflow: visible;
-  text-transform: none;
-  display: inline-block;
-  font-weight: 400;
-  text-align: center;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-color: transparent;
-  border: 1px solid transparent;
-  -webkit-transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
-  transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
-}
-
-.c0::-webkit-file-upload-button {
-  font: inherit;
-  -webkit-appearance: button;
-}
-
-.c0 [type='button'],
-.c0 [type='reset'],
-.c0 [type='submit'] {
-  -webkit-appearance: button;
-}
-
-.c0:not(:disabled),
-.c0 [type='button']:not(:disabled),
-.c0 [type='reset']:not(:disabled),
-.c0 [type='submit']:not(:disabled) {
-  cursor: pointer;
-}
-
-.c0::-moz-focus-inner,
-.c0 [type='button']::-moz-focus-inner,
-.c0 [type='reset']::-moz-focus-inner,
-.c0 [type='submit']::-moz-focus-inner {
-  padding: 0;
-  border-style: none;
-}
-
-.c0:disabled {
-  cursor: not-allowed;
-}
-
-.c0 {
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  border-radius: 0.25rem;
-}
-
-.c0 {
-  background-color: transparent;
-  color: #585968;
-  border-color: transparent;
-}
-
-.c0:hover,
-.c0:active,
-.c0:focus {
-  color: #242536;
-}
-
-.c0:disabled {
-  color: #A0A1B2;
-}
-
 <div>
   <div
     class="px-4"
@@ -773,7 +469,7 @@ exports[`matches the snapshot when no data 1`] = `
           class="pt-1 font-monospace"
         >
           <a
-            href="https://viewblock.io/zilliqa/address/zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v?network=testnet"
+            href="devex.zilliqa.com/address/zil18j0lvshp0t6ucrqsjkfunpjdg55my3aqenns9v?network=https%3A%2F%2Fdev-api.zilliqa.com"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -789,7 +485,7 @@ exports[`matches the snapshot when no data 1`] = `
           Balance
           <button
             aria-label=""
-            class="mb-1 py-0 px-1 c0"
+            class="sc-bdVaJa gMoiZy mb-1 py-0 px-1"
             type="submit"
           >
             <svg
