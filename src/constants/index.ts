@@ -22,5 +22,4 @@ export enum requestStatus {
   SUCCEEDED = 'SUCCEEDED',
 }
 
-export const faucetHostnameList: string[] = ['dev-wallet.zilliqa.com', 'localhost', '127.0.0.1'];
 export const CAPTCHA_SITE_KEY: string = '6LdazYoUAAAAAIJDC8m5PSMp2mcmSmzgt7pxU6IG';
