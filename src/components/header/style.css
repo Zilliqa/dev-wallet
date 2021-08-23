@@ -15,6 +15,11 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+.network-button {
+  border-color: var(--green400);
+  background-color: var(--black);
+}
+
 .network {
   font-size: 13px;
   font-weight: 500;

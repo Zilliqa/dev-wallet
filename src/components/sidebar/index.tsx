@@ -19,23 +19,20 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { NavItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import * as H from 'history';
 import { paths } from '../../routes';
 import './style.css';
 import { FaHome, FaPlusSquare, FaTint, FaPaperPlane } from 'react-icons/fa';
-import { faucetHostnameList } from '../../constants';
+import { NETWORK } from '../../contexts/zil-context';
 
-interface IProps {
-  history: H.History;
-  location: H.Location;
-}
-
-const Sidebar: React.SFC<IProps> = (props) => {
+const Sidebar = (props) => {
+  const curNetwork = props.curNetwork;
   const { pathname } = props.location;
-  const { hostname } = window.location;
 
   const renderLink = (path, name, icon) => (
-    <Link to={path} className={`nav-link ${pathname === path ? 'active' : ''}`}>
+    <Link
+      to={path + window.location.search}
+      className={`nav-link ${pathname === path ? 'active' : ''}`}
+    >
       <span className="sidebar-icon pr-2">{icon}</span>
       {name}
     </Link>
@@ -48,8 +45,8 @@ const Sidebar: React.SFC<IProps> = (props) => {
           <ul className="sidebar-nav">
             <NavItem>{renderLink(paths.home, 'Home', <FaHome />)}</NavItem>
             <NavItem>{renderLink(paths.generate, 'Create New Wallet', <FaPlusSquare />)}</NavItem>
-            <NavItem>{renderLink(paths.send, 'Send ZIL', <FaPaperPlane />)}</NavItem>
-            {faucetHostnameList.includes(hostname) ? (
+            <NavItem>{renderLink(paths.send, 'Access Wallet', <FaPaperPlane />)}</NavItem>
+            {curNetwork.name === NETWORK.TestNet ? (
               <NavItem>{renderLink(paths.faucet, 'ZIL Faucet', <FaTint />)}</NavItem>
             ) : null}
           </ul>

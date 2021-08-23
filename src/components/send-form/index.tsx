@@ -22,12 +22,11 @@ import Button from '../button';
 import { getInputValidationState, formatSendAmountInZil, setValIfWholeNum } from '../../utils';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
 import Disclaimer from '../disclaimer';
-import { getTxExplorerURL } from '../../utils';
 
 import { isBech32 } from '@zilliqa-js/util/dist/validation';
 import { useAsyncFn } from '../../use-async-fn';
 
-const SendForm = ({ send, getBalance, getMinGasPrice }) => {
+const SendForm = ({ send, getBalance, getMinGasPrice, curNetwork }) => {
   const [hasRun, setHasRun] = useState(false);
   const [isDraft, setIsDraft] = useState(true);
   const [toAddress, setToAddress] = useState('');
@@ -171,7 +170,11 @@ const SendForm = ({ send, getBalance, getMinGasPrice }) => {
                 <Row>
                   <Col xs={11} sm={11} md={11} lg={8} className="mr-auto ml-auto">
                     {hasRun ? (
-                      <TransactionProcess confirm={confirm} mutationProps={mutationProps} />
+                      <TransactionProcess
+                        confirm={confirm}
+                        mutationProps={mutationProps}
+                        curNetwork={curNetwork}
+                      />
                     ) : (
                       <div>
                         <CreateForm
@@ -195,9 +198,11 @@ const SendForm = ({ send, getBalance, getMinGasPrice }) => {
   );
 };
 
-const TransactionProcess = ({ confirm, mutationProps }) => {
+const TransactionProcess = ({ confirm, mutationProps, curNetwork }) => {
   const { isFulfilled, isPending, error, data } = mutationProps;
-
+  const getTxExplorerURL = (txId) => {
+    return `${curNetwork.explorerUrl}/tx/${txId}?network=${encodeURIComponent(curNetwork.nodeUrl)}`;
+  };
   return (
     <div className="text-center pt-5">
       {isPending ? (

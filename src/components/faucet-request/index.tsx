@@ -19,13 +19,12 @@ import React, { useState } from 'react';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
 import Button from '../button';
 import FaucetPending from '../faucet-pending';
-import FaucetComplete from '../faucet-complete';
 
 import { CAPTCHA_SITE_KEY } from '../../constants';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useAsyncFn } from '../../use-async-fn';
 
-const FaucetRequest = ({ faucet, toAddress, reset }) => {
+const FaucetRequest = ({ faucet, toAddress, reset, curNetwork }) => {
   const { error, isPending, isFulfilled, data, run } = useAsyncFn({
     deferFn: faucet,
   });
@@ -53,7 +52,16 @@ const FaucetRequest = ({ faucet, toAddress, reset }) => {
       ) : isFulfilled ? (
         <div data-testid="fulfilled">
           <SpinnerWithCheckMark loading={false} />
-          <FaucetComplete txId={data as string} />
+          <div data-testid="faucet-complete">
+            <p className="pt-4 text-secondary">
+              <span className="text-primary">{'Transaction In Process'}</span>
+              <br />
+              <br />
+              <small>{'Your transaction is pending blockchain confirmation.'}</small>
+              <br />
+              <small>{'Please check after a few minutes.'}</small>
+            </p>
+          </div>
           <br />
           <Button text="Ok" onClick={reset} level="secondary" />
         </div>
