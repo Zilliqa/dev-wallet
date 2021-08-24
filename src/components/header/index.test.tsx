@@ -19,13 +19,27 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import Header from '.';
 import { MemoryRouter } from 'react-router';
+import { NETWORK } from '../../contexts/zil-context';
 
 test('matches the snapshot', () => {
   const clearAuth = jest.fn();
+  const switchNetwork = jest.fn();
   const isAuth = false;
   const { container } = render(
     <MemoryRouter>
-      <Header isAuth={isAuth} clearAuth={clearAuth} />
+      <Header
+        isAuth={isAuth}
+        clearAuth={clearAuth}
+        curNetwork={{
+          name: NETWORK.TestNet,
+          chainId: 333,
+          msgVersion: 1,
+          nodeUrl: 'https://dev-api.zilliqa.com',
+          faucetUrl: 'https://nucleus-server.zilliqa.com/api/v1/run',
+          explorerUrl: 'devex.zilliqa.com',
+        }}
+        switchNetwork={switchNetwork}
+      />
     </MemoryRouter>
   );
   expect(container).toMatchSnapshot();
@@ -33,10 +47,23 @@ test('matches the snapshot', () => {
 
 test('matches the snapshot', () => {
   const clearAuth = jest.fn();
+  const switchNetwork = jest.fn();
   const isAuth = true;
   const { container } = render(
     <MemoryRouter>
-      <Header isAuth={isAuth} clearAuth={clearAuth} />
+      <Header
+        isAuth={isAuth}
+        clearAuth={clearAuth}
+        curNetwork={{
+          name: NETWORK.TestNet,
+          chainId: 333,
+          msgVersion: 1,
+          nodeUrl: 'https://dev-api.zilliqa.com',
+          faucetUrl: 'https://nucleus-server.zilliqa.com/api/v1/run',
+          explorerUrl: 'devex.zilliqa.com',
+        }}
+        switchNetwork={switchNetwork}
+      />
     </MemoryRouter>
   );
   expect(container).toMatchSnapshot();

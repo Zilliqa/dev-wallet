@@ -17,19 +17,9 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import Layout from '.';
-import { MemoryRouter } from 'react-router';
+import Footer from '.';
 
 test('matches the snapshot', () => {
-  const clearAuth = jest.fn();
-  const isAuth = false;
-  const zilContext = { clearAuth, isAuth };
-  const { container } = render(
-    <MemoryRouter>
-      <Layout zilContext={zilContext}>
-        <div data-testid="children" />
-      </Layout>
-    </MemoryRouter>
-  );
-  expect(container).toMatchSnapshot();
+  const { container } = render(<Footer year={1} />);
+  expect(container.firstChild).toMatchSnapshot();
 });

@@ -24,7 +24,7 @@ import { getInputValidationState } from '../../utils';
 import { isBech32 } from '@zilliqa-js/util/dist/validation';
 
 const FaucetContainer = ({ zilContext }) => {
-  const { faucet } = zilContext;
+  const { faucet, curNetwork } = zilContext;
 
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
@@ -97,7 +97,12 @@ const FaucetContainer = ({ zilContext }) => {
                 </Col>
               </Row>
               {toAddressValid ? (
-                <FaucetRequest faucet={faucet} toAddress={toAddress} reset={reset} />
+                <FaucetRequest
+                  faucet={faucet}
+                  toAddress={toAddress}
+                  reset={reset}
+                  curNetwork={curNetwork}
+                />
               ) : null}
             </div>
           </div>

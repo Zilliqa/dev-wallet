@@ -15,7 +15,6 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 import { BN, units } from '@zilliqa-js/util';
-import { EXPLORER_URL } from './constants';
 
 export const setValIfWholeNum =
   (fn) =>
@@ -77,7 +76,3 @@ export const formatSendAmountInZil = (
     return units.fromQa(amountInQaBN, units.Units.Zil).toString();
   }
 };
-
-export const getTxExplorerURL = (txId) => `${EXPLORER_URL}/tx/${txId}?network=testnet`;
-export const getAddressExplorerURL = (bechAddress) =>
-  `${EXPLORER_URL}/address/${bechAddress}?network=testnet`;

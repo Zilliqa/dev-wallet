@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches the snapshot when loading 1`] = `
+<form
+  class="mt-4"
+>
+  <div
+    class="px-5 form-group"
+  >
+    <p
+      class="text-secondary pb-3"
+    >
+      You can access your wallet with private key.
+    </p>
+    <label
+      class=""
+      for="privateKey"
+    >
+      <small>
+        <b>
+          Private Key
+        </b>
+      </small>
+    </label>
+    <input
+      aria-invalid="false"
+      autocomplete="off"
+      class="form-control"
+      data-testid="privateKey"
+      id="private-key"
+      maxlength="64"
+      name="privateKey"
+      placeholder="Enter the private key"
+      type="text"
+      value=""
+    />
+    <div
+      class="invalid-feedback"
+    >
+      invalid private key
+    </div>
+    <div
+      class="valid-feedback"
+    >
+      valid private key
+    </div>
+  </div>
+  <br />
+  <div
+    class="mx-4 px-5 form-group"
+  >
+    <label
+      class=""
+    >
+      <input
+        class="form-check-input"
+        type="checkbox"
+      />
+       
+      <small
+        class="text-danger"
+        data-testid="disclaimer"
+      >
+        This is Zilliqa Testnet wallet. Do not send any interim ERC-20 ZIL tokens or Mainnet tokens to this wallet. You are solely responsible for your account funds.
+      </small>
+    </label>
+  </div>
+  <div
+    class="text-center"
+  >
+    <button
+      aria-label="Access"
+      class="sc-bwzfXH eyJGad"
+      disabled=""
+      type="submit"
+    >
+       
+      Access
+       
+    </button>
+  </div>
+</form>
+`;

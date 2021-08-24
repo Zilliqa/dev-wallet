@@ -23,14 +23,20 @@ import AccountInfo from '../../components/account-info';
 
 const SendContainer = (props) => {
   const { zilContext } = props;
-  const { isAuth, address, accessWallet, getBalance, getMinGasPrice, send } = zilContext;
+  const { isAuth, address, accessWallet, getBalance, getMinGasPrice, send, curNetwork } =
+    zilContext;
   return (
     <Layout zilContext={zilContext}>
       <div className="p-4">
         {isAuth ? (
           <>
-            <AccountInfo address={address} getBalance={getBalance} />
-            <SendForm send={send} getBalance={getBalance} getMinGasPrice={getMinGasPrice} />
+            <AccountInfo address={address} getBalance={getBalance} curNetwork={curNetwork} />
+            <SendForm
+              send={send}
+              getBalance={getBalance}
+              getMinGasPrice={getMinGasPrice}
+              curNetwork={curNetwork}
+            />
           </>
         ) : (
           <>

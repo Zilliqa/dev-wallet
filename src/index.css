@@ -64,6 +64,9 @@
   font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 }
 
+code {
+  color: var(--black);
+}
 body {
   margin: 0;
   background-color: var(--gray100);

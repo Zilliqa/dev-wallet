@@ -22,18 +22,4 @@ export enum requestStatus {
   SUCCEEDED = 'SUCCEEDED',
 }
 
-export const faucetHostnameList: string[] = ['dev-wallet.zilliqa.com', 'localhost', '127.0.0.1'];
-
 export const CAPTCHA_SITE_KEY: string = '6LdazYoUAAAAAIJDC8m5PSMp2mcmSmzgt7pxU6IG';
-export const NETWORK: string = 'Dev Testnet';
-
-export const CHAIN_ID: number =
-  process.env.REACT_APP_CHAIN_ID !== undefined ? parseInt(process.env.REACT_APP_CHAIN_ID, 10) : 0;
-
-export const MSG_VERSION: number =
-  process.env.REACT_APP_MSG_VERSION !== undefined
-    ? parseInt(process.env.REACT_APP_MSG_VERSION, 10)
-    : 0;
-
-export const NODE_URL: string = process.env.REACT_APP_NODE_URL || '';
-export const EXPLORER_URL: string = process.env.REACT_APP_EXPLORER_URL || '';
