@@ -38,12 +38,14 @@ const initState = (networkKey?: string) => {
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
   const networkParam = params['network'];
-
-  if ([NETWORK.IsolatedServer, NETWORK.TestNet].includes(networkParam as NETWORK)) {
+  const isValidNetwork = [NETWORK.IsolatedServer, NETWORK.TestNet].includes(
+    networkParam as NETWORK
+  );
+  if (isValidNetwork) {
     curNetworkKey = networkParam;
   }
 
-  if (networkParam === undefined) {
+  if (networkParam === undefined || !isValidNetwork) {
     const urlSearchParams = new URLSearchParams(window.location.search);
     urlSearchParams.set('network', curNetworkKey);
     window.history.replaceState(
