@@ -22,4 +22,4 @@ export enum requestStatus {
   SUCCEEDED = 'SUCCEEDED',
 }
 
-export const CAPTCHA_SITE_KEY: string = '6LdazYoUAAAAAIJDC8m5PSMp2mcmSmzgt7pxU6IG';
+export const SITE_KEY: string = '6LcC7DYcAAAAAA10VKIpA0sK44zrqn6rFIbxqYxd';
