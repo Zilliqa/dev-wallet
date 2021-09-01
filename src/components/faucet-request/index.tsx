@@ -20,7 +20,7 @@ import SpinnerWithCheckMark from '../spinner-with-check-mark';
 import Button from '../button';
 import FaucetPending from '../faucet-pending';
 
-import { CAPTCHA_SITE_KEY } from '../../constants';
+import { SITE_KEY } from '../../constants';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useAsyncFn } from '../../use-async-fn';
 
@@ -69,7 +69,7 @@ const FaucetRequest = ({ faucet, toAddress, reset, curNetwork }) => {
         <div data-testid="recaptcha">
           <div className="recaptcha">
             <ReCAPTCHA
-              sitekey={CAPTCHA_SITE_KEY}
+              sitekey={SITE_KEY}
               onChange={(recaptchaToken) => setToken(recaptchaToken)}
               badge="inline"
             />
