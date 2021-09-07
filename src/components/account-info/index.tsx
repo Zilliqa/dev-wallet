@@ -15,7 +15,6 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import Button from '../button';
 import CopyToClipboard from '../copy-to-clipboard';
@@ -24,7 +23,7 @@ import { toBech32Address, fromBech32Address } from '@zilliqa-js/crypto';
 import { units, BN } from '@zilliqa-js/util';
 import { useAsyncFn } from '../../use-async-fn';
 
-const AccountInfo = ({ address, getBalance, curNetwork }) => {
+const AccountInfo = ({ privateKey, address, getBalance, curNetwork }) => {
   const bech32Address = toBech32Address(address);
   const { data, error, isPending, run } = useAsyncFn({ promiseFn: getBalance });
   const getAddressExplorerURL = (bechAddress) => {
@@ -59,6 +58,10 @@ const AccountInfo = ({ address, getBalance, curNetwork }) => {
               <CopyToClipboard data={bech32Address} />
               <br />
               <small>{`(ByStr20: ${address})`}</small>
+            </p>
+            <b>{'Private Key'}</b>
+            <p>
+              <code>{privateKey.slice(0, 16)}...</code> <CopyToClipboard data={privateKey} />
             </p>
             <b>
               {'Balance'}
