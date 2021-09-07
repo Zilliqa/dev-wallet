@@ -93,6 +93,16 @@ exports[`matches the snapshot when failed 1`] = `
           </small>
         </p>
         <b>
+          Private Key
+        </b>
+        <p>
+          <code>
+            0000000000000000
+            ...
+          </code>
+           
+        </p>
+        <b>
           Balance
           <button
             aria-label=""
@@ -219,6 +229,16 @@ exports[`matches the snapshot when loaded 1`] = `
           <small>
             (ByStr20: 0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
           </small>
+        </p>
+        <b>
+          Private Key
+        </b>
+        <p>
+          <code>
+            0000000000000000
+            ...
+          </code>
+           
         </p>
         <b>
           Balance
@@ -352,6 +372,16 @@ exports[`matches the snapshot when loaded 2`] = `
           </small>
         </p>
         <b>
+          Private Key
+        </b>
+        <p>
+          <code>
+            0000000000000000
+            ...
+          </code>
+           
+        </p>
+        <b>
           Balance
           <button
             aria-label=""
@@ -480,6 +510,16 @@ exports[`matches the snapshot when no data 1`] = `
           <small>
             (ByStr20: 0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0)
           </small>
+        </p>
+        <b>
+          Private Key
+        </b>
+        <p>
+          <code>
+            0000000000000000
+            ...
+          </code>
+           
         </p>
         <b>
           Balance
