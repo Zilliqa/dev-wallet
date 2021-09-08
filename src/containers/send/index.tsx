@@ -25,8 +25,9 @@ const SendContainer = (props) => {
   const { zilContext } = props;
   const {
     isAuth,
-    address,
     privateKey,
+    publicKey,
+    address,
     accessWallet,
     getBalance,
     getMinGasPrice,
@@ -41,6 +42,7 @@ const SendContainer = (props) => {
             <AccountInfo
               address={address}
               privateKey={privateKey}
+              publicKey={publicKey}
               getBalance={getBalance}
               curNetwork={curNetwork}
             />

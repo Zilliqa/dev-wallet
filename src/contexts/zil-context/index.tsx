@@ -107,8 +107,8 @@ export class ZilProvider extends React.Component {
       this.setState({
         isAuth: true,
         privateKey,
-        address,
         publicKey,
+        address,
         zilliqa,
       });
     } catch (error) {
