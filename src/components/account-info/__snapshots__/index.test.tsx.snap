@@ -93,11 +93,21 @@ exports[`matches the snapshot when failed 1`] = `
           </small>
         </p>
         <b>
+          Public Key
+        </b>
+        <p>
+          <code>
+            0245DC2911EDC02F
+            ...
+          </code>
+           
+        </p>
+        <b>
           Private Key
         </b>
         <p>
           <code>
-            0000000000000000
+            0245DC2911EDC02F
             ...
           </code>
            
@@ -231,11 +241,21 @@ exports[`matches the snapshot when loaded 1`] = `
           </small>
         </p>
         <b>
+          Public Key
+        </b>
+        <p>
+          <code>
+            0245DC2911EDC02F
+            ...
+          </code>
+           
+        </p>
+        <b>
           Private Key
         </b>
         <p>
           <code>
-            0000000000000000
+            0245DC2911EDC02F
             ...
           </code>
            
@@ -372,11 +392,21 @@ exports[`matches the snapshot when loaded 2`] = `
           </small>
         </p>
         <b>
+          Public Key
+        </b>
+        <p>
+          <code>
+            0245DC2911EDC02F
+            ...
+          </code>
+           
+        </p>
+        <b>
           Private Key
         </b>
         <p>
           <code>
-            0000000000000000
+            0245DC2911EDC02F
             ...
           </code>
            
@@ -512,11 +542,21 @@ exports[`matches the snapshot when no data 1`] = `
           </small>
         </p>
         <b>
+          Public Key
+        </b>
+        <p>
+          <code>
+            0245DC2911EDC02F
+            ...
+          </code>
+           
+        </p>
+        <b>
           Private Key
         </b>
         <p>
           <code>
-            0000000000000000
+            0245DC2911EDC02F
             ...
           </code>
            
