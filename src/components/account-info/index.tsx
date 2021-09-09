@@ -23,7 +23,7 @@ import { toBech32Address, fromBech32Address } from '@zilliqa-js/crypto';
 import { units, BN } from '@zilliqa-js/util';
 import { useAsyncFn } from '../../use-async-fn';
 
-const AccountInfo = ({ privateKey, address, getBalance, curNetwork }) => {
+const AccountInfo = ({ privateKey, publicKey, address, getBalance, curNetwork }) => {
   const bech32Address = toBech32Address(address);
   const { data, error, isPending, run } = useAsyncFn({ promiseFn: getBalance });
   const getAddressExplorerURL = (bechAddress) => {
@@ -58,6 +58,10 @@ const AccountInfo = ({ privateKey, address, getBalance, curNetwork }) => {
               <CopyToClipboard data={bech32Address} />
               <br />
               <small>{`(ByStr20: ${address})`}</small>
+            </p>
+            <b>{'Public Key'}</b>
+            <p>
+              <code>{publicKey.slice(0, 16)}...</code> <CopyToClipboard data={publicKey} />
             </p>
             <b>{'Private Key'}</b>
             <p>

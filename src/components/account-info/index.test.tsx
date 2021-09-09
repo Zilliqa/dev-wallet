@@ -20,7 +20,8 @@ import { render, wait } from '@testing-library/react';
 import AccountInfo from '.';
 import { NETWORK } from '../../contexts/zil-context';
 
-const privateKey = '0000000000000000000000000000000000000000000000000000000000000000';
+const publicKey = '0245DC2911EDC02F2774E0A40FBEB0112EA60BF513F9EC50889D59FC94C97EC18F';
+const privateKey = '0245DC2911EDC02F2774E0A40FBEB0112EA60BF513F9EC50889D59FC94C97EC18F';
 const address = '0x3C9Ff642E17aF5Cc0C109593C9864d4529B247A0';
 const curNetwork = {
   name: NETWORK.TestNet,
@@ -35,6 +36,7 @@ test('matches the snapshot when loaded', async () => {
   const { container, getByTestId } = render(
     <AccountInfo
       privateKey={privateKey}
+      publicKey={publicKey}
       address={address}
       getBalance={getBalance}
       curNetwork={curNetwork}
@@ -49,6 +51,7 @@ test('matches the snapshot when loaded', async () => {
   const { container, getByTestId } = render(
     <AccountInfo
       privateKey={privateKey}
+      publicKey={publicKey}
       address={address}
       getBalance={getBalance}
       curNetwork={curNetwork}
@@ -64,6 +67,7 @@ test('matches the snapshot when failed', async () => {
   const { container, getByTestId } = render(
     <AccountInfo
       privateKey={privateKey}
+      publicKey={publicKey}
       address={address}
       getBalance={getBalance}
       curNetwork={curNetwork}
@@ -78,6 +82,7 @@ test('matches the snapshot when no data', async () => {
   const { container, getByTestId } = render(
     <AccountInfo
       privateKey={privateKey}
+      publicKey={publicKey}
       address={address}
       getBalance={getBalance}
       curNetwork={curNetwork}
