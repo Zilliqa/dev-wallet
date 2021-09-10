@@ -15,12 +15,12 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { generatePrivateKey, encryptPrivateKey } from '../../crypto';
+import { schnorr, encryptPrivateKey } from '@zilliqa-js/crypto';
 
 const encrypt = async (event) => {
   try {
     const { passphrase } = event.data;
-    const privateKey = generatePrivateKey();
+    const privateKey = schnorr.generatePrivateKey();
     const keystoreJSON = await encryptPrivateKey('pbkdf2', privateKey, passphrase);
     // @ts-ignore
     // eslint-disable-next-line
