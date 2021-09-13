@@ -1,0 +1,8 @@
+{
+    "testnet": {
+        "faucetUrl": "https://stg-testnet-faucet.zilliqa.com/api/v1/faucet"
+    },
+    "isolated_server": {
+        "faucetUrl": "https://stg-zilliqa-isolated-faucet.zilliqa.com/api/v1/faucet"
+    }
+}

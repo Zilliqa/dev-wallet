@@ -60,7 +60,6 @@ const initState = (networkKey?: string) => {
     chainId: 222,
     msgVersion: 1,
     nodeUrl: 'https://zilliqa-isolated-server.zilliqa.com',
-    faucetUrl: 'https://zilliqa-isolated-faucet.zilliqa.com/request-funds',
     explorerUrl: 'https://devex.zilliqa.com',
   };
 
@@ -69,7 +68,6 @@ const initState = (networkKey?: string) => {
     chainId: 333,
     msgVersion: 1,
     nodeUrl: 'https://dev-api.zilliqa.com',
-    faucetUrl: 'https://nucleus-server.zilliqa.com/api/v1/run',
     explorerUrl: 'https://devex.zilliqa.com',
   };
 
@@ -162,14 +160,16 @@ export class ZilProvider extends React.Component {
 
   public faucet = async ({ args, signal }): Promise<string | void> => {
     const { token, toAddress } = args;
-    const { curNetwork } = this.state;
     const address = fromBech32Address(toAddress);
-
     const body = JSON.stringify({
       address,
-      token: curNetwork.name === NETWORK.IsolatedServer ? 'SAVANT-IDE-CALL' : token,
+      token,
     });
-    const res = await fetch(curNetwork.faucetUrl, {
+    const configJson = await fetch('config.json');
+    const configResult = await configJson.json();
+    const { curNetwork } = this.state;
+    const curConfig = configResult[curNetwork.name];
+    const res = await fetch(curConfig.faucetUrl, {
       signal,
       method: 'POST',
       headers: {
