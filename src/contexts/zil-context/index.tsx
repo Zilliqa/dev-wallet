@@ -32,74 +32,79 @@ export enum NETWORK {
   TestNet = 'testnet',
 }
 
-const initState = (networkKey?: string) => {
-  let curNetworkKey = networkKey || NETWORK.TestNet;
+const initialState = {
+  config: undefined as any,
 
-  const urlSearchParams = new URLSearchParams(window.location.search);
-  const params = Object.fromEntries(urlSearchParams.entries());
-  const networkParam = params['network'];
-  const isValidNetwork = [NETWORK.IsolatedServer, NETWORK.TestNet].includes(
-    networkParam as NETWORK
-  );
-  if (isValidNetwork) {
-    curNetworkKey = networkParam;
-  }
+  curNetwork: undefined as any,
+  zilliqa: undefined as Zilliqa | undefined,
+  version: undefined as number | undefined,
+  provider: undefined as HTTPProvider | undefined,
 
-  if (networkParam === undefined || !isValidNetwork) {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    urlSearchParams.set('network', curNetworkKey);
-    window.history.replaceState(
-      null,
-      '',
-      `${window.location.pathname}?${urlSearchParams.toString()}`
-    );
-  }
-
-  const isolatedServer = {
-    name: NETWORK.IsolatedServer,
-    chainId: 222,
-    msgVersion: 1,
-    nodeUrl: 'https://zilliqa-isolated-server.zilliqa.com',
-    explorerUrl: 'https://devex.zilliqa.com',
-  };
-
-  const testnet = {
-    name: NETWORK.TestNet,
-    chainId: 333,
-    msgVersion: 1,
-    nodeUrl: 'https://dev-api.zilliqa.com',
-    explorerUrl: 'https://devex.zilliqa.com',
-  };
-
-  const curNetwork = curNetworkKey === NETWORK.TestNet ? testnet : isolatedServer;
-
-  const provider = new HTTPProvider(curNetwork.nodeUrl);
-  const zilliqa = new Zilliqa(curNetwork.nodeUrl, provider);
-  const version = bytes.pack(curNetwork.chainId, curNetwork.msgVersion);
-
-  const newState = {
-    curNetwork: curNetwork,
-    zilliqa: zilliqa,
-    version: version,
-    provider: provider,
-    isAuth: undefined as boolean | undefined,
-    address: undefined as string | undefined,
-    publicKey: undefined as string | undefined,
-    privateKey: undefined as string | undefined,
-  };
-  return newState;
+  isAuth: undefined as boolean | undefined,
+  address: undefined as string | undefined,
+  publicKey: undefined as string | undefined,
+  privateKey: undefined as string | undefined,
 };
-
-export const ZilContext = React.createContext(initState());
+export const ZilContext = React.createContext(initialState);
 
 export class ZilProvider extends React.Component {
-  public readonly state = initState();
+  public readonly state = initialState;
+  async componentDidMount() {
+    const res = await fetch('config.json');
+    const config = await res.json();
+    console.log('config', config);
+    this.setState({ config }, () => this.initState());
+  }
+
+  initState = (networkKey?: string) => {
+    let curNetworkKey = networkKey || NETWORK.TestNet;
+
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    const networkParam = params['network'];
+    const isValidNetwork = [NETWORK.IsolatedServer, NETWORK.TestNet].includes(
+      networkParam as NETWORK
+    );
+    if (isValidNetwork) {
+      curNetworkKey = networkParam;
+    }
+
+    if (networkParam === undefined || !isValidNetwork) {
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      urlSearchParams.set('network', curNetworkKey);
+      window.history.replaceState(
+        null,
+        '',
+        `${window.location.pathname}?${urlSearchParams.toString()}`
+      );
+    }
+    const { config } = this.state;
+
+    const curNetwork =
+      curNetworkKey === NETWORK.TestNet ? config[NETWORK.TestNet] : config[NETWORK.IsolatedServer];
+
+    const provider = new HTTPProvider(curNetwork.nodeUrl);
+    const zilliqa = new Zilliqa(curNetwork.nodeUrl, provider);
+    const version = bytes.pack(curNetwork.chainId, curNetwork.msgVersion);
+
+    this.setState({
+      curNetwork: curNetwork,
+      zilliqa: zilliqa,
+      version: version,
+      provider: provider,
+
+      isAuth: undefined as boolean | undefined,
+      address: undefined as string | undefined,
+      publicKey: undefined as string | undefined,
+      privateKey: undefined as string | undefined,
+    });
+  };
 
   public accessWallet = (privateKey: string) => {
     try {
       const address = getAddressFromPrivateKey(privateKey);
       const publicKey = getPubKeyFromPrivateKey(privateKey);
-      const { zilliqa } = this.state;
+      const zilliqa = this.state.zilliqa as Zilliqa;
       zilliqa.wallet.addByPrivateKey(privateKey);
 
       this.setState({
@@ -115,7 +120,8 @@ export class ZilProvider extends React.Component {
   };
 
   private getParams = async (toAddr, amountInZil) => {
-    const { zilliqa, version } = this.state;
+    const zilliqa = this.state.zilliqa as Zilliqa;
+    const version = this.state.version as number;
     const response = await zilliqa.blockchain.getMinimumGasPrice();
     const gasPrice: string = response.result || '';
 
@@ -131,7 +137,8 @@ export class ZilProvider extends React.Component {
 
   public send = async ({ args }): Promise<any> => {
     const { amount, toAddress } = args;
-    const { zilliqa, provider } = this.state;
+    const zilliqa = this.state.zilliqa as Zilliqa;
+    const provider = this.state.provider as HTTPProvider;
     const tx = new Transaction(await this.getParams(toAddress, amount), provider);
     const signedTx = await zilliqa.wallet.sign(tx);
     const { txParams } = signedTx;
@@ -142,7 +149,9 @@ export class ZilProvider extends React.Component {
   };
 
   public getBalance = async (): Promise<string> => {
-    const { address, zilliqa } = this.state;
+    const zilliqa = this.state.zilliqa as Zilliqa;
+    const address = this.state.address as string;
+
     if (typeof address !== 'string') {
       return '0';
     }
@@ -152,7 +161,7 @@ export class ZilProvider extends React.Component {
   };
 
   public getMinGasPrice = async (): Promise<string> => {
-    const { zilliqa } = this.state;
+    const zilliqa = this.state.zilliqa as Zilliqa;
     const res = await zilliqa.blockchain.getMinimumGasPrice();
     if (res.error !== undefined) throw new Error(res.error.message);
     return res.result ? res.result : '0';
@@ -165,11 +174,8 @@ export class ZilProvider extends React.Component {
       address,
       token,
     });
-    const configJson = await fetch('config.json');
-    const configResult = await configJson.json();
     const { curNetwork } = this.state;
-    const curConfig = configResult[curNetwork.name];
-    const res = await fetch(curConfig.faucetUrl, {
+    const res = await fetch(curNetwork.faucetUrl, {
       signal,
       method: 'POST',
       headers: {
@@ -186,7 +192,7 @@ export class ZilProvider extends React.Component {
 
   public clearAuth = () => {
     const { curNetwork } = this.state;
-    this.setState(initState(curNetwork.name));
+    this.initState(curNetwork.name);
   };
 
   public switchNetwork = (key) => {
@@ -197,7 +203,7 @@ export class ZilProvider extends React.Component {
       '',
       `${window.location.pathname}?${urlSearchParams.toString()}`
     );
-    this.setState(initState(key));
+    this.initState(key);
   };
 
   public render() {
