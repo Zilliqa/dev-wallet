@@ -78,14 +78,6 @@ const Home = ({ zilContext }) => {
         <small>
           Msg Ver: <code>{curNetwork.msgVersion}</code>
         </small>
-        <br />
-        <small>
-          Faucet URL: <code>{curNetwork.faucetUrl}</code>
-        </small>
-        <br />
-        <small>
-          Explorer URL: <code>{curNetwork.explorerUrl}</code>
-        </small>
       </div>
       <div className="container">
         <Row className="pt-4">
