@@ -40,6 +40,9 @@ export const RouterNode = () => (
   <ZilProvider>
     <ZilContext.Consumer>
       {(zilContext) => {
+        if (zilContext.curNetwork === undefined) {
+          return 'fetching config.json...';
+        }
         const RouteList = [
           {
             path: paths.home,
