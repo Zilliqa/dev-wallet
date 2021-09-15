@@ -41,7 +41,16 @@ export const RouterNode = () => (
     <ZilContext.Consumer>
       {(zilContext) => {
         if (zilContext.curNetwork === undefined) {
-          return 'fetching config.json...';
+          return (
+            <p
+              style={{
+                color: '#555',
+                padding: 10,
+              }}
+            >
+              {'Fetching config'}
+            </p>
+          );
         }
         const RouteList = [
           {
