@@ -2,7 +2,7 @@
     "testnet": {
     "name": "testnet",
     "nodeUrl": "https://dev-api.zilliqa.com",
-    "chainId": 222,
+    "chainId": 333,
     "msgVersion": 1,
     "faucetUrl": "https://stg-testnet-faucet.zilliqa.com/api/v1/faucet",
     "explorerUrl": "https://devex.zilliqa.com"
@@ -10,7 +10,7 @@
     "isolated_server": {
     "name": "isolated_server",
     "nodeUrl": "https://zilliqa-isolated-server.zilliqa.com",
-    "chainId": 333,
+    "chainId": 222,
     "msgVersion": 1,
     "faucetUrl": "https://stg-zilliqa-isolated-faucet.zilliqa.com/api/v1/faucet",
     "explorerUrl": "https://devex.zilliqa.com"
