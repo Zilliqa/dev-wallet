@@ -21,7 +21,8 @@ import Layout from '../../components/layout';
 import FaucetRequest from '../../components/faucet-request';
 
 import { getInputValidationState } from '../../utils';
-import { isBech32 } from '@zilliqa-js/util/dist/validation';
+import { validation } from '@zilliqa-js/util';
+const { isAddress, isBech32 } = validation;
 
 const FaucetContainer = ({ zilContext }) => {
   const { faucet, curNetwork } = zilContext;
@@ -32,7 +33,7 @@ const FaucetContainer = ({ zilContext }) => {
 
   let isInitialAddressValid = false;
   if (initialAddress !== undefined) {
-    isInitialAddressValid = isBech32(initialAddress);
+    isInitialAddressValid = isBech32(initialAddress) || isAddress(initialAddress);
   }
 
   const [toAddress, setToAddress] = useState(initialAddress);
@@ -45,7 +46,10 @@ const FaucetContainer = ({ zilContext }) => {
     e.preventDefault();
     const value = e.target.value;
     const key = 'toAddress';
-    const validationResult: any = getInputValidationState(key, value, isBech32(value));
+
+    const validate = (value) => isBech32(value) || isAddress(value);
+
+    const validationResult: any = getInputValidationState(key, value, validate(value));
     setToAddress(value);
     setToAddressValid(validationResult.toAddressValid);
     setToAddressInvalid(validationResult.toAddressInvalid);
