@@ -26,7 +26,8 @@ import { useAsyncFn } from '../../use-async-fn';
 
 const FaucetRequest = ({ faucet, toAddress, reset, curNetwork }) => {
   const { error, isPending, isFulfilled, data, run } = useAsyncFn({
-    deferFn: faucet,
+    fn: faucet,
+    deferred: true,
   });
   const [token, setToken] = useState();
 

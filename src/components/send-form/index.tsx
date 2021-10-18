@@ -34,20 +34,21 @@ const SendForm = ({ send, getBalance, getMinGasPrice, curNetwork }) => {
   const [toAddressInvalid, setToAddressInvalid] = useState(false);
   const [amount, setAmount] = useState('');
 
-  const minGasProps = useAsyncFn({ promiseFn: getMinGasPrice });
+  const minGasProps = useAsyncFn({ fn: getMinGasPrice });
   const minGasPriceInQa = minGasProps.data as string;
   const isUpdatingMinGasPrice = minGasProps.isPending;
 
   const minGasPriceInZil: string = units.fromQa(new BN(minGasPriceInQa), units.Units.Zil);
 
-  const balanceProps = useAsyncFn({ promiseFn: getBalance });
+  const balanceProps = useAsyncFn({ fn: getBalance });
   const balanceInQa = balanceProps.data as string;
   const isUpdatingBalance = balanceProps.isPending;
 
   const balanceInZil: string = units.fromQa(new BN(balanceInQa), units.Units.Zil);
 
   const mutationProps = useAsyncFn({
-    deferFn: send,
+    fn: send,
+    deferred: true,
   });
 
   const confirm = () => {
