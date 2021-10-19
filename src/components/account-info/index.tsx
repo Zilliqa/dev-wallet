@@ -25,7 +25,7 @@ import { useAsyncFn } from '../../use-async-fn';
 
 const AccountInfo = ({ privateKey, publicKey, address, getBalance, curNetwork }) => {
   const bech32Address = toBech32Address(address);
-  const { data, error, isPending, run } = useAsyncFn({ promiseFn: getBalance });
+  const { data, error, isPending, run } = useAsyncFn({ fn: getBalance });
   const getAddressExplorerURL = (bechAddress) => {
     return `${curNetwork.explorerUrl}/address/${bechAddress}?network=${encodeURIComponent(
       curNetwork.nodeUrl

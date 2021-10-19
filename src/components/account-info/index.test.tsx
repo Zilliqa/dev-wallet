@@ -15,8 +15,7 @@
  * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react';
-import { render, wait } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import AccountInfo from '.';
 import { NETWORK } from '../../contexts/zil-context';
 
@@ -58,7 +57,7 @@ test('matches the snapshot when loaded', async () => {
     />
   );
 
-  await wait(() => getByTestId('container-data'));
+  await waitFor(() => getByTestId('container-data'));
   expect(container.firstChild).toMatchSnapshot();
 });
 
@@ -73,7 +72,7 @@ test('matches the snapshot when failed', async () => {
       curNetwork={curNetwork}
     />
   );
-  await wait(() => getByTestId('container-error'));
+  await waitFor(() => getByTestId('container-error'), { timeout: 1000 });
   expect(container.firstChild).toMatchSnapshot();
 });
 
@@ -88,6 +87,6 @@ test('matches the snapshot when no data', async () => {
       curNetwork={curNetwork}
     />
   );
-  await wait(() => getByTestId('container-no-data'));
+  await waitFor(() => getByTestId('container-no-data'));
   expect(container.firstChild).toMatchSnapshot();
 });

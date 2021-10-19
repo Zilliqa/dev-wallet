@@ -21,7 +21,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import Home from './containers/home';
 import Spinner from './components/spinner';
 
-import { ZilProvider, ZilContext, NETWORK } from './contexts/zil-context';
+import { ZilProvider, ZilContext } from './contexts/zil-context';
 
 export const paths = {
   faucet: '/faucet',
@@ -41,7 +41,16 @@ export const RouterNode = () => (
     <ZilContext.Consumer>
       {(zilContext) => {
         if (zilContext.curNetwork === undefined) {
-          return 'fetching config.json...';
+          return (
+            <p
+              style={{
+                color: '#555',
+                padding: 10,
+              }}
+            >
+              {'Fetching config'}
+            </p>
+          );
         }
         const RouteList = [
           {
@@ -56,14 +65,11 @@ export const RouterNode = () => (
             path: paths.generate,
             component: lazy(() => import('./containers/generate')),
           },
-        ];
-
-        if (zilContext.curNetwork.name === NETWORK.TestNet) {
-          RouteList.push({
+          {
             path: paths.faucet,
             component: lazy(() => import('./containers/faucet')),
-          });
-        }
+          },
+        ];
 
         return (
           <Router>

@@ -1,6 +1,21 @@
-import { useEffect, useReducer, useRef, useCallback } from 'react';
+/**
+ * This file is part of nucleus-wallet.
+ * Copyright (c) 2018 - present Zilliqa Research Pte. Ltd.
+ *
+ * nucleus-wallet is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ *
+ * nucleus-wallet is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-/* tslint:disable */
+import { useEffect, useReducer, useRef, useCallback } from 'react';
 
 export enum statusTypes {
   Initial = 'Initial',
@@ -68,8 +83,6 @@ const reducer = (state: any, args: Args) => {
         error: payload,
         ...getStatusProps(statusTypes.Rejected),
       };
-    default:
-      return state;
   }
 };
 
@@ -77,15 +90,11 @@ export interface UseAsyncFn {
   (...args: any[]): any;
 }
 
-export const useAsyncFn: UseAsyncFn = ({ promiseFn, deferFn, ...args }) => {
+export const useAsyncFn: UseAsyncFn = ({ fn, deferred = false, ...args }) => {
   const [state, dispatch] = useReducer(reducer, initialize());
-  const asyncFn = promiseFn || deferFn;
-  if (asyncFn === undefined) {
-    throw new Error('either promiseFn or deferFn should be provided');
-  }
-
+  const asyncFn = fn;
   const isMountedRef = useRef(true);
-  const abortControllerRef = useRef<AbortController | undefined>();
+  const abortControllerRef = useRef<AbortController>();
   const argsRef = useRef(args);
   const init = (): void => {
     isMountedRef.current && dispatch({ type: actionTypes.Init, payload: undefined });
@@ -96,30 +105,26 @@ export const useAsyncFn: UseAsyncFn = ({ promiseFn, deferFn, ...args }) => {
       if (newArgs) {
         argsRef.current = newArgs;
       }
-      if (AbortController) {
-        abortControllerRef.current = new AbortController();
-      }
+
+      abortControllerRef.current = new AbortController();
+
       isMountedRef.current && dispatch({ type: actionTypes.Run, payload: undefined });
       try {
         const signal: AbortSignal | undefined =
           abortControllerRef.current && abortControllerRef.current.signal;
-        if (signal && signal.aborted) {
-          throw new DOMException();
-        }
         const payload = await asyncFn({ args: argsRef.current, signal });
         isMountedRef.current && dispatch({ type: actionTypes.Fulfill, payload });
-      } catch (error) {
-        if (error.name === 'AbortError') {
-          isMountedRef.current && dispatch({ type: actionTypes.Abort, payload: error });
-        } else {
-          isMountedRef.current && dispatch({ type: actionTypes.Reject, payload: error });
-        }
+      } catch (error: any) {
+        const curType =
+          error && error.name === 'AbortError' ? actionTypes.Abort : actionTypes.Reject;
+
+        isMountedRef.current && dispatch({ type: curType, payload: error });
       }
     },
     [asyncFn]
   );
 
-  const cancel = (): void => {
+  const abort = (): void => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
     }
@@ -132,10 +137,10 @@ export const useAsyncFn: UseAsyncFn = ({ promiseFn, deferFn, ...args }) => {
     []
   );
   useEffect(() => {
-    if (promiseFn) {
+    if (!deferred) {
       run();
     }
-    return cancel;
-  }, [promiseFn, run]);
-  return { ...state, run, init, cancel };
+    return abort;
+  }, [fn, run]);
+  return { ...state, run, init, abort };
 };

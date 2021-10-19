@@ -21,7 +21,7 @@ import {
   getPubKeyFromPrivateKey,
   fromBech32Address,
 } from '@zilliqa-js/crypto';
-import { Long, units, BN } from '@zilliqa-js/util';
+import { Long, units, BN, validation } from '@zilliqa-js/util';
 import { Transaction } from '@zilliqa-js/account';
 
 import { bytes, Zilliqa } from '@zilliqa-js/zilliqa';
@@ -169,7 +169,20 @@ export class ZilProvider extends React.Component {
 
   public faucet = async ({ args, signal }): Promise<string | void> => {
     const { token, toAddress } = args;
-    const address = fromBech32Address(toAddress);
+
+    let address = toAddress;
+    // address is either ByStr20 or bech32
+    //
+    // ByStr20: 20 byte hexadecimal string
+    // e.g. 0x573EC96638C8bB1c386394602E1460634F02aDdA
+    //
+    // bech32: A bech32 with a human-readable prefix of zil
+    // e.g. zil12ulvje3ceza3cwrrj3szu9rqvd8s9tw69c978p
+
+    if (validation.isBech32(toAddress)) {
+      address = fromBech32Address(toAddress);
+    }
+
     const body = JSON.stringify({
       address,
       token,

@@ -22,10 +22,8 @@ import { Link } from 'react-router-dom';
 import { paths } from '../../routes';
 import './style.css';
 import { FaHome, FaPlusSquare, FaTint, FaPaperPlane } from 'react-icons/fa';
-import { NETWORK } from '../../contexts/zil-context';
 
 const Sidebar = (props) => {
-  const curNetwork = props.curNetwork;
   const { pathname } = props.location;
 
   const renderLink = (path, name, icon) => (
@@ -46,9 +44,7 @@ const Sidebar = (props) => {
             <NavItem>{renderLink(paths.home, 'Home', <FaHome />)}</NavItem>
             <NavItem>{renderLink(paths.generate, 'Create New Wallet', <FaPlusSquare />)}</NavItem>
             <NavItem>{renderLink(paths.send, 'Access Wallet', <FaPaperPlane />)}</NavItem>
-            {curNetwork.name === NETWORK.TestNet ? (
-              <NavItem>{renderLink(paths.faucet, 'ZIL Faucet', <FaTint />)}</NavItem>
-            ) : null}
+            <NavItem>{renderLink(paths.faucet, 'ZIL Faucet', <FaTint />)}</NavItem>
           </ul>
         </div>
       </div>
