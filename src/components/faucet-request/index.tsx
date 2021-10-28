@@ -1,21 +1,20 @@
 /**
- * This file is part of nucleus-wallet.
  * Copyright (c) 2018 - present Zilliqa Research Pte. Ltd.
  *
- * nucleus-wallet is free software: you can redistribute it and/or modify it under the
+ * This program is free software: you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
  *
- * nucleus-wallet is distributed in the hope that it will be useful, but WITHOUT ANY
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License along with
- * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
+ * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SpinnerWithCheckMark from '../spinner-with-check-mark';
 import Button from '../button';
 import FaucetPending from '../faucet-pending';
@@ -24,8 +23,8 @@ import { SITE_KEY } from '../../constants';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useAsyncFn } from '../../use-async-fn';
 
-const FaucetRequest = ({ faucet, toAddress, reset, curNetwork }) => {
-  const { error, isPending, isFulfilled, data, run } = useAsyncFn({
+const FaucetRequest = ({ faucet, toAddress, reset }) => {
+  const { error, isPending, isFulfilled, run } = useAsyncFn({
     fn: faucet,
     deferred: true,
   });

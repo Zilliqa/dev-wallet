@@ -10,12 +10,7 @@ exports[`matches the snapshot 1`] = `
         class="navbar-brand"
         href="/"
       >
-        Nucleus Wallet
-        <small
-          class="release-text"
-        >
-          beta
-        </small>
+        Dev Wallet
       </a>
       <button
         aria-label="toggler"
@@ -128,12 +123,7 @@ exports[`matches the snapshot 2`] = `
         class="navbar-brand"
         href="/"
       >
-        Nucleus Wallet
-        <small
-          class="release-text"
-        >
-          beta
-        </small>
+        Dev Wallet
       </a>
       <button
         aria-label="toggler"

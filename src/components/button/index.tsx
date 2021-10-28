@@ -1,18 +1,17 @@
 /**
- * This file is part of nucleus-wallet.
  * Copyright (c) 2018 - present Zilliqa Research Pte. Ltd.
  *
- * nucleus-wallet is free software: you can redistribute it and/or modify it under the
+ * This program is free software: you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
  *
- * nucleus-wallet is distributed in the hope that it will be useful, but WITHOUT ANY
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License along with
- * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
+ * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 import * as React from 'react';
@@ -90,77 +89,41 @@ const StyledButton = styled.button`
         border-radius: 0.25rem;
       }`}
 
-  ${({ level, theme }) =>
-    level === 'primary' && theme === 'light'
+  ${({ level }) =>
+    level === 'primary'
       ? `&{
-              background-color: ${colors.blue600};
-              color: ${colors.white};
-              border-color: 'transparent';
-            }&:hover,:active,:focus{
-              background-color: ${colors.blue800};
-              color: ${colors.white};
-              border-color: 'transparent';
-            }&:disabled{
-              background-color: ${colors.blue400};
-            }`
-      : level === 'primary' && theme === 'dark'
-      ? `&{
-              background-color: ${colors.blue600};
+              background-color: ${colors.teal600};
               color: ${colors.white};
               border-color: transparent;
             }&:hover,:active,:focus{
-              background-color: ${colors.blue500};
+              background-color: ${colors.teal500};
               color: ${colors.white};
               border-color: 'transparent';
             }&:disabled{
-              color: ${colors.gray300};
-              background-color: ${colors.blue600};
+              color: ${colors.gray500};
+              background-color: ${colors.teal600};
             }`
-      : level === 'secondary' && theme === 'light'
+      : level === 'secondary'
       ? `&{
-              background-color: transparent;
-              color: ${colors.gray700};
-              border-color: ${colors.gray700};
-            }&:hover,:active,:focus{
-              background-color: ${colors.gray700};
-              color: ${colors.white};
-              border-color: ${colors.gray700};
-            }&:disabled{
               background-color: transparent;
               color: ${colors.gray500};
               border-color: ${colors.gray500};
-            }`
-      : level === 'secondary' && theme === 'dark'
-      ? `&{
-              background-color: transparent;
-              color: ${colors.gray300};
-              border-color: ${colors.gray300};
             }&:hover,:active,:focus{
               color: ${colors.white};
               border-color: ${colors.white};
             }&:disabled{
-              color: ${colors.gray400};
-              border-color: ${colors.gray400};
-            }`
-      : level === 'tertiary' && theme === 'light'
-      ? `&{
-              background-color: transparent;
               color: ${colors.gray600};
-              border-color: transparent;
-            }&:hover,:active,:focus{
-              color: ${colors.gray800};
-            }&:disabled{
-              color: ${colors.gray400};
+              border-color: ${colors.gray600};
             }`
-      : level === 'tertiary' && theme === 'dark'
+      : level === 'tertiary'
       ? `&{
               background-color: transparent;
-              color: ${colors.gray300};
+              color: ${colors.gray500};
               border-color: transparent;
             }&:hover,:active,:focus{
               color: ${colors.white};
             }&:disabled{
-              color: ${colors.gray400};
+              color: ${colors.gray600};
             }`
       : ``}
 `;
@@ -177,21 +140,18 @@ interface IProps {
   readonly className?: string;
   readonly type?: ButtonType;
   readonly style?: object;
-  readonly theme?: ThemeType;
   readonly testId?: string;
 }
 
-type ThemeType = 'light' | 'dark';
 type ButtonType = 'button' | 'submit' | 'reset';
 type SizeType = 'large' | 'medium' | 'small';
 type ButtonLevelType = 'primary' | 'secondary' | 'tertiary';
 
-const Button: React.SFC<IProps> = ({
+const Button: React.FunctionComponent<IProps> = ({
   text = '',
   size = 'medium',
   className = '',
   type = 'submit',
-  theme = 'light',
   disabled,
   onClick,
   before,
@@ -204,7 +164,6 @@ const Button: React.SFC<IProps> = ({
   <StyledButton
     level={level}
     size={size}
-    theme={theme}
     className={className || ''}
     onClick={onClick}
     aria-label={text}

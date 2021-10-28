@@ -3,7 +3,7 @@
 exports[`matches the snapshot 1`] = `
 <button
   aria-label=""
-  class="sc-bdVaJa iYUXzv p-0"
+  class="sc-bdVaJa gXMpwE p-0"
   data-testid="button-copy"
   style="vertical-align: top;"
   type="submit"

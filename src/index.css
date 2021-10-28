@@ -1,23 +1,22 @@
 /**
- * This file is part of nucleus-wallet.
  * Copyright (c) 2018 - present Zilliqa Research Pte. Ltd.
  *
- * nucleus-wallet is free software: you can redistribute it and/or modify it under the
+ * This program is free software: you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
  *
- * nucleus-wallet is distributed in the hope that it will be useful, but WITHOUT ANY
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License along with
- * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
+ * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 :root {
   --white: #fff;
-  --black: #24292e;
+  --black: #001;
   --gray100: #f9f9fd;
   --gray200: #e9e9f4;
   --gray300: #c5c5d3;
@@ -25,39 +24,32 @@
   --gray500: #7c7d8c;
   --gray600: #525360;
   --gray700: #343546;
-  --gray800: #242536;
-  --blue100: #d9ddfe;
-  --blue200: #aaafef;
-  --blue300: #7b82e1;
-  --blue400: #4c54d2;
-  --blue500: #392dd1;
-  --blue600: #2d23a7;
-  --blue700: #21197d;
-  --blue800: #383f6e;
-  --green100: #d3f2e2;
-  --green200: #96dfba;
-  --green300: #58cd92;
-  --green400: #1bba6a;
-  --green500: #148e50;
-  --green600: #0d6137;
-  --green700: #06351d;
-  --green800: #0d2521;
-  --red100: #f5acb8;
-  --red200: #f18295;
-  --red300: #ec5871;
-  --red400: #e72f4e;
-  --red500: #e2052a;
-  --red600: #be032d;
-  --red700: #99022f;
-  --red800: #750032;
-  --yellow100: #f9ebd0;
-  --yellow200: #f5dba2;
-  --yellow300: #f1cb74;
-  --yellow400: #edbb46;
-  --yellow500: #e9ab18;
-  --yellow600: #d19200;
-  --yellow700: #9d6e00;
-  --yellow800: #694900;
+  --gray800: #112;
+  --success: #12a378;
+  --danger: coral;
+}
+
+.neon {
+  color: #fff;
+  /* text-shadow: 0 0 2px #fff, 0 0 16px var(--success), 0 0 32px var(--success),
+    0 0 64px var(--success); */
+
+  animation: GlowEffect 5s linear infinite;
+}
+
+@keyframes GlowEffect {
+  0% {
+    text-shadow: 0 0 4px var(--white), 0 0 16px var(--success), 0 0 64px var(--success);
+  }
+
+  50% {
+    text-shadow: 0 0 4px var(--white), 0 0 16px var(--success), 0 0 64px var(--success),
+      0 0 72px royalblue;
+  }
+
+  100% {
+    text-shadow: 0 0 4px var(--white), 0 0 16px var(--success), 0 0 64px var(--success);
+  }
 }
 
 .font-monospace {
@@ -65,11 +57,13 @@
 }
 
 code {
-  color: var(--black);
+  color: var(--gray300);
 }
+
 body {
+  color: var(--gray100);
+  background-color: var(--black);
   margin: 0;
-  background-color: var(--gray100);
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -78,40 +72,36 @@ body {
   overflow-x: scroll;
 }
 
-a {
-  color: var(--blue500);
-}
-
-a:hover {
-  color: var(--blue700);
-}
-
 .bg-dark {
   background-color: var(--black) !important;
 }
 
 .text-primary {
-  color: var(--blue500) !important;
+  color: var(--white) !important;
 }
 
 .text-secondary {
-  color: var(--gray700) !important;
+  color: var(--gray300) !important;
 }
 
 .valid-feedback,
 .text-success {
-  color: var(--green500) !important;
+  color: var(--success) !important;
 }
 
 .form-control.is-valid {
-  border-color: var(--green500);
+  border-color: var(--success) !important;
   background-image: none;
   padding-right: 0;
 }
 
 .invalid-feedback,
 .text-danger {
-  color: var(--red500) !important;
+  color: var(--danger) !important;
+}
+
+.card {
+  background-color: var(--gray800);
 }
 
 .form-container a.nav-link {
@@ -128,7 +118,7 @@ a:hover {
 }
 
 .form-control.is-invalid {
-  border-color: var(--red500);
+  border-color: var(--danger) !important;
   background-image: none;
   padding-right: 0;
 }
@@ -142,9 +132,10 @@ form input.form-control-file {
 }
 
 form input.form-control {
+  color: var(--gray100);
   border: 0;
   border-radius: 0;
-  border-bottom: 1px solid var(--gray300);
+  border-bottom: 1px solid var(--gray500);
   padding: 0;
   transition: border-width 0.1s linear, border-color 0.3s linear;
   position: relative;
@@ -155,23 +146,25 @@ form input.form-control {
 .form-control:disabled,
 .form-control[readonly] {
   background-color: transparent;
-  color: var(--gray700);
-  border-bottom: 1px solid var(--gray300);
+  color: var(--gray100);
+  border-bottom: 1px solid var(--gray00);
   cursor: not-allowed;
 }
 
 form input[type='text']:focus,
 form input[type='password']:focus,
 form input[type='tel']:focus {
+  color: var(--gray100);
+  background-color: transparent;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0) !important;
   border: none;
-  border-bottom: 1px solid var(--black);
+  border-bottom: 1px solid var(--white);
 }
 
 form input[type='text']::placeholder,
 form input[type='password']::placeholder,
 form input[type='tel']::placeholder {
-  color: var(--gray300);
+  color: var(--gray100);
 }
 
 .release-text {
@@ -219,25 +212,28 @@ form input[type='tel']::placeholder {
 }
 
 .rc-steps-small .rc-steps-item-title {
-  color: var(--gray500);
+  color: var(--white);
 }
 
 .rc-steps-item-wait .rc-steps-item-icon {
   border-color: var(--gray500);
+  background-color: var(--gray500);
 }
 
 .rc-steps-item-wait .rc-steps-item-icon > .rc-steps-icon {
-  color: var(--gray500);
+  color: var(--white);
 }
 
 .rc-steps-item-process .rc-steps-item-icon {
   font-weight: bold;
-  background-color: var(--blue500);
-  border-color: var(--blue500);
+  color: var(--white);
+  background-color: var(--gray500);
+  border-color: var(--gray500);
 }
 
 .rc-steps-item-finish .rc-steps-item-icon {
-  border-color: var(--blue500);
+  border-color: var(--gray500);
+  background-color: var(--gray500);
   font-weight: bold;
 }
 
@@ -246,7 +242,7 @@ form input[type='tel']::placeholder {
 }
 
 .rc-steps-item-finish .rc-steps-item-title::after {
-  background-color: var(--blue500);
+  background-color: var(--success);
 }
 
 div.recaptcha {

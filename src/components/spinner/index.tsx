@@ -1,18 +1,17 @@
 /**
- * This file is part of nucleus-wallet.
  * Copyright (c) 2018 - present Zilliqa Research Pte. Ltd.
  *
- * nucleus-wallet is free software: you can redistribute it and/or modify it under the
+ * This program is free software: you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
  *
- * nucleus-wallet is distributed in the hope that it will be useful, but WITHOUT ANY
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License along with
- * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
+ * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 import * as React from 'react';
@@ -31,7 +30,7 @@ const LARGE = 80;
 
 const StyledSpinner = styled.div`
   border: 2px solid rgba(0, 0, 0, 0.1);
-  border-left-color: ${colors.gray300};
+  border-left-color: ${colors.gray500};
   animation: loader-spin 1s infinite linear;
   position: relative;
   display: inline-block;
@@ -64,6 +63,8 @@ const StyledSpinner = styled.div`
   }
 `;
 
-const Spinner: React.SFC<IProps> = ({ size, ...rest }) => <StyledSpinner size={size} {...rest} />;
+const Spinner: React.FunctionComponent<IProps> = ({ size, ...rest }) => (
+  <StyledSpinner size={size} {...rest} />
+);
 
 export default Spinner;
