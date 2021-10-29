@@ -116,7 +116,7 @@ exports[`matches the snapshot when failed 1`] = `
           Balance
           <button
             aria-label=""
-            class="sc-bdVaJa gMoiZy mb-1 py-0 px-1"
+            class="sc-bdVaJa jUDwrg mb-1 py-0 px-1"
             type="submit"
           >
             <svg
@@ -264,7 +264,7 @@ exports[`matches the snapshot when loaded 1`] = `
           Balance
           <button
             aria-label=""
-            class="sc-bdVaJa gMoiZy mb-1 py-0 px-1"
+            class="sc-bdVaJa jUDwrg mb-1 py-0 px-1"
             disabled=""
             type="submit"
           >
@@ -415,7 +415,7 @@ exports[`matches the snapshot when loaded 2`] = `
           Balance
           <button
             aria-label=""
-            class="sc-bdVaJa gMoiZy mb-1 py-0 px-1"
+            class="sc-bdVaJa jUDwrg mb-1 py-0 px-1"
             type="submit"
           >
             <svg
@@ -565,7 +565,7 @@ exports[`matches the snapshot when no data 1`] = `
           Balance
           <button
             aria-label=""
-            class="sc-bdVaJa gMoiZy mb-1 py-0 px-1"
+            class="sc-bdVaJa jUDwrg mb-1 py-0 px-1"
             type="submit"
           >
             <svg

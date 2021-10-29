@@ -1,6 +1,6 @@
 {
-  "short_name": "Nucleus Wallet",
-  "name": "Nucleus Wallet",
+  "short_name": "Dev Wallet",
+  "name": "Dev Wallet",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
