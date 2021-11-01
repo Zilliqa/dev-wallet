@@ -15,9 +15,9 @@ exports[`matches the snapshot 1`] = `
         class="nav-item"
       >
         <a
-          aria-label="Zilliqa GitHub"
+          aria-label="Dev Wallet GitHub"
           class="text-secondary nav-link"
-          href="https://github.com/Zilliqa/nucleus-wallet"
+          href="https://github.com/Zilliqa/dev-wallet"
           rel="noopener noreferrer"
           target="_blank"
         >

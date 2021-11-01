@@ -26,10 +26,10 @@ const Footer = ({ year }) => {
           <li className="nav-item">
             <a
               className="text-secondary nav-link"
-              href="https://github.com/Zilliqa/nucleus-wallet"
+              href="https://github.com/Zilliqa/dev-wallet"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={'Zilliqa GitHub'}
+              aria-label={'Dev Wallet GitHub'}
             >
               <FaGithub />
             </a>
