@@ -1,21 +1,19 @@
 /**
- * This file is part of nucleus-wallet.
  * Copyright (c) 2018 - present Zilliqa Research Pte. Ltd.
  *
- * nucleus-wallet is free software: you can redistribute it and/or modify it under the
+ * This program is free software: you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
  *
- * nucleus-wallet is distributed in the hope that it will be useful, but WITHOUT ANY
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License along with
- * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
+ * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React from 'react';
 import Layout from '../../components/layout';
 import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
@@ -29,22 +27,7 @@ const Container = styled.div`
   flexdirection: row;
   justify-content: center;
   align-items: center;
-  color: #fff;
-  background: linear-gradient(-45deg, #000, #2d23a7, #000);
-  background-size: 400% 400%;
-  animation: Gradient 15s ease infinite;
-
-  @keyframes Gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
+  background: #112;
 `;
 
 const Home = ({ zilContext }) => {
@@ -59,34 +42,27 @@ const Home = ({ zilContext }) => {
             textAlign: 'center',
           }}
         >
-          <h1 style={{ fontSize: '4rem' }}>Nucleus Wallet</h1>
-          <p>
-            Nucleus Wallet is free, open-source, Zilliqa <b>Test Net</b> Wallet.
-          </p>
+          <h1 style={{ fontSize: '5rem', padding: '1.5rem 0' }} className="neon">
+            {' '}
+            Dev Wallet
+          </h1>
+          <br />
+
+          <div style={{ textAlign: 'center' }}>
+            <small>
+              Node URL: <code>{curNetwork.nodeUrl}</code>
+            </small>
+            <br />
+            <small>
+              Chain ID: <code>{curNetwork.chainId}</code>
+            </small>
+            {' | '}
+            <small>
+              Msg Ver: <code>{curNetwork.msgVersion}</code>
+            </small>
+          </div>
         </div>
       </Container>
-      <br />
-      <div style={{ textAlign: 'center' }}>
-        <small>
-          Node URL: <code>{curNetwork.nodeUrl}</code>
-        </small>
-        <br />
-        <small>
-          Chain ID: <code>{curNetwork.chainId}</code>
-        </small>
-        {' | '}
-        <small>
-          Msg Ver: <code>{curNetwork.msgVersion}</code>
-        </small>
-        <br />
-        <small>
-          Faucet URL: <code>{curNetwork.faucetUrl}</code>
-        </small>
-        <br />
-        <small>
-          Explorer URL: <code>{curNetwork.explorerUrl}</code>
-        </small>
-      </div>
       <div className="container">
         <Row className="pt-4">
           <Col xs={6} sm={6} md={6} lg={6} className="ml-auto mr-auto text-center">

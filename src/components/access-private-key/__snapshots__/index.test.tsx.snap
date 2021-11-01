@@ -58,10 +58,14 @@ exports[`matches the snapshot when loading 1`] = `
       />
        
       <small
-        class="text-danger"
         data-testid="disclaimer"
+        style="color: coral;"
       >
-        This is Zilliqa Testnet wallet. Do not send any interim ERC-20 ZIL tokens or Mainnet tokens to this wallet. You are solely responsible for your account funds.
+        This is Zilliqa 
+        <b>
+          Dev Wallet
+        </b>
+        . Do not send any interim ERC-20 ZIL tokens or Mainnet tokens to this wallet. You are solely responsible for your account funds.
       </small>
     </label>
   </div>
@@ -70,7 +74,7 @@ exports[`matches the snapshot when loading 1`] = `
   >
     <button
       aria-label="Access"
-      class="sc-bwzfXH eyJGad"
+      class="sc-bwzfXH jUSdEt"
       disabled=""
       type="submit"
     >

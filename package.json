@@ -1,6 +1,5 @@
 {
-  "name": "nucleus-wallet",
-  "version": "0.1.0",
+  "name": "dev-wallet",
   "private": true,
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",

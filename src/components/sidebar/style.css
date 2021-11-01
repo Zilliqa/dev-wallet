@@ -1,18 +1,17 @@
 /**
- * This file is part of nucleus-wallet.
  * Copyright (c) 2018 - present Zilliqa Research Pte. Ltd.
  *
- * nucleus-wallet is free software: you can redistribute it and/or modify it under the
+ * This program is free software: you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
  *
- * nucleus-wallet is distributed in the hope that it will be useful, but WITHOUT ANY
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License along with
- * nucleus-wallet.  If not, see <http://www.gnu.org/licenses/>.
+ * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 .sidebar-icon {
@@ -38,12 +37,10 @@
   margin-left: -210px;
   overflow-y: auto;
   z-index: 1000;
-  background-color: var(--white) !important;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
-  border-right: 1px solid var(--gray200);
 }
 
 .sidebar-nav {
@@ -62,20 +59,19 @@
 .sidebar-nav li a {
   display: block;
   text-decoration: none;
-  color: var(--gray700);
+  color: var(--gray500);
   font-size: 16px;
 }
 
 .sidebar-nav li a.active,
 .sidebar-nav li a:hover {
   text-decoration: none;
-  color: var(--gray700);
-  background-color: var(--gray100);
+  color: var(--white);
 }
 
 .sidebar-nav li a:focus {
   text-decoration: none;
-  color: var(--gray700);
+  color: var(--white);
 }
 
 @media only screen and (max-width: 575px) {
