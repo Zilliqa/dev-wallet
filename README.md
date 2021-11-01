@@ -1,7 +1,13 @@
-[![Build Status][travis-svg]][travis-url] 
-[![License][license-svg]][license-url]
+<div>
+    <a href="https://travis-ci.com/Zilliqa/dev-wallet" target="_blank">
+    <img src="https://travis-ci.com/Zilliqa/dev-wallet.svg?token=zQ1VLsuY7iH5Nn3yKbai&branch=master" />
+    </a>
+    <a href="https://github.com/zilliqa/dev-wallet/blob/master/LICENSE" target="_blank">
+    <img src="https://img.shields.io/badge/License-GPLv3-blue.svg" />
+    </a>
+</div>
 
-# [nucleus-wallet](https://dev-wallet.zilliqa.com)
+# [Dev Wallet](https://dev-wallet.zilliqa.com)
 
 ## Installation and Usage
 
@@ -21,10 +27,5 @@ We use [Jest](https://jestjs.io/) for testing.
 
 ## License
 
-This project is open source software licensed as [GPL-3.0](https://github.com/zilliqa/nucleus-wallet/blob/master/LICENSE).
+This project is open source software licensed as [GPL-3.0](https://github.com/zilliqa/dev-wallet/blob/master/LICENSE).
 
-[travis-svg]: https://travis-ci.com/Zilliqa/nucleus-wallet.svg?token=zQ1VLsuY7iH5Nn3yKbai&branch=master
-[travis-url]: https://travis-ci.com/Zilliqa/nucleus-wallet
-
-[license-svg]: https://img.shields.io/badge/License-GPLv3-blue.svg
-[license-url]: https://github.com/zilliqa/nucleus-wallet/blob/master/LICENSE
