@@ -34,7 +34,7 @@ test('matches the snapshot', () => {
           chainId: 333,
           msgVersion: 1,
           nodeUrl: 'https://dev-api.zilliqa.com',
-          faucetUrl: 'https://nucleus-server.zilliqa.com/api/v1/run',
+          faucetUrl: 'https://some-api.zilliqa.com/api/v1/faucet',
           explorerUrl: 'devex.zilliqa.com',
         }}
         switchNetwork={switchNetwork}
@@ -58,7 +58,7 @@ test('matches the snapshot', () => {
           chainId: 333,
           msgVersion: 1,
           nodeUrl: 'https://dev-api.zilliqa.com',
-          faucetUrl: 'https://nucleus-server.zilliqa.com/api/v1/run',
+          faucetUrl: 'https://some-api.zilliqa.com/api/v1/faucet',
           explorerUrl: 'devex.zilliqa.com',
         }}
         switchNetwork={switchNetwork}
