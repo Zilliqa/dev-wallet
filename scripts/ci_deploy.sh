@@ -22,14 +22,14 @@ mkdir -p "$application"-artifact/build/
 docker create --name extractbuild "tempimagebuild:$commit"
 docker cp extractbuild:/usr/share/nginx/html/. $(pwd)/"$application"-artifact/build/
 docker rm extractbuild
-docker push "$registryURL"
+# docker push "$registryURL"
 
-cd "$application"-artifact
-cd build
-echo $commit > "$application"-artifact-commit.txt
-zip -r "$application"-artifact.zip .
-aws s3 sync . s3://"$application"-static-artifact --exclude='*' --include=''"$application"'-artifact.zip'
+# cd "$application"-artifact
+# cd build
+# echo $commit > "$application"-artifact-commit.txt
+# zip -r "$application"-artifact.zip .
+# aws s3 sync . s3://"$application"-static-artifact --exclude='*' --include=''"$application"'-artifact.zip'
 
-cd ..
-echo $(date) > date_created.txt
-aws s3 sync . s3://"$application"-static-artifact --exclude='*' --include='date_created.txt'
+# cd ..
+# echo $(date) > date_created.txt
+# aws s3 sync . s3://"$application"-static-artifact --exclude='*' --include='date_created.txt'

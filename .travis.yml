@@ -32,4 +32,4 @@ deploy:
   script:
   - ./scripts/ci_deploy.sh
   on:
-    branch: master
+    branch: feat/ci_build_improvement
