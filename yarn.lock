@@ -1833,12 +1833,19 @@
   dependencies:
     "@types/node" "*"
 
-"@types/bn.js@^4.11.3":
-  version "4.11.6"
-  resolved "https://registry.npmjs.org/@types/bn.js/-/bn.js-4.11.6.tgz#c306c70d9358aaea33cd4eda092a742b9505967c"
-  integrity sha512-pqr857jrp2kPuO9uRjZ3PwnJTjoQy+fcdxvBTvHm6dkmEL9q+hDD/2j/0ELOBPtPnS8LjCX0gI9nbl8lVkadpg==
+"@types/bn.js@*", "@types/bn.js@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@types/bn.js/-/bn.js-5.1.0.tgz#32c5d271503a12653c62cf4d2b45e6eab8cebc68"
+  integrity sha512-QSSVYj7pYFN49kW77o2s9xTCwZ8F2xLbjLLSEVh8D2F4JUhZtPAGOFLTD+ffqksBx/u4cE/KImFjyhqCjn/LIA==
   dependencies:
     "@types/node" "*"
+
+"@types/elliptic@^6.4.13":
+  version "6.4.14"
+  resolved "https://registry.yarnpkg.com/@types/elliptic/-/elliptic-6.4.14.tgz#7bbaad60567a588c1f08b10893453e6b9b4de48e"
+  integrity sha512-z4OBcDAU0GVwDTuwJzQCiL6188QvZMkvoERgcVjq0/mPM8jCfdwZ3x5zQEVoL9WCAru3aG5wl3Z5Ww5wBWn7ZQ==
+  dependencies:
+    "@types/bn.js" "*"
 
 "@types/eslint@^7.2.6":
   version "7.28.0"
@@ -1997,6 +2004,13 @@
   resolved "https://registry.npmjs.org/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
   integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
 
+"@types/sodium-native@2.3.5":
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/@types/sodium-native/-/sodium-native-2.3.5.tgz#5d2681e7b6b67bcbdc63cfb133e303ec9e942e43"
+  integrity sha512-a3DAIpW8+36XAY8aIR36JBQQsfOabxHuJwx11DL/PTvnbwEWPAXW66b8QbMi0r2vUnkOfREsketxdvjBmQxqDQ==
+  dependencies:
+    "@types/node" "*"
+
 "@types/source-list-map@*":
   version "0.1.2"
   resolved "https://registry.npmjs.org/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
@@ -2026,6 +2040,11 @@
   dependencies:
     source-map "^0.6.1"
 
+"@types/uuid@8.3.1":
+  version "8.3.1"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.1.tgz#1a32969cf8f0364b3d8c8af9cc3555b7805df14f"
+  integrity sha512-Y2mHTRAbqfFkpjldbkHGY8JIzRN6XqYRliG8/24FcHm2D2PwW24fl5xMRTVGdrb7iMrwCaIEbLWerGIkXuFWVg==
+
 "@types/webpack-sources@*":
   version "2.1.1"
   resolved "https://registry.npmjs.org/@types/webpack-sources/-/webpack-sources-2.1.1.tgz#6af17e3a3ded71eec2b98008d7c12f498a0a4506"
@@ -2046,6 +2065,13 @@
     "@types/webpack-sources" "*"
     anymatch "^3.0.0"
     source-map "^0.6.0"
+
+"@types/websocket@1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@types/websocket/-/websocket-1.0.4.tgz#1dc497280d8049a5450854dd698ee7e6ea9e60b8"
+  integrity sha512-qn1LkcFEKK8RPp459jkjzsfpbsx36BBt3oC3pITYtkoBw/aVX+EZFa5j3ThCRTNpLFvIMr5dSTD4RaMdilIOpA==
+  dependencies:
+    "@types/node" "*"
 
 "@types/yargs-parser@*":
   version "20.2.1"
@@ -2320,114 +2346,116 @@
   resolved "https://registry.npmjs.org/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zilliqa-js/account@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/@zilliqa-js/account/-/account-3.3.0.tgz#40fc84fc827166f3eb8fbda0a3af525e84038cf1"
-  integrity sha512-+DXCe2XBpR8XdGRV+40ZeOGsn+1lieAAXtt6fNWo+toJ7mq4qfxL07QpY5XGPetmdHR67xyBDZsh7VjRdvQeNw==
+"@zilliqa-js/account@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/account/-/account-3.3.4.tgz#06648671abfcf32b481c9756d530fe78b9f2ff37"
+  integrity sha512-WGiUYg2LD2nL2X+wMaI463+KhsoXBOP/qb1+WExFIEJm9DTC2y5nnikO+5JlAMescwLtWjsmTJn5uT1RZcHqIg==
   dependencies:
     "@types/bip39" "^2.4.0"
     "@types/hdkey" "^0.7.0"
-    "@zilliqa-js/core" "3.3.0"
-    "@zilliqa-js/crypto" "3.3.0"
-    "@zilliqa-js/proto" "3.2.0"
-    "@zilliqa-js/util" "3.3.0"
+    "@zilliqa-js/core" "^3.3.4"
+    "@zilliqa-js/crypto" "^3.3.4"
+    "@zilliqa-js/proto" "^3.3.4"
+    "@zilliqa-js/util" "^3.3.4"
     bip39 "^2.5.0"
     hdkey "^1.1.0"
     tslib "2.3.1"
 
-"@zilliqa-js/blockchain@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/@zilliqa-js/blockchain/-/blockchain-3.3.0.tgz#8db2cbf1bb1117c1b9899436d680c03320f2416c"
-  integrity sha512-AYUYBCY1DMJpMBRLG+Y172+FiOrC8pDjMrMG+GGhaQEDgas+bTAOB6m0cu3nPL3bqqB3uTKKSgWghkCSfQyFVQ==
+"@zilliqa-js/blockchain@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/blockchain/-/blockchain-3.3.4.tgz#ebc551727394649c8a95a2f38cd3383c671dc505"
+  integrity sha512-f6o29BYkFAv92DxQgFoRd6Ep3SM3Y456sm0WPmgjYtwwpUSoYpto3nBaVmVwUvmFpEcAic1NLMw5zN6FMNo5rw==
   dependencies:
-    "@zilliqa-js/account" "3.3.0"
-    "@zilliqa-js/contract" "3.3.0"
-    "@zilliqa-js/core" "3.3.0"
-    "@zilliqa-js/crypto" "3.3.0"
-    "@zilliqa-js/util" "3.3.0"
+    "@zilliqa-js/account" "^3.3.4"
+    "@zilliqa-js/core" "^3.3.4"
+    "@zilliqa-js/crypto" "^3.3.4"
+    "@zilliqa-js/util" "^3.3.4"
     tslib "2.3.1"
     utility-types "^3.4.1"
 
-"@zilliqa-js/contract@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/@zilliqa-js/contract/-/contract-3.3.0.tgz#121541ba166efaf38d54360682b8457c85ea73bf"
-  integrity sha512-nCs3mvJ08EFx2Jekd9FYfGwKMjtRO42goVsef0oX0yjY9psxY1fMginKd0FxPntz+BYbkIpf28fvioC531n7rw==
+"@zilliqa-js/contract@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/contract/-/contract-3.3.4.tgz#0e325b46d73d0973318d28564747ab6ecd9ecd35"
+  integrity sha512-B2/ya2re+n0XYmwpNFJPyJ0e9oJcd3AtelBVDKKHzcJJJJ+9+R6M8lsLlhUkd77Z2Bf0ho/oGwb5JJuBsM0evQ==
   dependencies:
-    "@zilliqa-js/account" "3.3.0"
-    "@zilliqa-js/blockchain" "3.3.0"
-    "@zilliqa-js/core" "3.3.0"
-    "@zilliqa-js/crypto" "3.3.0"
-    "@zilliqa-js/util" "3.3.0"
+    "@zilliqa-js/account" "^3.3.4"
+    "@zilliqa-js/blockchain" "^3.3.4"
+    "@zilliqa-js/core" "^3.3.4"
+    "@zilliqa-js/crypto" "^3.3.4"
+    "@zilliqa-js/util" "^3.3.4"
     hash.js "^1.1.5"
     tslib "2.3.1"
     utility-types "^2.1.0"
 
-"@zilliqa-js/core@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/@zilliqa-js/core/-/core-3.3.0.tgz#0aecca37b5c2ec8e3e83921d7474ad89c3f5fe6c"
-  integrity sha512-KQFoA01gCOvCoQdU452lpcIiXkyB+7p57XKqVjM/bSpTQKzlellmUMiZEzlvynwRNrEU00jdj/A43xLKm2cuYw==
+"@zilliqa-js/core@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/core/-/core-3.3.4.tgz#4985962dfb471a23f5d488245800f99a4f2fc347"
+  integrity sha512-5bfXrhWUYY7wtBvGA+sLGVZvTpZOavr8KbZgdODpxXnDPLNjUe6Qoy36SkSIIU4TrLk9DMmY435RWjFEANkt0Q==
   dependencies:
     cross-fetch "2.2.5"
     mitt "^1.1.3"
     tslib "2.3.1"
 
-"@zilliqa-js/crypto@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/@zilliqa-js/crypto/-/crypto-3.3.0.tgz#6df86444d52e48e61380339ca38f3318f617fae8"
-  integrity sha512-Bpx8xaZQ6hJFTJlpapWM7mt/JWNNSZSm5k4Gf5uB9Uu66s/Kdlui7iCCNhZt78OzPHHFxqyXVnU2TVqA0zO7Ww==
+"@zilliqa-js/crypto@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/crypto/-/crypto-3.3.4.tgz#c3ad5c7026c7c0b37ed7756beac3d24395618459"
+  integrity sha512-SOKDuEcBJ1zmnFsG1geiKwGODazy1RoPnqvyBHpakEGxdsZaP6sOomdd91WgqijOw2DOYd93BDXI+qnDlyOQGg==
   dependencies:
-    "@zilliqa-js/util" "3.3.0"
+    "@types/elliptic" "^6.4.13"
+    "@types/uuid" "8.3.1"
+    "@zilliqa-js/util" "^3.3.4"
     aes-js "^3.1.1"
     bsert "^0.0.4"
     elliptic "^6.5.0"
     hash.js "^1.1.5"
     hmac-drbg "^1.0.1"
     pbkdf2 "^3.0.16"
-    randombytes "^2.0.6"
     scrypt-js "^3.0.1"
     scryptsy "^2.1.0"
-    sodium-native "^3.2.1"
+    sodium-randbytes "0.14.0"
     tslib "2.3.1"
-    uuid "^3.3.2"
+    uuid "8.3.2"
 
-"@zilliqa-js/proto@3.2.0":
-  version "3.2.0"
-  resolved "https://registry.npmjs.org/@zilliqa-js/proto/-/proto-3.2.0.tgz#1fa6330b109f6cc856c67bc620113446a11ea0ea"
-  integrity sha512-HFDEXvnT+DUGs0wvRaWs7evlTjgk8AmyoL+Zg3QXx1+vjBRjUtoVwYq5P1r68aOhmbgt2hEgcFdBgqUVMmk6wA==
+"@zilliqa-js/proto@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/proto/-/proto-3.3.4.tgz#42ad33ba0331918152c5291cd4b6614019296a41"
+  integrity sha512-2FwF5tq52irgQ2crMJUE8xcN83XfGvmSv7U9SsVFZHQbbPnteosLuPaXCP1ZcaHR7p28ifbgKibVTAHK8FBMiw==
   dependencies:
     protobufjs "^6.8.8"
 
-"@zilliqa-js/subscriptions@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/@zilliqa-js/subscriptions/-/subscriptions-3.3.0.tgz#5fb41a600f9f55dd86ee0a658641f81d3456f225"
-  integrity sha512-RoO6QkHAmUoff0usYWI/7E52GPmT7vgXKtPKG9HqUj4k4mjrpop2i22NDXxXB73bKCxtYJ6uCXaKU1/kkt0lDA==
+"@zilliqa-js/subscriptions@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/subscriptions/-/subscriptions-3.3.4.tgz#e04c7f725c8fb66ef2239ac7bff9eb3c558c7907"
+  integrity sha512-OGHtUmcUQn4ufMg5hCCQZsSg8GTib8DCslqtpl+lTGmuKNXQnXIuhrIsNmMaRpsxWKl47xMp6cqyHBvsstMrBQ==
   dependencies:
+    "@types/websocket" "1.0.4"
+    mitt "^1.1.3"
     tslib "2.3.1"
     websocket "^1.0.28"
 
-"@zilliqa-js/util@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/@zilliqa-js/util/-/util-3.3.0.tgz#8593ac6f666903eb708f9bccd4ecef7d573f1a75"
-  integrity sha512-8q7S98ndUiigRWrjTosEUmMxrpNj8ULhCHdx9K0U44xKWjM17XTbFH/FYKoY3r03tBDtNgb/YjsyDLBkg3iCww==
+"@zilliqa-js/util@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/util/-/util-3.3.4.tgz#0468a185a1bdb7948aa324821a77b3ca06cca76e"
+  integrity sha512-FtElC1Scksi8V8ys87kIUJvjY2w4wv57hFfeKvlXi2Gb3TrOjLZF33o8sUb1Ib9DJ24pB1JhCT2aAyHyJuE49g==
   dependencies:
-    "@types/bn.js" "^4.11.3"
+    "@types/bn.js" "^5.1.0"
     "@types/long" "^4.0.0"
     bn.js "^4.11.8"
     long "^4.0.0"
     tslib "2.3.1"
 
-"@zilliqa-js/zilliqa@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/@zilliqa-js/zilliqa/-/zilliqa-3.3.0.tgz#cc6e9fcaec178dcb6d13256aebb0eaa8a6ab6fad"
-  integrity sha512-MwkylgNzvjvUCkCzcDfUOwB1NTNj7TgeTa+bNkLLECxe2jznsC/wDs7jfu/lSUFVNt8DUp8C+rmN3a5+jjhUng==
+"@zilliqa-js/zilliqa@3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@zilliqa-js/zilliqa/-/zilliqa-3.3.4.tgz#6c375dce8b0e0a4efba7c353544ec7816b7e146b"
+  integrity sha512-vmR0xCG5jjJqCi8Hk1jO3Kjr99gEwE+E1EqiGBkLJxse0+v9BPJm1+NQYl/w7LSktP7ZqAp6U27HbnM3KqQ4dw==
   dependencies:
-    "@zilliqa-js/account" "3.3.0"
-    "@zilliqa-js/blockchain" "3.3.0"
-    "@zilliqa-js/contract" "3.3.0"
-    "@zilliqa-js/core" "3.3.0"
-    "@zilliqa-js/crypto" "3.3.0"
-    "@zilliqa-js/subscriptions" "3.3.0"
-    "@zilliqa-js/util" "3.3.0"
+    "@zilliqa-js/account" "^3.3.4"
+    "@zilliqa-js/blockchain" "^3.3.4"
+    "@zilliqa-js/contract" "^3.3.4"
+    "@zilliqa-js/core" "^3.3.4"
+    "@zilliqa-js/crypto" "^3.3.4"
+    "@zilliqa-js/subscriptions" "^3.3.4"
+    "@zilliqa-js/util" "^3.3.4"
     tslib "2.3.1"
 
 abab@^2.0.3, abab@^2.0.5:
@@ -5465,9 +5493,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 follow-redirects@^1.0.0:
-  version "1.14.1"
-  resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.1.tgz#d9114ded0a1cfdd334e164e6662ad02bfd91ff43"
-  integrity sha512-HWqDgT7ZEkqRzBvc2s64vSZ/hfOceEol3ac/7tKwzuvEyWx3/4UegXh5oBOIotkGsObyk3xznnSRVADBgWSQVg==
+  version "1.14.7"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.7.tgz#2004c02eb9436eee9a21446a6477debf17e81685"
+  integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
 
 for-in@^1.0.2:
   version "1.0.2"
@@ -7832,9 +7860,9 @@ nan@^2.12.1, nan@^2.14.0:
   integrity sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==
 
 nanoid@^3.1.23:
-  version "3.1.23"
-  resolved "https://registry.npmjs.org/nanoid/-/nanoid-3.1.23.tgz#f744086ce7c2bc47ee0a8472574d5c78e4183a81"
-  integrity sha512-FiB0kzdP0FFVGDKlRLEQ1BgDzU87dy5NnzjeW9YZNt+/c3+q82EQDUwniSAUxp/F0gFNI1ZhKU1FqYsMuqZVnw==
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.2.0.tgz#62667522da6673971cca916a6d3eff3f415ff80c"
+  integrity sha512-fmsZYa9lpn69Ad5eDn7FMcnnSR+8R34W9qJEijxYhTbfOWzr22n1QxCMzXLK+ODyW2973V3Fux959iQoUxzUIA==
 
 nanomatch@^1.2.9:
   version "1.2.13"
@@ -7907,6 +7935,11 @@ node-gyp-build@^4.2.0:
   version "4.2.3"
   resolved "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.2.3.tgz#ce6277f853835f718829efb47db20f3e4d9c4739"
   integrity sha512-MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg==
+
+node-gyp-build@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.3.0.tgz#9f256b03e5826150be39c764bf51e993946d71a3"
+  integrity sha512-iWjXZvmboq0ja1pUGULQBexmxq8CV4xBhX7VDOTbL7ZR4FOowwY/VOtRxBN/yKxmdGoIp4j5ysNT4u3S2pDQ3Q==
 
 node-int64@^0.4.0:
   version "0.4.0"
@@ -9473,7 +9506,7 @@ raf@^3.4.1:
   dependencies:
     performance-now "^2.1.0"
 
-randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.0.6, randombytes@^2.1.0:
+randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
   integrity sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==
@@ -10586,13 +10619,20 @@ sockjs@^0.3.21:
     uuid "^3.4.0"
     websocket-driver "^0.7.4"
 
-sodium-native@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.npmjs.org/sodium-native/-/sodium-native-3.2.1.tgz#91cd6a175d4b58b038eeccc7078ebc33202328be"
-  integrity sha512-EgDZ/Z7PxL2kCasKk7wnRkV8W9kvwuIlHuHXAxkQm3FF0MgVsjyLBXGjSRGhjE6u7rhSpk3KaMfFM23bfMysIQ==
+sodium-native@3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/sodium-native/-/sodium-native-3.3.0.tgz#50ee52ac843315866cce3d0c08ab03eb78f22361"
+  integrity sha512-rg6lCDM/qa3p07YGqaVD+ciAbUqm6SoO4xmlcfkbU5r1zIGrguXztLiEtaLYTV5U6k8KSIUFmnU3yQUSKmf6DA==
   dependencies:
-    ini "^1.3.5"
-    node-gyp-build "^4.2.0"
+    node-gyp-build "^4.3.0"
+
+sodium-randbytes@0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/sodium-randbytes/-/sodium-randbytes-0.14.0.tgz#9613f9b1d6f7eea3434dbb509eaa295edc73d6ba"
+  integrity sha512-X5HXTHiorRs8Jte7+SEwxnX0ZPmDdU3TxYIIOoTklEgdiFELtQ1CwwyBBePPZlN0T+XDNBlNaikPRarfT0cK/A==
+  dependencies:
+    "@types/sodium-native" "2.3.5"
+    sodium-native "3.3.0"
 
 sort-keys@^1.0.0:
   version "1.1.2"
@@ -11639,15 +11679,15 @@ utils-merge@1.0.1:
   resolved "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
+uuid@8.3.2, uuid@^8.3.0, uuid@^8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
+
 uuid@^3.3.2, uuid@^3.4.0:
   version "3.4.0"
   resolved "https://registry.npmjs.org/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
-
-uuid@^8.3.0, uuid@^8.3.2:
-  version "8.3.2"
-  resolved "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
-  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
 v8-compile-cache@^2.0.3:
   version "2.3.0"
