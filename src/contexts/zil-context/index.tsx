@@ -56,7 +56,7 @@ export class ZilProvider extends React.Component {
   }
 
   initState = (networkKey?: string) => {
-    let curNetworkKey = networkKey || NETWORK.IsolatedServer;
+    let curNetworkKey = networkKey || NETWORK.TestNet;
 
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
