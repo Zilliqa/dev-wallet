@@ -1,13 +1,6 @@
-<div>
-    <a href="https://travis-ci.com/Zilliqa/dev-wallet" target="_blank">
-    <img src="https://travis-ci.com/Zilliqa/dev-wallet.svg?token=zQ1VLsuY7iH5Nn3yKbai&branch=master" />
-    </a>
-    <a href="https://github.com/zilliqa/dev-wallet/blob/master/LICENSE" target="_blank">
-    <img src="https://img.shields.io/badge/License-GPLv3-blue.svg" />
-    </a>
-</div>
+# MOVED: [Dev Wallet](https://dev-wallet.zilliqa.com)
 
-# [Dev Wallet](https://dev-wallet.zilliqa.com)
+This repository has been moved to the [Zilliqa Developer](https://github.com/Zilliqa/zilliqa-developer) mono repo. This repository is only kept for historical reasons.
 
 ## Installation and Usage
 
